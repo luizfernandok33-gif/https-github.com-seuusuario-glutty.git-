@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Glútty — Fluxograma</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:#f5f2ee;
+  width:1440px;
+  padding:48px 52px 52px;
+  color:#1a1a1a;
+}
+.page{ display:flex; flex-direction:column; gap:28px; }
+.top-row{ display:flex; gap:28px; align-items:flex-start; }
+
+/* LEFT */
+.left-panel{ width:268px; flex-shrink:0; }
+.left-panel h1{ font-size:24px; font-weight:900; line-height:1.25; color:#1F3D34; margin-bottom:14px; }
+.left-panel p{ font-size:11.5px; color:#555; line-height:1.7; margin-bottom:8px; }
+.left-panel p b{ color:#1a1a1a; }
+.obj-box{ border:1.5px solid #ddd; border-radius:12px; padding:14px 15px; background:#fff; margin-top:16px; }
+.obj-row{ display:flex; align-items:center; gap:7px; margin-bottom:7px; }
+.obj-row span{ font-size:12px; font-weight:700; color:#1F3D34; }
+.obj-box p{ font-size:11px; color:#555; line-height:1.65; }
+.legend{ margin-top:18px; }
+.legend-title{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:#1a1a1a; margin-bottom:10px; }
+.leg{ display:flex; align-items:center; gap:9px; margin-bottom:8px; font-size:11px; color:#555; }
+.lb{ width:22px; height:14px; border-radius:4px; flex-shrink:0; }
+.lb-green{ background:#1F3D34; }
+.lb-white{ background:#fff; border:1.5px solid #ccc; }
+.lb-dash{ background:#fff; border:1.5px dashed #88C57A; }
+.lb-line{ width:22px; height:0; border-top:2px solid #888; flex-shrink:0; }
+
+/* CENTER */
+.center-flow{ flex:1; min-width:0; }
+.section-label{ font-size:10px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#999; margin-bottom:22px; }
+.flow-canvas{ display:flex; align-items:flex-end; gap:0; }
+
+/* Onboarding col */
+.onboard-col{ display:flex; flex-direction:column; align-items:center; width:190px; flex-shrink:0; }
+
+.n-splash{ background:#1F3D34; border-radius:16px; padding:13px 24px; text-align:center; width:180px; }
+.n-splash .nt{ font-size:13px; font-weight:800; color:#fff; margin-top:5px; }
+.n-splash .ns{ font-size:10px; color:#C6F59D; margin-top:2px; }
+
+.n-card{ background:#fff; border:1.5px solid #e2ddd8; border-radius:13px; padding:11px 14px; width:180px; }
+.n-card .nh{ display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.n-card .ni{ width:26px; height:26px; background:#f0ede8; border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.n-card .nt2{ font-size:11.5px; font-weight:700; color:#1a1a1a; }
+.n-card .nd{ font-size:10px; color:#999; line-height:1.55; padding-left:34px; }
+
+.n-config{ background:#fff; border:1.5px dashed #88C57A; border-radius:13px; padding:12px 14px; width:182px; }
+.n-config .nh{ display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.n-config .ni{ width:26px; height:26px; background:#f0f8ec; border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.n-config .nt2{ font-size:11.5px; font-weight:700; color:#1a1a1a; }
+.n-config .nd{ font-size:10px; color:#999; line-height:1.55; padding-left:34px; }
+
+.arr-d{ width:2px; height:20px; background:#a8c8a0; position:relative; margin:0 auto; flex-shrink:0; }
+.arr-d::after{ content:''; position:absolute; bottom:-5px; left:50%; transform:translateX(-50%); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #a8c8a0; }
+.arr-r{ height:2px; background:#a8c8a0; position:relative; flex-shrink:0; }
+.arr-r::after{ content:''; position:absolute; right:-6px; top:50%; transform:translateY(-50%); border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid #a8c8a0; }
+
+.badge{ font-size:9px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:#1F3D34; background:#C6F59D; padding:2px 9px; border-radius:999px; margin:6px 0; }
+
+/* HOME */
+.home-node{ background:#1F3D34; border-radius:20px; width:128px; height:128px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 8px 28px rgba(31,61,52,.22); }
+.home-node .ht{ font-size:15px; font-weight:900; color:#fff; margin-top:6px; }
+.home-node .hs{ font-size:9px; color:#C6F59D; margin-top:2px; font-weight:600; letter-spacing:.4px; }
+
+/* DEST */
+.dest-col{ display:flex; flex-direction:column; gap:7px; width:270px; }
+.dc{ background:#fff; border:1.5px solid #e8e3de; border-radius:11px; padding:11px 13px; }
+.dc.dc-profile{ border-color:#1F3D34; }
+.dc .dh{ display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+.dc .dico{ width:28px; height:28px; background:#f0ede8; border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.dc .dt{ font-size:11.5px; font-weight:700; color:#1a1a1a; }
+.dc .dd{ font-size:10px; color:#999; line-height:1.55; }
+.dc .dbadge{ display:inline-block; font-size:9px; font-weight:700; color:#1F3D34; background:#C6F59D; padding:2px 8px; border-radius:4px; margin:5px 0 3px; }
+.dc .dsubs{ display:flex; gap:5px; flex-wrap:wrap; margin-top:6px; }
+.dc .dsub{ background:#f0ede8; border-radius:7px; padding:3px 9px; font-size:10px; font-weight:600; color:#555; display:flex; align-items:center; gap:5px; }
+.dc .drows{ margin-top:5px; }
+.dc .drow{ display:flex; align-items:center; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f0ede8; font-size:10.5px; color:#1a1a1a; font-weight:500; }
+.dc .drow:last-child{ border-bottom:none; }
+.dc .drow span{ color:#bbb; font-size:12px; }
+
+/* BOTTOM */
+.bottom-panel{ background:#fff; border:1.5px solid #e8e3de; border-radius:15px; padding:22px 26px; }
+.bot-label{ font-size:10px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#999; margin-bottom:20px; }
+.bot-body{ display:flex; align-items:flex-start; gap:20px; }
+.steps{ display:flex; align-items:flex-start; flex:1; gap:0; }
+.si{ display:flex; flex-direction:column; align-items:center; text-align:center; flex:1; }
+.sc{ width:54px; height:54px; background:#f0ede8; border-radius:999px; display:flex; align-items:center; justify-content:center; margin-bottom:7px; flex-shrink:0; }
+.sc-active{ background:#1F3D34 !important; }
+.sn{ font-size:10px; font-weight:700; color:#bbb; margin-bottom:2px; }
+.st{ font-size:12px; font-weight:800; color:#1a1a1a; margin-bottom:4px; }
+.sd{ font-size:10px; color:#999; line-height:1.55; max-width:105px; }
+.sa{ display:flex; align-items:center; padding-top:18px; flex-shrink:0; }
+.trust{ width:200px; flex-shrink:0; border:1.5px solid #e8e3de; border-radius:11px; padding:15px; }
+.trust .th{ display:flex; align-items:center; gap:8px; margin-bottom:7px; }
+.trust .ttico{ width:28px; height:28px; background:#f0ede8; border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.trust .tt{ font-size:11.5px; font-weight:700; color:#1F3D34; }
+.trust .td{ font-size:10px; color:#666; line-height:1.65; }
+
+svg.ic{ display:block; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP ROW -->
+  <div class="top-row">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <h1>Arquitetura da solução: conectando jornadas em um fluxo contínuo</h1>
+      <p>A partir das funcionalidades priorizadas, estruturei o fluxo de navegação do aplicativo com foco em apoiar a tomada de decisão do usuário ao longo de toda a experiência — antes, durante e após a refeição.</p>
+      <p>O fluxo foi organizado para reduzir a ansiedade e o esforço do usuário em cada etapa, conectando descoberta, análise, decisão e compartilhamento em um ciclo contínuo de confiança.</p>
+      <p><b>A Home atua como hub central da experiência</b>, conectando <b>descoberta, análise e decisão em um fluxo contínuo</b> e previsível.</p>
+      <p>As avaliações e contribuições da comunidade retroalimentam o sistema, tornando as recomendações cada vez mais assertivas e fortalecendo a confiança para todos.</p>
+
+      <div class="obj-box">
+        <div class="obj-row">
+          <!-- target icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Objetivo do fluxo</span>
+        </div>
+        <p>Guiar o usuário desde o primeiro acesso até o pós-refeição, oferecendo informações confiáveis para decisões seguras e estimulando o compartilhamento de experiências.</p>
+      </div>
+
+      <div class="legend">
+        <div class="legend-title">Legenda</div>
+        <div class="leg"><div class="lb lb-green"></div>Tela principal (terminal)</div>
+        <div class="leg"><div class="lb lb-white"></div>Processo / Tela</div>
+        <div class="leg"><div class="lb lb-dash"></div>Configuração / Personalização</div>
+        <div class="leg"><div class="lb-line"></div>Fluxo de navegação</div>
+      </div>
+    </div>
+
+    <!-- CENTER FLOW -->
+    <div class="center-flow">
+      <div class="section-label">Fluxo de Navegação do Usuário</div>
+      <div class="flow-canvas">
+
+        <!-- Onboarding -->
+        <div class="onboard-col">
+          <!-- Splash -->
+          <div class="n-splash">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C6F59D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <div class="nt">Splash Screen</div>
+            <div class="ns">Boas-vindas</div>
+          </div>
+          <div class="arr-d"></div>
+          <!-- Idioma -->
+          <div class="n-card">
+            <div class="nh">
+              <div class="ni">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div class="nt2">Selecionar idioma</div>
+            </div>
+            <div class="nd">PT-BR, EN-US, ES-ES, FR-FR</div>
+          </div>
+          <div class="arr-d"></div>
+          <!-- Boas-vindas -->
+          <div class="n-card">
+            <div class="nh">
+              <div class="ni">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <div class="nt2">Boas-vindas</div>
+            </div>
+            <div class="nd">Apresentação do valor e propósito do app</div>
+          </div>
+          <div class="arr-d"></div>
+          <!-- Login -->
+          <div class="n-card">
+            <div class="nh">
+              <div class="ni">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="nt2">Login / Cadastro</div>
+            </div>
+            <div class="nd">Acesso com e-mail ou cadastro novo</div>
+          </div>
+          <div class="badge" style="margin-top:10px;">ONBOARDING</div>
+        </div>
+
+        <!-- Arrow → Config -->
+        <div style="display:flex;align-items:flex-end;padding-bottom:12px;">
+          <div class="arr-r" style="width:28px;"></div>
+        </div>
+
+        <!-- Config node -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:4px;">
+          <div class="n-config">
+            <div class="nh">
+              <div class="ni">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M12 2v2M12 20v2M2 12H4M20 12h2"/></svg>
+              </div>
+              <div class="nt2">Configuração do Perfil Gastronômico</div>
+            </div>
+            <div class="nd">Alergias, restrições e preferências culinárias. Pode ser editado a qualquer momento.</div>
+          </div>
+          <div class="badge" style="margin-top:8px;">PERSONALIZAÇÃO</div>
+        </div>
+
+        <!-- Arrow → HOME -->
+        <div style="display:flex;align-items:flex-end;padding-bottom:12px;">
+          <div class="arr-r" style="width:28px;"></div>
+        </div>
+
+        <!-- HOME -->
+        <div style="display:flex;align-items:flex-end;padding-bottom:4px;">
+          <div class="home-node">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C6F59D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+            <div class="ht">HOME</div>
+            <div class="hs">Hub central</div>
+          </div>
+        </div>
+
+        <!-- Arrow → Dest -->
+        <div style="display:flex;align-items:flex-end;padding-bottom:4px;">
+          <div class="arr-r" style="width:28px;"></div>
+        </div>
+
+        <!-- Destinations -->
+        <div style="display:flex;align-items:flex-end;">
+          <div class="dest-col">
+
+            <!-- Recomendados -->
+            <div class="dc">
+              <div class="dh">
+                <div class="dico">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <span class="dt">Recomendados</span>
+              </div>
+              <div class="dd">Sugestões personalizadas com base no seu perfil e localização.</div>
+            </div>
+
+            <!-- Busca -->
+            <div class="dc">
+              <div class="dh">
+                <div class="dico">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <span class="dt">Busca por restaurantes e pratos</span>
+              </div>
+              <div class="drows">
+                <div class="drow">Restaurantes <span>›</span></div>
+                <div class="drow">Pratos específicos <span>›</span></div>
+              </div>
+            </div>
+
+            <!-- Favoritos -->
+            <div class="dc">
+              <div class="dh">
+                <div class="dico">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="dt">Favoritos</span>
+              </div>
+              <div class="dd">Seus restaurantes e experiências salvas para acessar depois.</div>
+            </div>
+
+            <!-- Comunidade -->
+            <div class="dc">
+              <div class="dh">
+                <div class="dico">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="dt">Comunidade</span>
+              </div>
+              <div class="dbadge">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                ESCREVER AVALIAÇÃO
+              </div>
+              <div class="dd">Avalie restaurantes e pratos, ajude outros usuários e faça parte da comunidade.</div>
+            </div>
+
+            <!-- Perfil -->
+            <div class="dc dc-profile">
+              <div class="dh">
+                <div class="dico">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <span class="dt">Meu Perfil</span>
+              </div>
+              <div class="dsubs">
+                <div class="dsub">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+                  Ajustes
+                </div>
+                <div class="dsub">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Segurança
+                </div>
+                <div class="dsub">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  Restrições
+                </div>
+                <div class="dsub">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Privacidade
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-panel">
+    <div class="bot-label">Fluxo Principal: da Busca à Decisão</div>
+    <div class="bot-body">
+      <div class="steps">
+
+        <div class="si">
+          <div class="sc">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="sn">1.</div><div class="st">Buscar</div>
+          <div class="sd">Encontre restaurantes ou pratos com filtros inteligentes.</div>
+        </div>
+        <div class="sa"><svg width="28" height="14" viewBox="0 0 28 14" fill="none"><path d="M0 7h22" stroke="#ddd" stroke-width="1.8"/><path d="M18 2l6 5-6 5" stroke="#ddd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="si">
+          <div class="sc">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <div class="sn">2.</div><div class="st">Explorar</div>
+          <div class="sd">Explore restaurantes compatíveis com seu nível de segurança.</div>
+        </div>
+        <div class="sa"><svg width="28" height="14" viewBox="0 0 28 14" fill="none"><path d="M0 7h22" stroke="#ddd" stroke-width="1.8"/><path d="M18 2l6 5-6 5" stroke="#ddd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="si">
+          <div class="sc">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          </div>
+          <div class="sn">3.</div><div class="st">Detalhar</div>
+          <div class="sd">Analise informações de preparo, ingredientes e segurança do restaurante.</div>
+        </div>
+        <div class="sa"><svg width="28" height="14" viewBox="0 0 28 14" fill="none"><path d="M0 7h22" stroke="#ddd" stroke-width="1.8"/><path d="M18 2l6 5-6 5" stroke="#ddd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="si">
+          <div class="sc">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <div class="sn">4.</div><div class="st">Ver pratos</div>
+          <div class="sd">Visualize ingredientes, itens incompatíveis e possíveis adaptações dos pratos.</div>
+        </div>
+        <div class="sa"><svg width="28" height="14" viewBox="0 0 28 14" fill="none"><path d="M0 7h22" stroke="#ddd" stroke-width="1.8"/><path d="M18 2l6 5-6 5" stroke="#ddd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="si">
+          <div class="sc sc-active">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C6F59D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="sn">5.</div><div class="st">Decidir</div>
+          <div class="sd">Tome uma decisão com base em informações claras e experiências reais.</div>
+        </div>
+        <div class="sa"><svg width="28" height="14" viewBox="0 0 28 14" fill="none"><path d="M0 7h22" stroke="#ddd" stroke-width="1.8"/><path d="M18 2l6 5-6 5" stroke="#ddd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="si">
+          <div class="sc">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="sn">6.</div><div class="st">Avaliar</div>
+          <div class="sd">Compartilhe sua experiência e ajude outros usuários.</div>
+        </div>
+
+      </div>
+
+      <div class="trust">
+        <div class="th">
+          <div class="ttico">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3D34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </div>
+          <span class="tt">Ciclo de confiança</span>
+        </div>
+        <div class="td">Suas avaliações e interações alimentam as recomendações e ajudam a comunidade a tomar decisões cada vez melhores.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

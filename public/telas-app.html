@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glútty — Todas as Telas</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f0ede8;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 32px;
+    }
+
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      page-break-after: always;
+      text-align: center;
+    }
+    .cover img { width: 160px; margin-bottom: 24px; border-radius: 24px; }
+    .cover h1 { font-size: 36px; color: #1F3D34; font-weight: 900; }
+    .cover p  { font-size: 14px; color: #666; margin-top: 8px; }
+    .cover .badge {
+      margin-top: 20px;
+      background: #1F3D34;
+      color: #C6F59D;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1F3D34;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 40px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #C6F59D;
+      page-break-before: always;
+    }
+    .section-title:first-of-type { page-break-before: avoid; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .screen-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      break-inside: avoid;
+    }
+
+    .screen-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1F3D34;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .screen-sub {
+      font-size: 10px;
+      color: #888;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .phone-frame {
+      width: 200px;
+      height: 434px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 2px solid #d0cdc8;
+      box-shadow: 0 8px 32px rgba(31,61,52,0.15);
+      background: #fff;
+      position: relative;
+    }
+
+    .phone-frame iframe {
+      width: 390px;
+      height: 844px;
+      border: none;
+      transform: scale(0.513);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    /* notch decorativo */
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 8px;
+      background: #d0cdc8;
+      border-radius: 999px;
+      z-index: 10;
+    }
+
+    @media print {
+      body { background: white; padding: 16px; }
+      .section-title { page-break-before: always; }
+      .section-title:first-of-type { page-break-before: auto; }
+      .grid { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Capa -->
+  <div class="cover">
+    <img src="/glútty nova logo.jpg" alt="Glútty" onerror="this.style.display='none'" />
+    <h1>Glútty</h1>
+    <p>Documentação de telas do aplicativo</p>
+    <div class="badge">Protótipo funcional · 2026</div>
+  </div>
+
+  <!-- GRUPO 1: Entrada -->
+  <div class="section-title">01 · Entrada e Autenticação</div>
+  <div class="grid">
+
+    <div class="screen-wrap">
+      <div class="screen-label">Splash Screen</div>
+      <div class="screen-sub">Tela inicial de carregamento</div>
+      <div class="phone-frame">
+        <iframe src="/" title="Splash"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Seleção de Idioma</div>
+      <div class="screen-sub">Escolha do idioma do app</div>
+      <div class="phone-frame">
+        <iframe src="/idioma" title="Idioma"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Boas-vindas</div>
+      <div class="screen-sub">Tela de entrada do app</div>
+      <div class="phone-frame">
+        <iframe src="/welcome" title="Welcome"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Login</div>
+      <div class="screen-sub">Acesso à conta existente</div>
+      <div class="phone-frame">
+        <iframe src="/login" title="Login"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Cadastro</div>
+      <div class="screen-sub">Criação de nova conta</div>
+      <div class="phone-frame">
+        <iframe src="/cadastro" title="Cadastro"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Esqueci a senha</div>
+      <div class="screen-sub">Recuperação de acesso</div>
+      <div class="phone-frame">
+        <iframe src="/esqueci-senha" title="Esqueci senha"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GRUPO 2: Onboarding -->
+  <div class="section-title">02 · Onboarding</div>
+  <div class="grid">
+
+    <div class="screen-wrap">
+      <div class="screen-label">Preferências alimentares</div>
+      <div class="screen-sub">Configuração inicial de restrições</div>
+      <div class="phone-frame">
+        <iframe src="/onboarding" title="Onboarding"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Preparando perfil</div>
+      <div class="screen-sub">Personalização em andamento</div>
+      <div class="phone-frame">
+        <iframe src="/preparando" title="Preparando"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Perfil padrão</div>
+      <div class="screen-sub">Configuração padrão aplicada</div>
+      <div class="phone-frame">
+        <iframe src="/preparando-padrao" title="Preparando Padrão"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GRUPO 3: Telas Principais -->
+  <div class="section-title">03 · Telas Principais</div>
+  <div class="grid">
+
+    <div class="screen-wrap">
+      <div class="screen-label">Home</div>
+      <div class="screen-sub">Dashboard principal do app</div>
+      <div class="phone-frame">
+        <iframe src="/home" title="Home"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Busca</div>
+      <div class="screen-sub">Pesquisa de restaurantes</div>
+      <div class="phone-frame">
+        <iframe src="/busca" title="Busca"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Recomendados</div>
+      <div class="screen-sub">Restaurantes sugeridos</div>
+      <div class="phone-frame">
+        <iframe src="/recomendados" title="Recomendados"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Favoritos</div>
+      <div class="screen-sub">Restaurantes salvos</div>
+      <div class="phone-frame">
+        <iframe src="/favoritos" title="Favoritos"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Comunidade</div>
+      <div class="screen-sub">Avaliações de celíacos</div>
+      <div class="phone-frame">
+        <iframe src="/comunidade" title="Comunidade"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Notificações</div>
+      <div class="screen-sub">Avisos e atualizações</div>
+      <div class="phone-frame">
+        <iframe src="/notificacoes" title="Notificações"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GRUPO 4: Restaurantes -->
+  <div class="section-title">04 · Restaurantes</div>
+  <div class="grid">
+
+    <div class="screen-wrap">
+      <div class="screen-label">Detalhe do restaurante</div>
+      <div class="screen-sub">Informações e avaliações</div>
+      <div class="phone-frame">
+        <iframe src="/restaurante/haus-hiltl" title="Restaurante"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Detalhe do prato</div>
+      <div class="screen-sub">Informações do prato seguro</div>
+      <div class="phone-frame">
+        <iframe src="/restaurante/grano/prato/grano-d1" title="Prato"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Avaliar restaurante</div>
+      <div class="screen-sub">Formulário de avaliação</div>
+      <div class="phone-frame">
+        <iframe src="/restaurante/haus-hiltl/avaliar" title="Avaliar"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GRUPO 5: Perfil -->
+  <div class="section-title">05 · Perfil e Configurações</div>
+  <div class="grid">
+
+    <div class="screen-wrap">
+      <div class="screen-label">Meu Perfil</div>
+      <div class="screen-sub">Informações do usuário</div>
+      <div class="phone-frame">
+        <iframe src="/perfil" title="Perfil"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Configurações</div>
+      <div class="screen-sub">Preferências do aplicativo</div>
+      <div class="phone-frame">
+        <iframe src="/configuracoes" title="Configurações"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Editar restrições</div>
+      <div class="screen-sub">Alergias e intolerâncias</div>
+      <div class="phone-frame">
+        <iframe src="/perfil/restricoes" title="Restrições"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="screen-label">Nível de segurança</div>
+      <div class="screen-sub">Padrão de segurança alimentar</div>
+      <div class="phone-frame">
+        <iframe src="/perfil/seguranca" title="Segurança"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center; margin-top: 48px; color: #aaa; font-size: 11px; page-break-before: avoid;">
+    Glútty · Aplicativo para celíacos · Protótipo 2026
+  </div>
+
+</body>
+</html>

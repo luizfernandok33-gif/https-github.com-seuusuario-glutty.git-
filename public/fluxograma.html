@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Glútty — Fluxograma</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f7f4f0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 32px;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    header .dot {
+      width: 42px; height: 42px;
+      background: #1F3D34;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #C6F59D;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    header h1 { font-size: 22px; font-weight: 900; color: #1F3D34; }
+    header p  { font-size: 12px; color: #888; margin-top: 2px; }
+
+    .chart-wrap {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 32px;
+      box-shadow: 0 4px 24px rgba(31,61,52,0.10);
+      overflow-x: auto;
+    }
+
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 11px;
+      color: #bbb;
+    }
+
+    @media print {
+      body { background: white; padding: 20px; }
+      .chart-wrap { box-shadow: none; border: 1px solid #eee; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="dot">G</div>
+    <div>
+      <h1>Glútty · Fluxograma do Aplicativo</h1>
+      <p>Navegação completa entre todas as telas</p>
+    </div>
+  </header>
+
+  <div class="chart-wrap">
+    <div class="mermaid">
+flowchart TD
+    %% ── ENTRADA ──
+    A(["🟢 Splash Screen"]):::start
+    B["🌐 Selecionar Idioma"]:::onboard
+    C["👋 Boas-vindas"]:::onboard
+
+    %% ── AUTH ──
+    D["🔑 Login"]:::auth
+    E["📝 Cadastro"]:::auth
+    F["🔒 Esqueci a Senha"]:::auth
+
+    %% ── ONBOARDING ──
+    G["🥗 Preferências Alimentares\n(Onboarding)"]:::onboard
+    H["⏳ Preparando Perfil"]:::onboard
+    I["⏳ Perfil Padrão"]:::onboard
+
+    %% ── HOME HUB ──
+    J(["🏠 HOME"]):::hub
+
+    %% ── TABS PRINCIPAIS ──
+    K["🔍 Busca\nRestaurantes"]:::main
+    L["⭐ Recomendados"]:::main
+    M["❤️ Favoritos"]:::main
+    N["💬 Comunidade"]:::main
+    O["🔔 Notificações"]:::main
+
+    %% ── RESTAURANTE ──
+    P["🍽️ Detalhe do\nRestaurante"]:::resto
+    Q["🥘 Detalhe\ndo Prato"]:::resto
+    R["✍️ Avaliar\nRestaurante"]:::resto
+
+    %% ── PERFIL ──
+    S["👤 Meu Perfil"]:::profile
+    T["⚙️ Configurações"]:::profile
+    U["🚫 Editar Restrições"]:::profile
+    V["🛡️ Nível de\nSegurança"]:::profile
+    W["👁️ Perfil Público"]:::profile
+
+    %% ── FLUXO ──
+    A --> B --> C
+    C --> D & E
+    D --> F
+    F --> D
+    D --> G
+    E --> G
+    G --> H & I
+    H --> J
+    I --> J
+
+    J --> K & L & M & N & O & S
+
+    K --> P
+    M --> P
+    N --> P
+    P --> Q & R
+
+    S --> T & U & V & W & O
+
+    %% ── ESTILOS ──
+    classDef start   fill:#1F3D34,stroke:#1F3D34,color:#C6F59D,font-weight:bold,rx:20
+    classDef hub     fill:#1F3D34,stroke:#1F3D34,color:#C6F59D,font-weight:bold,font-size:16px,rx:20
+    classDef auth    fill:#E8F5E9,stroke:#4A7C55,color:#1F3D34
+    classDef onboard fill:#F1F8E9,stroke:#8BC34A,color:#2E5B3C
+    classDef main    fill:#FAFAFA,stroke:#4A7C55,color:#1F3D34
+    classDef resto   fill:#FFF8E1,stroke:#F9A825,color:#5D4037
+    classDef profile fill:#E3F2FD,stroke:#1976D2,color:#0D47A1
+    </div>
+  </div>
+
+  <footer>
+    Glútty · Aplicativo para celíacos · Fluxograma de navegação · 2026
+  </footer>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#1F3D34',
+        primaryTextColor: '#C6F59D',
+        primaryBorderColor: '#1F3D34',
+        lineColor: '#4A7C55',
+        fontFamily: 'Segoe UI, sans-serif',
+        fontSize: '14px',
+      },
+      flowchart: {
+        curve: 'basis',
+        nodeSpacing: 40,
+        rankSpacing: 60,
+        padding: 20,
+      }
+    });
+  </script>
+</body>
+</html>
