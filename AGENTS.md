@@ -12,3 +12,7 @@ Consult this library when building or modifying UI components.
 
 ## IMPACTUS Academy
 Reference platform/client: https://impactus.academy
+
+## HeroUI
+Component library (v3.0.5): https://heroui.com
+Alternative UI component library — consult when building or modifying UI components.
