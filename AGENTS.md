@@ -9,3 +9,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Watermelon UI
 Component library used in this project: https://ui.watermelon.sh
 Consult this library when building or modifying UI components.
+
+## IMPACTUS Academy
+Reference platform/client: https://impactus.academy
