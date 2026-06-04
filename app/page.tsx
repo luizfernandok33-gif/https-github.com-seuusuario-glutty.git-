@@ -14,13 +14,15 @@ export default function SplashPage() {
     const t3 = setTimeout(() => setPhase("out"),  5500);
     const t4 = setTimeout(() => router.replace("/idioma"), 6200);
 
-    // Progress — fills over ~5.5s
-    let pct = 0;
-    const interval = setInterval(() => {
-      pct += Math.random() * 3 + 1;
-      if (pct >= 100) { pct = 100; clearInterval(interval); }
+    // Progress — sincronizado com o tempo de exibição da tela (5 500 ms)
+    const startTime = Date.now();
+    const DURATION  = 5400; // termina um tique antes do fade-out em 5 500 ms
+    const interval  = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct     = Math.min((elapsed / DURATION) * 100, 100);
       setProgress(pct);
-    }, 160);
+      if (elapsed >= DURATION) clearInterval(interval);
+    }, 50);
 
     return () => {
       clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -34,11 +36,11 @@ export default function SplashPage() {
   return (
     <div
       className="min-h-dvh flex flex-col items-center justify-center px-8 overflow-hidden"
-      style={{ backgroundColor: "#FEF5EF" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Mascot */}
       <div
-        className="mb-14"
+        className="mb-10"
         style={{
           transform: isIn
             ? "translateY(0) scale(1)"
@@ -52,10 +54,10 @@ export default function SplashPage() {
         }}
       >
         <Image
-          src="/logo.png"
+          src="/glútty novo.png"
           alt="Glútty"
-          width={220}
-          height={220}
+          width={180}
+          height={180}
           priority
           className="object-contain"
           unoptimized
@@ -74,7 +76,7 @@ export default function SplashPage() {
         {/* Track */}
         <div
           className="w-full overflow-hidden"
-          style={{ height: 8, borderRadius: 999, backgroundColor: "#E0E0E0" }}
+          style={{ height: 12, borderRadius: 999, backgroundColor: "#C6F59D" }}
         >
           {/* Fill */}
           <div
@@ -82,8 +84,8 @@ export default function SplashPage() {
               height: "100%",
               width: `${progress}%`,
               borderRadius: 999,
-              background: "linear-gradient(90deg, #4A7C55 0%, #6BAF7A 100%)",
-              transition: "width 0.15s ease-out",
+              backgroundColor: "#1F3D34",
+              transition: "width 0.2s ease-out",
             }}
           />
         </div>
@@ -91,7 +93,7 @@ export default function SplashPage() {
         {/* Percentage */}
         <p
           className="text-[12px] font-semibold tabular-nums"
-          style={{ color: "#4A7C55" }}
+          style={{ color: "#1F3D34" }}
         >
           {Math.round(progress)}%
         </p>

@@ -56,10 +56,10 @@ export default function PerfilPage() {
   const handleCancel = () => { setBio(bioSaved); setIsEditing(false); };
 
   return (
-    <div className="bg-background min-h-dvh pb-32">
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
 
       {/* ── Header ── */}
-      <div className="flex items-start gap-3 px-6 pt-14 pb-5">
+      <div className="flex items-start gap-3 px-5 pb-5" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)" }}>
         <button
           onClick={() => router.back()}
           className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform"
@@ -94,7 +94,7 @@ export default function PerfilPage() {
         </Link>
       </div>
 
-      <div className="px-6 space-y-4">
+      <div className="px-5 space-y-4">
 
         {/* ── Identidade ── */}
         <div

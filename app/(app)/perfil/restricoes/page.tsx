@@ -118,8 +118,8 @@ export default function RestricoesPerfil() {
 
         {/* ── Restrições ── */}
         <div>
-          <p className="font-extrabold text-text-primary text-base mb-1">Restrições alimentares</p>
-          <p className="text-text-disabled text-xs mb-4">Selecione o que você não pode consumir.</p>
+          <p className="font-extrabold text-text-primary text-base mb-2">Restrições alimentares</p>
+          <p className="text-text-disabled text-xs mb-3">Selecione o que você não pode consumir.</p>
 
           <div className="flex flex-wrap gap-2">
             {RESTRICTION_OPTIONS.map(({ key, label, locked }) => {
@@ -151,8 +151,8 @@ export default function RestricoesPerfil() {
 
         {/* ── Ingredientes proibidos ── */}
         <div>
-          <p className="font-extrabold text-text-primary text-base mb-1">Ingredientes proibidos</p>
-          <p className="text-text-disabled text-xs mb-4">
+          <p className="font-extrabold text-text-primary text-base mb-2">Ingredientes proibidos</p>
+          <p className="text-text-disabled text-xs mb-3">
             Toque para marcar ingredientes que você não pode consumir.
           </p>
 
@@ -242,7 +242,7 @@ export default function RestricoesPerfil() {
       >
         <button
           onClick={handleSave}
-          className="w-full py-3 rounded-full font-bold text-sm transition-all active:scale-95"
+          className="w-full py-4 rounded-full font-bold text-sm transition-all active:scale-95"
           style={{
             backgroundColor: saved ? "#2E7D32" : "#C6F59D",
             color: saved ? "#fff" : "#1F3D34",

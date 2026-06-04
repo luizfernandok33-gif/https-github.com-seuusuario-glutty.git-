@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, MapPin, Star, Shield, MessageCircle, Calendar } from "lucide-react";
+import { getIngredientColor, palette } from "@/lib/tags";
 
 /* ─── Dados ─── */
 const USER = {
@@ -15,9 +16,9 @@ const USER = {
   bio: "Sou celíaca há 10 anos, moro em Zurique e evito lugares onde pode ocorrer contaminação cruzada.",
   restrictions: [
     { label: "Celíaca",     bg: "#E0F7FA", color: "#00838F" },
-    { label: "Sem Glúten",  bg: "#FFF0E6", color: "#FC6904" },
+    { label: "Sem Glúten",  bg: "#D4EDD4", color: "#1F3D34" },
     { label: "Sem Lactose", bg: "#E3F2FD", color: "#1565C0" },
-    { label: "Sem Nozes",   bg: "#FFF8E1", color: "#F57F17" },
+    { label: "Sem Nozes",   bg: "#FDECEA", color: "#C0392B" },
   ],
   prohibited: ["Trigo", "Cevada", "Malte", "Leite", "Aveia", "Centeio"],
 };
@@ -60,12 +61,12 @@ export default function PublicProfilePage() {
   const router = useRouter();
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 96px)" }}>
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
 
       {/* Header */}
       <div
         className="bg-background sticky top-0 z-40 px-5 pb-3"
-        style={{ paddingTop: "calc(env(safe-area-inset-top,0px) + 16px)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+        style={{ paddingTop: "calc(env(safe-area-inset-top,0px) + 14px)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
       >
         <div className="flex items-center gap-3">
           <button
@@ -81,7 +82,7 @@ export default function PublicProfilePage() {
         </div>
       </div>
 
-      <div className="px-5 pt-4 space-y-3">
+      <div className="px-5 pt-5 space-y-3">
 
         {/* ── Identity ── */}
         <div
@@ -142,11 +143,14 @@ export default function PublicProfilePage() {
           {/* Não consome inline */}
           <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide mb-1.5">Não consome</p>
           <div className="flex flex-wrap gap-1.5">
-            {USER.prohibited.map(ing => (
-              <span key={ing} className="text-[11px] font-semibold px-2.5 py-1 rounded-full line-through" style={{ backgroundColor: "#FEF2F2", color: "#E53935" }}>
-                {ing}
-              </span>
-            ))}
+            {USER.prohibited.map(ing => {
+              const col = getIngredientColor(ing);
+              return (
+                <span key={ing} className="text-[11px] font-semibold px-2.5 py-1 rounded-full line-through" style={{ backgroundColor: col.bg, color: col.color }}>
+                  {ing}
+                </span>
+              );
+            })}
           </div>
         </div>
 

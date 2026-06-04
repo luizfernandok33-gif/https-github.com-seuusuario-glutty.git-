@@ -43,7 +43,13 @@ export default function PreparandoPadraoPage() {
   }, [router]);
 
   return (
-    <div className="min-h-dvh bg-white flex flex-col items-center justify-center px-8 text-center">
+    <div
+      className="min-h-dvh bg-white flex flex-col items-center justify-center px-8 text-center"
+      style={{
+        paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
+        paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
+      }}
+    >
 
       {/* Icon ring — pulsing */}
       <div className="relative mb-8">
@@ -77,7 +83,7 @@ export default function PreparandoPadraoPage() {
           <h1 className="text-[22px] font-extrabold text-gray-900 leading-snug mb-2">
             Preparando sua<br />experiência
           </h1>
-          <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-xs">
+          <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
             Estamos usando um padrão de segurança para começar.
           </p>
         </>
@@ -86,7 +92,7 @@ export default function PreparandoPadraoPage() {
           <h1 className="text-[22px] font-extrabold leading-snug mb-2" style={{ color: "#FC6904" }}>
             Tudo pronto!
           </h1>
-          <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-xs">
+          <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
             Estamos usando um padrão de segurança para começar. Bem-vindo ao Glútty!
           </p>
         </>

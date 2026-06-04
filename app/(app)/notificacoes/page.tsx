@@ -96,7 +96,7 @@ export default function NotificacoesPage() {
   return (
     <div
       className="min-h-dvh bg-background"
-      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 96px)" }}
+      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}
     >
       {/* ── Header ── */}
       <div
@@ -133,7 +133,7 @@ export default function NotificacoesPage() {
         </div>
       </div>
 
-      <div className="px-5 space-y-6">
+      <div className="px-5 pt-4 space-y-6">
 
         {/* ── Não lidas ── */}
         {unread.length > 0 && (

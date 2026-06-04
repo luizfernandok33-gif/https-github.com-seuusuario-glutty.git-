@@ -150,7 +150,13 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
 
   if (submitted) {
     return (
-      <div className="min-h-dvh bg-background flex flex-col items-center justify-center px-6 text-center">
+      <div
+        className="min-h-dvh bg-background flex flex-col items-center justify-center px-5 text-center"
+        style={{
+          paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
+          paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)",
+        }}
+      >
         <div className="w-24 h-24 rounded-full bg-success/15 flex items-center justify-center mb-6">
           <CheckCircle size={48} className="text-success" strokeWidth={1.5} />
         </div>
@@ -158,7 +164,7 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
         <p className="text-text-secondary text-sm leading-relaxed mb-2">
           Obrigado por ajudar outros celíacos<br />a se alimentarem com segurança.
         </p>
-        <p className="text-text-disabled text-xs mb-10">
+        <p className="text-text-disabled text-xs mb-8">
           Sua avaliação contribuirá para o score de segurança do restaurante.
         </p>
         <button onClick={() => router.push(`/restaurante/${id}`)}
@@ -171,7 +177,7 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div className="bg-background min-h-dvh pb-32">
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
 
       {/* Hero */}
       <div className="relative h-64">
@@ -180,12 +186,13 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
 
         {/* Back button */}
         <button onClick={() => router.back()}
-          className="absolute top-12 left-5 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
+          className="absolute left-5 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform"
+          style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
           <ArrowLeft size={18} className="text-text-primary" />
         </button>
 
         {/* Title top */}
-        <div className="absolute top-12 left-1/2 -translate-x-1/2">
+        <div className="absolute left-1/2 -translate-x-1/2" style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
           <p className="text-white/80 text-xs font-semibold text-center tracking-wide uppercase">Avaliar restaurante</p>
         </div>
 

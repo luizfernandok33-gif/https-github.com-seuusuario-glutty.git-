@@ -9,8 +9,8 @@ export default function FavoritosPage() {
   const [favorites] = useState(mockRestaurants.filter((r) => r.isFavorite));
 
   return (
-    <div className="bg-brand-cream min-h-dvh">
-      <div className="px-5 pt-14 pb-4">
+    <div className="bg-brand-cream min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
+      <div className="px-5 pb-4" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)" }}>
         <div className="flex items-start gap-3">
           <BackButton />
           <div>
