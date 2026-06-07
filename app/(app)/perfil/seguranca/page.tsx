@@ -93,7 +93,7 @@ export default function SegurancaPage() {
   const unselectedProblems  = PROBLEM_SUGGESTIONS.filter(s => !problemSelected.includes(s));
 
   return (
-    <div className="min-h-dvh bg-[#FEF9F9] flex flex-col" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
+    <div className="min-h-dvh bg-[#F5F2DF] flex flex-col" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
 
       {/* ── Header ── */}
       <div className="px-5 pb-5" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)" }}>
@@ -393,7 +393,7 @@ export default function SegurancaPage() {
 
       {/* ── CTA fixo ── */}
       <div
-        className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto px-5 bg-[#FEF9F9]/95 backdrop-blur-sm"
+        className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto px-5 bg-[#F5F2DF]/95 backdrop-blur-sm"
         style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 24px)", paddingTop: 16, borderTop: "1px solid var(--color-border)" }}
       >
         <button

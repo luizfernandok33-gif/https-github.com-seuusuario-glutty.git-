@@ -101,7 +101,7 @@ export default function NotificacoesPage() {
       {/* ── Header ── */}
       <div
         className="px-5 pb-4 bg-background sticky top-0 z-30"
-        style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 14px)" }}
+        style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)" }}
       >
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">

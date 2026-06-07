@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Search, Star, MapPin, MessageCircle, ThumbsUp, Plus, Shield, ChevronRight, X } from "lucide-react";
+import { Search, Star, MapPin, MessageCircle, ThumbsUp, Shield, ChevronRight, X, BadgeCheck, Store, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -93,13 +93,13 @@ export default function ComunidadePage() {
   );
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
 
       {/* ── Header fixo ── */}
       <div
         className="bg-background sticky top-0 z-40 px-5 pb-4"
         style={{
-          paddingTop: "calc(env(safe-area-inset-top, 0px) + 14px)",
+          paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)",
           boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
         }}
       >
@@ -135,23 +135,29 @@ export default function ComunidadePage() {
         {/* Stats */}
         <div className="flex gap-3 mb-4">
           {[
-            { value: "142", label: "Avaliações"   },
-            { value: "38",  label: "Restaurantes" },
-            { value: "521", label: "Celíacos"     },
+            { value: "142", label: "Avaliações",   icon: Star,  color: "#7C3AED", bg: "#EDE9FE" },
+            { value: "38",  label: "Restaurantes", icon: Store, color: "#1F3D34", bg: "#C6F59D" },
+            { value: "521", label: "Celíacos",     icon: Users, color: "#0E7490", bg: "#CFFAFE" },
           ].map(stat => (
-            <div key={stat.label} className="flex-1 bg-surface rounded-2xl p-3 text-center" style={{ boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
-              <p className="text-xl font-black" style={{ color: "#1F3D34" }}>{stat.value}</p>
-              <p className="text-text-disabled text-[10px] font-medium mt-0.5">{stat.label}</p>
+            <div key={stat.label} className="flex-1 rounded-2xl p-3 text-center" style={{ backgroundColor: stat.bg }}>
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-1.5"
+                style={{ backgroundColor: `${stat.color}20` }}
+              >
+                <stat.icon size={15} style={{ color: stat.color }} strokeWidth={2.3} />
+              </div>
+              <p className="text-xl" style={{ color: stat.color, fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}>{stat.value}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: stat.color, opacity: 0.75, fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}>{stat.label}</p>
             </div>
           ))}
         </div>
 
         {/* Banner verificado */}
-        <div className="rounded-2xl px-4 py-3 flex items-center gap-3 mb-1" style={{ backgroundColor: "#E0F7FA" }}>
-          <Shield size={16} strokeWidth={2} style={{ color: "#00838F" }} className="shrink-0" />
+        <div className="rounded-2xl px-4 py-3 flex items-center gap-3 mb-1" style={{ backgroundColor: "#1F3D34" }}>
+          <BadgeCheck size={16} strokeWidth={2.2} style={{ color: "#C6F59D" }} className="shrink-0" />
           <div>
-            <p className="font-bold text-[12px]" style={{ color: "#00838F" }}>Avaliações verificadas</p>
-            <p className="text-[11px]" style={{ color: "#00838F99" }}>
+            <p className="font-bold text-[12px]" style={{ color: "#C6F59D" }}>Avaliações verificadas</p>
+            <p className="text-[11px]" style={{ color: "#C6F59D", opacity: 0.75 }}>
               Feedbacks reais — o restaurante não pode alterar avaliações.
             </p>
           </div>
@@ -188,11 +194,9 @@ export default function ComunidadePage() {
               </div>
               {/* Selo verificado */}
               {review.verified && (
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#E0F7FA" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#00838F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  <span className="text-[11px] font-bold" style={{ color: "#00838F" }}>Verificado</span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
+                  <BadgeCheck size={14} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
+                  <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>Verificado</span>
                 </div>
               )}
             </div>
@@ -228,8 +232,8 @@ export default function ComunidadePage() {
               {review.tags.map(tag => (
                 <span
                   key={tag}
-                  className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
-                  style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}
+                  className="text-[11px] px-2.5 py-1 rounded-full"
+                  style={{ backgroundColor: "#C6F59D", color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}
                 >
                   {tag}
                 </span>
@@ -288,15 +292,6 @@ export default function ComunidadePage() {
         </div>
       )}
 
-      {/* ── FAB ── */}
-      <div className="fixed bottom-28 right-5 z-40">
-        <button
-          className="w-14 h-14 rounded-full shadow-xl flex items-center justify-center active:scale-90 transition-transform"
-          style={{ backgroundColor: "#1F3D34" }}
-        >
-          <Plus size={24} strokeWidth={2.5} color="#C6F59D" />
-        </button>
-      </div>
     </div>
   );
 }

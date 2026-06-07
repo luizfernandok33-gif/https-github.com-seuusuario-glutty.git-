@@ -177,24 +177,29 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
+
+      {/* Header claro */}
+      <div
+        className="bg-background px-5 flex items-center gap-3"
+        style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)", paddingBottom: 20 }}
+      >
+        <button onClick={() => router.back()}
+          className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform"
+          style={{ backgroundColor: "#1F3D34" }}>
+          <ArrowLeft size={18} style={{ color: "white" }} />
+        </button>
+        <div>
+          <h1 className="font-extrabold text-[18px] leading-tight" style={{ color: "#1F3D34" }}>Avaliar restaurante</h1>
+          <p className="text-[12px] text-text-disabled mt-0.5">Compartilhe sua experiência com a comunidade</p>
+        </div>
+      </div>
 
       {/* Hero */}
-      <div className="relative h-64">
+      <div className="relative h-56 mx-5 overflow-hidden" style={{ borderRadius: 24 }}>
         <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70" />
-
-        {/* Back button */}
-        <button onClick={() => router.back()}
-          className="absolute left-5 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform"
-          style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
-          <ArrowLeft size={18} className="text-text-primary" />
-        </button>
-
-        {/* Title top */}
-        <div className="absolute left-1/2 -translate-x-1/2" style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
-          <p className="text-white/80 text-xs font-semibold text-center tracking-wide uppercase">Avaliar restaurante</p>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/15 to-black/85" />
+        <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black/80 to-transparent" />
 
         {/* Info overlay bottom */}
         <div className="absolute bottom-0 left-0 right-0 px-5 pb-5">
@@ -222,11 +227,12 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
       </div>
 
       {/* Date picker strip */}
-      <div className="bg-surface px-5 py-3 border-b border-border/50 flex items-center gap-3">
-        <CalendarDays size={15} className="text-primary shrink-0" />
-        <p className="text-text-secondary text-sm font-semibold flex-1">Quando você visitou?</p>
+      <div className="mx-5 mt-4 rounded-2xl px-4 py-3 flex items-center gap-3" style={{ backgroundColor: "#1F3D34" }}>
+        <CalendarDays size={16} style={{ color: "#C6F59D" }} className="shrink-0" />
+        <p className="text-sm font-semibold flex-1" style={{ color: "#C6F59D" }}>Quando você visitou?</p>
         <input type="date" value={visitDate} onChange={(e) => setVisitDate(e.target.value)}
-          className="text-xs text-text-secondary bg-background border border-border/50 rounded-xl px-3 py-1.5 outline-none focus:border-primary/50" />
+          className="text-xs rounded-xl px-3 py-1.5 outline-none"
+          style={{ color: "#C6F59D", backgroundColor: "rgba(255,255,255,0.08)", border: "1px solid rgba(198,245,157,0.3)" }} />
       </div>
 
       <div className="px-5 py-4 space-y-3">
@@ -355,7 +361,9 @@ export default function AvaliarPage({ params }: { params: Promise<{ id: string }
 
         {/* Microcopy */}
         <div className="flex items-start gap-3 px-1">
-          <span className="text-lg shrink-0">🛡️</span>
+          <svg width={18} height={18} viewBox="0 0 24 24" fill="none" className="shrink-0" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="#2E7D32"/>
+          </svg>
           <p className="text-text-secondary text-[13px] leading-relaxed">
             Sua avaliação ajuda outras pessoas celíacas a tomarem decisões mais seguras.
           </p>

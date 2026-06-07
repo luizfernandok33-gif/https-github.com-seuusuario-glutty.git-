@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, Shield, ChevronRight, Star, Heart, X, Check, Camera, MapPin, Globe, Building2, Clock } from "lucide-react";
+import { Search, Shield, ChevronRight, Star, Heart, X, Check, Camera, MapPin, Globe, Building2, Clock, BadgeCheck } from "lucide-react";
 import RestaurantCard from "@/components/RestaurantCard";
 import SafetyBadge from "@/components/SafetyBadge";
+import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { mockRestaurants, mockDishes, safetyLevelConfig } from "@/lib/data";
 import type { SafetyLevel, Restaurant } from "@/lib/data";
 
@@ -181,7 +182,11 @@ function DishCard({ dish }: { dish: DishData }) {
       style={{ width: 160, height: 240, borderRadius: 20, boxShadow: "0 4px 18px rgba(0,0,0,0.14)" }}
     >
       {/* Full-card image */}
-      <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+      {dish.image ? (
+        <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+      ) : (
+        <DishImagePlaceholder rounded={20} />
+      )}
 
       {/* Subtle gradient — only bottom third */}
       <div
@@ -219,7 +224,7 @@ function DishCard({ dish }: { dish: DishData }) {
         {/* Avatars + Feedback */}
         <button
           type="button"
-          onClick={(e) => { e.stopPropagation(); router.push("/recomendados"); }}
+          onClick={(e) => { e.stopPropagation(); }}
           className="flex items-center gap-2 active:opacity-70 transition-opacity"
         >
           <div className="flex">
@@ -312,11 +317,11 @@ function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () 
 }
 
 const categories = [
-  { id: "mais-seguros", label: "Mais\nseguros",         icon: "/feliz.png",   bg: "#D4EDD4", color: "#0a5c3b", href: "/busca?filter=safe"    },
-  { id: "festa",        label: "Festa sem\nglúten",     icon: "/festa.png",   bg: "#FFE4F0", color: "#bf175c", href: "/busca?filter=festa"   },
-  { id: "familia",      label: "Para a\nfamília",       icon: "/familia.png", bg: "#D4E8FF", color: "#1c4ade", href: "/busca?filter=familia" },
-  { id: "doces",        label: "Doces sem\nglúten",     icon: "/doces.png",   bg: "#FFF0D4", color: "#d9780a", href: "/busca?filter=doces"   },
-  { id: "amigos",       label: "Para sair\ncom amigos", icon: "/amigos.png",  bg: "#EDE4FF", color: "#7d3bed", href: "/busca?filter=amigos"  },
+  { id: "mais-seguros", label: "Mais\nseguros",         icon: "/feliz.png",   bg: "#E4EFC6", color: "#2E4F2A", href: "/categoria/mais-seguros"    },
+  { id: "festa",        label: "Festa sem\nglúten",     icon: "/festa.png",   bg: "#FDEFCC", color: "#6B5F2A", href: "/categoria/festa"   },
+  { id: "familia",      label: "Para a\nfamília",       icon: "/familia.png", bg: "#DDEFE5", color: "#1F4A44", href: "/categoria/familia" },
+  { id: "doces",        label: "Doces sem\nglúten",     icon: "/doces.png",   bg: "#F0E0F2", color: "#5A4580", href: "/categoria/doces"   },
+  { id: "amigos",       label: "Para sair\ncom amigos", icon: "/amigos.png",  bg: "#D9E7F0", color: "#1F4A60", href: "/categoria/amigos"  },
 ];
 
 // ── Skeleton card (layout sem conteúdo) ──────────────────────────────────────
@@ -399,14 +404,22 @@ export default function HomePage() {
       {/* ── Header ── */}
       <div className="px-5 pb-4" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)" }}>
         {/* Linha superior: saudação + foto + sino */}
-        <div className="flex items-end justify-between gap-3">
+        <div className="flex items-center justify-between gap-3">
 
           {/* Esquerda: texto */}
           <div className="flex-1 min-w-0 pt-1">
-            <h1 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontSize: 38, fontWeight: 900, lineHeight: "40px", letterSpacing: "-1px", color: "#2E7D32" }}>
-              Olá,<br />Michelle
+            <p className="text-text-secondary text-[13px] leading-snug mb-1">
+              {(() => {
+                const h = new Date().getHours();
+                if (h < 12) return "Bom dia";
+                if (h < 18) return "Boa tarde";
+                return "Boa noite";
+              })()}
+            </p>
+            <h1 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontSize: 32, fontWeight: 900, lineHeight: "36px", letterSpacing: "-0.5px", color: "#2E7D32" }}>
+              Michelle
             </h1>
-            <p className="text-text-secondary text-[13px] mt-2 leading-snug">
+            <p className="text-text-secondary text-[13px] mt-1.5 leading-snug">
               Aonde você quer comer hoje?
             </p>
           </div>
@@ -415,8 +428,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center shrink-0">
             <Link href="/perfil" className="relative block active:scale-95 transition-transform">
               <div
-                className="w-[80px] h-[80px] rounded-full overflow-hidden bg-surface shadow-md"
-                style={{ border: "2.5px solid #C6F59D" }}
+                className="w-[72px] h-[72px] rounded-full overflow-hidden bg-surface shadow-md"
               >
                 <Image
                   src="/michelle.jpg.jpg"
@@ -427,13 +439,6 @@ export default function HomePage() {
                   style={{ objectPosition: "center top", transform: "scale(1.45)", transformOrigin: "center 12%" }}
                   unoptimized
                 />
-              </div>
-              {/* Badge câmera */}
-              <div
-                className="absolute bottom-0 right-0 w-7 h-7 rounded-full flex items-center justify-center border-2 border-white shadow-sm"
-                style={{ backgroundColor: "#1F3D34" }}
-              >
-                <Camera size={13} color="#C6F59D" strokeWidth={2} />
               </div>
             </Link>
           </div>
@@ -565,9 +570,8 @@ export default function HomePage() {
 
       {/* ── Promo Banner ── */}
       <div className="px-5 mb-6">
-        <Link
-          href="/recomendados"
-          className="relative overflow-hidden rounded-[22px] active:scale-[0.98] transition-transform block"
+        <div
+          className="relative overflow-hidden rounded-[22px] block"
           style={{ backgroundColor: "#1A1A1A", height: 138 }}
         >
           {/* Food image — full cover */}
@@ -609,7 +613,7 @@ export default function HomePage() {
               Ver agora →
             </span>
           </div>
-        </Link>
+        </div>
       </div>
 
       {/* ── Categorias ── */}
@@ -626,26 +630,38 @@ export default function HomePage() {
                 key={cat.id}
                 href={cat.href}
                 onClick={() => setActiveCategory(isActive ? null : cat.id)}
-                className="shrink-0 active:scale-95 transition-all flex flex-col items-center gap-2"
-                style={{ width: 64 }}
+                className="shrink-0 active:scale-95 transition-all flex flex-col items-center"
+                style={{ width: 76 }}
               >
                 <div
-                  className="flex items-center justify-center transition-all"
+                  className="flex flex-col items-center pt-3 pb-3 transition-all"
                   style={{
-                    width: 64,
-                    height: 64,
-                    borderRadius: 16,
+                    width: 76,
+                    borderRadius: 28,
                     backgroundColor: isActive ? "#1F3D34" : cat.bg,
-                    boxShadow: isActive ? "0 6px 18px rgba(31,61,52,0.25)" : "0 2px 8px rgba(0,0,0,0.06)",
+                    boxShadow: isActive ? "0 6px 18px rgba(31,61,52,0.25)" : "0 2px 12px rgba(0,0,0,0.08)",
                   }}
                 >
-                  <img src={cat.icon} alt={cat.label} width={38} height={38}
-                    style={{ objectFit: "contain" }} />
+                  <div
+                    className="relative flex items-center justify-center mb-2 overflow-hidden"
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "50%",
+                      backgroundColor: "#FFFFFF",
+                    }}
+                  >
+                    <img src={cat.icon} alt={cat.label} width={28} height={28}
+                      style={{ objectFit: "contain", filter: "brightness(0)", opacity: 0.85 }} />
+                    {!isActive && (
+                      <div className="absolute inset-0" style={{ backgroundColor: cat.color, mixBlendMode: "color" }} />
+                    )}
+                  </div>
+                  <p className="text-center leading-tight whitespace-pre-line"
+                    style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 11, color: isActive ? "#FFFFFF" : cat.color }}>
+                    {cat.label}
+                  </p>
                 </div>
-                <p className="text-center leading-tight whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 11, color: isActive ? "#1F3D34" : "#1F3D34" }}>
-                  {cat.label}
-                </p>
               </Link>
             );
           })}
@@ -829,11 +845,9 @@ export default function HomePage() {
                     </div>
                   </div>
                   {review.verified && (
-                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#E0F7FA" }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#00838F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-[11px] font-semibold" style={{ color: "#00838F" }}>Verificado</span>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
+                      <BadgeCheck size={14} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
+                      <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>Verificado</span>
                     </div>
                   )}
                 </div>
@@ -862,7 +876,7 @@ export default function HomePage() {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5">
                   {review.tags.map((tag) => (
-                    <span key={tag} className="text-[11px] font-semibold px-2.5 py-1 rounded-full" style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}>
+                    <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full" style={{ backgroundColor: "#C6F59D", color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}>
                       {tag}
                     </span>
                   ))}

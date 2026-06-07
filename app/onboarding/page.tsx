@@ -96,6 +96,10 @@ export default function OnboardingPage() {
         className="min-h-dvh flex flex-col px-6"
         style={{
           backgroundColor: "#FFFFFF",
+          backgroundImage: "url('/pattern-tela-splasch.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
           paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
         }}
@@ -154,8 +158,13 @@ export default function OnboardingPage() {
   if (step === "skip_confirm") {
     return (
       <div
-        className="min-h-dvh bg-white flex flex-col px-6"
+        className="min-h-dvh flex flex-col px-6"
         style={{
+          backgroundColor: "#FFFFFF",
+          backgroundImage: "url('/pattern-tela-splasch.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
           paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
         }}
@@ -195,8 +204,13 @@ export default function OnboardingPage() {
   if (step === "skip_final") {
     return (
       <div
-        className="min-h-dvh bg-white flex flex-col px-6"
+        className="min-h-dvh flex flex-col px-6"
         style={{
+          backgroundColor: "#FFFFFF",
+          backgroundImage: "url('/pattern-tela-splasch.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
           paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
         }}
@@ -236,8 +250,13 @@ export default function OnboardingPage() {
 
     return (
       <div
-        className="min-h-dvh bg-white flex flex-col px-6"
+        className="min-h-dvh flex flex-col px-6"
         style={{
+          backgroundColor: "#FFFFFF",
+          backgroundImage: "url('/pattern-tela-splasch.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
           paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
         }}
@@ -256,7 +275,7 @@ export default function OnboardingPage() {
               <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>Etapa 1 de 3</span>
               <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>33%</span>
             </div>
-            <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#C6F59D" }}>
+            <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#87AB39" }}>
               <div style={{ height: "100%", width: "33%", borderRadius: 999, backgroundColor: "#1F3D34", transition: "width 0.5s ease" }} />
             </div>
           </div>
@@ -403,8 +422,13 @@ export default function OnboardingPage() {
   if (step === "ingredientes") {
     return (
       <div
-        className="min-h-dvh bg-white flex flex-col px-6"
+        className="min-h-dvh flex flex-col px-6"
         style={{
+          backgroundColor: "#FFFFFF",
+          backgroundImage: "url('/pattern-tela-splasch.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
           paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
         }}
@@ -423,7 +447,7 @@ export default function OnboardingPage() {
               <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>Etapa 2 de 3</span>
               <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>66%</span>
             </div>
-            <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#C6F59D" }}>
+            <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#87AB39" }}>
               <div style={{ height: "100%", width: "66%", borderRadius: 999, backgroundColor: "#1F3D34", transition: "width 0.5s ease" }} />
             </div>
           </div>
@@ -539,8 +563,13 @@ export default function OnboardingPage() {
   // ── Step 3: Success ──────────────────────────────
   return (
     <div
-      className="min-h-dvh bg-white flex flex-col items-center justify-center px-6 text-center"
+      className="min-h-dvh flex flex-col items-center justify-center px-6 text-center"
       style={{
+        backgroundColor: "#FFFFFF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
       }}
@@ -559,7 +588,7 @@ export default function OnboardingPage() {
             <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>Etapa 3 de 3</span>
             <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>100%</span>
           </div>
-          <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#C6F59D" }}>
+          <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#87AB39" }}>
             <div style={{ height: "100%", width: "100%", borderRadius: 999, backgroundColor: "#1F3D34", transition: "width 0.5s ease" }} />
           </div>
         </div>

@@ -86,8 +86,8 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
       >
         <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
 
-        {/* Badge — top-left sobre a foto, com opacidade discreta */}
-        <div className="absolute top-2.5 left-2.5" style={{ opacity: 0.88 }}>
+        {/* Badge — canto superior esquerdo, sobre a imagem */}
+        <div className="absolute top-2.5 left-2.5">
           <SafetyBadge level={restaurant.safetyLevel} size="sm" />
         </div>
 
