@@ -16,6 +16,10 @@ export default function LoginPage() {
       className="min-h-dvh flex flex-col px-6"
       style={{
         backgroundColor: "#FFFFFF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
       }}
@@ -52,7 +56,7 @@ export default function LoginPage() {
       <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>{t.login.subtitle}</p>
 
       {/* Form */}
-      <form className="space-y-4 flex-1" onSubmit={(e) => { e.preventDefault(); router.push("/onboarding"); }}>
+      <form className="space-y-4 flex-1" onSubmit={(e) => { e.preventDefault(); router.push("/home"); }}>
 
         <div>
           <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>{t.login.email}</label>

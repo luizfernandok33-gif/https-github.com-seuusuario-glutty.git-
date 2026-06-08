@@ -5,13 +5,42 @@ import Image from "next/image";
 import {
   ArrowLeft, Heart, Star, MapPin, Phone, Globe,
   Shield, AlertTriangle, MessageCircle, CheckCircle,
-  Share2, Clock, Mail, Lock, Flag, UtensilsCrossed, BadgeCheck,
+  Clock, Mail, Lock, Flag, UtensilsCrossed, BadgeCheck,
 } from "lucide-react";
 import SafetyBadge from "@/components/SafetyBadge";
+import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import Tag from "@/components/Tag";
 import { mockRestaurants, safetyLevelConfig } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { getRestrictionColor } from "@/lib/tags";
+
+// Logos reais enviados pelo usuário — mapeados por nome do restaurante.
+const RESTAURANT_LOGOS: Record<string, string> = {
+  "Le Manjue Organique": "/Le Manjue Organique.jpg",
+  "Haus Hiltl": "/Haus Hiltl.png",
+  "Tibits": "/Tibits.png",
+  "Marktküche": "/Marktküche.png",
+  "Healthy Bites Atelier": "/Healthy Bites Atelier.jpg",
+  "Grão Fino": "/grão fino.jpg",
+  "Pandan": "/Pandan.jpg",
+  "Pizza For Fun": "/Pizza for fun.png",
+  "Jampa Nutrileve": "/Jampa Nutrileve.png",
+  "Lola Paleo": "/Lola Paleo.jpg",
+  "Juro de Dedinho": "/Juro de Dedinho.jpg",
+  "Libera": "/libera.jpg",
+  "Zufreeden": "/Zufreeden.png",
+  "À VIE Baked Goods": "/À VIE Baked Goods.png",
+  "Jackie's": "/Jackie's.jpg",
+  "Granò": "/Granò.jpg",
+};
+
+function IconEstrela({ size = 12, fill = "#FFC24D" }: { size?: number; fill?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z" fill={fill}/>
+    </svg>
+  );
+}
 
 export default function RestaurantePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -78,80 +107,132 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
   const safetyConfig = safetyLevelConfig[restaurant.safetyLevel];
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
-      {/* Hero Image */}
-      <div className="relative h-56">
-        <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
-
-        {/* Top controls */}
-        <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
+    <div className="flex flex-col" style={{ backgroundColor: "#FFFFFF", marginBottom: "-128px", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
+      {/* Header claro */}
+      <div
+        className="flex items-center justify-between gap-3 px-5"
+        style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)", paddingBottom: 16, backgroundColor: "#FFFFFF" }}
+      >
+        <div className="flex items-center gap-3">
           <Link
             href="/busca"
-            className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform"
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform shrink-0"
+            style={{ backgroundColor: "#1F3D34" }}
           >
-            <ArrowLeft size={18} className="text-text-primary" />
+            <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
           </Link>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigator.share?.({ title: restaurant.name, url: window.location.href })}
-              className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform"
-            >
-              <Share2 size={18} className="text-text-secondary" />
-            </button>
-            <button
-              onClick={() => setIsFav(!isFav)}
-              className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform"
-            >
-              <Heart size={18} fill={isFav ? "#FF8FA3" : "none"} className={isFav ? "text-[#FF8FA3]" : "text-text-secondary"} />
-            </button>
-          </div>
+          <p className="font-extrabold text-[18px] leading-tight" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}>Restaurante</p>
         </div>
-
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigator.share?.({ title: restaurant.name, url: window.location.href })}
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}
+          >
+            <svg width={16} height={16} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#FFFFFF" d="M27.71,4.29a1,1,0,0,0-1.05-.23l-22,8a1,1,0,0,0,0,1.87l9.6,3.84,3.84,9.6A1,1,0,0,0,19,28h0a1,1,0,0,0,.92-.66l8-22A1,1,0,0,0,27.71,4.29ZM19,24.2l-2.79-7L21,12.41,19.59,11l-4.83,4.83L7.8,13,25.33,6.67Z"/>
+            </svg>
+          </button>
+          <button
+            onClick={() => setIsFav(!isFav)}
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}
+          >
+            <Heart size={16} fill={isFav ? "#E53935" : "none"} style={{ color: isFav ? "#E53935" : "#FFFFFF" }} />
+          </button>
+        </div>
       </div>
 
-      {/* Info Card */}
-      <div className="bg-surface px-5 pt-4 pb-0 shadow-sm">
-        {/* Name + rating row */}
-        <div className="flex items-start justify-between mb-2">
+      {/* Hero Image */}
+      <div className="relative h-64 overflow-hidden">
+        <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+      </div>
+
+      {/* Info Card — sobrepõe o final da hero */}
+      <div className="bg-white px-5 pt-5 pb-0 relative z-10 -mt-8" style={{ borderTopLeftRadius: 32, borderTopRightRadius: 32, boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}>
+
+        {/* Avatar + nome + rating */}
+        <div className="flex items-center gap-3 mb-1.5">
+          {/* Avatar com logo do restaurante — mantido como está */}
+          <div
+            className="w-14 h-14 rounded-2xl overflow-hidden shrink-0"
+            style={{ backgroundColor: "#1F3D34" }}
+          >
+            {RESTAURANT_LOGOS[restaurant.name] ? (
+              <img src={RESTAURANT_LOGOS[restaurant.name]} alt={restaurant.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-[22px] font-black" style={{ color: "#C6F59D" }}>
+                  {restaurant.name.charAt(0)}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Nome + hashtag + rating */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-extrabold text-primary leading-tight">{restaurant.name}</h1>
-            <p className="text-text-disabled text-xs mt-0.5">#{restaurant.cuisine.replace(/ /g, "")}</p>
-          </div>
-          <div className="flex flex-col items-end gap-0.5 shrink-0 ml-3">
-            <div className="flex items-center gap-1">
-              <Star size={14} fill="#FFC24D" className="text-warning" />
-              <span className="font-extrabold text-text-primary">{restaurant.rating}</span>
+            <div className="flex items-start justify-between gap-2">
+              <h1 className="text-[18px] font-extrabold leading-tight" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>{restaurant.name}</h1>
+              <div className="flex flex-col items-end shrink-0">
+                <div className="flex items-center gap-1">
+                  <IconEstrela size={14} fill="#FFC24D" />
+                  <span className="font-extrabold text-[15px]" style={{ color: "#1F3D34" }}>{restaurant.rating}</span>
+                </div>
+                <span className="text-[10px]" style={{ color: "#9AAFA6" }}>{restaurant.reviewCount} avaliações</span>
+              </div>
             </div>
-            <span className="text-text-disabled text-[10px]">{restaurant.reviewCount} avaliações</span>
+            <p className="text-[12px] mt-0.5" style={{ color: "#9AAFA6" }}>
+              #{restaurant.cuisine?.replace(/\s*\/\s*/g, "/").replace(/\s+/g, "")}
+            </p>
           </div>
         </div>
 
-        {/* Badge + open status (separated) */}
-        <div className="flex items-center justify-between mb-3">
+        {/* Badges — bem avaliado / aberto agora */}
+        <div className="flex items-center gap-2 mb-3.5">
           <SafetyBadge level={restaurant.safetyLevel} size="sm" />
-          <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${restaurant.isOpen ? "bg-success/15 text-success" : "bg-border/60 text-text-disabled"}`}>
-            {restaurant.isOpen ? "Aberto agora" : "Fechado"}
-          </span>
+          {(() => {
+            const statusConfig = restaurant.isOpen
+              ? { label: "Aberto agora", bg: "#D9F2D9", text: "#2D8C2D" }
+              : { label: "Fechado",      bg: "#F5F5F5", text: "#9CA3AF" };
+            return (
+              <div
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full shrink-0 text-[11px] font-bold"
+                style={{ backgroundColor: statusConfig.bg, color: statusConfig.text }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: statusConfig.text }} />
+                {statusConfig.label}
+              </div>
+            );
+          })()}
         </div>
 
-        {/* Quick info */}
-        <div className="flex flex-col gap-1.5 pb-4">
-          <div className="flex items-center gap-2 text-xs text-text-secondary">
-            <MapPin size={12} className="text-primary shrink-0" />
-            {restaurant.address} · {restaurant.distance}
+        {/* Lista de informações — endereço, horário, telefone */}
+        <div className="space-y-2 mb-1" style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
+          <div className="flex items-center gap-2">
+            <MapPin size={14} style={{ color: "#1F3D34" }} className="shrink-0" />
+            <span className="text-[13px]" style={{ color: "#1F3D34" }}>
+              {restaurant.address} · {restaurant.distance}
+            </span>
           </div>
+
           {restaurant.openingHours && (
-            <div className="flex items-center gap-2 text-xs text-text-secondary">
-              <Clock size={12} className="text-primary shrink-0" />
-              {restaurant.openingHours}
+            <div className="flex items-center gap-2">
+              <Clock size={14} style={{ color: "#1F3D34" }} className="shrink-0" />
+              <span className="text-[13px]" style={{ color: "#1F3D34" }}>{restaurant.openingHours}</span>
             </div>
           )}
-          <div className="flex items-center gap-2 text-xs text-text-secondary">
-            <Phone size={12} className="text-primary shrink-0" />
-            {restaurant.phone}
+
+          <div className="flex items-center gap-2">
+            <Phone size={14} style={{ color: "#1F3D34" }} className="shrink-0" />
+            <span className="text-[13px]" style={{ color: "#1F3D34" }}>{restaurant.phone}</span>
           </div>
         </div>
+
+        <div className="h-1" />
+
+        {/* Divisor */}
+        <div className="h-px bg-border/40 mb-1" />
 
         {/* Tabs */}
         <div className="flex gap-2 py-3">
@@ -175,8 +256,8 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
         </div>
       </div>
 
-      {/* Tab Content */}
-      <div className="px-5 py-4">
+      {/* Tab Content — scrollável */}
+      <div className="px-5 py-4" style={{ backgroundColor: "#FFFFFF", paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 152px)" }}>
 
         {/* Sobre */}
         {activeTab === "sobre" && (
@@ -257,7 +338,11 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                             className="w-full text-left active:scale-95 transition-transform"
                           >
                             <div className="relative w-32 h-24 rounded-2xl overflow-hidden mb-2">
-                              <Image src={dish.image} alt={dish.name} fill className="object-cover grayscale" unoptimized />
+                              {dish.image ? (
+                                <Image src={dish.image} alt={dish.name} fill className="object-cover grayscale" unoptimized />
+                              ) : (
+                                <DishImagePlaceholder rounded={16} />
+                              )}
                               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                                 <Lock size={20} className="text-white" />
                               </div>
@@ -265,7 +350,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                             <p className="text-text-disabled text-xs font-bold leading-tight line-clamp-2">{dish.name}</p>
                             <p className="text-text-disabled text-xs mt-0.5">{formatPrice(dish.price)}</p>
                             {reportDishId === dish.id && (
-                              <div className="mt-1.5 bg-background rounded-xl p-2 border border-border/50 shadow-sm">
+                              <div className="mt-1.5 bg-white rounded-xl p-2 border border-border/50 shadow-sm">
                                 <p className="text-[10px] text-text-secondary mb-1.5 leading-relaxed">Prato incompatível — sem adaptação disponível.</p>
                                 <button
                                   onClick={(e) => { e.stopPropagation(); setReportDishId(null); }}
@@ -281,7 +366,11 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                           /* Status 1 (safe) or Status 2 (adaptable) */
                           <Link href={`/restaurante/${restaurant.id}/prato/${dish.id}`} className="block active:scale-95 transition-transform">
                             <div className="relative w-32 h-24 rounded-2xl overflow-hidden mb-2">
-                              <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+                              {dish.image ? (
+                                <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+                              ) : (
+                                <DishImagePlaceholder rounded={16} />
+                              )}
                               {isAdaptable ? (
                                 <div className="absolute bottom-1.5 left-1.5 bg-warning text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">Adaptável</div>
                               ) : (
@@ -303,16 +392,16 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             {restaurant.safetyProcedures && restaurant.safetyProcedures.length > 0 && (
               <div>
                 <h3 className="font-extrabold text-text-primary text-[15px] mb-3">Controle de contaminação cruzada</h3>
-                <div className="rounded-2xl overflow-hidden border border-warning/40">
-                  <div className="flex items-center gap-2 px-4 py-3 bg-warning/15">
-                    <AlertTriangle size={14} className="text-warning shrink-0" />
-                    <p className="text-warning font-extrabold text-xs tracking-wide uppercase">Procedimentos de segurança</p>
+                <div className="rounded-2xl overflow-hidden border" style={{ borderColor: "rgba(31,61,52,0.25)", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
+                  <div className="flex items-center gap-2 px-4 py-3" style={{ backgroundColor: "rgba(31,61,52,0.08)" }}>
+                    <AlertTriangle size={14} className="shrink-0" style={{ color: "#1F3D34" }} />
+                    <p className="font-extrabold text-xs tracking-wide uppercase" style={{ color: "#1F3D34" }}>Procedimentos de segurança</p>
                   </div>
                   <div className="bg-surface px-4 py-3 space-y-2">
                     {restaurant.safetyProcedures.map((proc) => (
                       <div key={proc} className="flex items-start gap-2">
-                        <CheckCircle size={13} className="text-success shrink-0 mt-0.5" />
-                        <p className="text-text-secondary text-xs leading-relaxed">{proc}</p>
+                        <CheckCircle size={13} className="shrink-0 mt-0.5" style={{ color: "#1F3D34" }} />
+                        <p className="text-xs leading-relaxed" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>{proc}</p>
                       </div>
                     ))}
                   </div>
@@ -322,8 +411,8 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
 
             {/* Disclaimer */}
             <div className="flex items-start gap-2 px-1">
-              <AlertTriangle size={13} className="text-warning shrink-0 mt-0.5" />
-              <p className="text-text-disabled text-[11px] leading-relaxed">
+              <AlertTriangle size={13} className="shrink-0 mt-0.5" style={{ color: "#1F3D34" }} />
+              <p className="text-[11px] leading-relaxed" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
                 Informações fornecidas pelo restaurante. Confirme sempre essas informações diretamente com o restaurante antes de consumir.
               </p>
             </div>
@@ -406,7 +495,11 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                   className="block bg-surface rounded-2xl overflow-hidden shadow-sm border border-border/50 active:scale-[0.98] transition-transform"
                 >
                   <div className="relative h-40">
-                    <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+                    {dish.image ? (
+                      <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+                    ) : (
+                      <DishImagePlaceholder rounded={0} />
+                    )}
                     {dish.isCertified && (
                       <div className="absolute top-3 left-3 bg-success text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
                         <CheckCircle size={10} />
@@ -428,7 +521,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                       <p className="text-text-disabled text-xs font-semibold mb-2">Ingredientes declarados:</p>
                       <div className="flex flex-wrap gap-1.5">
                         {dish.ingredients.map((ing) => (
-                          <span key={ing} className="bg-background text-text-secondary text-[10px] font-medium px-2 py-1 rounded-full border border-border">
+                          <span key={ing} className="bg-white text-text-secondary text-[10px] font-medium px-2 py-1 rounded-full border border-border">
                             {ing}
                           </span>
                         ))}
@@ -452,7 +545,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                   <p className="text-4xl font-extrabold text-text-primary">{restaurant.rating}</p>
                   <div className="flex justify-center my-1">
                     {[1,2,3,4,5].map((s) => (
-                      <Star key={s} size={11} fill={s <= Math.round(restaurant.rating) ? "#FFC24D" : "none"} className={s <= Math.round(restaurant.rating) ? "text-warning" : "text-border"} />
+                      <IconEstrela key={s} size={11} fill={s <= Math.round(restaurant.rating) ? "#FFC24D" : "#E5E5E5"} />
                     ))}
                   </div>
                   <p className="text-text-disabled text-[10px]">{restaurant.reviewCount} avaliações</p>
@@ -479,65 +572,70 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
 
             {restaurant.reviews.map((review) => {
               const contamLabels: Record<string,string> = { nenhum:"Sem contaminação", pequeno:"Pequeno risco", alto:"Alto risco", nao_sei:"Risco incerto" };
-              const contamColors: Record<string,string> = { nenhum:"#2E7D32", pequeno:"#D97706", alto:"#C62828", nao_sei:"#616161" };
-              const contamBg:     Record<string,string> = { nenhum:"#E8F5E9",  pequeno:"#FEF3C7",  alto:"#FFEBEE",   nao_sei:"#F5F5F5"  };
               const teamLabels:   Record<string,string> = { total:"Equipe preparada", parcial:"Equipe parcial", nao_sabiam:"Equipe despreparada", nao_perguntei:"Não verificado" };
-              const teamColors:   Record<string,string> = { total:"#2E7D32", parcial:"#D97706", nao_sabiam:"#C62828", nao_perguntei:"#616161" };
-              const teamBg:       Record<string,string> = { total:"#E8F5E9",  parcial:"#FEF3C7",   nao_sabiam:"#FFEBEE",     nao_perguntei:"#F5F5F5" };
 
               return (
                 <div
                   key={review.id}
-                  className="bg-surface rounded-[18px] p-4"
-                  style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }}
+                  className="bg-surface rounded-2xl p-4"
+                  style={{ boxShadow: "0 2px 14px rgba(0,0,0,0.08)", border: "1px solid var(--color-border)", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}
                 >
                   {/* Author row */}
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-sm font-extrabold text-primary shrink-0">
-                      {review.avatar}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-bold text-text-primary text-[13px] truncate">{review.author}</p>
-                      <p className="text-text-disabled text-[10px]">{review.date}</p>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 border-2 border-border bg-primary/15 flex items-center justify-center text-sm font-extrabold text-primary">
+                        {review.photo ? (
+                          <Image src={review.photo} alt={review.author} width={44} height={44} className="object-cover w-full h-full" unoptimized />
+                        ) : (
+                          review.avatar
+                        )}
+                      </div>
+                      <div>
+                        <p className="font-extrabold text-[14px] text-text-primary leading-tight">{review.author}</p>
+                        <p className="text-[11px] text-text-disabled mt-0.5">{review.date}</p>
+                      </div>
                     </div>
                     {review.verified && (
-                      <BadgeCheck size={16} className="text-primary shrink-0" />
+                      <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
+                        <BadgeCheck size={14} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
+                        <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>Verificado</span>
+                      </div>
                     )}
                   </div>
 
                   {/* Stars */}
-                  <div className="flex items-center gap-0.5 mb-3">
+                  <div className="flex items-center gap-0.5 mb-2.5">
                     {[1,2,3,4,5].map((s) => (
-                      <Star key={s} size={12} fill={s <= review.rating ? "#FFC24D" : "none"} className={s <= review.rating ? "text-warning" : "text-border"} />
+                      <IconEstrela key={s} size={14} fill={s <= review.rating ? "#FFC24D" : "#E5E5E5"} />
                     ))}
                   </div>
 
                   {/* Comment */}
                   {review.comment && (
-                    <p className="text-text-secondary text-[13px] leading-relaxed mb-3">
+                    <p className="text-[13px] text-text-secondary leading-relaxed mb-3">
                       "{review.comment}"
                     </p>
                   )}
 
-                  {/* Safety + team tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-2">
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5">
                     <span
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: contamBg[review.contamRisk], color: contamColors[review.contamRisk] }}
+                      className="text-[11px] px-2.5 py-1 rounded-full"
+                      style={{ backgroundColor: "#C6F59D", color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}
                     >
                       {contamLabels[review.contamRisk]}
                     </span>
                     <span
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: teamBg[review.teamKnowledge], color: teamColors[review.teamKnowledge] }}
+                      className="text-[11px] px-2.5 py-1 rounded-full"
+                      style={{ backgroundColor: "#C6F59D", color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}
                     >
                       {teamLabels[review.teamKnowledge]}
                     </span>
                     {review.tags?.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                        style={{ backgroundColor: "#FC690415", color: "#FC6904" }}
+                        className="text-[11px] px-2.5 py-1 rounded-full"
+                        style={{ backgroundColor: "#C6F59D", color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}
                       >
                         {tag}
                       </span>
@@ -550,7 +648,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             <Link
               href={`/restaurante/${id}/avaliar`}
               className="w-full flex items-center justify-center gap-2 font-bold py-4 rounded-2xl shadow-md active:scale-95 transition-transform"
-              style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}
+              style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
             >
               <MessageCircle size={18} />
               Avaliar este restaurante

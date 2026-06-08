@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { ShieldCheck, Utensils, MapPin, CheckCircle, Check } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
@@ -42,55 +43,46 @@ export default function PreparandoPadraoPage() {
 
   return (
     <div
-      className="min-h-dvh bg-white flex flex-col items-center justify-center px-8 text-center"
+      className="min-h-dvh flex flex-col items-center justify-center px-8 text-center"
       style={{
+        backgroundColor: "#FFFFFF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
       }}
     >
 
-      {/* Icon ring — pulsing */}
-      <div className="relative mb-8">
-        <div
-          className="w-24 h-24 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: "#FFF0E6" }}
-        >
-          <ShieldCheck size={44} strokeWidth={1.8} style={{ color: "#FC6904" }} />
-        </div>
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            border: "2px solid #FC6904",
-            animation: "ripple 1.6s ease-out infinite",
-            opacity: 0.3,
-          }}
-        />
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            border: "2px solid #FC6904",
-            animation: "ripple 1.6s ease-out infinite 0.5s",
-            opacity: 0.2,
-          }}
+      {/* Mascote */}
+      <div className="mb-6">
+        <Image
+          src="/glútty novo.png"
+          alt="Glútty"
+          width={160}
+          height={160}
+          className="object-contain"
+          unoptimized
         />
       </div>
 
       {/* Heading */}
       {!done ? (
         <>
-          <h1 className="text-[22px] font-extrabold text-gray-900 leading-snug mb-2 whitespace-pre-line">
+          <h1 className="text-[22px] font-black leading-snug mb-2 font-display whitespace-pre-line" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
             {t.preparandoPadrao.title}
           </h1>
-          <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
+          <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#5A6B65", textWrap: "balance" } as React.CSSProperties}>
             {t.preparandoPadrao.subtitle}
           </p>
         </>
       ) : (
         <>
-          <h1 className="text-[22px] font-extrabold leading-snug mb-2" style={{ color: "#FC6904" }}>
+          <h1 className="text-[22px] font-black leading-snug mb-2 font-display" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
             {t.preparandoPadrao.doneTitle}
           </h1>
-          <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
+          <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#5A6B65", textWrap: "balance" } as React.CSSProperties}>
             {t.preparandoPadrao.doneSubtitle}
           </p>
         </>
@@ -112,20 +104,20 @@ export default function PreparandoPadraoPage() {
               <div
                 className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all"
                 style={{
-                  backgroundColor: isComplete ? "#FC6904" : isActive ? "#FFF0E6" : "#F5F5F5",
-                  border: isActive ? "2px solid #FC6904" : "none",
+                  backgroundColor: isComplete ? "#1F3D34" : isActive ? "#E8F5E0" : "#F5F5F5",
+                  border: isActive ? "2px solid #1F3D34" : "none",
                 }}
               >
                 {isComplete ? (
-                  <Check size={13} strokeWidth={3} color="white" />
+                  <Check size={13} strokeWidth={3} color="#C6F59D" />
                 ) : (
-                  <Icon size={13} strokeWidth={2} style={{ color: isActive ? "#FC6904" : "#bbb" }} />
+                  <Icon size={13} strokeWidth={2} style={{ color: isActive ? "#1F3D34" : "#bbb" }} />
                 )}
               </div>
 
               <p
                 className="text-sm text-left font-medium leading-tight"
-                style={{ color: isComplete ? "#1C1C1C" : isActive ? "#FC6904" : "#bbb" }}
+                style={{ color: isComplete ? "#1F3D34" : isActive ? "#1F3D34" : "#bbb" }}
               >
                 {step.label}
               </p>
@@ -134,7 +126,7 @@ export default function PreparandoPadraoPage() {
                 <div
                   className="ml-auto w-4 h-4 rounded-full border-2 shrink-0"
                   style={{
-                    borderColor: "#FC6904",
+                    borderColor: "#1F3D34",
                     borderTopColor: "transparent",
                     animation: "spin 0.7s linear infinite",
                   }}
@@ -147,24 +139,20 @@ export default function PreparandoPadraoPage() {
 
       {/* Progress bar */}
       <div className="w-full max-w-xs">
-        <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden mb-2">
+        <div className="w-full h-2 rounded-full overflow-hidden mb-2" style={{ backgroundColor: "#87AB39" }}>
           <div
             className="h-full rounded-full"
             style={{
               width: `${progress}%`,
-              backgroundColor: "#FC6904",
+              backgroundColor: "#1F3D34",
               transition: "width 0.1s ease-out",
             }}
           />
         </div>
-        <p className="text-gray-300 text-[11px]">{Math.round(progress)}%</p>
+        <p className="text-[11px] font-semibold" style={{ color: "#1F3D34" }}>{Math.round(progress)}%</p>
       </div>
 
       <style>{`
-        @keyframes ripple {
-          0%   { transform: scale(1);    opacity: 0.3; }
-          100% { transform: scale(2.2);  opacity: 0; }
-        }
         @keyframes spin {
           to { transform: rotate(360deg); }
         }

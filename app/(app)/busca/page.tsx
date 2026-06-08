@@ -60,11 +60,11 @@ const SvgChurrasco = () => (
 
 // ── Categorias ────────────────────────────────────────────────────────────────
 const FOOD_CATEGORIES = [
-  { id: "pizza",      label: "Pizza",      Icon: SvgPizza,      bg: "#FFDDD2", fg: "#C1440E" },
-  { id: "hamburguer", label: "Hambúrguer", Icon: SvgHamburguer, bg: "#FFF3C2", fg: "#A0730A" },
-  { id: "japonesa",   label: "Japonesa",   Icon: SvgJaponesa,   bg: "#FFD6D6", fg: "#B71C1C" },
-  { id: "mexicana",   label: "Mexicana",   Icon: SvgMexicana,   bg: "#FFE8CC", fg: "#BF5C00" },
-  { id: "churrasco",  label: "Churrasco",  Icon: SvgChurrasco,  bg: "#EDE8E3", fg: "#5D4037" },
+  { id: "pizza",      label: "Pizza",      Icon: SvgPizza,      bg: "#E4EFC6", fg: "#2E4F2A" },
+  { id: "hamburguer", label: "Hambúrguer", Icon: SvgHamburguer, bg: "#FDEFCC", fg: "#6B5F2A" },
+  { id: "japonesa",   label: "Japonesa",   Icon: SvgJaponesa,   bg: "#DDEFE5", fg: "#1F4A44" },
+  { id: "mexicana",   label: "Mexicana",   Icon: SvgMexicana,   bg: "#F0E0F2", fg: "#5A4580" },
+  { id: "churrasco",  label: "Churrasco",  Icon: SvgChurrasco,  bg: "#D9E7F0", fg: "#1F4A60" },
 ];
 
 // ── Coordenadas dos restaurantes ──────────────────────────────────────────────
@@ -335,6 +335,14 @@ export default function BuscaPage() {
 
     mapInstance.current = map;
     addMarkers(L, map);
+
+    // Garante que o mapa recalcule seu tamanho conforme o container
+    // (importante pois o container fica travado em max-width: 480px,
+    // diferente da janela do navegador em telas largas/desktop).
+    setTimeout(() => map.invalidateSize(), 100);
+    const handleResize = () => map.invalidateSize();
+    window.addEventListener("resize", handleResize);
+    (map as any)._gluttyResizeHandler = handleResize;
   }, [locationFilter]);
 
   const addMarkers = (L: any, map: any) => {
@@ -401,7 +409,12 @@ export default function BuscaPage() {
       }, 100);
     }
     return () => {
-      if (mapInstance.current) { mapInstance.current.remove(); mapInstance.current = null; }
+      if (mapInstance.current) {
+        const handler = (mapInstance.current as any)._gluttyResizeHandler;
+        if (handler) window.removeEventListener("resize", handler);
+        mapInstance.current.remove();
+        mapInstance.current = null;
+      }
     };
   }, []);
 
@@ -415,7 +428,8 @@ export default function BuscaPage() {
   return (
     <>
     <style>{`body, html { overflow: hidden !important; max-height: 100dvh !important; }`}</style>
-    <div className="fixed inset-0 overflow-hidden" onClick={() => setShowDropdown(false)}>
+    <div className="fixed inset-0 overflow-hidden flex justify-center" style={{ backgroundColor: "#1F3D34" }}>
+    <div className="relative w-full overflow-hidden" style={{ maxWidth: 480 }} onClick={() => setShowDropdown(false)}>
 
       {/* ── MAPA FULL SCREEN ── */}
       <div ref={mapRef} className="absolute inset-0 z-0" />
@@ -475,8 +489,8 @@ export default function BuscaPage() {
                 if (e.key === "Enter" && searchInput.trim()) applyLocation(searchInput.trim());
                 if (e.key === "Escape") setShowDropdown(false);
               }}
-              placeholder="Cidade, estado ou país…"
-              className="flex-1 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-medium"
+              placeholder="Cidade ou país…"
+              className="flex-1 min-w-0 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-medium"
             />
             {searchInput && (
               <button onClick={clearLocation} className="active:scale-90 shrink-0">
@@ -570,8 +584,8 @@ export default function BuscaPage() {
               <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
                 className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-full transition-all active:scale-95 shadow-sm"
                 style={{
-                  backgroundColor: isActive ? cat.fg : "white",
-                  color: isActive ? "#ffffff" : cat.fg,
+                  backgroundColor: isActive ? "#1F3D34" : cat.bg,
+                  color: isActive ? "#C6F59D" : cat.fg,
                 }}
               >
                 <cat.Icon />
@@ -587,8 +601,10 @@ export default function BuscaPage() {
         <div
           className="absolute z-20 rounded-2xl overflow-hidden"
           style={{
-            width: 280, bottom: "calc(env(safe-area-inset-bottom,0px) + 220px)",
-            left: "50%", transform: "translateX(-50%)",
+            width: 280,
+            top: "calc(env(safe-area-inset-top, 0px) + 165px + (100dvh - env(safe-area-inset-top, 0px) - 165px - env(safe-area-inset-bottom, 0px) - 290px) / 2)",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.28)",
           }}
           onClick={e => e.stopPropagation()}
@@ -700,6 +716,7 @@ export default function BuscaPage() {
           <div className="shrink-0 w-2" />
         </div>
       </div>
+    </div>
     </div>
     </>
   );

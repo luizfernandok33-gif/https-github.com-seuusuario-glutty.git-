@@ -27,7 +27,7 @@
   --color-text-disabled: #9E9E9E;
   --color-border: #E5E5E5;
   --color-surface: #FFFFFF;
-  --color-background: #FEF9F9;
+  --color-background: #F5F2DF;
 
   /* ── Button System ── */
   /* Primary — ação principal */
@@ -60,7 +60,7 @@
   --color-brand-red: #E53935;
   --color-brand-red-light: #FDECEC;
   --color-brand-brown: #1C1C1C;
-  --color-brand-cream: #FEF9F9;
+  --color-brand-cream: #F5F2DF;
 
   /* Typography */
   --font-sans: var(--font-nunito), "Nunito", system-ui, sans-serif;
@@ -90,7 +90,7 @@ html {
 }
 
 body {
-  background-color: #FEF9F9;
+  background-color: #F5F2DF;
   color: #1C1C1C;
   font-family: var(--font-nunito), "Nunito", system-ui, sans-serif;
   font-weight: 600;

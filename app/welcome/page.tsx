@@ -79,7 +79,11 @@ export default function WelcomePage() {
     <div
       className="min-h-dvh flex flex-col overflow-hidden"
       style={{
-        backgroundColor: "#F5F0E8",
+        backgroundColor: "#F5F2DF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 32px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
       }}
@@ -177,7 +181,7 @@ export default function WelcomePage() {
         <Link
           href="/login"
           className="block w-full text-center font-black py-4 rounded-full text-base active:scale-95 transition-transform"
-          style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}
+          style={{ backgroundColor: "rgba(31, 61, 52, 0.08)", color: "#1F3D34" }}
         >
           {t.welcome.haveAccount}
         </Link>

@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   Settings, Camera, MapPin, Pencil, ChevronRight,
   Store, UtensilsCrossed, Star, Heart, Globe, Bell,
-  HelpCircle, Info, LogOut, ShieldCheck, Eye, Check,
+  HelpCircle, Info, LogOut, ShieldCheck, Eye, Check, BadgeCheck,
 } from "lucide-react";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
@@ -68,7 +68,7 @@ export default function PerfilPage() {
           <ChevronRight size={18} className="rotate-180" style={{ color: "white" }} />
         </button>
         <div className="flex-1">
-          <h1 className="text-xl font-extrabold text-primary font-display leading-tight">Meu Perfil</h1>
+          <h1 className="text-xl font-extrabold font-display leading-tight" style={{ color: "#1F3D34" }}>Meu Perfil</h1>
           <p className="text-[12px] text-text-disabled mt-0.5">Suas informações e preferências</p>
         </div>
 
@@ -217,9 +217,9 @@ export default function PerfilPage() {
           {/* Diagnóstico */}
           <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">Diagnóstico</p>
           <div className="flex items-center gap-2 mb-5">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ backgroundColor: "#E0F7FA" }}>
-              <ShieldCheck size={12} style={{ color: "#00838F" }} />
-              <span className="text-[12px] font-bold" style={{ color: "#00838F" }}>Celíaca</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
+              <BadgeCheck size={12} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
+              <span className="text-[12px] font-bold" style={{ color: "#C6F59D" }}>Celíaca</span>
             </div>
             <span className="text-[10px] text-text-disabled italic">· não removível</span>
           </div>

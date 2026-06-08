@@ -34,6 +34,10 @@ export default function CadastroPage() {
       className="min-h-dvh flex flex-col px-6"
       style={{
         backgroundColor: "#FFFFFF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
       }}

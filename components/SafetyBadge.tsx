@@ -1,5 +1,22 @@
 import { type SafetyLevel } from "@/lib/data";
 
+function IconAdaptavel({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48.5,2h-3C44.7,2,44,2.7,44,3.5v7c0,0.9-1,1.5-1.6,0.8l0,0C37.7,6.1,31,3.4,23.7,4.1c-2.6,0.2-5.1,1-7.4,2.2c-1.2,0.6-2.4,1.3-3.4,2.1c-0.7,0.5-0.8,1.6-0.2,2.3l2.1,2.1c0.5,0.5,1.3,0.6,1.9,0.2c1.2-0.8,2.5-1.5,3.9-2.1c0.6-0.2,1.3-0.4,2-0.6c6.3-1.2,12.3,1.3,15.7,5.4c1.2,1.4,0.3,2.3-0.7,2.3h-7c-0.8,0-1.6,0.7-1.6,1.5v3c0,0.8,0.8,1.5,1.6,1.5h18.2c0.7,0,1.2-0.6,1.2-1.3V3.5C50,2.7,49.3,2,48.5,2z" fill="currentColor"/>
+      <path d="M39.4,37.4c-0.6-0.6-1.5-0.6-2.1,0c-1.6,1.6-3.6,2.9-5.8,3.7c-0.6,0.2-1.3,0.4-2,0.6c-6.3,1.2-12.3-1.3-15.7-5.4c-1.2-1.4-0.3-2.3,0.7-2.3h7c0.8,0,1.5-0.7,1.5-1.5v-3c0-0.8-0.7-1.5-1.5-1.5H3.3C2.6,28,2,28.6,2,29.3v19.2C2,49.3,2.7,50,3.5,50h3C7.3,50,8,49.3,8,48.5v-7c0-0.9,1-1.5,1.6-0.8l0,0c4.6,5.2,11.4,7.9,18.7,7.2c2.6-0.2,5.1-1,7.4-2.2c2.2-1.1,4.1-2.5,5.7-4.1c0.6-0.6,0.6-1.6,0-2.1L39.4,37.4z" fill="currentColor"/>
+    </svg>
+  );
+}
+
+function IconEstrela({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.327.588c.36.645.54.968.821 1.181.28.213.63.292 1.328.45l.637.144C20.42 8.329 21.65 8.607 21.943 9.548c.292.94-.547 1.92-2.224 3.881l-.433.507c-.477.557-.715.836-.822 1.18-.107.345-.071.717.001 1.46l.065.677c.254 2.616.38 3.924-.385 4.506-.767.581-1.918.051-4.221-1.009l-.596-.274A2.819 2.819 0 0 0 12 20.025a2.819 2.819 0 0 0-1.329.451l-.595.274c-2.303 1.06-3.454 1.59-4.221 1.009-.767-.582-.64-1.89-.385-4.506l.065-.677c.072-.743.108-1.115.001-1.46-.107-.344-.345-.623-.822-1.18l-.433-.507C2.665 11.47 1.826 10.488 2.119 9.548 2.411 8.607 3.64 8.33 6.1 7.772l.636-.143c.7-.159 1.049-.238 1.33-.451.28-.213.46-.536.82-1.182l.327-.588Z" fill="currentColor"/>
+    </svg>
+  );
+}
+
 function IconEscudo({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +28,7 @@ function IconEscudo({ size }: { size: number }) {
 function IconCheck({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="currentColor"/>
+      <path d="M4 14L9 19L20 8M6 8.88889L9.07692 12L16 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
 }
@@ -26,7 +43,7 @@ function IconPerigo({ size }: { size: number }) {
 
 const config: Record<
   SafetyLevel,
-  { label: string; bg: string; text: string; Icon: React.ElementType }
+  { label: string; labelSm?: string; bg: string; text: string; Icon: React.ElementType }
 > = {
   muito_seguro: {
     label: "Muito seguro",
@@ -42,15 +59,16 @@ const config: Record<
   },
   certificado: {
     label: "Bem avaliado por celíacos",
+    labelSm: "Bem avaliado",
     bg: "#3B82F6",
     text: "#FFFFFF",
-    Icon: IconEscudo,
+    Icon: IconEstrela,
   },
   moderado: {
     label: "Adaptável",
     bg: "#F59E0B",
     text: "#FFFFFF",
-    Icon: IconPerigo,
+    Icon: IconAdaptavel,
   },
   cuidado: {
     label: "Cuidado",
@@ -66,9 +84,10 @@ const config: Record<
   },
   novo: {
     label: "Bem avaliado por celíacos",
+    labelSm: "Bem avaliado",
     bg: "#3B82F6",
     text: "#FFFFFF",
-    Icon: IconEscudo,
+    Icon: IconEstrela,
   },
   recomendado: {
     label: "Muito seguro",
@@ -90,8 +109,9 @@ interface SafetyBadgeProps {
 }
 
 export default function SafetyBadge({ level, size = "md" }: SafetyBadgeProps) {
-  const { label, bg, text, Icon } = config[level];
+  const { label, labelSm, bg, text, Icon } = config[level];
   const { px, py, gap, fontSize, iconSize } = sizes[size];
+  const displayLabel = size === "sm" && labelSm ? labelSm : label;
 
   return (
     <span
@@ -99,7 +119,7 @@ export default function SafetyBadge({ level, size = "md" }: SafetyBadgeProps) {
       style={{ backgroundColor: bg, color: text, paddingLeft: px, paddingRight: px, paddingTop: py, paddingBottom: py, gap }}
     >
       <Icon size={iconSize} />
-      <span style={{ fontSize, letterSpacing: "0.04em", textTransform: "uppercase" }}>{label}</span>
+      <span style={{ fontSize, letterSpacing: "0.04em", textTransform: "uppercase" }}>{displayLabel}</span>
     </span>
   );
 }

@@ -7,6 +7,7 @@ import { mockRestaurants } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
+import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { palette, getRestrictionColor, getIngredientColor } from "@/lib/tags";
 
 const contamRiskConfig = {
@@ -45,10 +46,14 @@ export default function DishDetailPage({
 
       {/* Hero */}
       <div className="relative h-64">
-        <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+        {dish.image ? (
+          <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+        ) : (
+          <DishImagePlaceholder rounded={0} />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
 
-        <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
+        <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 28px)" }}>
           <Link href={`/restaurante/${restaurant.id}`}
             className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
             <ArrowLeft size={18} className="text-text-primary" />
@@ -203,7 +208,11 @@ export default function DishDetailPage({
                 <Link key={d.id} href={`/restaurante/${restaurant.id}/prato/${d.id}`}
                   className="flex items-start gap-3 bg-surface rounded-2xl p-3 border border-border/50 shadow-sm active:scale-[0.98] transition-transform">
                   <div className="relative w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
-                    <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
+                    {d.image ? (
+                      <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
+                    ) : (
+                      <DishImagePlaceholder rounded={12} />
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     {/* 1. Nome + rating */}

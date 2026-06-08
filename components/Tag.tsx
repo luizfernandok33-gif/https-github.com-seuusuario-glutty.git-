@@ -28,9 +28,11 @@ export default function Tag({
     <span className="inline-flex items-center gap-1.5 flex-wrap">
       <Tag
         onClick={onClick}
-        className="inline-flex items-center rounded-full font-semibold transition-all active:scale-95"
+        className="inline-flex items-center rounded-full transition-all active:scale-95"
         style={{
           fontSize,
+          fontFamily: "var(--font-nunito), 'Nunito', sans-serif",
+          fontWeight: 900,
           paddingLeft: px,
           paddingRight: px,
           paddingTop: py,
@@ -50,9 +52,11 @@ export default function Tag({
         <>
           <span style={{ fontSize: "10px", color: "#B7791F" }}>→</span>
           <span
-            className="inline-flex items-center rounded-full font-semibold"
+            className="inline-flex items-center rounded-full"
             style={{
               fontSize,
+              fontFamily: "var(--font-nunito), 'Nunito', sans-serif",
+              fontWeight: 900,
               paddingLeft: px,
               paddingRight: px,
               paddingTop: py,

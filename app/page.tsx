@@ -11,12 +11,12 @@ export default function SplashPage() {
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("in"),    50);
     const t2 = setTimeout(() => setPhase("hold"),  900);
-    const t3 = setTimeout(() => setPhase("out"),  5500);
-    const t4 = setTimeout(() => router.replace("/idioma"), 6200);
+    const t3 = setTimeout(() => setPhase("out"),  8000);
+    const t4 = setTimeout(() => router.replace("/idioma"), 8700);
 
-    // Progress — sincronizado com o tempo de exibição da tela (5 500 ms)
+    // Progress — sincronizado com o tempo de exibição da tela (8 000 ms)
     const startTime = Date.now();
-    const DURATION  = 5400; // termina um tique antes do fade-out em 5 500 ms
+    const DURATION  = 7900; // termina um tique antes do fade-out em 8 000 ms
     const interval  = setInterval(() => {
       const elapsed = Date.now() - startTime;
       const pct     = Math.min((elapsed / DURATION) * 100, 100);
@@ -35,12 +35,23 @@ export default function SplashPage() {
 
   return (
     <div
-      className="min-h-dvh flex flex-col items-center justify-center px-8 overflow-hidden"
+      className="min-h-dvh flex flex-col items-center justify-center px-8 overflow-hidden relative"
       style={{ backgroundColor: "#FFFFFF" }}
     >
+      {/* Background pattern — fade in gradual */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url('/pattern-tela-splasch.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
       {/* Mascot */}
       <div
-        className="mb-10"
+        className="mb-10 relative z-10"
         style={{
           transform: isIn
             ? "translateY(0) scale(1)"
@@ -66,17 +77,18 @@ export default function SplashPage() {
 
       {/* Progress bar */}
       <div
-        className="w-full flex flex-col items-center gap-2"
+        className="w-full flex flex-col items-center gap-2 relative z-10"
         style={{
           opacity: phase === "hold" || phase === "out" ? 1 : 0,
           transition: "opacity 0.4s ease 0.3s",
           maxWidth: 240,
+          marginTop: 56,
         }}
       >
         {/* Track */}
         <div
           className="w-full overflow-hidden"
-          style={{ height: 12, borderRadius: 999, backgroundColor: "#C6F59D" }}
+          style={{ height: 18, borderRadius: 999, backgroundColor: "#87AB39" }}
         >
           {/* Fill */}
           <div

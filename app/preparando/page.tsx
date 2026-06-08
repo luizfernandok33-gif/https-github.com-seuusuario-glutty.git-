@@ -43,6 +43,10 @@ export default function PreparandoPage() {
       className="min-h-dvh flex flex-col items-center justify-center px-8 text-center"
       style={{
         backgroundColor: "#FFFFFF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
       }}
@@ -131,7 +135,7 @@ export default function PreparandoPage() {
 
       {/* Progress bar */}
       <div className="w-full max-w-xs">
-        <div className="w-full h-2 rounded-full overflow-hidden mb-2" style={{ backgroundColor: "#C6F59D" }}>
+        <div className="w-full h-2 rounded-full overflow-hidden mb-2" style={{ backgroundColor: "#87AB39" }}>
           <div
             className="h-full rounded-full"
             style={{

@@ -49,6 +49,10 @@ export default function IdiomaPage() {
         paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
         paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
         backgroundColor: "#FFFFFF",
+        backgroundImage: "url('/pattern-tela-splasch.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Logo */}
@@ -66,10 +70,10 @@ export default function IdiomaPage() {
 
       {/* Título */}
       <div className="mb-6">
-        <h1 className="text-[26px] font-black text-center font-display leading-tight" style={{ color: "#1F3D34" }}>
+        <h1 className="text-[26px] font-black text-center font-display leading-tight" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
           {t.idioma.title}
         </h1>
-        <p className="text-center text-[13px] mt-1.5" style={{ color: "#6B9E7E" }}>
+        <p className="text-center text-[13px] mt-1.5" style={{ color: "#6B9E7E", textWrap: "balance" } as React.CSSProperties}>
           {t.idioma.subtitle}
         </p>
       </div>
