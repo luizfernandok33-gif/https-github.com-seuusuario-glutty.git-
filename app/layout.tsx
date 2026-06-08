@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import Script from "next/script";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -78,7 +79,7 @@ export default function RootLayout({
       </head>
 
       <body className="min-h-full">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
 
     </html>

@@ -3,8 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import type { Translations } from "@/lib/i18n/translations";
 
-function getStrength(pwd: string): { level: 0 | 1 | 2 | 3; label: string; color: string } {
+function getStrength(
+  pwd: string,
+  labels: Translations["cadastro"]["passwordStrength"]
+): { level: 0 | 1 | 2 | 3; label: string; color: string } {
   if (!pwd) return { level: 0, label: "", color: "" };
   let score = 0;
   if (pwd.length >= 8) score++;
@@ -12,16 +17,17 @@ function getStrength(pwd: string): { level: 0 | 1 | 2 | 3; label: string; color:
   if (/[0-9]/.test(pwd)) score++;
   if (/[^A-Za-z0-9]/.test(pwd)) score++;
 
-  if (score <= 1) return { level: 1, label: "Fraca",  color: "#EF4444" };
-  if (score <= 2) return { level: 2, label: "Média",  color: "#F59E0B" };
-  return           { level: 3, label: "Forte",  color: "#22C55E" };
+  if (score <= 1) return { level: 1, label: labels.weak,   color: "#EF4444" };
+  if (score <= 2) return { level: 2, label: labels.medium, color: "#F59E0B" };
+  return           { level: 3, label: labels.strong, color: "#22C55E" };
 }
 
 export default function CadastroPage() {
+  const { t } = useLanguage();
   const [password, setPassword]       = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const strength = getStrength(password);
+  const strength = getStrength(password, t.cadastro.passwordStrength);
 
   return (
     <div
@@ -41,7 +47,7 @@ export default function CadastroPage() {
         >
           <ArrowLeft size={18} style={{ color: "#C6F59D" }} />
         </Link>
-        <h2 className="font-black text-base" style={{ color: "#1F3D34" }}>Criar conta</h2>
+        <h2 className="font-black text-base" style={{ color: "#1F3D34" }}>{t.cadastro.headerTitle}</h2>
       </div>
 
       {/* Logo */}
@@ -58,17 +64,17 @@ export default function CadastroPage() {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl font-black mb-2 font-display" style={{ color: "#1F3D34" }}>Cadastro</h1>
-      <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>Crie sua conta para começar</p>
+      <h1 className="text-2xl font-black mb-2 font-display" style={{ color: "#1F3D34" }}>{t.cadastro.title}</h1>
+      <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>{t.cadastro.subtitle}</p>
 
       {/* Form */}
       <form className="space-y-4 flex-1" onSubmit={(e) => e.preventDefault()}>
 
         <div>
-          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>Nome</label>
+          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>{t.cadastro.name}</label>
           <input
             type="text"
-            placeholder="Seu nome completo"
+            placeholder={t.cadastro.namePlaceholder}
             className="w-full rounded-2xl px-4 py-3.5 text-sm outline-none transition-colors"
             style={{
               backgroundColor: "#fff",
@@ -79,10 +85,10 @@ export default function CadastroPage() {
         </div>
 
         <div>
-          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>E-mail</label>
+          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>{t.cadastro.email}</label>
           <input
             type="email"
-            placeholder="seu@email.com"
+            placeholder={t.cadastro.emailPlaceholder}
             className="w-full rounded-2xl px-4 py-3.5 text-sm outline-none transition-colors"
             style={{
               backgroundColor: "#fff",
@@ -93,11 +99,11 @@ export default function CadastroPage() {
         </div>
 
         <div>
-          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>Senha</label>
+          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>{t.cadastro.password}</label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="mínimo 8 caracteres"
+              placeholder={t.cadastro.passwordPlaceholder}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-2xl px-4 py-3.5 pr-12 text-sm outline-none transition-colors"
@@ -130,7 +136,7 @@ export default function CadastroPage() {
                 ))}
               </div>
               <p className="text-[11px] font-semibold" style={{ color: strength.color }}>
-                Senha {strength.label}
+                {t.cadastro.passwordStrength.label.replace("{strength}", strength.label)}
               </p>
             </div>
           )}
@@ -142,12 +148,12 @@ export default function CadastroPage() {
             className="block w-full text-center font-bold py-4 rounded-full text-base active:scale-95 transition-transform"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            Cadastrar
+            {t.cadastro.submit}
           </Link>
           <p className="text-center text-sm font-semibold" style={{ color: "#5A6B65" }}>
-            Já tem conta?{" "}
+            {t.cadastro.haveAccount}{" "}
             <Link href="/login" className="font-black" style={{ color: "#1F3D34" }}>
-              Fazer login
+              {t.cadastro.login}
             </Link>
           </p>
         </div>

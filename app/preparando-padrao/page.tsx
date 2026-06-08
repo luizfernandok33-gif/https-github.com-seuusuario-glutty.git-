@@ -2,16 +2,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ShieldCheck, Utensils, MapPin, CheckCircle, Check } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
-const steps = [
-  { icon: ShieldCheck,   label: "Aplicando um padrão de segurança inicial..."     },
-  { icon: Utensils,      label: "Filtrando opções com base nesse padrão..."        },
-  { icon: MapPin,        label: "Mostrando restaurantes mais seguros para você..."  },
-  { icon: CheckCircle,   label: "Preparando sua experiência..."                    },
-];
+const stepIcons = [ShieldCheck, Utensils, MapPin, CheckCircle];
 
 export default function PreparandoPadraoPage() {
   const router = useRouter();
+  const { t } = useLanguage();
+  const steps = stepIcons.map((icon, i) => ({ icon, label: t.preparandoPadrao.steps[i] }));
   const [currentStep, setCurrentStep] = useState(0);
   const [done, setDone]               = useState(false);
   const [progress, setProgress]       = useState(0);
@@ -80,20 +78,20 @@ export default function PreparandoPadraoPage() {
       {/* Heading */}
       {!done ? (
         <>
-          <h1 className="text-[22px] font-extrabold text-gray-900 leading-snug mb-2">
-            Preparando sua<br />experiência
+          <h1 className="text-[22px] font-extrabold text-gray-900 leading-snug mb-2 whitespace-pre-line">
+            {t.preparandoPadrao.title}
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
-            Estamos usando um padrão de segurança para começar.
+            {t.preparandoPadrao.subtitle}
           </p>
         </>
       ) : (
         <>
           <h1 className="text-[22px] font-extrabold leading-snug mb-2" style={{ color: "#FC6904" }}>
-            Tudo pronto!
+            {t.preparandoPadrao.doneTitle}
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
-            Estamos usando um padrão de segurança para começar. Bem-vindo ao Glútty!
+            {t.preparandoPadrao.doneSubtitle}
           </p>
         </>
       )}

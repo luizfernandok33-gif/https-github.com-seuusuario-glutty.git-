@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 // ── Ícones inline ─────────────────────────────────────────────────────────────
 const IconOlho = () => (
@@ -43,53 +44,34 @@ const IconStar = () => (
   </svg>
 );
 
-// ── Slides ────────────────────────────────────────────────────────────────────
-const slides = [
-  {
-    eyebrow: "Para celíacos",
-    title: "Coma fora sem ansiedade.\nPela primeira vez.",
-    subtitle: "Tenha acesso a detalhes que ajudam você a escolher com mais confiança.",
-    image: "/Para celiacos.png",
-    bullets: [
-      { Icon: IconOlho,   text: "Veja experiências de outros usuários" },
-      { Icon: IconLupa,   text: "Entenda melhor os riscos" },
-      { Icon: IconTrend,  text: "Escolha com mais confiança" },
-    ],
-  },
-  {
-    eyebrow: "Mais clareza antes de escolher",
-    title: "Mais clareza\nantes de escolher",
-    subtitle: "Use filtros inteligentes para encontrar lugares mais adequados para você.",
-    image: "/Mais clareza.png",
-    bullets: [
-      { Icon: IconEscudo, text: "Pratos com certificação celíaca" },
-      { Icon: IconCheck,  text: "Sem risco de contaminação cruzada" },
-      { Icon: IconLupa,   text: "Ingredientes verificados" },
-    ],
-  },
-  {
-    eyebrow: "Comunidade real",
-    title: "Baseado em experiências\nde outros celíacos.",
-    subtitle: "Veja avaliações e recomendações de quem já passou por lá.",
-    image: "/Comunidade real.png",
-    bullets: [
-      { Icon: IconChat,   text: "Avaliações de celíacos reais" },
-      { Icon: IconStar,   text: "Experiências compartilhadas" },
-      { Icon: IconTrend,  text: "Comunidade ativa e engajada" },
-    ],
-  },
+// ── Slides (imagens e ícones são fixos; texto vem da tradução) ───────────────
+const slideAssets = [
+  { image: "/Para celiacos.png", icons: [IconOlho, IconLupa, IconTrend] },
+  { image: "/Mais clareza.png", icons: [IconEscudo, IconCheck, IconLupa] },
+  { image: "/Comunidade real.png", icons: [IconChat, IconStar, IconTrend] },
 ];
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function WelcomePage() {
+  const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
+
+  const slides = slideAssets.map((asset, i) => {
+    const text = t.welcome.slides[i];
+    return {
+      image: asset.image,
+      title: text.title,
+      subtitle: text.subtitle,
+      bullets: asset.icons.map((Icon, j) => ({ Icon, text: text.bullets[j] })),
+    };
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const slide = slides[current];
 
@@ -190,14 +172,14 @@ export default function WelcomePage() {
           className="block w-full text-center font-black py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
           style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
         >
-          Criar conta grátis
+          {t.welcome.createAccount}
         </Link>
         <Link
           href="/login"
           className="block w-full text-center font-black py-4 rounded-full text-base active:scale-95 transition-transform"
           style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}
         >
-          Já tenho conta
+          {t.welcome.haveAccount}
         </Link>
       </div>
     </div>

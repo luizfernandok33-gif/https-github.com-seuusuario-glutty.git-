@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import type { Language } from "@/lib/i18n/translations";
 
-const languages = [
+const languages: { code: Language | "de"; name: string; region: string; flag: string; phrase: string }[] = [
   {
     code: "pt",
     name: "Português",
@@ -30,7 +32,15 @@ const languages = [
 
 export default function IdiomaPage() {
   const router = useRouter();
-  const [selected, setSelected] = useState("pt");
+  const { language, setLanguage, t } = useLanguage();
+  const [selected, setSelected] = useState<string>(language);
+
+  const handleContinue = () => {
+    if (selected === "pt" || selected === "en") {
+      setLanguage(selected);
+    }
+    router.replace("/welcome");
+  };
 
   return (
     <div
@@ -57,10 +67,10 @@ export default function IdiomaPage() {
       {/* Título */}
       <div className="mb-6">
         <h1 className="text-[26px] font-black text-center font-display leading-tight" style={{ color: "#1F3D34" }}>
-          Selecione o idioma
+          {t.idioma.title}
         </h1>
         <p className="text-center text-[13px] mt-1.5" style={{ color: "#6B9E7E" }}>
-          Choose your language · Sprache auswählen
+          {t.idioma.subtitle}
         </p>
       </div>
 
@@ -128,11 +138,11 @@ export default function IdiomaPage() {
       {/* CTA */}
       <div className="mt-auto pt-6 pb-0">
         <button
-          onClick={() => router.replace("/welcome")}
+          onClick={handleContinue}
           className="w-full py-4 rounded-full font-bold text-base active:scale-95 transition-transform"
           style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
         >
-          Continuar
+          {t.idioma.continue}
         </button>
       </div>
     </div>

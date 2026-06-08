@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 import { Mail, ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import BackButton from "@/components/BackButton";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export default function EsqueciSenhaPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [email, setEmail]     = useState("");
   const [sent, setSent]       = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,23 +50,23 @@ export default function EsqueciSenhaPage() {
             <Mail size={28} style={{ color: "#1F3D34" }} />
           </div>
 
-          <h1 className="text-[28px] font-black leading-tight mb-2 font-display" style={{ color: "#1F3D34" }}>
-            Esqueceu a<br />senha?
+          <h1 className="text-[28px] font-black leading-tight mb-2 font-display whitespace-pre-line" style={{ color: "#1F3D34" }}>
+            {t.esqueciSenha.title}
           </h1>
           <p className="text-sm font-semibold mb-6 leading-relaxed" style={{ color: "#5A6B65" }}>
-            Sem problema! Digite seu e-mail e enviaremos um link para você criar uma nova senha.
+            {t.esqueciSenha.subtitle}
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold mb-1.5" style={{ color: "#1F3D34" }}>E-mail</label>
+              <label className="block text-sm font-semibold mb-1.5" style={{ color: "#1F3D34" }}>{t.esqueciSenha.email}</label>
               <div className="relative">
                 <Mail size={15} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "#8FA89E" }} />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="seu@email.com"
+                  placeholder={t.esqueciSenha.emailPlaceholder}
                   className="w-full rounded-xl pl-10 pr-4 py-3.5 text-sm outline-none transition-colors"
                   style={{ border: `1.5px solid ${isValid ? "#1F3D34" : "#D4EDD4"}`, color: "#1F3D34", backgroundColor: "#fff" }}
                 />
@@ -81,7 +83,7 @@ export default function EsqueciSenhaPage() {
                 <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
                 <>
-                  <span>Enviar link</span>
+                  <span>{t.esqueciSenha.submit}</span>
                   <ArrowRight size={16} strokeWidth={2.5} />
                 </>
               )}
@@ -89,9 +91,9 @@ export default function EsqueciSenhaPage() {
           </form>
 
           <p className="text-center text-xs font-semibold mt-6" style={{ color: "#5A6B65" }}>
-            Lembrou a senha?{" "}
+            {t.esqueciSenha.rememberedPassword}{" "}
             <Link href="/login" className="font-black" style={{ color: "#1F3D34" }}>
-              Entrar
+              {t.esqueciSenha.login}
             </Link>
           </p>
         </div>
@@ -106,14 +108,14 @@ export default function EsqueciSenhaPage() {
           </div>
 
           <h2 className="text-[26px] font-black leading-tight mb-2 font-display" style={{ color: "#1F3D34" }}>
-            E-mail enviado!
+            {t.esqueciSenha.sentTitle}
           </h2>
           <p className="text-sm font-semibold leading-relaxed max-w-[280px] mb-2" style={{ color: "#5A6B65" }}>
-            Enviamos um link para{" "}
+            {t.esqueciSenha.sentSubtitlePrefix}{" "}
             <span className="font-black" style={{ color: "#1F3D34" }}>{email}</span>
           </p>
           <p className="text-xs font-semibold leading-relaxed max-w-[260px] mb-10" style={{ color: "#8FA89E" }}>
-            Verifique sua caixa de entrada e a pasta de spam. O link é válido por 30 minutos.
+            {t.esqueciSenha.sentHint}
           </p>
 
           <button
@@ -121,14 +123,14 @@ export default function EsqueciSenhaPage() {
             className="w-full font-black py-4 rounded-full text-base shadow-md active:scale-95 transition-transform"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            Voltar ao login
+            {t.esqueciSenha.backToLogin}
           </button>
 
           <button
             onClick={() => setSent(false)}
             className="mt-4 text-xs font-semibold active:scale-95 transition-transform" style={{ color: "#8FA89E" }}
           >
-            Não recebi o e-mail — reenviar
+            {t.esqueciSenha.resend}
           </button>
         </div>
       )}

@@ -3,16 +3,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ShieldCheck, Utensils, MapPin, Star, Check } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
-const steps = [
-  { icon: ShieldCheck, label: "Identificando suas restrições alimentares..." },
-  { icon: Utensils,    label: "Filtrando pratos compatíveis com você..."      },
-  { icon: MapPin,      label: "Mapeando restaurantes alinhados ao seu perfil..." },
-  { icon: Star,        label: "Preparando suas recomendações seguras..."       },
-];
+const stepIcons = [ShieldCheck, Utensils, MapPin, Star];
 
 export default function PreparandoPage() {
   const router = useRouter();
+  const { t } = useLanguage();
+  const steps = stepIcons.map((icon, i) => ({ icon, label: t.preparando.steps[i] }));
   const [currentStep, setCurrentStep] = useState(0);
   const [done, setDone]               = useState(false);
   const [progress, setProgress]       = useState(0);
@@ -65,19 +63,19 @@ export default function PreparandoPage() {
       {!done ? (
         <>
           <h1 className="text-[22px] font-black leading-snug mb-2 font-display" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
-            Preparando sua experiência personalizada
+            {t.preparando.title}
           </h1>
           <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#5A6B65", textWrap: "balance" } as React.CSSProperties}>
-            Estamos configurando sua experiência com base nas suas escolhas.
+            {t.preparando.subtitle}
           </p>
         </>
       ) : (
         <>
           <h1 className="text-[22px] font-black leading-snug mb-2 font-display" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
-            Tudo pronto!
+            {t.preparando.doneTitle}
           </h1>
           <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#5A6B65", textWrap: "balance" } as React.CSSProperties}>
-            Sua experiência foi personalizada. Bem-vinda ao Glútty!
+            {t.preparando.doneSubtitle}
           </p>
         </>
       )}

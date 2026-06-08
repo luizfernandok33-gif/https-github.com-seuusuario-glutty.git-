@@ -4,9 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -27,7 +29,7 @@ export default function LoginPage() {
         >
           <ArrowLeft size={18} style={{ color: "#C6F59D" }} />
         </Link>
-        <h2 className="font-black text-base" style={{ color: "#1F3D34" }}>Entrar</h2>
+        <h2 className="font-black text-base" style={{ color: "#1F3D34" }}>{t.login.headerTitle}</h2>
       </div>
 
       {/* Logo */}
@@ -45,29 +47,29 @@ export default function LoginPage() {
 
       {/* Title */}
       <h1 className="text-2xl font-black mb-2 font-display" style={{ color: "#1F3D34" }}>
-        Bem-vindo de volta!
+        {t.login.title}
       </h1>
-      <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>Acesse sua conta para continuar.</p>
+      <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>{t.login.subtitle}</p>
 
       {/* Form */}
       <form className="space-y-4 flex-1" onSubmit={(e) => { e.preventDefault(); router.push("/onboarding"); }}>
 
         <div>
-          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>E-mail</label>
+          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>{t.login.email}</label>
           <input
             type="email"
-            placeholder="seu@email.com"
+            placeholder={t.login.emailPlaceholder}
             className="w-full rounded-2xl px-4 py-3.5 text-sm outline-none transition-colors"
             style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4", color: "#1F3D34" }}
           />
         </div>
 
         <div>
-          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>Senha</label>
+          <label className="block font-semibold text-sm mb-1.5" style={{ color: "#1F3D34" }}>{t.login.password}</label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="sua senha"
+              placeholder={t.login.passwordPlaceholder}
               className="w-full rounded-2xl px-4 py-3.5 pr-12 text-sm outline-none transition-colors"
               style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4", color: "#1F3D34" }}
             />
@@ -85,7 +87,7 @@ export default function LoginPage() {
         {/* Esqueceu a senha */}
         <div className="flex justify-end">
           <Link href="/esqueci-senha" className="text-xs font-semibold" style={{ color: "#1F3D34" }}>
-            Esqueceu a senha?
+            {t.login.forgotPassword}
           </Link>
         </div>
 
@@ -95,14 +97,14 @@ export default function LoginPage() {
           className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform"
           style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
         >
-          Entrar
+          {t.login.submit}
         </button>
       </form>
 
       {/* Divider */}
       <div className="flex items-center gap-3 my-5">
         <div className="flex-1 h-px" style={{ backgroundColor: "#E8EDE9" }} />
-        <span className="text-xs" style={{ color: "#8FA89E" }}>ou entre com</span>
+        <span className="text-xs" style={{ color: "#8FA89E" }}>{t.login.orContinueWith}</span>
         <div className="flex-1 h-px" style={{ backgroundColor: "#E8EDE9" }} />
       </div>
 
@@ -139,9 +141,9 @@ export default function LoginPage() {
 
       {/* Criar conta */}
       <p className="text-center text-xs font-semibold mt-6" style={{ color: "#5A6B65" }}>
-        Ainda não tem conta?{" "}
+        {t.login.noAccount}{" "}
         <Link href="/cadastro" className="font-black" style={{ color: "#1F3D34" }}>
-          Criar conta →
+          {t.login.createAccount}
         </Link>
       </p>
     </div>

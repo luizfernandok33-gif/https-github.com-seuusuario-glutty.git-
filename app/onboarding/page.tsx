@@ -5,6 +5,7 @@ import Image from "next/image";
 import { X, CheckCircle, AlertTriangle, ChevronLeft } from "lucide-react";
 import { allergenConfig, palette, selectedStyle, getIngredientColor } from "@/lib/tags";
 import { tagSizes } from "@/lib/tags";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 const ALLERGENS = [
   "gluten","lactose","frutose","caseina","oleaginosas",
@@ -41,6 +42,7 @@ const PROBLEM_SUGGESTIONS = [
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [step, setStep] = useState<1 | 2 | "ingredientes" | 3 | "skip_confirm" | "skip_final">(1);
 
   // Step 2 — alérgenos
@@ -124,11 +126,11 @@ export default function OnboardingPage() {
               />
             </div>
           </div>
-          <h1 className="text-[26px] font-black leading-tight mb-3 font-display" style={{ color: "#1F3D34" }}>
-            Vamos definir o que<br />é seguro para você?
+          <h1 className="text-[26px] font-black leading-tight mb-3 font-display whitespace-pre-line" style={{ color: "#1F3D34" }}>
+            {t.onboarding.step1.title}
           </h1>
           <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
-            Personalize sua experiência para encontrar restaurantes seguros para você.
+            {t.onboarding.step1.subtitle}
           </p>
         </div>
         <div className="space-y-3 mt-auto pt-6">
@@ -137,13 +139,13 @@ export default function OnboardingPage() {
             className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            Vamos sim!
+            {t.onboarding.step1.cta}
           </button>
           <button
             onClick={() => setStep("skip_confirm")}
             className="w-full font-semibold text-sm py-3 active:scale-95 transition-transform" style={{ color: "#1F3D34" }}
           >
-            Agora não
+            {t.onboarding.step1.skip}
           </button>
         </div>
       </div>
@@ -162,13 +164,13 @@ export default function OnboardingPage() {
       >
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <h1 className="text-[24px] font-extrabold text-primary leading-tight mb-2 font-display">
-            Prefere configurar isso depois?
+            {t.onboarding.skipConfirm.title}
           </h1>
           <h2 className="text-[20px] font-bold text-primary leading-snug mb-6">
-            Definir suas restrições ajuda a encontrar opções mais seguras.
+            {t.onboarding.skipConfirm.subtitle}
           </h2>
           <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
-            Você pode adicionar ou ajustar suas restrições a qualquer momento no perfil.
+            {t.onboarding.skipConfirm.description}
           </p>
         </div>
         <div className="space-y-3 mt-auto pt-6">
@@ -177,14 +179,14 @@ export default function OnboardingPage() {
             className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            Definir agora
+            {t.onboarding.skipConfirm.cta}
           </button>
           <button
             onClick={() => setStep("skip_final")}
             className="w-full bg-background font-semibold py-4 rounded-full text-base active:scale-95 transition-transform"
             style={{ border: "1.5px solid #1F3D34", color: "#1F3D34" }}
           >
-            Agora não
+            {t.onboarding.skipConfirm.skip}
           </button>
         </div>
       </div>
@@ -203,10 +205,10 @@ export default function OnboardingPage() {
       >
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <h1 className="text-[22px] font-extrabold text-primary leading-snug mb-6 font-display">
-            Vamos aplicar um padrão de segurança baseado em pessoas com restrição ao glúten.
+            {t.onboarding.skipFinal.title}
           </h1>
-          <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
-            Você pode ajustar suas restrições a qualquer momento no seu perfil.{"\n\n"}Sem personalização, algumas recomendações podem não refletir totalmente suas necessidades.
+          <p className="text-text-secondary text-sm leading-relaxed max-w-xs whitespace-pre-line">
+            {t.onboarding.skipFinal.description}
           </p>
         </div>
         <div className="space-y-3 mt-auto pt-6">
@@ -215,14 +217,14 @@ export default function OnboardingPage() {
             className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            Definir agora
+            {t.onboarding.skipFinal.cta}
           </button>
           <button
             onClick={() => router.push("/preparando-padrao")}
             className="w-full bg-background font-semibold py-4 rounded-full text-base active:scale-95 transition-transform"
             style={{ border: "1.5px solid #1F3D34", color: "#1F3D34" }}
           >
-            Continuar sem personalizar
+            {t.onboarding.skipFinal.skip}
           </button>
         </div>
       </div>
@@ -253,7 +255,7 @@ export default function OnboardingPage() {
           </button>
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1.5">
-              <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>Etapa 1 de 3</span>
+              <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>{t.onboarding.step2.progress}</span>
               <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>33%</span>
             </div>
             <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#C6F59D" }}>
@@ -263,11 +265,11 @@ export default function OnboardingPage() {
         </div>
 
         {/* Título + subtítulo — elementos irmãos: gap pequeno (8 px) */}
-        <h1 className="text-[24px] font-extrabold text-primary leading-tight mb-2 font-display">
-          O que excluir do<br />seu cardápio?
+        <h1 className="text-[24px] font-extrabold text-primary leading-tight mb-2 font-display whitespace-pre-line">
+          {t.onboarding.step2.title}
         </h1>
         <p className="text-text-secondary text-sm leading-relaxed mb-6">
-          Selecione o que você não pode consumir.
+          {t.onboarding.step2.subtitle}
         </p>
 
         {/* Gluten warning */}
@@ -275,7 +277,7 @@ export default function OnboardingPage() {
           <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-3 py-2 mb-4">
             <AlertTriangle size={14} className="text-red-500 shrink-0" />
             <p className="text-red-600 text-xs font-semibold">
-              O Glútty é focado em pessoas com restrição ao glúten, por isso essa opção permanece ativa.
+              {t.onboarding.step2.glutenWarning}
             </p>
           </div>
         )}
@@ -369,7 +371,7 @@ export default function OnboardingPage() {
               value={customInput}
               onChange={(e) => setCustomInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addCustom()}
-              placeholder="Outra restrição"
+              placeholder={t.onboarding.step2.customPlaceholder}
               className="bg-transparent outline-none text-primary font-semibold w-28 placeholder:text-primary/40"
               style={{ fontSize: tagSizes.lg.fontSize }}
             />
@@ -386,13 +388,13 @@ export default function OnboardingPage() {
             className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            Continuar
+            {t.onboarding.step2.cta}
           </button>
           <button
             onClick={() => setStep("skip_confirm")}
             className="w-full font-semibold text-sm py-3 active:scale-95 transition-transform" style={{ color: "#1F3D34" }}
           >
-            Agora não
+            {t.onboarding.step2.skip}
           </button>
         </div>
       </div>
@@ -420,7 +422,7 @@ export default function OnboardingPage() {
           </button>
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1.5">
-              <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>Etapa 2 de 3</span>
+              <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>{t.onboarding.ingredientes.progress}</span>
               <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>66%</span>
             </div>
             <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#C6F59D" }}>
@@ -430,11 +432,11 @@ export default function OnboardingPage() {
         </div>
 
         {/* Título + subtítulo — gap pequeno entre irmãos (8 px) */}
-        <h1 className="text-[24px] font-extrabold text-primary leading-tight mb-2 font-display">
-          Algo te faz mal<br />ao consumir?
+        <h1 className="text-[24px] font-extrabold text-primary leading-tight mb-2 font-display whitespace-pre-line">
+          {t.onboarding.ingredientes.title}
         </h1>
         <p className="text-text-secondary text-sm leading-relaxed mb-6">
-          Não é uma alergia, mas você passa mal quando consome. Selecione ou escreva os ingredientes.
+          {t.onboarding.ingredientes.subtitle}
         </p>
 
         {/* Tags selecionadas — área de confirmação visual */}
@@ -506,7 +508,7 @@ export default function OnboardingPage() {
               value={problemInput}
               onChange={(e) => setProblemInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addProblemCustom()}
-              placeholder="Outra restrição"
+              placeholder={t.onboarding.ingredientes.customPlaceholder}
               className="bg-transparent outline-none font-semibold w-28 text-text-primary placeholder:text-text-disabled"
               style={{ fontSize: tagSizes.lg.fontSize }}
             />
@@ -523,13 +525,13 @@ export default function OnboardingPage() {
             className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
             style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
           >
-            {problemSelected.length > 0 ? "Salvar e continuar" : "Continuar"}
+            {problemSelected.length > 0 ? t.onboarding.ingredientes.ctaSave : t.onboarding.ingredientes.cta}
           </button>
           <button
             onClick={() => setStep(3)}
             className="w-full font-semibold text-sm py-3 active:scale-95 transition-transform" style={{ color: "#1F3D34" }}
           >
-            Pular
+            {t.onboarding.ingredientes.skip}
           </button>
         </div>
       </div>
@@ -556,7 +558,7 @@ export default function OnboardingPage() {
         </button>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1.5">
-            <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>Etapa 3 de 3</span>
+            <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>{t.onboarding.success.progress}</span>
             <span style={{ fontFamily: "var(--font-nunito),'Nunito',sans-serif", fontWeight: 700, fontSize: 11, color: "#1F3D34" }}>100%</span>
           </div>
           <div className="w-full overflow-hidden" style={{ height: 8, borderRadius: 999, backgroundColor: "#C6F59D" }}>
@@ -575,19 +577,19 @@ export default function OnboardingPage() {
           unoptimized
         />
       </div>
-      <h1 className="font-black mb-2" style={{ fontSize: 36, color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>Parabéns!</h1>
+      <h1 className="font-black mb-2" style={{ fontSize: 36, color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>{t.onboarding.success.title}</h1>
       <h2 className="font-black mb-6" style={{ fontSize: 18, color: "#1F3D34", lineHeight: 1.3, textWrap: "balance" } as React.CSSProperties}>
-        Seu padrão de segurança alimentar foi definido com sucesso!
+        {t.onboarding.success.subtitle}
       </h2>
       <p className="font-semibold mb-8 text-text-secondary" style={{ fontSize: 14, lineHeight: 1.6, textWrap: "balance" } as React.CSSProperties}>
-        Você pode alterar ou adicionar novas restrições direto no seu perfil
+        {t.onboarding.success.description}
       </p>
       <button
         onClick={() => router.push("/preparando")}
         className="w-full max-w-xs font-black py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
         style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
       >
-        Avançar
+        {t.onboarding.success.cta}
       </button>
     </div>
   );
