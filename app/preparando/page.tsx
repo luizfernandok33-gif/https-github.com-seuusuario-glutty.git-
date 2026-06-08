@@ -23,16 +23,16 @@ export default function PreparandoPage() {
         if (prev >= steps.length - 1) { clearInterval(stepInterval); return prev; }
         return prev + 1;
       });
-    }, 3200);
+    }, 5000);
 
     let pct = 0;
     const progressInterval = setInterval(() => {
-      pct += 0.7;
+      pct += 0.45;
       if (pct >= 100) {
         pct = 100;
         clearInterval(progressInterval);
-        setTimeout(() => setDone(true), 400);
-        setTimeout(() => router.replace("/home"), 2500);
+        setTimeout(() => setDone(true), 600);
+        setTimeout(() => router.replace("/home"), 3500);
       }
       setProgress(pct);
     }, 100);
@@ -43,49 +43,40 @@ export default function PreparandoPage() {
   return (
     <div
       className="min-h-dvh flex flex-col items-center justify-center px-8 text-center"
-      style={{ backgroundColor: "#FEF5EF" }}
+      style={{
+        backgroundColor: "#FFFFFF",
+        paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
+        paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
+      }}
     >
-      {/* Mascote com ripple */}
-      <div className="relative mb-6">
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{ border: "2px solid #C6F59D", animation: "ripple 1.6s ease-out infinite", opacity: 0.5 }}
+      {/* Mascote */}
+      <div className="mb-6">
+        <Image
+          src="/glútty novo.png"
+          alt="Glútty"
+          width={160}
+          height={160}
+          className="object-contain"
+          unoptimized
         />
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{ border: "2px solid #C6F59D", animation: "ripple 1.6s ease-out infinite 0.5s", opacity: 0.3 }}
-        />
-        <div
-          className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden"
-          style={{ backgroundColor: "#E8F5E0", border: "2.5px solid #C6F59D" }}
-        >
-          <Image
-            src="/mascot-new.png"
-            alt="Glútty"
-            width={80}
-            height={80}
-            className="object-contain"
-            unoptimized
-          />
-        </div>
       </div>
 
       {/* Heading */}
       {!done ? (
         <>
-          <h1 className="text-[22px] font-extrabold leading-snug mb-2 font-display" style={{ color: "#1F3D34" }}>
-            Preparando sua<br />experiência personalizada
+          <h1 className="text-[22px] font-black leading-snug mb-2 font-display" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
+            Preparando sua experiência personalizada
           </h1>
-          <p className="text-sm leading-relaxed mb-8 max-w-xs" style={{ color: "#7A5C4E" }}>
+          <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#5A6B65", textWrap: "balance" } as React.CSSProperties}>
             Estamos configurando sua experiência com base nas suas escolhas.
           </p>
         </>
       ) : (
         <>
-          <h1 className="text-[22px] font-extrabold leading-snug mb-2 font-display" style={{ color: "#1F3D34" }}>
+          <h1 className="text-[22px] font-black leading-snug mb-2 font-display" style={{ color: "#1F3D34", textWrap: "balance" } as React.CSSProperties}>
             Tudo pronto!
           </h1>
-          <p className="text-sm leading-relaxed mb-8 max-w-xs" style={{ color: "#7A5C4E" }}>
+          <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#5A6B65", textWrap: "balance" } as React.CSSProperties}>
             Sua experiência foi personalizada. Bem-vinda ao Glútty!
           </p>
         </>
@@ -119,7 +110,7 @@ export default function PreparandoPage() {
               </div>
 
               <p
-                className="text-sm text-left font-medium leading-tight flex-1"
+                className="text-sm text-left font-semibold leading-tight flex-1"
                 style={{ color: isComplete ? "#1F3D34" : isActive ? "#1F3D34" : "#bbb" }}
               >
                 {step.label}
@@ -142,24 +133,20 @@ export default function PreparandoPage() {
 
       {/* Progress bar */}
       <div className="w-full max-w-xs">
-        <div className="w-full h-2 rounded-full overflow-hidden mb-2" style={{ backgroundColor: "#D6ECC8" }}>
+        <div className="w-full h-2 rounded-full overflow-hidden mb-2" style={{ backgroundColor: "#C6F59D" }}>
           <div
             className="h-full rounded-full"
             style={{
               width: `${progress}%`,
-              backgroundColor: "#4A9070",
+              backgroundColor: "#1F3D34",
               transition: "width 0.1s ease-out",
             }}
           />
         </div>
-        <p className="text-[11px] font-semibold" style={{ color: "#4A9070" }}>{Math.round(progress)}%</p>
+        <p className="text-[11px] font-semibold" style={{ color: "#1F3D34" }}>{Math.round(progress)}%</p>
       </div>
 
       <style>{`
-        @keyframes ripple {
-          0%   { transform: scale(1);   opacity: 0.4; }
-          100% { transform: scale(2.2); opacity: 0;   }
-        }
         @keyframes spin {
           to { transform: rotate(360deg); }
         }

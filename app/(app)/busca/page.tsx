@@ -16,14 +16,55 @@ const RECENT_KEY  = "glutty_busca_locations";
 const MAX_RECENT  = 5;
 const DEFAULT_LOC = "São Paulo";
 
+// ── Ícones SVG inline ─────────────────────────────────────────────────────────
+const SvgPizza = () => (
+  <svg viewBox="0 0 511.999 511.999" width="16" height="16" fill="currentColor">
+    <path d="M387.428,337.889c-2.841-7.201-5.896-14.333-9.193-21.381c-18.182-38.887-43.293-75.311-75.358-107.378c-32.068-32.069-68.492-57.179-107.382-75.362c-7.05-3.297-14.184-6.352-21.383-9.191c-7.242-2.858-14.55-5.497-21.923-7.891L1.775,479.821c-3.603,8.696-1.61,18.705,5.045,25.362c4.451,4.451,10.404,6.816,16.46,6.816c2.999,0,6.023-0.579,8.901-1.773L395.319,359.81C392.923,352.44,390.284,345.131,387.428,337.889z M159.834,352.172c-15.329,15.327-39.559,16.322-56.045,2.991c-1.148-0.928-2.262-1.924-3.33-2.991c-6.2-6.2-10.051-13.858-11.563-21.87c-2.485-13.174,1.367-27.309,11.563-37.506c1.888-1.888,3.917-3.548,6.045-5.004c8.391-5.73,18.395-8.082,28.11-7.048c9.211,0.982,18.159,4.994,25.22,12.052C176.224,309.193,176.224,335.774,159.834,352.172z M201.395,227.485c16.393-16.393,42.978-16.393,59.373,0.003c16.393,16.393,16.393,42.978,0,59.373c-16.393,16.393-42.978,16.393-59.373,0C184.998,270.466,185.001,243.882,201.395,227.485z M290.057,378.222c-1.567,7.857-5.388,15.354-11.478,21.445c-14.399,14.403-36.66,16.148-52.973,5.252c-2.259-1.51-4.406-3.258-6.4-5.252c-4.003-4-7.021-8.612-9.069-13.531c-6.344-15.236-3.325-33.452,9.069-45.842c16.393-16.393,42.978-16.393,59.373,0c4.048,4.049,7.093,8.722,9.141,13.707C290.886,361.701,291.665,370.152,290.057,378.222z"/>
+    <path d="M510.225,287.028c-26.194-63.236-63.726-119.914-111.554-168.458C349.143,68.296,290.704,29.002,224.977,1.779c-11.872-4.921-25.49,0.718-30.408,12.594l-24.424,58.966c7.368,2.467,14.655,5.148,21.868,8.018c7.21,2.867,14.341,5.93,21.383,9.194c44.934,20.821,86.331,49.606,122.393,85.666c36.061,36.063,64.843,77.457,85.664,122.393c3.263,7.038,6.327,14.168,9.193,21.377c2.87,7.214,5.551,14.503,8.018,21.87l58.966-24.424c5.703-2.363,10.234-6.893,12.595-12.594C512.587,299.136,512.587,292.726,510.225,287.028z"/>
+  </svg>
+);
+const SvgHamburguer = () => (
+  <svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor">
+    <path d="M469.342,397.667H44.654c-24.653,0-33.28,19.993-33.28,44.654v4.451c0,24.669,19.993,44.654,44.646,44.654h401.846c24.653,0,44.646-19.984,44.646-44.654v-4.451C502.513,417.66,494.012,397.667,469.342,397.667z"/>
+    <path d="M447.177,373.682c22.891,0,41.448-14.765,41.448-33.004v-0.96c0-18.223-18.556-33.004-41.448-33.004H74.193c-22.882,0-41.439,14.782-41.439,33.004v0.96c0,18.239,18.556,33.004,41.439,33.004H447.177z"/>
+    <path d="M41.672,205.52h430.534c16.376,0,25.83-8.936,25.83-25.906c0-5.787-0.518-3.156-1.478-8.878C483.338,91.593,381.127,20.574,256.952,20.574c-124.192,0-226.403,71.02-239.623,150.164h-0.008c-0.96,5.721-1.479,3.091-1.479,8.878C15.842,196.585,25.296,205.52,41.672,205.52z"/>
+    <path d="M497.126,231.727c-8.217,0-14.882,6.664-14.882,14.882c0,8.218,6.664,14.882,14.882,14.882c2.306,0,3.918,0.318,5.32,0.777s2.18,1.152,3.449,1.502c2.305,3.349,5.396,5.662,7.625,6.99v-52.824C505.336,231.727,505.336,231.727,497.126,231.727z"/>
+  </svg>
+);
+const SvgJaponesa = () => (
+  <svg viewBox="0 0 349.908 349.909" width="16" height="16" fill="currentColor">
+    <path d="M326.028,223.54c-2.593,0-5.322-0.167-8.184-0.469c-0.689-0.073-2.119-0.133-2.789,1.02c-9.573,17.916-25.66,28.549-44.773,28.549H79.634c-19.113,0-35.376-10.945-44.952-28.862c-0.523-0.859-1.586-0.816-2.116-0.758c-3.04,0.334-5.939,0.521-8.679,0.521c-1.778,0-3.468-0.084-5.076-0.243c-1.772-0.176-3.902,0.026-3.902,1.276c7.296,29.128,28.768,48.297,55.521,48.297h209.052c26.754,0,48.83-19.293,56.128-48.418c0.299-1.623-1.234-1.59-2.142-1.453C331.142,223.352,328.669,223.539,326.028,223.54z"/>
+    <path d="M63.607,103.295c-0.885-1.536-2.331-0.822-3.172-0.379C23.418,122.362,0,151.065,0,183.088c0,40.992,38.373,24.607,94.527,11.078c0.81-0.195,2.174-1.136,1.543-3.013L63.607,103.295z"/>
+    <path d="M189.025,79.281v102.75c0,1.375,0.95,1.518,1.429,1.547c21.702,1.337,42.266,5.261,60.967,9.646c0.854,0.2,2.531,0.475,3.264-0.95l38.895-84.686c0.791-1.475-0.404-2.672-1.06-3.032C265.257,89.551,230.154,79.688,191.371,77.5C190.589,77.456,189.025,77.499,189.025,79.281z"/>
+    <path d="M176.025,79.031c0-1.653-2.019-1.995-2.491-1.993c-35.705,0.172-68.853,6.832-96.416,18.124c-0.772,0.316-2.084,1.348-1.514,3.095l33.604,90.945c0.701,1.537,2.251,1.143,2.912,1.004c19.247-4.002,40.406-7.072,62.239-7.182c0.41-0.002,1.667,0.006,1.667-1.119L176.025,79.031z"/>
+    <path d="M304.505,114.94c-10.647,19.907-37.227,81.003-37.227,81.003c-0.41,0.919,0.555,1.319,1.061,1.449c49.018,12.528,81.569,23.448,81.569-14.307c0-26.411-15.936-50.561-42.28-69.125C306.958,113.493,305.327,113.406,304.505,114.94z"/>
+  </svg>
+);
+const SvgMexicana = () => (
+  <svg viewBox="0 0 576.943 576.944" width="16" height="16" fill="currentColor">
+    <path d="M576.943,346.325c0-24.519-50.785-46.13-127.945-58.829l-19.537,14.708c48.76,8.013,79.818,20.109,79.818,33.631c0,5.565-5.307,10.882-14.889,15.778c-31.977,16.342-112.082,27.932-205.909,27.932c-93.828,0-173.942-11.589-205.919-27.932c-9.582-4.896-14.889-10.213-14.889-15.778c0-11.207,21.353-21.43,56.409-29.165l-15.415-15.692C42.467,303.954,0.01,323.919,0.01,346.325c0,1.778,0.354,3.538,0.889,5.288H0l1.377,1.578c2.132,5.44,6.828,10.7,13.693,15.711l84.934,97.461h-3.978c-12.546,0-22.711,10.165-22.711,22.711v2.391c0,12.546,10.165,22.711,22.711,22.711H490.48c12.545,0,22.711-10.165,22.711-22.711v-2.391c0-12.546-10.166-22.711-22.711-22.711h-13.531l84.924-97.461c6.867-5.011,11.553-10.271,13.684-15.711l1.387-1.578h-0.889C576.58,349.863,576.943,348.103,576.943,346.325z"/>
+    <path d="M364.197,294.764l2.553,30.705l35.928-27.053l19.67-14.812l143.389-107.961L344.871,62.768l3.768,45.202l94.238,21.478c3.281,0.746,5.93,3.175,6.973,6.369c1.031,3.203,0.314,6.722-1.895,9.247l-87.859,100.444l2.695,32.397L364.197,294.764z"/>
+    <path d="M233.899,293.473l17.356,47.41l42.62-48.73l14.391-16.447l32.092-36.691l8.76-10.012l8.76-10.012l65.121-74.454l-72.705-16.572l-9.781-2.228l-9.783-2.228l-79.541-18.13L213.569,238.01l14.315,39.082L233.899,293.473z"/>
+    <path d="M224.05,99.191l-55.338,16.266l-9.189,2.706l-9.199,2.706L9.094,162.38l122.41,124.552l15.147,15.415l22.367,22.759l7.64-26.947l4.992-17.595l11.848-41.788l4.446-15.673l4.447-15.664l30.15-106.306l1.368-4.829L224.05,99.191z"/>
+  </svg>
+);
+const SvgChurrasco = () => (
+  <svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor">
+    <path d="M511.903,253.069c-1.554-48.548-44.376-84.942-104.409-88.656c-120.864-7.486-109.509-67.345-209.663-73.722c-5.642-0.361-11.207-0.536-16.662-0.536c-102.294,0-171.103,61.839-180.098,137.418c-0.548,4.591-0.839,9.124-0.968,13.612H0v52.824h0.31c3.218,66.926,53.423,119.234,135.051,121.51c48.123,1.342,182.039,5.082,224.552,6.268c69.628,1.94,136.721-44.738,149.856-104.255c0.87-3.94,1.418-7.815,1.767-11.639H512v-52.824H511.903z"/>
+    <path d="M297.455,186.182L192.898,324.805l66.236,1.844l91.552-121.381C328.691,200.426,311.661,193.584,297.455,186.182z"/>
+    <path d="M265.04,166.244c-17.926-12.136-30.519-20.634-56.144-23.968L85.284,306.17c14.644,10.652,33.898,16.572,56.686,17.21l13.128,0.368l115.81-153.558C268.915,168.862,266.956,167.54,265.04,166.244z"/>
+    <path d="M56.273,233.125c-2.166,18.228,0.767,35.265,8.267,49.367l106.498-141.202C108.716,145.893,62.322,182.351,56.273,233.125z"/>
+    <path d="M398.015,211.639c-4.398-0.271-8.641-0.619-12.768-1.019L296.94,327.707l59.472,1.657c0.961,0.019,1.922,0.038,2.882,0.038c44.286,0,88.27-29.771,96.046-65.03c2.528-11.465,0.594-21.556-5.764-29.99C439.748,221.351,420.951,213.058,398.015,211.639z"/>
+  </svg>
+);
+
 // ── Categorias ────────────────────────────────────────────────────────────────
 const FOOD_CATEGORIES = [
-  { id: "todos",     label: "Para você",      icon: "https://www.figma.com/api/mcp/asset/236f25e3-786a-4258-8364-c5b53eca50b1", bg: "#C6F59D",  fg: "#1F3D34" },
-  { id: "fastfood",  label: "Fast Food",      icon: "https://www.figma.com/api/mcp/asset/c238047b-c35d-4181-bf69-1dfe4a60ca23", bg: "#E8DCFF",  fg: "#6B21A8" },
-  { id: "salada",    label: "Salada",         icon: "https://www.figma.com/api/mcp/asset/7e570b33-148c-4113-a24e-648fdef61ac4", bg: "#D4F0DC",  fg: "#166534" },
-  { id: "frutos",    label: "Frutos do mar",  icon: "https://www.figma.com/api/mcp/asset/cbbc16c4-184c-4ba1-89a6-742d27d77d65", bg: "#FFE4CC",  fg: "#9A3412" },
-  { id: "sobremesa", label: "Sobremesa",      icon: "https://www.figma.com/api/mcp/asset/9d1667fa-cb27-40ed-b978-a792b2ab415a", bg: "#D4F0E8",  fg: "#065F46" },
-  { id: "happyhour", label: "Happy Hour",     icon: "https://www.figma.com/api/mcp/asset/e60c7b84-d49f-46e7-b2e6-aa7313bb784d", bg: "#EDE4FF",  fg: "#5B21B6" },
+  { id: "pizza",      label: "Pizza",      Icon: SvgPizza,      bg: "#FFDDD2", fg: "#C1440E" },
+  { id: "hamburguer", label: "Hambúrguer", Icon: SvgHamburguer, bg: "#FFF3C2", fg: "#A0730A" },
+  { id: "japonesa",   label: "Japonesa",   Icon: SvgJaponesa,   bg: "#FFD6D6", fg: "#B71C1C" },
+  { id: "mexicana",   label: "Mexicana",   Icon: SvgMexicana,   bg: "#FFE8CC", fg: "#BF5C00" },
+  { id: "churrasco",  label: "Churrasco",  Icon: SvgChurrasco,  bg: "#EDE8E3", fg: "#5D4037" },
 ];
 
 // ── Coordenadas dos restaurantes ──────────────────────────────────────────────
@@ -206,11 +247,21 @@ function CarouselCard({ restaurant, isActive, onClick }: {
 export default function BuscaPage() {
   const router = useRouter();
 
+  // Bloqueia scroll do body enquanto a tela de busca está ativa
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   const [searchInput,      setSearchInput]      = useState("");
   const [locationFilter,   setLocationFilter]   = useState(DEFAULT_LOC);
   const [showDropdown,     setShowDropdown]     = useState(false);
   const [recentLocations,  setRecentLocations]  = useState<string[]>([]);
-  const [activeCategory,   setActiveCategory]   = useState("todos");
+  const [activeCategory,   setActiveCategory]   = useState("pizza");
   const [safetyPreference, setSafetyPreference] = useState<SafetyLevel>("seguro");
   const [selectedId,       setSelectedId]       = useState<string | null>(null);
 
@@ -362,38 +413,56 @@ export default function BuscaPage() {
   };
 
   return (
-    <div
-      className="flex flex-col bg-background"
-      style={{ height: "100dvh", paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 80px)" }}
-    >
-      {/* ── Header ── */}
+    <>
+    <style>{`body, html { overflow: hidden !important; max-height: 100dvh !important; }`}</style>
+    <div className="fixed inset-0 overflow-hidden" onClick={() => setShowDropdown(false)}>
+
+      {/* ── MAPA FULL SCREEN ── */}
+      <div ref={mapRef} className="absolute inset-0 z-0" />
+
+      {/* ── HEADER FLUTUANTE (topo) ── */}
       <div
-        className="bg-background z-40 px-5 pb-3 shrink-0"
-        style={{ paddingTop: "calc(env(safe-area-inset-top,0px) + 16px)" }}
+        className="absolute left-0 right-0 z-30 px-4"
+        style={{
+          top: 0,
+          paddingTop: "calc(env(safe-area-inset-top,0px) + 12px)",
+          background: "rgba(245,241,237,0.97)",
+          backdropFilter: "blur(8px)",
+          paddingBottom: 12,
+          boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+        }}
+        onClick={e => e.stopPropagation()}
       >
-        {/* Título */}
-        <div className="flex items-start gap-3 mb-4">
+        {/* Título + voltar */}
+        <div className="flex items-center gap-3 mb-3">
           <button
             onClick={() => router.back()}
-            className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform"
+            className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform shadow-md"
             style={{ backgroundColor: "#1F3D34" }}
           >
             <ChevronRight size={18} className="rotate-180" style={{ color: "white" }} />
           </button>
-          <div>
-            <h1 className="text-[22px] font-black text-primary font-display leading-tight">Restaurantes</h1>
-            <p className="text-[12px] text-text-disabled mt-0.5">Avaliados por celíacos</p>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-[18px] font-black leading-tight" style={{ color: "#1F3D34" }}>Restaurantes</h1>
+            <p className="text-[11px]" style={{ color: "#6B8E6F" }}>Avaliados por celíacos</p>
           </div>
+          {/* Botão localização */}
+          <button
+            onClick={() => flyToCity("são paulo")}
+            className="w-10 h-10 bg-white rounded-full flex items-center justify-center active:scale-90 transition-transform shadow-md"
+          >
+            <Navigation size={16} style={{ color: "#1F3D34" }} />
+          </button>
         </div>
 
         {/* ── Search bar ── */}
         <div className="relative mb-2">
           <div
-            className="flex items-center gap-3 bg-surface px-4 py-3.5 border transition-all"
+            className="flex items-center gap-3 bg-white px-4 py-3 border transition-all"
             style={{
               borderRadius: showDropdownContent ? "20px 20px 0 0" : 999,
-              boxShadow: showDropdownContent ? "0 4px 20px rgba(31,61,52,0.13)" : "0 2px 10px rgba(0,0,0,0.07)",
-              borderColor: showDropdownContent ? "#1F3D34" : "rgba(0,0,0,0.08)",
+              boxShadow: showDropdownContent ? "0 4px 20px rgba(31,61,52,0.2)" : "0 3px 14px rgba(0,0,0,0.18)",
+              borderColor: showDropdownContent ? "#1F3D34" : "transparent",
             }}
           >
             <MapPin size={15} className="shrink-0" style={{ color: showDropdownContent ? "#1F3D34" : "#B0977E" }} />
@@ -417,7 +486,7 @@ export default function BuscaPage() {
             <div className="w-px h-4 bg-border shrink-0" />
             <button
               onClick={() => router.push("/perfil/seguranca")}
-              className="shield-pulse flex items-center gap-1.5 rounded-full px-2.5 py-1.5 shrink-0 active:scale-95 transition-transform"
+              className="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 shrink-0 active:scale-95 transition-transform"
               style={{ backgroundColor: "#E8F5E9" }}
             >
               <Shield size={12} fill="#2E7D32" strokeWidth={2} style={{ color: "#2E7D32" }} />
@@ -434,7 +503,7 @@ export default function BuscaPage() {
               style={{
                 border: "1px solid #1F3D34", borderTop: "none",
                 borderBottomLeftRadius: 16, borderBottomRightRadius: 16,
-                boxShadow: "0 12px 32px rgba(0,0,0,0.12)",
+                boxShadow: "0 12px 32px rgba(0,0,0,0.15)",
               }}
             >
               <div className="px-4 pt-3 pb-1.5">
@@ -442,7 +511,6 @@ export default function BuscaPage() {
                   {!searchInput.trim() ? "Buscas recentes" : "Sugestões"}
                 </span>
               </div>
-
               {searchInput.trim()
                 ? suggestions.map((s, i) => (
                     <button key={s.label}
@@ -494,134 +562,114 @@ export default function BuscaPage() {
           )}
         </div>
 
-        {/* Chip localização ativa */}
-        <div className="flex items-center gap-1.5 mb-3 px-1">
-          <MapPin size={11} style={{ color: "#4A9070" }} />
-          <span className="text-[12px] font-semibold" style={{ color: "#4A9070" }}>
-            Resultados para <span style={{ color: "#1F3D34" }}>{locationFilter}</span> · com base no seu perfil
-          </span>
-        </div>
-
         {/* Categorias */}
         <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
           {FOOD_CATEGORIES.map(cat => {
             const isActive = activeCategory === cat.id;
             return (
               <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
-                className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-full transition-all active:scale-95"
-                style={{ backgroundColor: isActive ? "#1F3D34" : cat.bg }}
+                className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-full transition-all active:scale-95 shadow-sm"
+                style={{
+                  backgroundColor: isActive ? cat.fg : "white",
+                  color: isActive ? "#ffffff" : cat.fg,
+                }}
               >
-                <img src={cat.icon} alt={cat.label} className="w-4 h-4 object-contain" />
-                <span className="text-[12px] font-bold whitespace-nowrap" style={{ color: isActive ? "#C6F59D" : cat.fg }}>
-                  {cat.label}
-                </span>
+                <cat.Icon />
+                <span className="text-[12px] font-black whitespace-nowrap">{cat.label}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* ── Mapa ── */}
-      <div className="relative flex-1 overflow-hidden" onClick={() => setShowDropdown(false)}>
-        <div ref={mapRef} className="absolute inset-0 z-0" />
-
-        {/* Botão localização atual */}
-        <button
-          onClick={() => flyToCity("são paulo")}
-          className="absolute top-3 right-3 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center active:scale-90 transition-transform"
-          style={{ boxShadow: "0 2px 10px rgba(0,0,0,0.15)" }}
+      {/* Popup restaurante selecionado (centro do mapa) */}
+      {selectedRestaurant && (
+        <div
+          className="absolute z-20 rounded-2xl overflow-hidden"
+          style={{
+            width: 280, bottom: "calc(env(safe-area-inset-bottom,0px) + 220px)",
+            left: "50%", transform: "translateX(-50%)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.28)",
+          }}
+          onClick={e => e.stopPropagation()}
         >
-          <Navigation size={16} style={{ color: "#1F3D34" }} />
-        </button>
-
-        {/* Popup restaurante selecionado */}
-        {selectedRestaurant && (
-          <div
-            className="absolute bottom-4 z-20 rounded-2xl overflow-hidden"
-            style={{ width: 280, left: "50%", transform: "translateX(-50%)", boxShadow: "0 8px 32px rgba(0,0,0,0.28)" }}
-          >
-            <Link href={`/restaurante/${selectedRestaurant.id}`} className="block active:scale-[0.98] transition-transform">
-              <div className="relative h-[100px] w-full">
-                <Image src={selectedRestaurant.image} alt={selectedRestaurant.name} fill className="object-cover" unoptimized />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                <div className="absolute top-2.5 left-2.5">
-                  <SafetyBadge level={selectedRestaurant.safetyLevel} size="sm" />
-                </div>
-                <button
-                  onClick={e => { e.preventDefault(); setSelectedId(null); }}
-                  className="absolute top-2.5 right-2.5 w-6 h-6 bg-black/40 rounded-full flex items-center justify-center active:scale-90"
-                >
-                  <X size={11} color="white" />
-                </button>
+          <Link href={`/restaurante/${selectedRestaurant.id}`} className="block active:scale-[0.98] transition-transform">
+            <div className="relative h-[100px] w-full">
+              <Image src={selectedRestaurant.image} alt={selectedRestaurant.name} fill className="object-cover" unoptimized />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+              <div className="absolute top-2.5 left-2.5">
+                <SafetyBadge level={selectedRestaurant.safetyLevel} size="sm" />
               </div>
-              <div className="bg-white px-3 py-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex-1 min-w-0">
-                    <p className="font-extrabold text-[13px] text-text-primary font-display truncate">
-                      {selectedRestaurant.name}
-                    </p>
-                    <p className="text-text-disabled text-[11px] truncate mt-0.5">
-                      {selectedRestaurant.cuisine} · {selectedRestaurant.city}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1 shrink-0">
-                    <Star size={11} fill="#F59E0B" className="text-warning" />
-                    <span className="font-extrabold text-[13px] text-text-primary">
-                      {selectedRestaurant.rating > 0 ? selectedRestaurant.rating : "—"}
-                    </span>
-                  </div>
+              <button
+                onClick={e => { e.preventDefault(); e.stopPropagation(); setSelectedId(null); }}
+                className="absolute top-2.5 right-2.5 w-6 h-6 bg-black/40 rounded-full flex items-center justify-center active:scale-90"
+              >
+                <X size={11} color="white" />
+              </button>
+            </div>
+            <div className="bg-white px-3 py-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex-1 min-w-0">
+                  <p className="font-extrabold text-[13px] text-text-primary truncate">{selectedRestaurant.name}</p>
+                  <p className="text-text-disabled text-[11px] truncate mt-0.5">{selectedRestaurant.cuisine} · {selectedRestaurant.city}</p>
                 </div>
-                <div className="flex items-center gap-1 mt-1.5">
-                  <MapPin size={10} style={{ color: "#1F3D34" }} />
-                  <span className="text-[11px] font-semibold truncate" style={{ color: "#1F3D34" }}>
-                    {selectedRestaurant.address || selectedRestaurant.city}
+                <div className="flex items-center gap-1 shrink-0">
+                  <Star size={11} fill="#F59E0B" className="text-warning" />
+                  <span className="font-extrabold text-[13px] text-text-primary">
+                    {selectedRestaurant.rating > 0 ? selectedRestaurant.rating : "—"}
                   </span>
                 </div>
               </div>
-            </Link>
-          </div>
-        )}
-      </div>
+              <div className="flex items-center gap-1 mt-1.5">
+                <MapPin size={10} style={{ color: "#1F3D34" }} />
+                <span className="text-[11px] font-semibold truncate" style={{ color: "#1F3D34" }}>
+                  {selectedRestaurant.address || selectedRestaurant.city}
+                </span>
+              </div>
+            </div>
+          </Link>
+        </div>
+      )}
 
-      {/* ── Carrossel inferior ── */}
-      <div className="shrink-0 bg-background pt-3 pb-1" style={{ boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}>
-
+      {/* ── CARROSSEL FLUTUANTE (base) ── */}
+      <div
+        className="absolute left-0 right-0 z-30"
+        style={{
+          bottom: "calc(env(safe-area-inset-bottom,0px) + 88px)",
+        }}
+        onClick={e => e.stopPropagation()}
+      >
         {/* Banner nada encontrado */}
         {!hasLocalResults && (
-          <div className="mx-4 mb-3 px-3.5 py-3 rounded-2xl flex items-center gap-2.5" style={{ backgroundColor: "#FFF3E0", border: "1px solid #FFD180" }}>
+          <div className="mx-4 mb-3 px-3.5 py-3 rounded-2xl flex items-center gap-2.5 shadow-md" style={{ backgroundColor: "#FFF3E0", border: "1px solid #FFD180" }}>
             <span className="text-[18px]">📍</span>
             <div className="flex-1 min-w-0">
-              <p className="text-[12px] font-bold truncate" style={{ color: "#E65100" }}>
-                Nada encontrado em {locationFilter}
-              </p>
-              <p className="text-[10px] mt-0.5" style={{ color: "#BF360C" }}>
-                Mostrando os mais próximos dessa região
-              </p>
+              <p className="text-[12px] font-bold truncate" style={{ color: "#E65100" }}>Nada encontrado em {locationFilter}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: "#BF360C" }}>Mostrando os mais próximos dessa região</p>
             </div>
           </div>
         )}
 
         {/* Cabeçalho */}
-        <div className="flex items-center justify-between px-5 mb-2.5">
-          <p className="text-[13px] font-extrabold text-text-primary">
-            {hasLocalResults
-              ? `${localRestaurants.length} em ${locationFilter}`
-              : `${nearbyRestaurants.length} mais próximos`}
-          </p>
+        <div className="flex items-center justify-between px-5 mb-2">
+          <div className="bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+            <p className="text-[12px] font-extrabold text-text-primary">
+              {hasLocalResults ? `${localRestaurants.length} em ${locationFilter}` : `${nearbyRestaurants.length} mais próximos`}
+            </p>
+          </div>
           {hasLocalResults && nearbyRestaurants.length > 0 && (
-            <span className="text-[11px] text-text-disabled font-medium">
-              +{nearbyRestaurants.length} próximos
-            </span>
+            <div className="bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+              <span className="text-[11px] text-text-disabled font-medium">+{nearbyRestaurants.length} próximos</span>
+            </div>
           )}
         </div>
 
         {/* Carrossel */}
         <div
           ref={carouselRef}
-          className="flex gap-3 overflow-x-auto px-5 pb-3"
+          className="flex gap-3 overflow-x-auto px-5 pb-2"
           style={{ scrollbarWidth: "none" }}
         >
-          {/* Locais */}
           {displayList.map(r => (
             <CarouselCard key={r.id} restaurant={r} isActive={selectedId === r.id}
               onClick={() => {
@@ -631,15 +679,11 @@ export default function BuscaPage() {
               }}
             />
           ))}
-
-          {/* Separador + Mais próximos (quando há resultados locais) */}
           {hasLocalResults && nearbyRestaurants.length > 0 && (
             <>
               <div className="shrink-0 flex flex-col items-center justify-center gap-1 px-1" style={{ minWidth: 60 }}>
                 <div className="w-px flex-1 bg-border" />
-                <span className="text-[9px] font-bold text-text-disabled whitespace-nowrap text-center leading-tight" style={{ writingMode: "vertical-rl" }}>
-                  MAIS PRÓXIMOS
-                </span>
+                <span className="text-[9px] font-bold text-text-disabled whitespace-nowrap text-center leading-tight" style={{ writingMode: "vertical-rl" }}>MAIS PRÓXIMOS</span>
                 <div className="w-px flex-1 bg-border" />
               </div>
               {nearbyRestaurants.map(r => (
@@ -653,10 +697,10 @@ export default function BuscaPage() {
               ))}
             </>
           )}
-
           <div className="shrink-0 w-2" />
         </div>
       </div>
     </div>
+    </>
   );
 }

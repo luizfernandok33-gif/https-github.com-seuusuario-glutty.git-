@@ -12,6 +12,7 @@ export interface TagColor {
 
 // Tom-sobre-Tom palette
 export const palette = {
+  primaria:  { color: "#1F3D34", bg: "#D4EDD4" },
   laranja:   { color: "#C8440A", bg: "#FFF0E6" },
   vermelho:  { color: "#C0392B", bg: "#FDECEA" },
   amarelo:   { color: "#B7791F", bg: "#FFFBEB" },
@@ -28,7 +29,7 @@ export const palette = {
 export const allergenConfig: { tag: string; icon?: string } & TagColor extends never
   ? never
   : Record<string, TagColor & { tag: string; icon?: string }> = {
-  gluten:        { tag: "Glúten",           icon: "🌾", ...palette.laranja  },
+  gluten:        { tag: "Glúten",           icon: "🌾", ...palette.primaria },
   lactose:       { tag: "Lactose",          icon: "🥛", ...palette.azul     },
   frutose:       { tag: "Frutose",          icon: "🍬", ...palette.amarelo  },
   caseina:       { tag: "Caseína",          icon: "🧀", ...palette.rosa     },
@@ -48,7 +49,7 @@ export const allergenConfig: { tag: string; icon?: string } & TagColor extends n
 
 // User restriction tags (Profile)
 export const restrictionConfig: Record<string, TagColor & { tag: string }> = {
-  sem_gluten:    { tag: "Sem glúten",    ...palette.laranja  },
+  sem_gluten:    { tag: "Sem glúten",    ...palette.primaria },
   sem_lactose:   { tag: "Sem lactose",   ...palette.azul     },
   sem_nozes:     { tag: "Sem nozes",     ...palette.vermelho },
   sem_ovo:       { tag: "Sem ovo",       ...palette.amarelo  },
@@ -58,7 +59,7 @@ export const restrictionConfig: Record<string, TagColor & { tag: string }> = {
 
 // Cereal/Category tags (Alérgenos por Categoria)
 export const categoryAllergens: Record<string, { label: string; items: string[]; palette: TagColor }> = {
-  cereais:       { label: "Cereais",      items: ["Trigo","Centeio","Cevada","Aveia","Espelta","Kamut"],  palette: palette.azul    },
+  cereais:       { label: "Cereais",      items: ["Trigo","Centeio","Cevada","Aveia","Espelta","Kamut","Malte"],  palette: palette.primaria },
   laticinios:    { label: "Laticínios",   items: ["Leite","Queijo","Manteiga","Creme de leite","Iogurte"], palette: palette.azul   },
   ovos:          { label: "Ovos",         items: ["Ovo inteiro","Clara","Gema","Ovo de codorna"],          palette: palette.amarelo},
   oleaginosas:   { label: "Oleaginosas",  items: ["Amendoim","Castanha","Nozes","Amêndoa","Pistache","Avelã"], palette: palette.verde  },
@@ -94,19 +95,41 @@ export function getRestrictionColor(label: string): TagColor {
   return restrictionLabelMap[label.toLowerCase()] ?? palette.cinza;
 }
 
-// Maps ingredient keywords → allergen color (for prohibited ingredient display with strikethrough)
+// Maps ingredient keywords → allergen color.
+// Rule: each ingredient maps to the SAME color as its parent allergen in allergenConfig.
 const ingredientColorMap: Array<{ keywords: string[]; color: TagColor }> = [
-  { keywords: ["trigo", "farinha de trigo", "glúten", "gluten", "cevada", "centeio", "espelta", "kamut"], color: palette.vermelho },
-  { keywords: ["aveia"],                                                                                    color: palette.laranja  },
-  { keywords: ["leite", "lactose", "manteiga", "creme de leite", "iogurte", "caseína", "caseina"],         color: palette.azul     },
-  { keywords: ["queijo"],                                                                                   color: palette.azul     },
-  { keywords: ["ovo", "clara", "gema"],                                                                    color: palette.amarelo  },
-  { keywords: ["amendoim"],                                                                                 color: palette.marrom   },
-  { keywords: ["soja", "tofu", "missô", "edamame"],                                                       color: palette.verde    },
-  { keywords: ["camarão", "caranguejo", "lagosta", "marisco", "ostra", "frutos do mar"],                  color: palette.teal     },
-  { keywords: ["mostarda"],                                                                                 color: palette.amarelo  },
-  { keywords: ["gergelim"],                                                                                 color: palette.marrom   },
-  { keywords: ["nozes", "castanha", "amêndoa", "pistache", "avelã", "oleaginosa"],                       color: palette.verde    },
+  // ── Glúten (primaria) ────────────────────────────────────────────────────
+  { keywords: ["trigo", "farinha de trigo", "glúten", "gluten", "cevada", "centeio", "espelta", "kamut", "malte", "aveia"], color: palette.primaria },
+  // ── Lactose (azul) ───────────────────────────────────────────────────────
+  { keywords: ["leite", "lactose", "manteiga", "creme de leite", "iogurte", "queijo"], color: palette.azul },
+  // ── Caseína (rosa) ───────────────────────────────────────────────────────
+  { keywords: ["caseína", "caseina", "proteína do leite"],                     color: palette.rosa    },
+  // ── Ovos (amarelo) ───────────────────────────────────────────────────────
+  { keywords: ["ovo", "clara", "gema"],                                        color: palette.amarelo },
+  // ── Amendoim (marrom) — alérgeno separado das oleaginosas ────────────────
+  { keywords: ["amendoim"],                                                     color: palette.marrom  },
+  // ── Oleaginosas / nozes (verde) ──────────────────────────────────────────
+  { keywords: ["nozes", "castanha", "amêndoa", "pistache", "avelã", "oleaginosa"], color: palette.verde },
+  // ── Soja (verde) ─────────────────────────────────────────────────────────
+  { keywords: ["soja", "tofu", "missô", "edamame", "proteína de soja"],        color: palette.verde   },
+  // ── Frutos do Mar (teal) ─────────────────────────────────────────────────
+  { keywords: ["camarão", "caranguejo", "lagosta", "marisco", "ostra", "frutos do mar", "peixe", "atum", "sardinha", "salmão", "bacalhau"], color: palette.teal },
+  // ── Mostarda (amarelo) ───────────────────────────────────────────────────
+  { keywords: ["mostarda"],                                                     color: palette.amarelo },
+  // ── Gergelim (marrom) ────────────────────────────────────────────────────
+  { keywords: ["gergelim", "sésamo"],                                           color: palette.marrom  },
+  // ── Histamina (roxo) — tomate, vinagre, vinho, embutidos ─────────────────
+  { keywords: ["histamina", "tomate", "vinagre", "vinho", "espinafre", "atum enlatado", "embutido", "salsicha", "linguiça"], color: palette.roxo },
+  // ── Sulfitos (teal) — conservantes à base de enxofre ─────────────────────
+  { keywords: ["sulfito", "dióxido de enxofre", "bissulfito", "metabissulfito"], color: palette.teal  },
+  // ── Frutose (amarelo) — frutas e vegetais ricos em frutose ───────────────
+  { keywords: ["frutose", "mel", "maçã", "pera", "manga", "uva", "cebola", "alho"], color: palette.amarelo },
+  // ── Tremoço (laranja) ────────────────────────────────────────────────────
+  { keywords: ["tremoço", "tremoco", "lupino"],                                 color: palette.laranja },
+  // ── Proteína vegetal (verde) ─────────────────────────────────────────────
+  { keywords: ["proteína vegetal", "proteína veg", "glúten de trigo vital"],   color: palette.verde   },
+  // ── Pimenta (laranja) — irritante mas não alérgeno ───────────────────────
+  { keywords: ["pimenta"],                                                      color: palette.laranja },
 ];
 
 export function getIngredientColor(ingredient: string): TagColor {

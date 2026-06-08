@@ -51,7 +51,7 @@ export default function ConfiguracoesPage() {
   return (
     <div
       className="min-h-dvh bg-background"
-      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 96px)" }}
+      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}
     >
       {/* ── Header ── */}
       <div
@@ -67,7 +67,7 @@ export default function ConfiguracoesPage() {
         </div>
       </div>
 
-      <div className="px-5 space-y-4">
+      <div className="px-5 pt-4 space-y-4">
 
         {/* ── Idioma ── */}
         <Section title="Idioma" icon={Globe} iconColor="#1565C0" iconBg="#E3F2FD">

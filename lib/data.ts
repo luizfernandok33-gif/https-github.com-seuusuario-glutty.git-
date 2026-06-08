@@ -186,7 +186,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 304,
     safetyLevel: "certificado",
     safetyScore: 98,
-    image: "https://www.zuerich.com/sites/default/files/styles/1920_1152_focal_scale_crop/public/keyvisual/web_zurich_gastronomie_hiltl_02.jpg",
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
     cuisine: "Vegetariana / Internacional",
     distance: "3,2 km",
     isOpen: true,
@@ -1340,7 +1340,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGY8IyRJwSaXXpvBLv3IhnpDBQNN9eTY-g9x513jnQJ1fVaVCWT6qNyn1_v49XLiZX4-dOutXF8lzfH8_qU6NiBFFqBS01wNtN4zJ5e0U5FJzzKU8zqDPDiz6zuuHZ_K0WPm2xVYNjkUO_F=s680-w680-h510-rw",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop",
     galleryImages: [
       "https://aviebakedgoods.com/wp-content/uploads/2025/10/a-Vie_17102025_2042-scaled.jpg",
     ],
@@ -1425,7 +1425,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://cdn.unitycms.io/images/1Ft_glUQKLGAIQ_T3BHaOn.jpg?op=ocroped&val=1920,1280,1000,1000,0,0&sum=ySkFzw_4YAk",
+    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=400&fit=crop",
     galleryImages: [
       "https://jackies.ch/wp-content/uploads/2021/08/Brote-1024x640.jpg",
       "https://jackies.ch/wp-content/uploads/2025/02/01_Nussbrot-1-1024x768.jpg",
@@ -1501,7 +1501,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://guideceliac.ch/wp-content/uploads/eintrag-grano-schriftaussen.jpg",
+    image: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&h=400&fit=crop",
     galleryImages: [
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167708e3240851a86de032_IMG_1914.jpeg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167705fd3933467956712f_IMG_1918.jpeg",

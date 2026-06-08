@@ -167,6 +167,7 @@ const DISH_PREVIEWS: Record<string, {
 };
 
 function DishCard({ dish }: { dish: DishData }) {
+  const router = useRouter();
   const [fav, setFav] = useState(false);
   const preview = DISH_PREVIEWS[dish.id];
   const href = dish.restaurantId && dish.dishId
@@ -216,9 +217,9 @@ function DishCard({ dish }: { dish: DishData }) {
         <p className="text-white/55 text-[9px] font-semibold uppercase tracking-wider mb-3">{dish.restaurantName}</p>
 
         {/* Avatars + Feedback */}
-        <Link
-          href="/recomendados"
-          onClick={(e) => e.stopPropagation()}
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); router.push("/recomendados"); }}
           className="flex items-center gap-2 active:opacity-70 transition-opacity"
         >
           <div className="flex">
@@ -234,7 +235,7 @@ function DishCard({ dish }: { dish: DishData }) {
           </div>
           <span className="text-[10px] font-semibold" style={{ color: "#a8c09a" }}>Feedback</span>
           <ChevronRight size={9} strokeWidth={2.5} style={{ color: "#6aaa62" }} />
-        </Link>
+        </button>
       </div>
     </Link>
   );
@@ -396,7 +397,7 @@ export default function HomePage() {
     <div className="bg-background min-h-dvh" onClick={() => showDropdown && setShowDropdown(false)}>
 
       {/* ── Header ── */}
-      <div className="px-5 pt-14 pb-4">
+      <div className="px-5 pb-4" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)" }}>
         {/* Linha superior: saudação + foto + sino */}
         <div className="flex items-end justify-between gap-3">
 
@@ -460,8 +461,8 @@ export default function HomePage() {
                 if (e.key === "Enter" && searchInput.trim()) applyLocation(searchInput.trim());
                 if (e.key === "Escape") setShowDropdown(false);
               }}
-              placeholder="Cidade, estado ou país…"
-              className="flex-1 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-semibold"
+              placeholder="Cidade ou país…"
+              className="flex-1 min-w-0 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-semibold"
             />
             {searchInput && (
               <button onClick={clearLocation} className="active:scale-90 shrink-0">
@@ -633,16 +634,16 @@ export default function HomePage() {
                   style={{
                     width: 64,
                     height: 64,
-                    borderRadius: "50%",
-                    backgroundColor: isActive ? "#FFAF78" : cat.bg,
-                    boxShadow: isActive ? "0 6px 18px rgba(255,175,120,0.45)" : "0 2px 8px rgba(0,0,0,0.07)",
+                    borderRadius: 16,
+                    backgroundColor: isActive ? "#1F3D34" : cat.bg,
+                    boxShadow: isActive ? "0 6px 18px rgba(31,61,52,0.25)" : "0 2px 8px rgba(0,0,0,0.06)",
                   }}
                 >
-                  <img src={cat.icon} alt={cat.label} width={40} height={40}
+                  <img src={cat.icon} alt={cat.label} width={38} height={38}
                     style={{ objectFit: "contain" }} />
                 </div>
                 <p className="text-center leading-tight whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 11, color: isActive ? "#FFAF78" : cat.color }}>
+                  style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 11, color: isActive ? "#1F3D34" : "#1F3D34" }}>
                   {cat.label}
                 </p>
               </Link>
@@ -804,7 +805,7 @@ export default function HomePage() {
             <div className="flex items-center justify-between px-5 mb-3">
               <div>
                 <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>Bem avaliados próximo de você</h2>
-                <p className="text-text-disabled text-[12px] mt-0.5">Avaliações de celíacos verificados</p>
+                <p className="text-text-disabled text-[12px] mt-2">Avaliações de celíacos verificados</p>
               </div>
               <Link href="/comunidade" className="text-primary font-semibold text-[13px] shrink-0">Ver todos</Link>
             </div>
@@ -903,7 +904,7 @@ export default function HomePage() {
         );
       })()}
 
-      <div className="pb-8" />
+      <div style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }} />
 
       {/* ── Safety Preference Bottom Sheet ── */}
       {showSafetySheet && (

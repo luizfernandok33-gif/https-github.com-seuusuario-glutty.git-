@@ -25,25 +25,29 @@ export default function CadastroPage() {
 
   return (
     <div
-      className="min-h-dvh flex flex-col px-6 pt-6 pb-10"
-      style={{ backgroundColor: "#FEF5EF" }}
+      className="min-h-dvh flex flex-col px-6"
+      style={{
+        backgroundColor: "#FFFFFF",
+        paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
+        paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
+      }}
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/welcome"
-          className="w-9 h-9 rounded-full flex items-center justify-center border active:scale-95 transition-transform"
-          style={{ borderColor: "#C2A898", backgroundColor: "rgba(255,255,255,0.6)" }}
+          className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform"
+          style={{ backgroundColor: "#1F3D34" }}
         >
-          <ArrowLeft size={18} style={{ color: "#1F3D34" }} />
+          <ArrowLeft size={18} style={{ color: "#C6F59D" }} />
         </Link>
-        <h2 className="font-bold text-base" style={{ color: "#1F3D34" }}>Criar conta</h2>
+        <h2 className="font-black text-base" style={{ color: "#1F3D34" }}>Criar conta</h2>
       </div>
 
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <Image
-          src="/logo.png"
+          src="/glútty novo.png"
           alt="Glútty"
           width={110}
           height={110}
@@ -54,8 +58,8 @@ export default function CadastroPage() {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl font-black mb-1 font-display" style={{ color: "#1F3D34" }}>Cadastro</h1>
-      <p className="text-sm mb-6" style={{ color: "#7A5C4E" }}>Crie sua conta para começar</p>
+      <h1 className="text-2xl font-black mb-2 font-display" style={{ color: "#1F3D34" }}>Cadastro</h1>
+      <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>Crie sua conta para começar</p>
 
       {/* Form */}
       <form className="space-y-4 flex-1" onSubmit={(e) => e.preventDefault()}>
@@ -65,10 +69,10 @@ export default function CadastroPage() {
           <input
             type="text"
             placeholder="Seu nome completo"
-            className="w-full rounded-2xl px-4 py-4 text-sm outline-none transition-colors"
+            className="w-full rounded-2xl px-4 py-3.5 text-sm outline-none transition-colors"
             style={{
               backgroundColor: "#fff",
-              border: "1.5px solid #E2C9B8",
+              border: "1.5px solid #D4EDD4",
               color: "#1F3D34",
             }}
           />
@@ -79,10 +83,10 @@ export default function CadastroPage() {
           <input
             type="email"
             placeholder="seu@email.com"
-            className="w-full rounded-2xl px-4 py-4 text-sm outline-none transition-colors"
+            className="w-full rounded-2xl px-4 py-3.5 text-sm outline-none transition-colors"
             style={{
               backgroundColor: "#fff",
-              border: "1.5px solid #E2C9B8",
+              border: "1.5px solid #D4EDD4",
               color: "#1F3D34",
             }}
           />
@@ -96,10 +100,10 @@ export default function CadastroPage() {
               placeholder="mínimo 8 caracteres"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-2xl px-4 py-4 pr-12 text-sm outline-none transition-colors"
+              className="w-full rounded-2xl px-4 py-3.5 pr-12 text-sm outline-none transition-colors"
               style={{
                 backgroundColor: "#fff",
-                border: "1.5px solid #E2C9B8",
+                border: "1.5px solid #D4EDD4",
                 color: "#1F3D34",
               }}
             />
@@ -132,7 +136,7 @@ export default function CadastroPage() {
           )}
         </div>
 
-        <div className="pt-2 space-y-3">
+        <div className="mt-auto pt-6 space-y-3">
           <Link
             href="/onboarding"
             className="block w-full text-center font-bold py-4 rounded-full text-base active:scale-95 transition-transform"
@@ -140,9 +144,9 @@ export default function CadastroPage() {
           >
             Cadastrar
           </Link>
-          <p className="text-center text-sm" style={{ color: "#7A5C4E" }}>
+          <p className="text-center text-sm font-semibold" style={{ color: "#5A6B65" }}>
             Já tem conta?{" "}
-            <Link href="/login" className="font-bold" style={{ color: "#1F3D34" }}>
+            <Link href="/login" className="font-black" style={{ color: "#1F3D34" }}>
               Fazer login
             </Link>
           </p>

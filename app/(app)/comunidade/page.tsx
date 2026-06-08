@@ -93,13 +93,13 @@ export default function ComunidadePage() {
   );
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 96px)" }}>
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
 
       {/* ── Header fixo ── */}
       <div
         className="bg-background sticky top-0 z-40 px-5 pb-4"
         style={{
-          paddingTop: "calc(env(safe-area-inset-top,0px) + 16px)",
+          paddingTop: "calc(env(safe-area-inset-top, 0px) + 14px)",
           boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
         }}
       >

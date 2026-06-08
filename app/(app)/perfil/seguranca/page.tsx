@@ -96,11 +96,11 @@ export default function SegurancaPage() {
     <div className="min-h-dvh bg-[#FEF9F9] flex flex-col" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
 
       {/* ── Header ── */}
-      <div className="px-6 pt-14 pb-5">
+      <div className="px-5 pb-5" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)" }}>
         <div className="flex items-center gap-3 mb-5">
           <BackButton />
         </div>
-        <h1 className="text-[24px] font-extrabold text-primary leading-tight font-display mb-1">
+        <h1 className="text-[24px] font-extrabold text-primary leading-tight font-display mb-2">
           Padrão de segurança
         </h1>
         <p className="text-text-secondary text-sm">
@@ -108,7 +108,7 @@ export default function SegurancaPage() {
         </p>
       </div>
 
-      <div className="px-6 space-y-8">
+      <div className="px-5 space-y-8">
 
         {/* ── Seção 1: Base do app ── */}
         <section>
@@ -393,7 +393,7 @@ export default function SegurancaPage() {
 
       {/* ── CTA fixo ── */}
       <div
-        className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto px-6 bg-[#FEF9F9]/95 backdrop-blur-sm"
+        className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto px-5 bg-[#FEF9F9]/95 backdrop-blur-sm"
         style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 24px)", paddingTop: 16, borderTop: "1px solid var(--color-border)" }}
       >
         <button

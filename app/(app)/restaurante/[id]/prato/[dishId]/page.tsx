@@ -41,14 +41,14 @@ export default function DishDetailPage({
   const contamRisk = dish.crossContaminationRisk ?? "baixo";
 
   return (
-    <div className="bg-background min-h-dvh pb-28">
+    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
 
       {/* Hero */}
       <div className="relative h-64">
         <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
 
-        <div className="absolute top-12 left-5 right-5 flex items-center justify-between">
+        <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 14px)" }}>
           <Link href={`/restaurante/${restaurant.id}`}
             className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
             <ArrowLeft size={18} className="text-text-primary" />
@@ -61,13 +61,13 @@ export default function DishDetailPage({
         </div>
       </div>
 
-      <div className="px-5 py-5 space-y-5">
+      <div className="px-5 py-5 space-y-6">
 
         {/* Safety tag + name + description */}
         <div>
           <SafetyBadge level={safetyLevel} size="md" />
-          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mt-2">{dish.name}</h1>
-          <p className="text-text-secondary text-sm mt-1 leading-relaxed">{dish.description}</p>
+          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mt-2 mb-2">{dish.name}</h1>
+          <p className="text-text-secondary text-sm leading-relaxed">{dish.description}</p>
         </div>
 
         {/* Price + rating */}

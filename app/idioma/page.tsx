@@ -36,15 +36,15 @@ export default function IdiomaPage() {
     <div
       className="min-h-dvh flex flex-col px-6"
       style={{
-        paddingTop: "env(safe-area-inset-top, 0px)",
-        paddingBottom: "env(safe-area-inset-bottom, 0px)",
-        backgroundColor: "#FEF5EF",
+        paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
+        paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
+        backgroundColor: "#FFFFFF",
       }}
     >
       {/* Logo */}
-      <div className="flex flex-col items-center pt-16 pb-8">
+      <div className="flex flex-col items-center pb-8">
         <Image
-          src="/logo.png"
+          src="/glútty novo.png"
           alt="Glútty"
           width={160}
           height={160}
@@ -55,7 +55,7 @@ export default function IdiomaPage() {
       </div>
 
       {/* Título */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-[26px] font-black text-center font-display leading-tight" style={{ color: "#1F3D34" }}>
           Selecione o idioma
         </h1>
@@ -126,7 +126,7 @@ export default function IdiomaPage() {
       </div>
 
       {/* CTA */}
-      <div className="py-8">
+      <div className="mt-auto pt-6 pb-0">
         <button
           onClick={() => router.replace("/welcome")}
           className="w-full py-4 rounded-full font-bold text-base active:scale-95 transition-transform"

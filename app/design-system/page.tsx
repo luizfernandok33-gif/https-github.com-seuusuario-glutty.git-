@@ -3,7 +3,7 @@ import { useState } from "react";
 import SafetyBadge from "@/components/SafetyBadge";
 import Tag from "@/components/Tag";
 import BackButton from "@/components/BackButton";
-import { palette, allergenConfig, restrictionConfig } from "@/lib/tags";
+import { palette, allergenConfig, restrictionConfig, getIngredientColor } from "@/lib/tags";
 import { Heart, Search, MapPin, Bell, Plus, Check, ChevronRight, Star, ShieldCheck } from "lucide-react";
 
 // ─── Section wrapper ────────────────────────────────────────────────────────
@@ -295,7 +295,7 @@ export default function DesignSystemPage() {
                 <Tag
                   key={ing}
                   label={ing}
-                  colorConfig={{ color: "#C0392B", bg: "#FDECEA" }}
+                  colorConfig={getIngredientColor(ing)}
                   size="md"
                   strikethrough
                 />

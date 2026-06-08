@@ -48,7 +48,7 @@ export default function RecomendadosPage() {
   return (
     <div
       className="min-h-dvh bg-background"
-      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 96px)" }}
+      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}
     >
       {/* ── Header ── */}
       <div
@@ -72,7 +72,7 @@ export default function RecomendadosPage() {
         <span className="inline-block text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mb-3" style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}>
           NOVO
         </span>
-        <h2 className="text-white font-extrabold text-[20px] leading-snug mb-1 font-display">
+        <h2 className="text-white font-extrabold text-[20px] leading-snug mb-2 font-display">
           Novos restaurantes<br />recomendados
         </h2>
         <p className="text-white/70 text-sm">

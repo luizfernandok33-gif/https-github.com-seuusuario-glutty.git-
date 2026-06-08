@@ -11,25 +11,29 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-dvh flex flex-col px-6 pt-6 pb-10"
-      style={{ backgroundColor: "#FEF5EF" }}
+      className="min-h-dvh flex flex-col px-6"
+      style={{
+        backgroundColor: "#FFFFFF",
+        paddingTop: "calc(env(safe-area-inset-top, 0px) + 48px)",
+        paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)",
+      }}
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/welcome"
-          className="w-9 h-9 rounded-full flex items-center justify-center border active:scale-95 transition-transform"
-          style={{ borderColor: "#C2A898", backgroundColor: "rgba(255,255,255,0.6)" }}
+          className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform"
+          style={{ backgroundColor: "#1F3D34" }}
         >
-          <ArrowLeft size={18} style={{ color: "#1F3D34" }} />
+          <ArrowLeft size={18} style={{ color: "#C6F59D" }} />
         </Link>
-        <h2 className="font-bold text-base" style={{ color: "#1F3D34" }}>Entrar</h2>
+        <h2 className="font-black text-base" style={{ color: "#1F3D34" }}>Entrar</h2>
       </div>
 
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <Image
-          src="/logo.png"
+          src="/glútty novo.png"
           alt="Glútty"
           width={110}
           height={110}
@@ -40,10 +44,10 @@ export default function LoginPage() {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl font-black mb-1 font-display" style={{ color: "#1F3D34" }}>
+      <h1 className="text-2xl font-black mb-2 font-display" style={{ color: "#1F3D34" }}>
         Bem-vindo de volta!
       </h1>
-      <p className="text-sm mb-6" style={{ color: "#7A5C4E" }}>Acesse sua conta para continuar.</p>
+      <p className="text-sm font-semibold mb-6" style={{ color: "#5A6B65" }}>Acesse sua conta para continuar.</p>
 
       {/* Form */}
       <form className="space-y-4 flex-1" onSubmit={(e) => { e.preventDefault(); router.push("/onboarding"); }}>
@@ -53,8 +57,8 @@ export default function LoginPage() {
           <input
             type="email"
             placeholder="seu@email.com"
-            className="w-full rounded-2xl px-4 py-4 text-sm outline-none transition-colors"
-            style={{ backgroundColor: "#fff", border: "1.5px solid #E2C9B8", color: "#1F3D34" }}
+            className="w-full rounded-2xl px-4 py-3.5 text-sm outline-none transition-colors"
+            style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4", color: "#1F3D34" }}
           />
         </div>
 
@@ -64,14 +68,14 @@ export default function LoginPage() {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="sua senha"
-              className="w-full rounded-2xl px-4 py-4 pr-12 text-sm outline-none transition-colors"
-              style={{ backgroundColor: "#fff", border: "1.5px solid #E2C9B8", color: "#1F3D34" }}
+              className="w-full rounded-2xl px-4 py-3.5 pr-12 text-sm outline-none transition-colors"
+              style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4", color: "#1F3D34" }}
             />
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
               className="absolute right-4 top-1/2 -translate-y-1/2 active:scale-90 transition-transform"
-              style={{ color: "#C2A898" }}
+              style={{ color: "#8FA89E" }}
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -97,16 +101,16 @@ export default function LoginPage() {
 
       {/* Divider */}
       <div className="flex items-center gap-3 my-5">
-        <div className="flex-1 h-px" style={{ backgroundColor: "#E2C9B8" }} />
-        <span className="text-xs" style={{ color: "#C2A898" }}>ou entre com</span>
-        <div className="flex-1 h-px" style={{ backgroundColor: "#E2C9B8" }} />
+        <div className="flex-1 h-px" style={{ backgroundColor: "#E8EDE9" }} />
+        <span className="text-xs" style={{ color: "#8FA89E" }}>ou entre com</span>
+        <div className="flex-1 h-px" style={{ backgroundColor: "#E8EDE9" }} />
       </div>
 
       {/* Social */}
       <div className="flex items-center justify-center gap-4">
         <button
           className="w-12 h-12 rounded-2xl flex items-center justify-center active:scale-95 transition-transform"
-          style={{ backgroundColor: "#fff", border: "1.5px solid #E2C9B8" }}
+          style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4" }}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -114,7 +118,7 @@ export default function LoginPage() {
         </button>
         <button
           className="w-12 h-12 rounded-2xl flex items-center justify-center active:scale-95 transition-transform"
-          style={{ backgroundColor: "#fff", border: "1.5px solid #E2C9B8" }}
+          style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4" }}
         >
           <svg width="20" height="20" viewBox="0 0 24 24">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -125,7 +129,7 @@ export default function LoginPage() {
         </button>
         <button
           className="w-12 h-12 rounded-2xl flex items-center justify-center active:scale-95 transition-transform"
-          style={{ backgroundColor: "#fff", border: "1.5px solid #E2C9B8" }}
+          style={{ backgroundColor: "#fff", border: "1.5px solid #D4EDD4" }}
         >
           <svg width="17" height="20" viewBox="0 0 17 20" fill="#000">
             <path d="M13.634 10.524c-.022-2.354 1.923-3.489 2.01-3.545-1.097-1.602-2.8-1.82-3.405-1.843-1.446-.147-2.836.857-3.571.857-.736 0-1.866-.838-3.072-.814-1.572.023-3.032.921-3.838 2.33C.03 10.192 1.19 14.573 2.86 16.967c.836 1.194 1.822 2.528 3.112 2.481 1.254-.05 1.724-.8 3.237-.8 1.513 0 1.948.8 3.271.773 1.348-.023 2.198-1.208 3.025-2.409.957-1.378 1.347-2.718 1.366-2.787-.03-.013-2.613-1.001-2.637-3.701zM11.317 3.44C12.003 2.604 12.47 1.453 12.34.28c-.98.041-2.175.654-2.881 1.472-.629.726-1.184 1.894-1.036 3.01 1.1.084 2.22-.558 2.894-1.321z"/>
@@ -134,9 +138,9 @@ export default function LoginPage() {
       </div>
 
       {/* Criar conta */}
-      <p className="text-center text-xs mt-8" style={{ color: "#7A5C4E" }}>
+      <p className="text-center text-xs font-semibold mt-6" style={{ color: "#5A6B65" }}>
         Ainda não tem conta?{" "}
-        <Link href="/cadastro" className="font-bold" style={{ color: "#1F3D34" }}>
+        <Link href="/cadastro" className="font-black" style={{ color: "#1F3D34" }}>
           Criar conta →
         </Link>
       </p>
