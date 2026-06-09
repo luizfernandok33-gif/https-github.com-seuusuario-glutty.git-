@@ -37,9 +37,12 @@ function Toggle({ active, onToggle }: { active: boolean; onToggle: () => void })
   );
 }
 
+const LANG_CODE_TO_DISPLAY: Record<string, string> = { pt: "Português", en: "English" };
+const LANG_DISPLAY_TO_CODE: Record<string, string> = { "Português": "pt", "English": "en" };
+
 export default function ConfiguracoesPage() {
-  const { t } = useLanguage();
-  const [language,        setLanguage]        = useState("Português");
+  const { t, language: currentLang, setLanguage: setGlobalLanguage } = useLanguage();
+  const language = LANG_CODE_TO_DISPLAY[currentLang] ?? "Português";
   const [notifSafety,     setNotifSafety]     = useState(true);
   const [notifNew,        setNotifNew]        = useState(true);
   const [notifReviews,    setNotifReviews]    = useState(false);
@@ -94,7 +97,7 @@ export default function ConfiguracoesPage() {
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang}
-                    onClick={() => { setLanguage(lang); setShowLangPicker(false); }}
+                    onClick={() => { const code = LANG_DISPLAY_TO_CODE[lang]; if (code) setGlobalLanguage(code as "pt" | "en"); setShowLangPicker(false); }}
                     className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl active:bg-background transition-colors"
                   >
                     <span className="text-text-primary text-[13px] font-medium">{lang}</span>
