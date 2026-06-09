@@ -10,9 +10,10 @@ import {
 import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import Tag from "@/components/Tag";
-import { mockRestaurants, safetyLevelConfig } from "@/lib/data";
+import { mockRestaurants, localizeRestaurant, localizeSafetyLevelConfig } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { getRestrictionColor } from "@/lib/tags";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 // Logos reais enviados pelo usuário — mapeados por nome do restaurante.
 const RESTAURANT_LOGOS: Record<string, string> = {
@@ -44,7 +45,8 @@ function IconEstrela({ size = 12, fill = "#FFC24D" }: { size?: number; fill?: st
 
 export default function RestaurantePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const restaurant = mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0];
+  const { t, language } = useLanguage();
+  const restaurant = localizeRestaurant(mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0], language);
 
   const [isFav, setIsFav] = useState(restaurant.isFavorite);
   const [activeTab, setActiveTab] = useState<"sobre" | "pratos" | "avaliacoes">("sobre");
@@ -104,7 +106,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
     { key: "mexicana",   label: "Mexicana",   Icon: IconMexicana,   bg: "#FFE8CC", color: "#BF5C00" },
     { key: "churrasco",  label: "Churrasco",  Icon: IconChurrasco,  bg: "#EDE8E3", color: "#5D4037" },
   ];
-  const safetyConfig = safetyLevelConfig[restaurant.safetyLevel];
+  const safetyConfig = localizeSafetyLevelConfig(language)[restaurant.safetyLevel];
 
   return (
     <div className="flex flex-col" style={{ backgroundColor: "#FFFFFF", marginBottom: "-128px", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
@@ -121,7 +123,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
           >
             <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
           </Link>
-          <p className="font-extrabold text-[18px] leading-tight" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}>Restaurante</p>
+          <p className="font-extrabold text-[18px] leading-tight" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900 }}>{t.restaurante.headerTitle}</p>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -179,7 +181,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                   <IconEstrela size={14} fill="#FFC24D" />
                   <span className="font-extrabold text-[15px]" style={{ color: "#1F3D34" }}>{restaurant.rating}</span>
                 </div>
-                <span className="text-[10px]" style={{ color: "#9AAFA6" }}>{restaurant.reviewCount} avaliações</span>
+                <span className="text-[10px]" style={{ color: "#9AAFA6" }}>{t.restaurante.reviewsCount.replace("{count}", String(restaurant.reviewCount))}</span>
               </div>
             </div>
             <p className="text-[12px] mt-0.5" style={{ color: "#9AAFA6" }}>
@@ -193,8 +195,8 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
           <SafetyBadge level={restaurant.safetyLevel} size="sm" />
           {(() => {
             const statusConfig = restaurant.isOpen
-              ? { label: "Aberto agora", bg: "#D9F2D9", text: "#2D8C2D" }
-              : { label: "Fechado",      bg: "#F5F5F5", text: "#9CA3AF" };
+              ? { label: t.common.open,   bg: "#D9F2D9", text: "#2D8C2D" }
+              : { label: t.common.closed, bg: "#F5F5F5", text: "#9CA3AF" };
             return (
               <div
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full shrink-0 text-[11px] font-bold"
@@ -249,7 +251,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                   border: isActive ? "none" : "1.5px solid #E5E7EB",
                 }}
               >
-                {tab === "sobre" ? "Sobre" : tab === "pratos" ? "Pratos" : "Avaliações"}
+                {t.restaurante.tabs[tab]}
               </button>
             );
           })}
@@ -265,14 +267,14 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
 
             {/* Descrição */}
             <div>
-              <h3 className="font-extrabold text-text-primary text-[15px] mb-2">Sobre o restaurante</h3>
+              <h3 className="font-extrabold text-text-primary text-[15px] mb-2">{t.restaurante.about.title}</h3>
               <p className="text-text-secondary text-sm leading-relaxed">{restaurant.description}</p>
             </div>
 
             {/* Restrições atendidas */}
             {restaurant.restrictions && restaurant.restrictions.length > 0 && (
               <div>
-                <h3 className="font-extrabold text-primary text-[15px] mb-3">Restrições atendidas</h3>
+                <h3 className="font-extrabold text-primary text-[15px] mb-3">{t.restaurante.about.restrictionsTitle}</h3>
                 <div className="flex flex-wrap gap-2">
                   {restaurant.restrictions.map((r) => (
                     <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="md" />
@@ -283,7 +285,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
 
             {/* Galeria de fotos */}
             <div>
-              <h3 className="font-extrabold text-text-primary text-[15px] mb-3">Fotos do restaurante</h3>
+              <h3 className="font-extrabold text-text-primary text-[15px] mb-3">{t.restaurante.about.galleryTitle}</h3>
               {restaurant.galleryImages && restaurant.galleryImages.length > 0 ? (
                 <div className="flex gap-2 overflow-x-auto -mx-5 px-5 pb-1 scrollbar-none">
                   {restaurant.galleryImages.map((src, i) => (
@@ -294,7 +296,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                     >
                       <Image
                         src={src}
-                        alt={`${restaurant.name} foto ${i + 1}`}
+                        alt={`${restaurant.name} ${i + 1}`}
                         fill
                         className="object-cover"
                         unoptimized
@@ -314,7 +316,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" stroke="#B0977E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         <circle cx="12" cy="13" r="4" stroke="#B0977E" strokeWidth="1.5"/>
                       </svg>
-                      <span className="text-[10px] font-semibold" style={{ color: "#B0977E" }}>Em breve</span>
+                      <span className="text-[10px] font-semibold" style={{ color: "#B0977E" }}>{t.restaurante.about.comingSoon}</span>
                     </div>
                   ))}
                 </div>
@@ -324,7 +326,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             {/* Pratos principais */}
             {restaurant.dishes.length > 0 && (
               <div>
-                <h3 className="font-extrabold text-primary text-[15px] mb-3">Pratos principais</h3>
+                <h3 className="font-extrabold text-primary text-[15px] mb-3">{t.restaurante.about.mainDishesTitle}</h3>
                 <div className="flex gap-3 overflow-x-auto pb-1 -mx-5 px-5 scrollbar-none">
                   {restaurant.dishes.map((dish) => {
                     const isUnsafe = !dish.isGlutenFree && !(dish.adaptations && dish.adaptations.length > 0);
@@ -351,13 +353,13 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                             <p className="text-text-disabled text-xs mt-0.5">{formatPrice(dish.price)}</p>
                             {reportDishId === dish.id && (
                               <div className="mt-1.5 bg-white rounded-xl p-2 border border-border/50 shadow-sm">
-                                <p className="text-[10px] text-text-secondary mb-1.5 leading-relaxed">Prato incompatível — sem adaptação disponível.</p>
+                                <p className="text-[10px] text-text-secondary mb-1.5 leading-relaxed">{t.restaurante.about.incompatibleDish}</p>
                                 <button
                                   onClick={(e) => { e.stopPropagation(); setReportDishId(null); }}
                                   className="w-full flex items-center justify-center gap-1 bg-warning/15 text-warning rounded-lg py-1.5 text-[10px] font-bold"
                                 >
                                   <Flag size={10} />
-                                  Solicitar adaptação
+                                  {t.restaurante.about.requestAdaptation}
                                 </button>
                               </div>
                             )}
@@ -372,9 +374,9 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                                 <DishImagePlaceholder rounded={16} />
                               )}
                               {isAdaptable ? (
-                                <div className="absolute bottom-1.5 left-1.5 bg-warning text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">Adaptável</div>
+                                <div className="absolute bottom-1.5 left-1.5 bg-warning text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">{t.restaurante.about.adaptable}</div>
                               ) : (
-                                <div className="absolute bottom-1.5 left-1.5 bg-success text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">Seguro</div>
+                                <div className="absolute bottom-1.5 left-1.5 bg-success text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">{t.restaurante.about.safe}</div>
                               )}
                             </div>
                             <p className="text-text-primary text-xs font-bold leading-tight line-clamp-2">{dish.name}</p>
@@ -391,11 +393,11 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             {/* Controle de contaminação cruzada */}
             {restaurant.safetyProcedures && restaurant.safetyProcedures.length > 0 && (
               <div>
-                <h3 className="font-extrabold text-text-primary text-[15px] mb-3">Controle de contaminação cruzada</h3>
+                <h3 className="font-extrabold text-text-primary text-[15px] mb-3">{t.restaurante.about.crossContaminationTitle}</h3>
                 <div className="rounded-2xl overflow-hidden border" style={{ borderColor: "rgba(31,61,52,0.25)", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
                   <div className="flex items-center gap-2 px-4 py-3" style={{ backgroundColor: "rgba(31,61,52,0.08)" }}>
                     <AlertTriangle size={14} className="shrink-0" style={{ color: "#1F3D34" }} />
-                    <p className="font-extrabold text-xs tracking-wide uppercase" style={{ color: "#1F3D34" }}>Procedimentos de segurança</p>
+                    <p className="font-extrabold text-xs tracking-wide uppercase" style={{ color: "#1F3D34" }}>{t.restaurante.about.safetyProceduresTitle}</p>
                   </div>
                   <div className="bg-surface px-4 py-3 space-y-2">
                     {restaurant.safetyProcedures.map((proc) => (
@@ -413,13 +415,13 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             <div className="flex items-start gap-2 px-1">
               <AlertTriangle size={13} className="shrink-0 mt-0.5" style={{ color: "#1F3D34" }} />
               <p className="text-[11px] leading-relaxed" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
-                Informações fornecidas pelo restaurante. Confirme sempre essas informações diretamente com o restaurante antes de consumir.
+                {t.restaurante.about.disclaimer}
               </p>
             </div>
 
             {/* Footer — contact + chef */}
             <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-              <h3 className="font-bold text-text-primary text-sm mb-3">Informações de contato</h3>
+              <h3 className="font-bold text-text-primary text-sm mb-3">{t.restaurante.about.contactTitle}</h3>
 
               <div className="space-y-2.5 mb-4">
                 <div className="flex items-center gap-2.5">
@@ -465,7 +467,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                       </div>
                     )}
                     <div>
-                      <p className="text-[10px] text-text-disabled uppercase tracking-wide font-semibold">Chefe de cozinha</p>
+                      <p className="text-[10px] text-text-disabled uppercase tracking-wide font-semibold">{t.restaurante.about.chefLabel}</p>
                       <p className="font-bold text-text-primary text-sm">{restaurant.chef}</p>
                     </div>
                   </div>
@@ -485,7 +487,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                 <div className="w-16 h-16 rounded-full bg-border/30 flex items-center justify-center mb-3">
                     <UtensilsCrossed size={28} className="text-text-disabled" strokeWidth={1.5} />
                   </div>
-                <p className="text-text-disabled text-sm">Cardápio não disponível ainda</p>
+                <p className="text-text-disabled text-sm">{t.restaurante.dishes.empty}</p>
               </div>
             ) : (
               restaurant.dishes.map((dish) => (
@@ -503,7 +505,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                     {dish.isCertified && (
                       <div className="absolute top-3 left-3 bg-success text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
                         <CheckCircle size={10} />
-                        Aprovado por celíacos
+                        {t.restaurante.dishes.certified}
                       </div>
                     )}
                   </div>
@@ -518,7 +520,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                       </span>
                     </div>
                     <div className="mt-3">
-                      <p className="text-text-disabled text-xs font-semibold mb-2">Ingredientes declarados:</p>
+                      <p className="text-text-disabled text-xs font-semibold mb-2">{t.restaurante.dishes.declaredIngredients}</p>
                       <div className="flex flex-wrap gap-1.5">
                         {dish.ingredients.map((ing) => (
                           <span key={ing} className="bg-white text-text-secondary text-[10px] font-medium px-2 py-1 rounded-full border border-border">
@@ -548,14 +550,14 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                       <IconEstrela key={s} size={11} fill={s <= Math.round(restaurant.rating) ? "#FFC24D" : "#E5E5E5"} />
                     ))}
                   </div>
-                  <p className="text-text-disabled text-[10px]">{restaurant.reviewCount} avaliações</p>
+                  <p className="text-text-disabled text-[10px]">{t.restaurante.reviewsCount.replace("{count}", String(restaurant.reviewCount))}</p>
                 </div>
                 <div className="flex-1 space-y-1.5">
                   {(["muito_seguro","seguro","moderado","nao_seguro"] as const).map((lvl) => {
                     const count = restaurant.reviews.filter(r => r.safetyLevel === lvl).length;
                     const pct = restaurant.reviews.length ? Math.round((count / restaurant.reviews.length) * 100) : 0;
                     const colors: Record<string,string> = { muito_seguro:"#43A047", seguro:"#F59E0B", moderado:"#FB8C00", nao_seguro:"#EF5350" };
-                    const labels: Record<string,string> = { muito_seguro:"Muito seguro", seguro:"Seguro", moderado:"Moderado", nao_seguro:"Não seguro" };
+                    const labels = t.restaurante.reviews.safetyLevels;
                     return (
                       <div key={lvl} className="flex items-center gap-2">
                         <span className="text-[10px] text-text-disabled w-16 truncate">{labels[lvl]}</span>
@@ -571,8 +573,8 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             </div>
 
             {restaurant.reviews.map((review) => {
-              const contamLabels: Record<string,string> = { nenhum:"Sem contaminação", pequeno:"Pequeno risco", alto:"Alto risco", nao_sei:"Risco incerto" };
-              const teamLabels:   Record<string,string> = { total:"Equipe preparada", parcial:"Equipe parcial", nao_sabiam:"Equipe despreparada", nao_perguntei:"Não verificado" };
+              const contamLabels = t.restaurante.reviews.contamLabels;
+              const teamLabels   = t.restaurante.reviews.teamLabels;
 
               return (
                 <div
@@ -598,7 +600,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                     {review.verified && (
                       <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
                         <BadgeCheck size={14} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
-                        <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>Verificado</span>
+                        <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>{t.restaurante.reviews.verified}</span>
                       </div>
                     )}
                   </div>
@@ -651,7 +653,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
               style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
             >
               <MessageCircle size={18} />
-              Avaliar este restaurante
+              {t.restaurante.reviews.writeReview}
             </Link>
           </div>
         )}

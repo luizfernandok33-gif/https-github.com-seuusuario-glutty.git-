@@ -1,3 +1,6 @@
+import { restaurantTranslationsEn, safetyLevelLabelsEn } from "@/lib/i18n/dataTranslations";
+import type { Language } from "@/lib/i18n/translations";
+
 export type SafetyLevel =
   | "muito_seguro"
   | "seguro"
@@ -1642,6 +1645,65 @@ export const mockDishes = [
     image: "https://aviebakedgoods.com/wp-content/uploads/2025/10/a-Vie_17102025_2042-scaled.jpg",
   },
 ];
+
+export function localizeDish(dish: Dish, restaurantId: string, lang: Language): Dish {
+  if (lang !== "en") return dish;
+  const tr = restaurantTranslationsEn[restaurantId]?.dishes?.[dish.id];
+  if (!tr) return dish;
+  return {
+    ...dish,
+    ...(tr.name !== undefined && { name: tr.name }),
+    ...(tr.description !== undefined && { description: tr.description }),
+    ...(tr.ingredients !== undefined && { ingredients: tr.ingredients }),
+    ...(tr.adaptations !== undefined && { adaptations: tr.adaptations }),
+    ...(tr.restrictions !== undefined && { restrictions: tr.restrictions }),
+  };
+}
+
+export function localizeReview(review: Review, restaurantId: string, lang: Language): Review {
+  if (lang !== "en") return review;
+  const tr = restaurantTranslationsEn[restaurantId]?.reviews?.[review.id];
+  if (!tr) return review;
+  return {
+    ...review,
+    ...(tr.tags !== undefined && { tags: tr.tags }),
+    ...(tr.comment !== undefined && { comment: tr.comment }),
+  };
+}
+
+export function localizeRestaurant(restaurant: Restaurant, lang: Language): Restaurant {
+  if (lang !== "en") return restaurant;
+  const tr = restaurantTranslationsEn[restaurant.id];
+  return {
+    ...restaurant,
+    ...(tr?.city !== undefined && { city: tr.city }),
+    ...(tr?.cuisine !== undefined && { cuisine: tr.cuisine }),
+    ...(tr?.description !== undefined && { description: tr.description }),
+    ...(tr?.openingHours !== undefined && { openingHours: tr.openingHours }),
+    ...(tr?.features !== undefined && { features: tr.features }),
+    ...(tr?.restrictions !== undefined && { restrictions: tr.restrictions }),
+    ...(tr?.safetyProcedures !== undefined && { safetyProcedures: tr.safetyProcedures }),
+    dishes: restaurant.dishes.map((d) => localizeDish(d, restaurant.id, lang)),
+    reviews: restaurant.reviews.map((r) => localizeReview(r, restaurant.id, lang)),
+  };
+}
+
+export function localizeSafetyLevelConfig(
+  lang: Language
+): Record<SafetyLevel, { label: string; color: string; bg: string; description: string }> {
+  if (lang !== "en") return safetyLevelConfig;
+  const result = {} as Record<SafetyLevel, { label: string; color: string; bg: string; description: string }>;
+  (Object.keys(safetyLevelConfig) as SafetyLevel[]).forEach((key) => {
+    const base = safetyLevelConfig[key];
+    const tr = safetyLevelLabelsEn[key];
+    result[key] = {
+      ...base,
+      ...(tr?.label !== undefined && { label: tr.label }),
+      ...(tr?.description !== undefined && { description: tr.description }),
+    };
+  });
+  return result;
+}
 
 export const safetyFilters = [
   { id: "muito_seguro", label: "Muito seguro", icon: "🛡️" },

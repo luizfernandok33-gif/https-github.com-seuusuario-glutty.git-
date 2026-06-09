@@ -7,14 +7,14 @@ import { ArrowLeft, Search, MapPin, Star, ChevronRight } from "lucide-react";
 import RestaurantCard from "@/components/RestaurantCard";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { mockRestaurants, mockDishes } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 // ── Configuração reutilizável por categoria ──────────────────────────────────
 // Para criar uma nova categoria, basta adicionar uma entrada aqui — a estrutura
 // da página (seções, componentes, layout) permanece idêntica.
+type CategoryId = "mais-seguros" | "festa" | "familia" | "doces" | "amigos";
+
 type CategoryConfig = {
-  title: string;
-  description: string;
-  searchPlaceholder: string;
   bg: string;
   color: string;
   icon: string;
@@ -24,47 +24,32 @@ type CategoryConfig = {
   inspirationIds: string[];
 };
 
-const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
+const CATEGORY_CONFIG: Record<CategoryId, CategoryConfig> = {
   "mais-seguros": {
-    title: "Mais seguros",
-    description: "Restaurantes com os protocolos mais rigorosos contra contaminação cruzada, pensados para quem não pode arriscar.",
-    searchPlaceholder: "Buscar restaurantes mais seguros...",
     bg: "#E4EFC6", color: "#2E4F2A", icon: "/feliz.png",
     nearbyIds: ["1", "grao-fino", "pandan"],
     communityIds: ["6", "libera", "healthy-bites-atelier"],
     inspirationIds: ["dd2", "dd4"],
   },
   "festa": {
-    title: "Festa sem glúten",
-    description: "Lugares perfeitos para comemorar com tranquilidade — petiscos, bolos e bebidas sem glúten para curtir sem preocupação.",
-    searchPlaceholder: "Buscar lugares para festejar...",
     bg: "#FDEFCC", color: "#6B5F2A", icon: "/festa.png",
     nearbyIds: ["pizza-for-fun", "jampa-nutrileve", "grano"],
     communityIds: ["a-vie", "jackies", "zufreeden"],
     inspirationIds: ["dd1", "dd5"],
   },
   "familia": {
-    title: "Para a família",
-    description: "Ambientes acolhedores e cardápios variados, ideais para refeições em família com opções seguras para todos.",
-    searchPlaceholder: "Buscar restaurantes para a família...",
     bg: "#DDEFE5", color: "#1F4A44", icon: "/familia.png",
     nearbyIds: ["7", "5", "healthy-bites-atelier"],
     communityIds: ["1", "tibits", "marktkuche"].filter((id) => mockRestaurants.some(r => r.id === id)),
     inspirationIds: ["dd3", "dd6"],
   },
   "doces": {
-    title: "Doces sem glúten",
-    description: "De bolos a brigadeiros, confeitarias e doces que provam que sem glúten pode ser ainda mais gostoso.",
-    searchPlaceholder: "Buscar doces e confeitarias...",
     bg: "#F0E0F2", color: "#5A4580", icon: "/doces.png",
     nearbyIds: ["a-vie", "juro-de-dedinho", "lola-paleo"],
     communityIds: ["healthy-bites-atelier", "jackies", "grano"],
     inspirationIds: ["dd6", "dd3"],
   },
   "amigos": {
-    title: "Para sair com amigos",
-    description: "Bares, restaurantes e cafés para curtir momentos em grupo com tranquilidade e boas indicações da comunidade.",
-    searchPlaceholder: "Buscar lugares para curtir com amigos...",
     bg: "#D9E7F0", color: "#1F4A60", icon: "/amigos.png",
     nearbyIds: ["pandan", "pizza-for-fun", "6"],
     communityIds: ["zufreeden", "libera", "grano"],
@@ -72,7 +57,7 @@ const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
   },
 };
 
-const DEFAULT_CONFIG: CategoryConfig = CATEGORY_CONFIG["mais-seguros"];
+const DEFAULT_CATEGORY_ID: CategoryId = "mais-seguros";
 
 function getRestaurants(ids: string[]) {
   return ids
@@ -88,6 +73,7 @@ function getDishes(ids: string[]) {
 
 // ── Cabeçalho de seção reutilizável ───────────────────────────────────────────
 function SectionHeader({ title, href }: { title: string; href?: string }) {
+  const { t } = useLanguage();
   return (
     <div className="flex items-center justify-between mb-3 px-5">
       <h2 className="font-extrabold text-[16px]" style={{ color: "#1F3D34", fontFamily: "var(--font-nunito), 'Nunito', sans-serif" }}>
@@ -95,7 +81,7 @@ function SectionHeader({ title, href }: { title: string; href?: string }) {
       </h2>
       {href && (
         <Link href={href} className="flex items-center gap-0.5 text-[12px] font-semibold active:opacity-60 transition-opacity" style={{ color: "#4A9070" }}>
-          Ver todos <ChevronRight size={13} />
+          {t.categoria.seeAll} <ChevronRight size={13} />
         </Link>
       )}
     </div>
@@ -145,23 +131,26 @@ function SkeletonRow({ width = 168, height = 160 }: { width?: number; height?: n
 export default function CategoriaPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
+  const { t } = useLanguage();
   const id = (params?.id as string) ?? "";
-  const config = CATEGORY_CONFIG[id] ?? DEFAULT_CONFIG;
+  const categoryId = (id in CATEGORY_CONFIG ? id : DEFAULT_CATEGORY_ID) as CategoryId;
+  const config = CATEGORY_CONFIG[categoryId];
+  const text = t.categoria.configs[categoryId];
 
   const [search, setSearch] = useState("");
   const [locStatus, setLocStatus] = useState<"idle" | "loading" | "granted" | "denied">("idle");
-  const [locLabel, setLocLabel] = useState<string>("São Paulo");
+  const [locLabel, setLocLabel] = useState<string>(t.categoria.defaultLocation);
 
   // ── Geolocalização (MVP: apenas obtém permissão e exibe rótulo) ────────────
   useEffect(() => {
     if (!("geolocation" in navigator)) { setLocStatus("denied"); return; }
     setLocStatus("loading");
     navigator.geolocation.getCurrentPosition(
-      () => { setLocStatus("granted"); setLocLabel("perto de você"); },
-      () => { setLocStatus("denied"); setLocLabel("São Paulo"); },
+      () => { setLocStatus("granted"); setLocLabel(t.categoria.nearYouLabel); },
+      () => { setLocStatus("denied"); setLocLabel(t.categoria.defaultLocation); },
       { timeout: 4000 }
     );
-  }, []);
+  }, [t]);
 
   const nearby       = getRestaurants(config.nearbyIds);
   const community    = getRestaurants(config.communityIds);
@@ -197,10 +186,10 @@ export default function CategoriaPage() {
         </div>
 
         <h1 className="font-black text-[24px] leading-tight mb-1.5" style={{ color: config.color, fontWeight: 900 }}>
-          {config.title}
+          {text.title}
         </h1>
         <p className="text-[13px] leading-relaxed mb-5" style={{ color: config.color, opacity: 0.65, textWrap: "balance" } as React.CSSProperties}>
-          {config.description}
+          {text.description}
         </p>
 
         {/* Busca contextual */}
@@ -212,7 +201,7 @@ export default function CategoriaPage() {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={config.searchPlaceholder}
+            placeholder={text.searchPlaceholder}
             className="flex-1 outline-none text-[13px] bg-transparent"
             style={{ color: "#1F3D34" }}
           />
@@ -226,18 +215,18 @@ export default function CategoriaPage() {
         <div className="flex items-center justify-between mb-3 px-5">
           <div className="flex items-center gap-1.5">
             <MapPin size={15} style={{ color: "#4A9070" }} />
-            <h2 className="font-extrabold text-[16px]" style={{ color: "#1F3D34" }}>Perto de você</h2>
+            <h2 className="font-extrabold text-[16px]" style={{ color: "#1F3D34" }}>{t.categoria.nearbyTitle}</h2>
           </div>
           <Link href={`/busca?filter=${id}`} className="flex items-center gap-0.5 text-[12px] font-semibold active:opacity-60 transition-opacity" style={{ color: "#4A9070" }}>
-            Ver todos <ChevronRight size={13} />
+            {t.categoria.seeAll} <ChevronRight size={13} />
           </Link>
         </div>
 
         {locStatus !== "idle" && (
           <p className="text-[11px] font-semibold mb-3 px-5" style={{ color: "#9AAFA6" }}>
-            {locStatus === "loading" && "Obtendo sua localização..."}
-            {locStatus === "granted" && `Mostrando resultados ${locLabel}`}
-            {locStatus === "denied"  && `Mostrando resultados para ${locLabel} · ative sua localização para resultados mais próximos`}
+            {locStatus === "loading" && t.categoria.gettingLocation}
+            {locStatus === "granted" && t.categoria.showingResultsNear.replace("{location}", locLabel)}
+            {locStatus === "denied"  && t.categoria.showingResultsFor.replace("{location}", locLabel)}
           </p>
         )}
 
@@ -246,14 +235,14 @@ export default function CategoriaPage() {
             ? Array.from({ length: 3 }).map((_, i) => <SkeletonRow key={i} width={236} />)
             : filteredNearby.length > 0
               ? filteredNearby.map((r) => <RestaurantCard key={r.id} restaurant={r} variant="vertical" width={236} />)
-              : <p className="text-[12px] py-6" style={{ color: "#9AAFA6" }}>Nenhum restaurante encontrado para "{search}".</p>
+              : <p className="text-[12px] py-6" style={{ color: "#9AAFA6" }}>{t.categoria.noResultsFound.replace("{query}", search)}</p>
           }
         </div>
       </div>
 
       {/* ── Recomendados pela comunidade ── */}
       <div className="mb-7">
-        <SectionHeader title="Recomendados pela comunidade" href={`/busca?filter=${id}&sort=community`} />
+        <SectionHeader title={t.categoria.communityTitle} href={`/busca?filter=${id}&sort=community`} />
         <div className="flex gap-4 overflow-x-auto px-5 hide-scrollbar" style={{ scrollSnapType: "x mandatory" }}>
           {community.map((r) => (
             <RestaurantCard key={r.id} restaurant={r} variant="vertical" width={236} />
@@ -264,7 +253,7 @@ export default function CategoriaPage() {
       {/* ── Produtos relacionados ── */}
       {products.length > 0 && (
         <div className="mb-7">
-          <SectionHeader title="Produtos relacionados" />
+          <SectionHeader title={t.categoria.productsTitle} />
           <div className="flex gap-3.5 overflow-x-auto px-5 hide-scrollbar">
             {products.map((d) => <ProductCard key={d.id} dish={d} />)}
           </div>

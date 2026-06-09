@@ -4,7 +4,9 @@ import Image from "next/image";
 import { Star, MapPin, Heart } from "lucide-react";
 import { useState } from "react";
 import SafetyBadge from "./SafetyBadge";
+import { localizeRestaurant } from "@/lib/data";
 import type { Restaurant, SafetyLevel } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 
 interface RestaurantCardProps {
@@ -13,7 +15,9 @@ interface RestaurantCardProps {
   width?: number;
 }
 
-export default function RestaurantCard({ restaurant, variant = "vertical", width = 168 }: RestaurantCardProps) {
+export default function RestaurantCard({ restaurant: rawRestaurant, variant = "vertical", width = 168 }: RestaurantCardProps) {
+  const { t, language } = useLanguage();
+  const restaurant = localizeRestaurant(rawRestaurant, language);
   const [isFav, setIsFav] = useState(restaurant.isFavorite);
 
   // ── Horizontal (list view) ──────────────────────
@@ -29,7 +33,7 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
           <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
           {!restaurant.isOpen && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <span className="text-white text-[9px] font-bold">Fechado</span>
+              <span className="text-white text-[9px] font-bold">{t.common.closed}</span>
             </div>
           )}
         </div>
@@ -102,7 +106,7 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
         {/* Closed overlay */}
         {!restaurant.isOpen && (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center" style={{ borderRadius: 16 }}>
-            <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">Fechado</span>
+            <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">{t.common.closed}</span>
           </div>
         )}
       </div>

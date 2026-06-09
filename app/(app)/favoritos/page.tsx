@@ -4,8 +4,10 @@ import { Heart } from "lucide-react";
 import RestaurantCard from "@/components/RestaurantCard";
 import BackButton from "@/components/BackButton";
 import { mockRestaurants } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export default function FavoritosPage() {
+  const { t } = useLanguage();
   const [favorites] = useState(mockRestaurants.filter((r) => r.isFavorite));
 
   return (
@@ -14,8 +16,8 @@ export default function FavoritosPage() {
         <div className="flex items-start gap-3">
           <BackButton />
           <div>
-            <h1 className="text-2xl font-black text-primary font-display leading-tight">Favoritos</h1>
-            <p className="text-text-disabled text-[12px] mt-0.5">Seus lugares seguros</p>
+            <h1 className="text-2xl font-black text-primary font-display leading-tight">{t.favoritos.title}</h1>
+            <p className="text-text-disabled text-[12px] mt-0.5">{t.favoritos.subtitle}</p>
           </div>
         </div>
       </div>
@@ -26,9 +28,9 @@ export default function FavoritosPage() {
             <div className="w-20 h-20 rounded-full bg-brand-pink/10 flex items-center justify-center mb-4">
               <Heart size={36} className="text-brand-pink" />
             </div>
-            <h3 className="text-brand-brown font-bold text-lg">Nenhum favorito ainda</h3>
+            <h3 className="text-brand-brown font-bold text-lg">{t.favoritos.emptyTitle}</h3>
             <p className="text-brand-brown/50 text-sm mt-1 max-w-xs">
-              Toque no coração dos restaurantes que você ama para salvá-los aqui.
+              {t.favoritos.emptySubtitle}
             </p>
           </div>
         ) : (
