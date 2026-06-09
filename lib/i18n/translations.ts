@@ -380,6 +380,7 @@ const pt = {
       privacyPolicy: "Política de privacidade",
       rateApp: "Avaliar o Glútty",
     },
+    languageNames: {},
   },
   perfil: {
     title: "Meu Perfil",
@@ -973,6 +974,13 @@ const en: Translations = {
       privacyPolicy: "Privacy policy",
       rateApp: "Rate Glútty",
     },
+    languageNames: {
+      "Português": "Portuguese",
+      "English": "English",
+      "Español": "Spanish",
+      "Deutsch": "German",
+      "Français": "French",
+    },
   },
   perfil: {
     title: "My Profile",
@@ -1435,6 +1443,7 @@ export type Translations = {
       privacyPolicy: string;
       rateApp: string;
     };
+    languageNames: Record<string, string>;
   };
   perfil: {
     title: string;
