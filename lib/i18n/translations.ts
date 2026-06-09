@@ -135,6 +135,8 @@ const pt = {
       description: "Você pode alterar ou adicionar novas restrições direto no seu perfil",
       cta: "Avançar",
     },
+    allergenLabels: {},
+    problemSuggestions: {},
   },
   preparando: {
     steps: [
@@ -712,6 +714,22 @@ const en: Translations = {
       description: "You can change or add new restrictions directly in your profile",
       cta: "Next",
     },
+    allergenLabels: {
+      gluten: "Gluten", lactose: "Lactose", frutose: "Fructose", caseina: "Casein",
+      oleaginosas: "Tree nuts", histamina: "Histamine", sulfitos: "Sulfites", ovos: "Eggs",
+      amendoim: "Peanut", soja: "Soy", frutos_do_mar: "Shellfish", mostarda: "Mustard",
+      gergelim: "Sesame", tremoco: "Lupin", outras: "Other", proteina_veg: "Plant protein",
+    },
+    problemSuggestions: {
+      "Trigo": "Wheat", "Cevada": "Barley", "Malte": "Malt", "Centeio": "Rye", "Aveia": "Oats",
+      "Leite": "Milk", "Queijo": "Cheese", "Manteiga": "Butter", "Iogurte": "Yogurt",
+      "Ovo": "Egg", "Clara de ovo": "Egg white",
+      "Castanha": "Chestnut", "Nozes": "Walnuts", "Amêndoa": "Almond",
+      "Amendoim": "Peanut", "Soja": "Soy", "Tofu": "Tofu",
+      "Camarão": "Shrimp", "Peixe": "Fish", "Atum": "Tuna",
+      "Tomate": "Tomato", "Vinagre": "Vinegar", "Embutido": "Processed meat",
+      "Mel": "Honey", "Maçã": "Apple", "Cebola": "Onion", "Alho": "Garlic", "Pimenta": "Pepper",
+    },
   },
   preparando: {
     steps: [
@@ -1260,6 +1278,8 @@ export type Translations = {
       skip: string;
     };
     success: { progress: string; title: string; subtitle: string; description: string; cta: string };
+    allergenLabels: Record<string, string>;
+    problemSuggestions: Record<string, string>;
   };
   preparando: {
     steps: string[];
