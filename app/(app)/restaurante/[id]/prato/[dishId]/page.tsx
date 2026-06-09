@@ -9,12 +9,13 @@ import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { palette, getRestrictionColor, getIngredientColor } from "@/lib/tags";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 const contamRiskConfig = {
-  baixo:  { label: "Baixo",  color: "#2E7D32" },
-  medio:  { label: "Médio",  color: "#D97706" },
-  alto:   { label: "Alto",   color: "#C62828" },
-};
+  baixo:  { color: "#2E7D32" },
+  medio:  { color: "#D97706" },
+  alto:   { color: "#C62828" },
+} as const;
 
 export default function DishDetailPage({
   params,
@@ -22,6 +23,7 @@ export default function DishDetailPage({
   params: Promise<{ id: string; dishId: string }>;
 }) {
   const { id, dishId } = use(params);
+  const { t } = useLanguage();
   const restaurant = mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0];
   const dish = restaurant.dishes.find((d) => d.id === dishId) ?? restaurant.dishes[0];
   const [isFav, setIsFav] = useState(false);
@@ -29,7 +31,7 @@ export default function DishDetailPage({
   if (!dish) {
     return (
       <div className="min-h-dvh bg-background flex items-center justify-center">
-        <p className="text-text-disabled">Prato não encontrado.</p>
+        <p className="text-text-disabled">{t.prato.notFound}</p>
       </div>
     );
   }
@@ -91,9 +93,9 @@ export default function DishDetailPage({
             style={{ backgroundColor: "#FFF8F0", borderColor: "#FC6904" + "33" }}>
             <RefreshCw size={16} className="text-primary shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-primary text-sm">Adaptação aplicada</p>
+              <p className="font-bold text-primary text-sm">{t.prato.adaptationApplied}</p>
               <p className="text-text-secondary text-xs mt-0.5 leading-relaxed">
-                Este prato foi adaptado às suas restrições. Verifique os ingredientes substituídos abaixo.
+                {t.prato.adaptationDesc}
               </p>
             </div>
           </div>
@@ -101,18 +103,18 @@ export default function DishDetailPage({
 
         {/* Ingredients */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-          <h3 className="font-bold text-text-primary text-sm mb-3">Ingredientes</h3>
+          <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.ingredients}</h3>
 
           {/* Legend */}
           <div className="flex items-center gap-4 mb-3">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-[#2E7D32] shrink-0" />
-              <span className="text-[11px] text-text-secondary">Alinhado ao seu perfil de segurança</span>
+              <span className="text-[11px] text-text-secondary">{t.prato.legendSafe}</span>
             </div>
             {hasAdaptations && (
               <div className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#D97706] shrink-0" />
-                <span className="text-[11px] text-text-secondary">Substituído</span>
+                <span className="text-[11px] text-text-secondary">{t.prato.legendSubstituted}</span>
               </div>
             )}
           </div>
@@ -143,19 +145,19 @@ export default function DishDetailPage({
           <div className="mt-3 flex items-start gap-2">
             <AlertTriangle size={13} className="text-warning shrink-0 mt-0.5" />
             <p className="text-text-disabled text-[11px] leading-relaxed">
-              Pode haver risco de contaminação cruzada. Confirme com o restaurante antes de consumir.
+              {t.prato.contamWarning}
             </p>
           </div>
         </div>
 
         {/* Dish info */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-          <h3 className="font-bold text-text-primary text-sm mb-3">Informações do prato</h3>
+          <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.dishInfo}</h3>
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Building2 size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">Restaurante</span>
+                <span className="text-text-disabled text-xs">{t.prato.restaurantLabel}</span>
               </div>
               <span className="text-text-primary text-xs font-semibold">{restaurant.name}</span>
             </div>
@@ -163,7 +165,7 @@ export default function DishDetailPage({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ChefHat size={13} className="text-text-disabled shrink-0" />
-                  <span className="text-text-disabled text-xs">Chef</span>
+                  <span className="text-text-disabled text-xs">{t.prato.chefLabel}</span>
                 </div>
                 <span className="text-text-primary text-xs font-semibold">{restaurant.chef}</span>
               </div>
@@ -171,17 +173,17 @@ export default function DishDetailPage({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">Nível de segurança</span>
+                <span className="text-text-disabled text-xs">{t.prato.safetyLevelLabel}</span>
               </div>
               <SafetyBadge level={safetyLevel} size="sm" />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <AlertTriangle size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">Risco contaminação cruzada</span>
+                <span className="text-text-disabled text-xs">{t.prato.contamRiskLabel}</span>
               </div>
               <span className="text-xs font-bold" style={{ color: contamRiskConfig[contamRisk].color }}>
-                {contamRiskConfig[contamRisk].label}
+                {t.prato.contamRiskLabels[contamRisk] ?? contamRisk}
               </span>
             </div>
           </div>
@@ -190,7 +192,7 @@ export default function DishDetailPage({
         {/* Restriction tags */}
         {dish.restrictions && dish.restrictions.length > 0 && (
           <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-            <h3 className="font-bold text-text-primary text-sm mb-3">Restrições atendidas</h3>
+            <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.restrictionsMet}</h3>
             <div className="flex flex-wrap gap-2">
               {dish.restrictions.map((r) => (
                 <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="md" />
@@ -202,7 +204,7 @@ export default function DishDetailPage({
         {/* Other dishes you might like */}
         {otherDishes.length > 0 && (
           <div>
-            <h3 className="font-extrabold text-text-primary text-[15px] mb-3">Outros pratos que você pode gostar</h3>
+            <h3 className="font-extrabold text-text-primary text-[15px] mb-3">{t.prato.otherDishes}</h3>
             <div className="space-y-3">
               {otherDishes.map((d) => (
                 <Link key={d.id} href={`/restaurante/${restaurant.id}/prato/${d.id}`}
@@ -241,7 +243,7 @@ export default function DishDetailPage({
                     )}
                     {/* 4. Ação */}
                     <div className="flex justify-end">
-                      <p className="text-primary text-xs font-bold">Ver prato →</p>
+                      <p className="text-primary text-xs font-bold">{t.prato.viewDish}</p>
                     </div>
                   </div>
                 </Link>
@@ -254,7 +256,7 @@ export default function DishDetailPage({
         <Link href={`/restaurante/${restaurant.id}`}
           className="flex items-center justify-center gap-2 w-full font-bold py-4 rounded-full text-base shadow-md active:scale-95 transition-transform"
           style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}>
-          Ver restaurante completo
+          {t.prato.viewRestaurant}
         </Link>
       </div>
     </div>
