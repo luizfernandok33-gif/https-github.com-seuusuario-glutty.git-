@@ -49,7 +49,7 @@ export default function PerfilPage() {
     subtitle: t.perfil.recentActivity.items[item.id]?.subtitle ?? "",
   }));
   const configItems = [
-    { icon: Globe,      label: t.perfil.settingsSection.items.language, detail: "Português", href: "/idioma"       },
+    { icon: Globe,      label: t.perfil.settingsSection.items.language, detail: t.configuracoes.currentLanguageName, href: "/configuracoes" },
     { icon: HelpCircle, label: t.perfil.settingsSection.items.help,     detail: "",          href: "/configuracoes" },
     { icon: Info,       label: t.perfil.settingsSection.items.about,    detail: "",          href: "/configuracoes" },
   ];
