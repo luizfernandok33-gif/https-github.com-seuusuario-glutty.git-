@@ -236,7 +236,7 @@ export default function PerfilPage() {
           <div className="flex flex-wrap gap-2 mb-5">
             {restrictionKeys.filter(k => k !== "sem_gluten").map((key) => {
               const cfg = restrictionConfig[key];
-              return <Tag key={key} label={cfg.tag} colorConfig={{ color: cfg.color, bg: cfg.bg }} size="md" />;
+              return <Tag key={key} label={t.restricoes.restrictionLabels[key] ?? cfg.tag} colorConfig={{ color: cfg.color, bg: cfg.bg }} size="md" />;
             })}
           </div>
 
