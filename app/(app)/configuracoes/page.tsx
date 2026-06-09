@@ -83,7 +83,7 @@ export default function ConfiguracoesPage() {
             >
               <span className="text-text-primary text-[14px] font-semibold">{t.configuracoes.appLanguage}</span>
               <div className="flex items-center gap-1.5">
-                <span className="text-text-disabled text-[13px]">{t.configuracoes.languageNames[language] ?? language}</span>
+                <span className="text-text-disabled text-[13px]">{t.configuracoes.currentLanguageName}</span>
                 <ChevronRight
                   size={14}
                   className="text-text-disabled transition-transform"

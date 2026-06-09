@@ -353,6 +353,7 @@ const pt = {
       about: "Sobre o Glútty",
     },
     appLanguage: "Idioma do app",
+    currentLanguageName: "Português",
     notificationRows: {
       safety:  { label: "Alertas de segurança",        description: "Avisos sobre contaminação cruzada e atualizações de restaurantes" },
       new:     { label: "Novos restaurantes",          description: "Quando um restaurante seguro é adicionado perto de você" },
@@ -947,6 +948,7 @@ const en: Translations = {
       about: "About Glútty",
     },
     appLanguage: "App language",
+    currentLanguageName: "English",
     notificationRows: {
       safety:  { label: "Safety alerts",          description: "Notices about cross-contamination and restaurant updates" },
       new:     { label: "New restaurants",        description: "When a safe restaurant is added near you" },
@@ -1424,6 +1426,7 @@ export type Translations = {
       about: string;
     };
     appLanguage: string;
+    currentLanguageName: string;
     notificationRows: Record<"safety" | "new" | "reviews" | "promo", { label: string; description: string }>;
     appearanceRows: Record<"darkMode" | "vibration", { label: string; description: string }>;
     security: {
