@@ -107,11 +107,11 @@ export default function DishDetailPage({
           <ChevronRight size={16} className="text-text-disabled shrink-0" />
         </Link>
 
-        {/* Safety tag + name + description */}
+        {/* Name + safety tag + description */}
         <div>
-          <SafetyBadge level={safetyLevel} size="md" />
-          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mt-2 mb-2">{dish.name}</h1>
-          <p className="text-text-secondary text-sm leading-relaxed">{dish.description}</p>
+          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mb-2">{dish.name}</h1>
+          <SafetyBadge level={safetyLevel} size="sm" />
+          <p className="text-text-secondary text-sm leading-relaxed mt-2">{dish.description}</p>
         </div>
 
         {/* Price + rating */}
