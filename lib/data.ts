@@ -87,6 +87,26 @@ export const safetyLevelConfig: Record<SafetyLevel, { label: string; color: stri
   recomendado:  { label: "Recomendado",  color: "#AD1457", bg: "#FCE4EC", description: "Altamente recomendado" },
 };
 
+// Logos reais enviados pelo usuário — mapeados por nome do restaurante.
+export const RESTAURANT_LOGOS: Record<string, string> = {
+  "Le Manjue Organique": "/Le Manjue Organique.jpg",
+  "Haus Hiltl": "/Haus Hiltl.png",
+  "Tibits": "/Tibits.png",
+  "Marktküche": "/Marktküche.png",
+  "Healthy Bites Atelier": "/Healthy Bites Atelier.jpg",
+  "Grão Fino": "/grão fino.jpg",
+  "Pandan": "/Pandan.jpg",
+  "Pizza For Fun": "/Pizza for fun.png",
+  "Jampa Nutrileve": "/Jampa Nutrileve.png",
+  "Lola Paleo": "/Lola Paleo.jpg",
+  "Juro de Dedinho": "/Juro de Dedinho.jpg",
+  "Libera": "/libera.jpg",
+  "Zufreeden": "/Zufreeden.png",
+  "À VIE Baked Goods": "/À VIE Baked Goods.png",
+  "Jackie's": "/Jackie's.jpg",
+  "Granò": "/Granò.jpg",
+};
+
 export const mockRestaurants: Restaurant[] = [
   // ── SÃO PAULO ──────────────────────────────────────────────
   {

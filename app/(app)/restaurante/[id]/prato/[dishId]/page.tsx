@@ -2,8 +2,8 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw } from "lucide-react";
-import { mockRestaurants } from "@/lib/data";
+import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, ChevronRight } from "lucide-react";
+import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
@@ -79,7 +79,33 @@ export default function DishDetailPage({
         </div>
       </div>
 
-      <div className="px-5 py-5 space-y-6">
+      <div
+        className="bg-background px-5 pt-5 pb-5 space-y-6 relative z-10 -mt-8"
+        style={{ borderTopLeftRadius: 32, borderTopRightRadius: 32, boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}
+      >
+
+        {/* Restaurante — logo + nome */}
+        <Link
+          href={`/restaurante/${restaurant.id}`}
+          className="flex items-center gap-3 active:scale-[0.98] transition-transform"
+        >
+          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0" style={{ backgroundColor: "#1F3D34" }}>
+            {RESTAURANT_LOGOS[restaurant.name] ? (
+              <img src={RESTAURANT_LOGOS[restaurant.name]} alt={restaurant.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-[18px] font-black" style={{ color: "#C6F59D" }}>
+                  {restaurant.name.charAt(0)}
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide">{t.prato.restaurantLabel}</p>
+            <p className="font-extrabold text-text-primary text-[15px] truncate">{restaurant.name}</p>
+          </div>
+          <ChevronRight size={16} className="text-text-disabled shrink-0" />
+        </Link>
 
         {/* Safety tag + name + description */}
         <div>

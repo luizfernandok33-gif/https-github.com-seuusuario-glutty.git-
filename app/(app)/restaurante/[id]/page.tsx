@@ -10,30 +10,10 @@ import {
 import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import Tag from "@/components/Tag";
-import { mockRestaurants, localizeRestaurant, localizeSafetyLevelConfig } from "@/lib/data";
+import { mockRestaurants, localizeRestaurant, localizeSafetyLevelConfig, RESTAURANT_LOGOS } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { getRestrictionColor } from "@/lib/tags";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-
-// Logos reais enviados pelo usuário — mapeados por nome do restaurante.
-const RESTAURANT_LOGOS: Record<string, string> = {
-  "Le Manjue Organique": "/Le Manjue Organique.jpg",
-  "Haus Hiltl": "/Haus Hiltl.png",
-  "Tibits": "/Tibits.png",
-  "Marktküche": "/Marktküche.png",
-  "Healthy Bites Atelier": "/Healthy Bites Atelier.jpg",
-  "Grão Fino": "/grão fino.jpg",
-  "Pandan": "/Pandan.jpg",
-  "Pizza For Fun": "/Pizza for fun.png",
-  "Jampa Nutrileve": "/Jampa Nutrileve.png",
-  "Lola Paleo": "/Lola Paleo.jpg",
-  "Juro de Dedinho": "/Juro de Dedinho.jpg",
-  "Libera": "/libera.jpg",
-  "Zufreeden": "/Zufreeden.png",
-  "À VIE Baked Goods": "/À VIE Baked Goods.png",
-  "Jackie's": "/Jackie's.jpg",
-  "Granò": "/Granò.jpg",
-};
 
 function IconEstrela({ size = 12, fill = "#FFC24D" }: { size?: number; fill?: string }) {
   return (
