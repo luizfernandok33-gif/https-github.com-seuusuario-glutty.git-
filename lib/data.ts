@@ -56,6 +56,7 @@ export interface Dish {
   adaptations?: DishAdaptation[];
   safetyLevel?: SafetyLevel;
   crossContaminationRisk?: "baixo" | "medio" | "alto";
+  crossContaminationPrep?: string;
   restrictions?: string[];
   isGlutenFree: boolean;
   isCertified: boolean;
@@ -150,6 +151,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Arroz arbóreo", "Cogumelos porcini", "Shiitake", "Parmesão", "Trufa negra", "Vinho branco"],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Preparado em cozinha 100% livre de glúten: panelas, utensílios e bancadas são exclusivos, sem nenhum contato com farinha de trigo ou outros ingredientes com glúten.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: true,
@@ -164,6 +167,8 @@ export const mockRestaurants: Restaurant[] = [
         adaptations: [{ original: "Farinha de trigo", replacement: "Farinha de arroz integral" }],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "A massa de arroz é feita com utensílios e bancada exclusivos, separados dos ingredientes com glúten. A equipe troca as luvas a cada etapa do preparo.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: true,
@@ -243,6 +248,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Batata", "Raclette suíço", "Manteiga clarificada", "Pepino em conserva", "Cebola caramelizada"],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Preparado em chapa exclusiva, higienizada antes do uso, com utensílios separados para os pratos sem glúten e identificação visual no buffet.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: true,
@@ -256,6 +263,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Grão-de-bico", "Leite de coco", "Tomate", "Espinafre", "Cúrcuma", "Cominho", "Arroz basmati"],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Cozido em panela exclusiva para pratos sem glúten, com ingredientes pesados e armazenados separadamente dos itens que contêm glúten.",
         restrictions: ["Sem glúten", "Vegano"],
         isGlutenFree: true,
         isCertified: true,
@@ -317,6 +326,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Lentilha Puy", "Cenoura", "Salsão", "Mostarda de Dijon GF", "Vinagre balsâmico", "Salsinha"],
         safetyLevel: "muito_seguro",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Montada em estação separada do buffet, com utensílios de servir exclusivos e troca de luvas entre as preparações para evitar contato cruzado.",
         restrictions: ["Sem glúten", "Vegano"],
         isGlutenFree: true,
         isCertified: false,
@@ -377,6 +388,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Polenta fina", "Cogumelos porcini", "Chanterelle", "Alho", "Tomilho", "Queijo Sbrinz"],
         safetyLevel: "verificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Preparada em panela exclusiva para pratos sem glúten, com o chef avisado previamente para reforçar o uso de utensílios e tábuas separadas.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: false,
@@ -1677,6 +1690,7 @@ export function localizeDish(dish: Dish, restaurantId: string, lang: Language): 
     ...(tr.ingredients !== undefined && { ingredients: tr.ingredients }),
     ...(tr.adaptations !== undefined && { adaptations: tr.adaptations }),
     ...(tr.restrictions !== undefined && { restrictions: tr.restrictions }),
+    ...(tr.crossContaminationPrep !== undefined && { crossContaminationPrep: tr.crossContaminationPrep }),
   };
 }
 

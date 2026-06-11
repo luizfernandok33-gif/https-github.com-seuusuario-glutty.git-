@@ -18,6 +18,7 @@ export const restaurantTranslationsEn: Record<
         ingredients?: string[];
         adaptations?: DishAdaptation[];
         restrictions?: string[];
+        crossContaminationPrep?: string;
       }
     >;
     reviews?: Record<string, { tags?: string[]; comment?: string }>;
@@ -42,12 +43,16 @@ export const restaurantTranslationsEn: Record<
         name: "Wild Mushroom Risotto",
         description: "Arborio rice with a mix of mushrooms, parmesan and black truffle",
         ingredients: ["Arborio rice", "Porcini mushrooms", "Shiitake", "Parmesan", "Black truffle", "White wine"],
+        crossContaminationPrep:
+          "Prepared in a 100% gluten-free kitchen: pots, utensils and counters are dedicated, with no contact with wheat flour or other gluten-containing ingredients.",
       },
       d2: {
         name: "Rice Tagliatelle with Pesto",
         description: "Handmade rice pasta with fresh basil pesto and pine nuts",
         ingredients: ["Rice flour", "Organic eggs", "Basil", "Pine nuts", "Olive oil", "Parmesan"],
         adaptations: [{ original: "Wheat flour", replacement: "Whole rice flour" }],
+        crossContaminationPrep:
+          "The rice pasta is made with dedicated utensils and a separate counter, kept apart from gluten-containing ingredients. Staff change gloves at every step of preparation.",
       },
     },
     reviews: {
@@ -84,11 +89,15 @@ export const restaurantTranslationsEn: Record<
         name: "Rösti with Raclette Cheese",
         description: "Swiss potato rösti with melted raclette and pickled cucumber",
         ingredients: ["Potato", "Swiss raclette", "Clarified butter", "Pickled cucumber", "Caramelized onion"],
+        crossContaminationPrep:
+          "Cooked on a dedicated griddle that is sanitized before use, with separate utensils for gluten-free dishes and clear labeling on the buffet.",
       },
       d8: {
         name: "Chickpea Curry",
         description: "Chickpeas with coconut milk, spices and basmati rice",
         ingredients: ["Chickpeas", "Coconut milk", "Tomato", "Spinach", "Turmeric", "Cumin", "Basmati rice"],
+        crossContaminationPrep:
+          "Cooked in a pot reserved for gluten-free dishes, with ingredients weighed and stored separately from items containing gluten.",
       },
     },
     reviews: {
@@ -119,6 +128,8 @@ export const restaurantTranslationsEn: Record<
         name: "Puy Lentil Salad",
         description: "Green lentils with mustard vinaigrette, herbs and crisp vegetables",
         ingredients: ["Puy lentils", "Carrot", "Celery", "GF Dijon mustard", "Balsamic vinegar", "Parsley"],
+        crossContaminationPrep:
+          "Assembled at a separate buffet station, with dedicated serving utensils and gloves changed between preparations to avoid cross-contact.",
       },
     },
     reviews: {
@@ -149,6 +160,8 @@ export const restaurantTranslationsEn: Record<
         name: "Creamy Polenta with Funghi",
         description: "Creamy Swiss polenta with a mix of mushrooms and fresh herbs",
         ingredients: ["Fine polenta", "Porcini mushrooms", "Chanterelle", "Garlic", "Thyme", "Sbrinz cheese"],
+        crossContaminationPrep:
+          "Prepared in a pot reserved for gluten-free dishes, with the chef notified in advance to reinforce the use of separate utensils and cutting boards.",
       },
     },
     reviews: {

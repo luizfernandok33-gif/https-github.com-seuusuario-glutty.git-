@@ -575,12 +575,18 @@ const pt = {
     restaurantLabel: "Restaurante",
     chefLabel: "Chef",
     safetyLevelLabel: "Nível de segurança",
-    contamRiskLabel: "Risco contaminação cruzada",
-    contamRiskLabels: {},
+    crossContamPrepTitle: "Como evitam a contaminação cruzada",
+    crossContamPrepFallback:
+      "O restaurante segue boas práticas para evitar contaminação cruzada neste prato, como uso de utensílios e equipamentos separados para o preparo sem glúten. Confirme os detalhes com a equipe.",
     restrictionsMet: "Restrições atendidas",
     otherDishes: "Outros pratos que você pode gostar",
     viewDish: "Ver prato →",
     viewRestaurant: "Ver restaurante completo",
+    contactTitle: "Contato do restaurante",
+    phoneLabel: "Telefone",
+    addressLabel: "Endereço",
+    websiteLabel: "Site",
+    hoursLabel: "Horário de funcionamento",
   },
 } satisfies Translations;
 
@@ -1202,12 +1208,18 @@ const en: Translations = {
     restaurantLabel: "Restaurant",
     chefLabel: "Chef",
     safetyLevelLabel: "Safety level",
-    contamRiskLabel: "Cross-contamination risk",
-    contamRiskLabels: { baixo: "Low", medio: "Medium", alto: "High" },
+    crossContamPrepTitle: "How they prevent cross-contamination",
+    crossContamPrepFallback:
+      "The restaurant follows good practices to avoid cross-contamination for this dish, such as using separate utensils and equipment for gluten-free preparation. Confirm details with the staff.",
     restrictionsMet: "Restrictions met",
     otherDishes: "Other dishes you might like",
     viewDish: "View dish →",
     viewRestaurant: "View full restaurant",
+    contactTitle: "Restaurant contact",
+    phoneLabel: "Phone",
+    addressLabel: "Address",
+    websiteLabel: "Website",
+    hoursLabel: "Opening hours",
   },
 };
 
@@ -1599,12 +1611,17 @@ export type Translations = {
     restaurantLabel: string;
     chefLabel: string;
     safetyLevelLabel: string;
-    contamRiskLabel: string;
-    contamRiskLabels: Record<string, string>;
+    crossContamPrepTitle: string;
+    crossContamPrepFallback: string;
     restrictionsMet: string;
     otherDishes: string;
     viewDish: string;
     viewRestaurant: string;
+    contactTitle: string;
+    phoneLabel: string;
+    addressLabel: string;
+    websiteLabel: string;
+    hoursLabel: string;
   };
 };
 

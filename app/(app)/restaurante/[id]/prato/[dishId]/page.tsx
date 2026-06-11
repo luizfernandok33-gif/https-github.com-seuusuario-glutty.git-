@@ -2,7 +2,7 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw } from "lucide-react";
+import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock } from "lucide-react";
 import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import Tag from "@/components/Tag";
@@ -10,12 +10,6 @@ import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { palette, getRestrictionColor, getIngredientColor } from "@/lib/tags";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-
-const contamRiskConfig = {
-  baixo:  { color: "#2E7D32" },
-  medio:  { color: "#D97706" },
-  alto:   { color: "#C62828" },
-} as const;
 
 export default function DishDetailPage({
   params,
@@ -41,7 +35,6 @@ export default function DishDetailPage({
 
   const hasAdaptations = dish.adaptations && dish.adaptations.length > 0;
   const safetyLevel = dish.safetyLevel ?? restaurant.safetyLevel;
-  const contamRisk = dish.crossContaminationRisk ?? "baixo";
 
   return (
     <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
@@ -111,16 +104,6 @@ export default function DishDetailPage({
           <p className="text-text-secondary text-sm leading-relaxed mt-2">{dish.description}</p>
         </div>
 
-        {/* Price + rating */}
-        <div className="flex items-center justify-between">
-          <span className="text-3xl font-extrabold text-primary">{formatPrice(dish.price)}</span>
-          <div className="flex items-center gap-1.5 bg-surface rounded-full px-3 py-1.5 border border-border/50 shadow-sm">
-            <Star size={14} fill="#FFC24D" className="text-warning" />
-            <span className="font-bold text-text-primary text-sm">4.8</span>
-            <span className="text-text-disabled text-xs">(32)</span>
-          </div>
-        </div>
-
         {/* Adaptation notice */}
         {hasAdaptations && (
           <div className="flex items-start gap-3 rounded-2xl px-4 py-3 border"
@@ -184,6 +167,17 @@ export default function DishDetailPage({
           </div>
         </div>
 
+        {/* Cross-contamination preparation practices */}
+        <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
+          <div className="flex items-center gap-2 mb-2">
+            <ShieldCheck size={15} style={{ color: "#2E7D32" }} className="shrink-0" />
+            <h3 className="font-bold text-text-primary text-sm">{t.prato.crossContamPrepTitle}</h3>
+          </div>
+          <p className="text-text-secondary text-xs leading-relaxed">
+            {dish.crossContaminationPrep ?? t.prato.crossContamPrepFallback}
+          </p>
+        </div>
+
         {/* Dish info */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
           <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.dishInfo}</h3>
@@ -210,15 +204,6 @@ export default function DishDetailPage({
                 <span className="text-text-disabled text-xs">{t.prato.safetyLevelLabel}</span>
               </div>
               <SafetyBadge level={safetyLevel} size="sm" />
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <AlertTriangle size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">{t.prato.contamRiskLabel}</span>
-              </div>
-              <span className="text-xs font-bold" style={{ color: contamRiskConfig[contamRisk].color }}>
-                {t.prato.contamRiskLabels[contamRisk] ?? contamRisk}
-              </span>
             </div>
           </div>
         </div>
@@ -285,6 +270,55 @@ export default function DishDetailPage({
             </div>
           </div>
         )}
+
+        {/* Price + rating */}
+        <div className="flex items-center justify-between">
+          <span className="text-3xl font-extrabold text-primary">{formatPrice(dish.price)}</span>
+          <div className="flex items-center gap-1.5 bg-surface rounded-full px-3 py-1.5 border border-border/50 shadow-sm">
+            <Star size={14} fill="#FFC24D" className="text-warning" />
+            <span className="font-bold text-text-primary text-sm">4.8</span>
+            <span className="text-text-disabled text-xs">(32)</span>
+          </div>
+        </div>
+
+        {/* Restaurant contact */}
+        <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
+          <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.contactTitle}</h3>
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 shrink-0">
+                <Phone size={13} className="text-text-disabled shrink-0" />
+                <span className="text-text-disabled text-xs">{t.prato.phoneLabel}</span>
+              </div>
+              <span className="text-text-primary text-xs font-semibold text-right">{restaurant.phone}</span>
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 shrink-0">
+                <MapPin size={13} className="text-text-disabled shrink-0" />
+                <span className="text-text-disabled text-xs">{t.prato.addressLabel}</span>
+              </div>
+              <span className="text-text-primary text-xs font-semibold text-right">{restaurant.address}</span>
+            </div>
+            {restaurant.website && (
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 shrink-0">
+                  <Globe size={13} className="text-text-disabled shrink-0" />
+                  <span className="text-text-disabled text-xs">{t.prato.websiteLabel}</span>
+                </div>
+                <span className="text-text-primary text-xs font-semibold text-right">{restaurant.website}</span>
+              </div>
+            )}
+            {restaurant.openingHours && (
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 shrink-0">
+                  <Clock size={13} className="text-text-disabled shrink-0" />
+                  <span className="text-text-disabled text-xs">{t.prato.hoursLabel}</span>
+                </div>
+                <span className="text-text-primary text-xs font-semibold text-right">{restaurant.openingHours}</span>
+              </div>
+            )}
+          </div>
+        </div>
 
         {/* CTA */}
         <Link href={`/restaurante/${restaurant.id}`}
