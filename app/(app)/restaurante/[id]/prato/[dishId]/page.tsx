@@ -2,8 +2,8 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, ChevronRight } from "lucide-react";
-import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
+import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw } from "lucide-react";
+import { mockRestaurants } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
@@ -46,6 +46,33 @@ export default function DishDetailPage({
   return (
     <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
 
+      {/* Header claro */}
+      <div
+        className="flex items-center justify-between gap-3 px-5"
+        style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)", paddingBottom: 16, backgroundColor: "#FFFFFF" }}
+      >
+        <Link href={`/restaurante/${restaurant.id}`}
+          className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform shrink-0"
+          style={{ backgroundColor: "#1F3D34" }}>
+          <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
+        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigator.share?.({ title: dish.name, url: window.location.href })}
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}>
+            <svg width={16} height={16} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#FFFFFF" d="M27.71,4.29a1,1,0,0,0-1.05-.23l-22,8a1,1,0,0,0,0,1.87l9.6,3.84,3.84,9.6A1,1,0,0,0,19,28h0a1,1,0,0,0,.92-.66l8-22A1,1,0,0,0,27.71,4.29ZM19,24.2l-2.79-7L21,12.41,19.59,11l-4.83,4.83L7.8,13,25.33,6.67Z"/>
+            </svg>
+          </button>
+          <button onClick={() => setIsFav(!isFav)}
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}>
+            <Heart size={16} fill={isFav ? "#E53935" : "none"} style={{ color: isFav ? "#E53935" : "#FFFFFF" }} />
+          </button>
+        </div>
+      </div>
+
       {/* Hero */}
       <div className="relative h-64">
         {dish.image ? (
@@ -53,64 +80,23 @@ export default function DishDetailPage({
         ) : (
           <DishImagePlaceholder rounded={0} bordered={false} />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-
-        <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 28px)" }}>
-          <Link href={`/restaurante/${restaurant.id}`}
-            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
-            style={{ backgroundColor: "#1F3D34" }}>
-            <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
-          </Link>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigator.share?.({ title: dish.name, url: window.location.href })}
-              className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
-              style={{ backgroundColor: "#1F3D34" }}>
-              <svg width={16} height={16} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#FFFFFF" d="M27.71,4.29a1,1,0,0,0-1.05-.23l-22,8a1,1,0,0,0,0,1.87l9.6,3.84,3.84,9.6A1,1,0,0,0,19,28h0a1,1,0,0,0,.92-.66l8-22A1,1,0,0,0,27.71,4.29ZM19,24.2l-2.79-7L21,12.41,19.59,11l-4.83,4.83L7.8,13,25.33,6.67Z"/>
-              </svg>
-            </button>
-            <button onClick={() => setIsFav(!isFav)}
-              className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
-              style={{ backgroundColor: "#1F3D34" }}>
-              <Heart size={16} fill={isFav ? "#E53935" : "none"} style={{ color: isFav ? "#E53935" : "#FFFFFF" }} />
-            </button>
-          </div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
       </div>
 
       <div
-        className="bg-background px-5 pt-5 pb-5 space-y-6 relative z-10 -mt-8"
+        className="bg-white px-5 pt-5 pb-5 space-y-6 relative z-10 -mt-8"
         style={{ borderTopLeftRadius: 32, borderTopRightRadius: 32, boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}
       >
 
-        {/* Restaurante — logo + nome */}
-        <Link
-          href={`/restaurante/${restaurant.id}`}
-          className="flex items-center gap-3 active:scale-[0.98] transition-transform"
-        >
-          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0" style={{ backgroundColor: "#1F3D34" }}>
-            {RESTAURANT_LOGOS[restaurant.name] ? (
-              <img src={RESTAURANT_LOGOS[restaurant.name]} alt={restaurant.name} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="text-[18px] font-black" style={{ color: "#C6F59D" }}>
-                  {restaurant.name.charAt(0)}
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide">{t.prato.restaurantLabel}</p>
-            <p className="font-extrabold text-text-primary text-[15px] truncate">{restaurant.name}</p>
-          </div>
-          <ChevronRight size={16} className="text-text-disabled shrink-0" />
-        </Link>
-
-        {/* Name + safety tag + description */}
+        {/* Name + restaurant + safety tag + description */}
         <div>
-          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mb-2">{dish.name}</h1>
-          <SafetyBadge level={safetyLevel} size="sm" />
+          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mb-1">{dish.name}</h1>
+          <Link href={`/restaurante/${restaurant.id}`} className="text-primary font-bold text-sm active:opacity-70 transition-opacity">
+            {restaurant.name}
+          </Link>
+          <div className="mt-2">
+            <SafetyBadge level={safetyLevel} size="sm" />
+          </div>
           <p className="text-text-secondary text-sm leading-relaxed mt-2">{dish.description}</p>
         </div>
 
