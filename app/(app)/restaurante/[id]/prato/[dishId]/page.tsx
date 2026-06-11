@@ -3,7 +3,7 @@ import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw } from "lucide-react";
-import { mockRestaurants } from "@/lib/data";
+import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
@@ -91,8 +91,19 @@ export default function DishDetailPage({
         {/* Name + restaurant + safety tag + description */}
         <div>
           <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mb-1">{dish.name}</h1>
-          <Link href={`/restaurante/${restaurant.id}`} className="text-primary font-bold text-sm active:opacity-70 transition-opacity">
-            {restaurant.name}
+          <Link href={`/restaurante/${restaurant.id}`} className="flex items-center gap-2 active:opacity-70 transition-opacity">
+            <div className="w-6 h-6 rounded-lg overflow-hidden shrink-0" style={{ backgroundColor: "#1F3D34" }}>
+              {RESTAURANT_LOGOS[restaurant.name] ? (
+                <img src={RESTAURANT_LOGOS[restaurant.name]} alt={restaurant.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-[10px] font-black" style={{ color: "#C6F59D" }}>
+                    {restaurant.name.charAt(0)}
+                  </span>
+                </div>
+              )}
+            </div>
+            <span className="text-primary font-bold text-sm">{restaurant.name}</span>
           </Link>
           <div className="mt-2">
             <SafetyBadge level={safetyLevel} size="sm" />
