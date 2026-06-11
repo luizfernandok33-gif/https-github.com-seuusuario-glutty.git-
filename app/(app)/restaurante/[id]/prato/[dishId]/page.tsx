@@ -51,7 +51,7 @@ export default function DishDetailPage({
         {dish.image ? (
           <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
         ) : (
-          <DishImagePlaceholder rounded={0} />
+          <DishImagePlaceholder rounded={0} bordered={false} />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
 
