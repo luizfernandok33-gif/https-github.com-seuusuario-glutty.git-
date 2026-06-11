@@ -57,14 +57,25 @@ export default function DishDetailPage({
 
         <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 28px)" }}>
           <Link href={`/restaurante/${restaurant.id}`}
-            className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
-            <ArrowLeft size={18} className="text-text-primary" />
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}>
+            <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
           </Link>
-          <button onClick={() => setIsFav(!isFav)}
-            className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
-            <Heart size={18} fill={isFav ? "#FF8FA3" : "none"}
-              className={isFav ? "text-[#FF8FA3]" : "text-text-secondary"} />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigator.share?.({ title: dish.name, url: window.location.href })}
+              className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+              style={{ backgroundColor: "#1F3D34" }}>
+              <svg width={16} height={16} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFFFFF" d="M27.71,4.29a1,1,0,0,0-1.05-.23l-22,8a1,1,0,0,0,0,1.87l9.6,3.84,3.84,9.6A1,1,0,0,0,19,28h0a1,1,0,0,0,.92-.66l8-22A1,1,0,0,0,27.71,4.29ZM19,24.2l-2.79-7L21,12.41,19.59,11l-4.83,4.83L7.8,13,25.33,6.67Z"/>
+              </svg>
+            </button>
+            <button onClick={() => setIsFav(!isFav)}
+              className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+              style={{ backgroundColor: "#1F3D34" }}>
+              <Heart size={16} fill={isFav ? "#E53935" : "none"} style={{ color: isFav ? "#E53935" : "#FFFFFF" }} />
+            </button>
+          </div>
         </div>
       </div>
 
