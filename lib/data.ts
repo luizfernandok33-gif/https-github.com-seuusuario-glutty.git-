@@ -525,8 +525,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 89,
     safetyLevel: "seguro" as SafetyLevel,
     safetyScore: 90,
-    image: "https://static.wixstatic.com/media/4614e6_08f73bfc2b4f4152907b2495bb1550a0~mv2.jpg",
+    image: "/Grão Fino Fachada.jpg",
     galleryImages: [
+      "/Grão Fino Fachada.jpg",
       "https://static.wixstatic.com/media/4614e6_08f73bfc2b4f4152907b2495bb1550a0~mv2.jpg",
       "https://static.wixstatic.com/media/4614e6_94a180dda3d8414c83c89861e6829b05~mv2.jpg",
       "https://static.wixstatic.com/media/4614e6_92e7afedb4a24b69b54066fc799e0890~mv2.jpg",
