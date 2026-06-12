@@ -44,11 +44,13 @@ export default function DishDetailPage({
         style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)", paddingBottom: 16, backgroundColor: "#FFFFFF" }}
       >
         <Link href={`/restaurante/${restaurant.id}`}
-          className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform shrink-0"
-          style={{ backgroundColor: "#1F3D34" }}>
-          <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
+          className="flex items-center gap-2.5 min-w-0 flex-1 active:opacity-70 transition-opacity">
+          <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#1F3D34" }}>
+            <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
+          </div>
+          <span className="text-primary font-bold text-sm truncate">{restaurant.name}</span>
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => navigator.share?.({ title: dish.name, url: window.location.href })}
             className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
@@ -80,23 +82,24 @@ export default function DishDetailPage({
         style={{ borderTopLeftRadius: 32, borderTopRightRadius: 32, boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}
       >
 
-        {/* Name + restaurant + safety tag + description */}
+        {/* Name + restaurant logo + safety tag + description */}
         <div>
-          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mb-1">{dish.name}</h1>
-          <Link href={`/restaurante/${restaurant.id}`} className="flex items-center gap-2 active:opacity-70 transition-opacity">
-            <div className="w-6 h-6 rounded-lg overflow-hidden shrink-0" style={{ backgroundColor: "#1F3D34" }}>
+          <div className="flex items-center gap-2 mb-1">
+            <Link href={`/restaurante/${restaurant.id}`}
+              className="w-8 h-8 rounded-lg overflow-hidden shrink-0 active:opacity-70 transition-opacity"
+              style={{ backgroundColor: "#1F3D34" }}>
               {RESTAURANT_LOGOS[restaurant.name] ? (
                 <img src={RESTAURANT_LOGOS[restaurant.name]} alt={restaurant.name} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-[10px] font-black" style={{ color: "#C6F59D" }}>
+                  <span className="text-xs font-black" style={{ color: "#C6F59D" }}>
                     {restaurant.name.charAt(0)}
                   </span>
                 </div>
               )}
-            </div>
-            <span className="text-primary font-bold text-sm">{restaurant.name}</span>
-          </Link>
+            </Link>
+            <h1 className="font-extrabold text-text-primary text-[22px] leading-tight">{dish.name}</h1>
+          </div>
           <div className="mt-2">
             <SafetyBadge level={safetyLevel} size="sm" />
           </div>
