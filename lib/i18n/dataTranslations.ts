@@ -99,6 +99,15 @@ export const restaurantTranslationsEn: Record<
         crossContaminationPrep:
           "Cooked in a pot reserved for gluten-free dishes, with ingredients weighed and stored separately from items containing gluten.",
       },
+      d11: {
+        name: "Hiltl Burger",
+        description:
+          "Vegan plant-based burger with baby lettuce, tomato, red onion, burger sauce and spiced ketchup, served on a traditional brioche bun. Swiss cheese option available.",
+        ingredients: ["Hiltl plant-based patty", "Brioche bun", "Baby lettuce", "Tomato", "Red onion", "Burger sauce", "Spiced ketchup"],
+        restrictions: ["Vegan", "Vegetarian"],
+        crossContaminationPrep:
+          "The traditional brioche bun contains gluten. The restaurant can offer a gluten-free bun on request, but does not guarantee zero cross-contamination in the kitchen for this item.",
+      },
     },
     reviews: {
       r6: {

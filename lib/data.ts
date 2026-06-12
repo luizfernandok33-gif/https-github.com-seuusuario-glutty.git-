@@ -269,6 +269,22 @@ export const mockRestaurants: Restaurant[] = [
         isGlutenFree: true,
         isCertified: true,
       },
+      {
+        id: "d11",
+        name: "Hiltl Burger",
+        description:
+          "Hambúrguer vegano à base de proteína vegetal, com alface baby, tomate, cebola roxa, burger sauce e ketchup apimentado, servido no pão brioche tradicional. Opção com queijo suíço disponível.",
+        price: 26.0,
+        image: "",
+        ingredients: ["Hambúrguer vegetal Hiltl", "Pão brioche", "Alface baby", "Tomate", "Cebola roxa", "Burger sauce", "Ketchup apimentado"],
+        safetyLevel: "moderado",
+        crossContaminationRisk: "medio",
+        crossContaminationPrep:
+          "O pão brioche tradicional contém glúten. O restaurante pode oferecer pão sem glúten como substituição sob consulta, mas não garante ausência total de contaminação cruzada na cozinha para este item.",
+        restrictions: ["Vegano", "Vegetariano"],
+        isGlutenFree: false,
+        isCertified: false,
+      },
     ],
     reviews: [
       {
