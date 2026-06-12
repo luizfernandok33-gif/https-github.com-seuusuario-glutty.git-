@@ -3,7 +3,7 @@ import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Heart, Star, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock } from "lucide-react";
-import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
+import { mockRestaurants, localizeRestaurant, RESTAURANT_LOGOS } from "@/lib/data";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
@@ -16,8 +16,8 @@ export default function DishDetailPage({
   params: Promise<{ id: string; dishId: string }>;
 }) {
   const { id, dishId } = use(params);
-  const { t } = useLanguage();
-  const restaurant = mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0];
+  const { t, language } = useLanguage();
+  const restaurant = localizeRestaurant(mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0], language);
   const dish = restaurant.dishes.find((d) => d.id === dishId) ?? restaurant.dishes[0];
   const [isFav, setIsFav] = useState(false);
 
