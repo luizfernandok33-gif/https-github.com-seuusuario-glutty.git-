@@ -525,7 +525,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 89,
     safetyLevel: "seguro" as SafetyLevel,
     safetyScore: 90,
-    image: "https://static.wixstatic.com/media/4614e6_03405cb3563f4c609004d49cfa59a3c2~mv2.jpg",
+    image: "https://static.wixstatic.com/media/4614e6_08f73bfc2b4f4152907b2495bb1550a0~mv2.jpg",
     galleryImages: [
       "https://static.wixstatic.com/media/4614e6_08f73bfc2b4f4152907b2495bb1550a0~mv2.jpg",
       "https://static.wixstatic.com/media/4614e6_94a180dda3d8414c83c89861e6829b05~mv2.jpg",
@@ -764,7 +764,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Caprese@2x-1200x853.jpg",
+    image: "https://pizzaforfun.com.br/wp-content/uploads/2025/08/IMG_7765-1200x800.jpg",
     galleryImages: [
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Marguerita-For-Fun@2x-1200x853.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Tre-Fungui-1@2x-1200x853.jpg",
@@ -1182,7 +1182,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://libera-gf.ch/wp-content/uploads/2026/01/6-1-scaled.jpg",
+    image: "https://libera-gf.ch/wp-content/uploads/2026/01/1-scaled.jpg",
     galleryImages: [
       "https://libera-gf.ch/wp-content/uploads/2026/01/1-scaled.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/2-scaled.jpg",
