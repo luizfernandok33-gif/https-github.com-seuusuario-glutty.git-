@@ -8,10 +8,8 @@ import {
   Clock, Mail, Lock, Flag, UtensilsCrossed, BadgeCheck,
 } from "lucide-react";
 import SafetyBadge from "@/components/SafetyBadge";
-import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import Tag from "@/components/Tag";
 import { mockRestaurants, localizeRestaurant, localizeSafetyLevelConfig, RESTAURANT_LOGOS } from "@/lib/data";
-import { formatPrice } from "@/lib/utils";
 import { getRestrictionColor } from "@/lib/tags";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
@@ -37,6 +35,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
   const { id } = use(params);
   const { t, language } = useLanguage();
   const restaurant = localizeRestaurant(mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0], language);
+  const dishesWithPhoto = restaurant.dishes.filter((dish) => !!dish.image);
 
   const [isFav, setIsFav] = useState(restaurant.isFavorite);
   const [activeTab, setActiveTab] = useState<"sobre" | "pratos" | "avaliacoes">("sobre");
@@ -316,11 +315,11 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
             </div>
 
             {/* Pratos principais */}
-            {restaurant.dishes.length > 0 && (
+            {dishesWithPhoto.length > 0 && (
               <div>
                 <h3 className="font-extrabold text-primary text-[15px] mb-3">{t.restaurante.about.mainDishesTitle}</h3>
                 <div className="flex gap-3 overflow-x-auto pb-1 -mx-5 px-5 scrollbar-none">
-                  {restaurant.dishes.map((dish) => {
+                  {dishesWithPhoto.map((dish) => {
                     const isUnsafe = !dish.isGlutenFree && !(dish.adaptations && dish.adaptations.length > 0);
                     const isAdaptable = !!(dish.adaptations && dish.adaptations.length > 0);
                     return (
@@ -332,17 +331,12 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                             className="w-full text-left active:scale-95 transition-transform"
                           >
                             <div className="relative w-32 h-24 rounded-2xl overflow-hidden mb-2">
-                              {dish.image ? (
-                                <Image src={dish.image} alt={dish.name} fill className="object-cover grayscale" unoptimized />
-                              ) : (
-                                <DishImagePlaceholder rounded={16} />
-                              )}
+                              <Image src={dish.image} alt={dish.name} fill className="object-cover grayscale" unoptimized />
                               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                                 <Lock size={20} className="text-white" />
                               </div>
                             </div>
                             <p className="text-text-disabled text-xs font-bold leading-tight line-clamp-2">{dish.name}</p>
-                            <p className="text-text-disabled text-xs mt-0.5">{formatPrice(dish.price)}</p>
                             {reportDishId === dish.id && (
                               <div className="mt-1.5 bg-white rounded-xl p-2 border border-border/50 shadow-sm">
                                 <p className="text-[10px] text-text-secondary mb-1.5 leading-relaxed">{t.restaurante.about.incompatibleDish}</p>
@@ -360,11 +354,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                           /* Status 1 (safe) or Status 2 (adaptable) */
                           <Link href={`/restaurante/${restaurant.id}/prato/${dish.id}`} className="block active:scale-95 transition-transform">
                             <div className="relative w-32 h-24 rounded-2xl overflow-hidden mb-2">
-                              {dish.image ? (
-                                <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
-                              ) : (
-                                <DishImagePlaceholder rounded={16} />
-                              )}
+                              <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
                               {isAdaptable ? (
                                 <div className="absolute bottom-1.5 left-1.5 bg-warning text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">{t.restaurante.about.adaptable}</div>
                               ) : (
@@ -372,7 +362,6 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                               )}
                             </div>
                             <p className="text-text-primary text-xs font-bold leading-tight line-clamp-2">{dish.name}</p>
-                            <p className="text-primary text-xs font-extrabold mt-0.5">{formatPrice(dish.price)}</p>
                           </Link>
                         )}
                       </div>
@@ -487,7 +476,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
           <div className="space-y-4">
 
 
-            {restaurant.dishes.length === 0 ? (
+            {dishesWithPhoto.length === 0 ? (
               <div className="flex flex-col items-center py-10 text-center">
                 <div className="w-16 h-16 rounded-full bg-border/30 flex items-center justify-center mb-3">
                     <UtensilsCrossed size={28} className="text-text-disabled" strokeWidth={1.5} />
@@ -495,18 +484,14 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                 <p className="text-text-disabled text-sm">{t.restaurante.dishes.empty}</p>
               </div>
             ) : (
-              restaurant.dishes.map((dish) => (
+              dishesWithPhoto.map((dish) => (
                 <Link
                   key={dish.id}
                   href={`/restaurante/${restaurant.id}/prato/${dish.id}`}
                   className="block bg-surface rounded-2xl overflow-hidden shadow-sm border border-border/50 active:scale-[0.98] transition-transform"
                 >
                   <div className="relative h-40">
-                    {dish.image ? (
-                      <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
-                    ) : (
-                      <DishImagePlaceholder rounded={0} />
-                    )}
+                    <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
                     {dish.isCertified && (
                       <div className="absolute top-3 left-3 bg-success text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
                         <CheckCircle size={10} />
@@ -515,15 +500,8 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                     )}
                   </div>
                   <div className="p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1">
-                        <h3 className="font-bold text-text-primary text-base">{dish.name}</h3>
-                        <p className="text-text-disabled text-xs mt-1 leading-relaxed">{dish.description}</p>
-                      </div>
-                      <span className="font-extrabold text-primary text-base shrink-0">
-                        {formatPrice(dish.price)}
-                      </span>
-                    </div>
+                    <h3 className="font-bold text-text-primary text-base">{dish.name}</h3>
+                    <p className="text-text-disabled text-xs mt-1 leading-relaxed">{dish.description}</p>
                     <div className="mt-3">
                       <p className="text-text-disabled text-xs font-semibold mb-2">{t.restaurante.dishes.declaredIngredients}</p>
                       <div className="flex flex-wrap gap-1.5">

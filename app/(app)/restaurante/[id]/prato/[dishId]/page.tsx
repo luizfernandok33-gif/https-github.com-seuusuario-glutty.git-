@@ -29,8 +29,8 @@ export default function DishDetailPage({
     );
   }
 
-  // Other dishes from same restaurant (excluding current)
-  const otherDishes = restaurant.dishes.filter((d) => d.id !== dish.id);
+  // Other dishes from same restaurant (excluding current, only with photo)
+  const otherDishes = restaurant.dishes.filter((d) => d.id !== dish.id && !!d.image);
 
   const hasAdaptations = dish.adaptations && dish.adaptations.length > 0;
   const safetyLevel = dish.safetyLevel ?? restaurant.safetyLevel;
@@ -225,11 +225,7 @@ export default function DishDetailPage({
                   className="flex-none w-[170px] bg-surface rounded-2xl p-3 border border-border/50 shadow-sm active:scale-[0.98] transition-transform"
                   style={{ scrollSnapAlign: "start" }}>
                   <div className="relative w-full h-24 rounded-xl overflow-hidden mb-2">
-                    {d.image ? (
-                      <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
-                    ) : (
-                      <DishImagePlaceholder rounded={12} />
-                    )}
+                    <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
                   </div>
                   <p className="font-extrabold text-text-primary text-sm leading-tight line-clamp-2 mb-1">{d.name}</p>
                   <div className="flex items-center gap-0.5 mb-2">
