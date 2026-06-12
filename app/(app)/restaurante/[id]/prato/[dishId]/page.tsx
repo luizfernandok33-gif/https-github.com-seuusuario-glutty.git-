@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock } from "lucide-react";
 import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
-import { formatPrice } from "@/lib/utils";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
@@ -178,6 +177,18 @@ export default function DishDetailPage({
           </p>
         </div>
 
+        {/* Restriction tags */}
+        {dish.restrictions && dish.restrictions.length > 0 && (
+          <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
+            <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.restrictionsMet}</h3>
+            <div className="flex flex-wrap gap-2">
+              {dish.restrictions.map((r) => (
+                <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="md" />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Dish info */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
           <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.dishInfo}</h3>
@@ -208,78 +219,40 @@ export default function DishDetailPage({
           </div>
         </div>
 
-        {/* Restriction tags */}
-        {dish.restrictions && dish.restrictions.length > 0 && (
-          <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-            <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.restrictionsMet}</h3>
-            <div className="flex flex-wrap gap-2">
-              {dish.restrictions.map((r) => (
-                <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="md" />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Other dishes you might like */}
+        {/* Other dishes you might like — carrossel horizontal */}
         {otherDishes.length > 0 && (
           <div>
             <h3 className="font-extrabold text-text-primary text-[15px] mb-3">{t.prato.otherDishes}</h3>
-            <div className="space-y-3">
+            <div className="flex gap-3 overflow-x-auto -mx-5 px-5 pb-1 scrollbar-none" style={{ scrollSnapType: "x mandatory" }}>
               {otherDishes.map((d) => (
                 <Link key={d.id} href={`/restaurante/${restaurant.id}/prato/${d.id}`}
-                  className="flex items-start gap-3 bg-surface rounded-2xl p-3 border border-border/50 shadow-sm active:scale-[0.98] transition-transform">
-                  <div className="relative w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
+                  className="flex-none w-[170px] bg-surface rounded-2xl p-3 border border-border/50 shadow-sm active:scale-[0.98] transition-transform"
+                  style={{ scrollSnapAlign: "start" }}>
+                  <div className="relative w-full h-24 rounded-xl overflow-hidden mb-2">
                     {d.image ? (
                       <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
                     ) : (
                       <DishImagePlaceholder rounded={12} />
                     )}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    {/* 1. Nome + rating */}
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <p className="font-extrabold text-text-primary text-sm leading-tight flex-1">{d.name}</p>
-                      <div className="flex items-center gap-0.5 shrink-0">
-                        <Star size={11} fill="#FFC24D" className="text-warning" />
-                        <span className="text-text-secondary text-xs font-bold">4.8</span>
-                      </div>
-                    </div>
-                    {/* 2. Distância + endereço */}
-                    <div className="flex items-center gap-1">
-                      <MapPin size={10} className="text-primary shrink-0" />
-                      <span className="text-primary text-[11px] font-bold">{restaurant.distance}</span>
-                      <span className="text-text-disabled text-[11px]">· {restaurant.address}</span>
-                    </div>
-                    {/* Divisor */}
-                    <div className="h-px bg-border/30 my-2" />
-                    {/* 3. Tags */}
-                    {d.restrictions && d.restrictions.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {d.restrictions.map((r) => (
-                          <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="sm" />
-                        ))}
-                      </div>
-                    )}
-                    {/* 4. Ação */}
-                    <div className="flex justify-end">
-                      <p className="text-primary text-xs font-bold">{t.prato.viewDish}</p>
-                    </div>
+                  <p className="font-extrabold text-text-primary text-sm leading-tight line-clamp-2 mb-1">{d.name}</p>
+                  <div className="flex items-center gap-0.5 mb-2">
+                    <Star size={11} fill="#FFC24D" className="text-warning" />
+                    <span className="text-text-secondary text-xs font-bold">4.8</span>
                   </div>
+                  {d.restrictions && d.restrictions.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {d.restrictions.slice(0, 2).map((r) => (
+                        <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="sm" />
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-primary text-xs font-bold">{t.prato.viewDish}</p>
                 </Link>
               ))}
             </div>
           </div>
         )}
-
-        {/* Price + rating */}
-        <div className="flex items-center justify-between">
-          <span className="text-3xl font-extrabold text-primary">{formatPrice(dish.price)}</span>
-          <div className="flex items-center gap-1.5 bg-surface rounded-full px-3 py-1.5 border border-border/50 shadow-sm">
-            <Star size={14} fill="#FFC24D" className="text-warning" />
-            <span className="font-bold text-text-primary text-sm">4.8</span>
-            <span className="text-text-disabled text-xs">(32)</span>
-          </div>
-        </div>
 
         {/* Restaurant contact */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
