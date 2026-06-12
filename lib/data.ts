@@ -1356,7 +1356,7 @@ export const mockRestaurants: Restaurant[] = [
       },
       {
         id: "zuf-d7",
-        name: "Banana bread",
+        name: "Pão de banana",
         description: "",
         price: 0,
         image: "https://static.wixstatic.com/media/dca45e_41c280ee8cc9471dbc6e1638786bef85~mv2.jpg",
