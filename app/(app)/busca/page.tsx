@@ -218,7 +218,11 @@ function CarouselCard({ restaurant, isActive, onClick }: {
           <div className="absolute top-2 left-2">
             <SafetyBadge level={restaurant.safetyLevel} size="sm" />
           </div>
-          {!restaurant.isOpen && (
+          {restaurant.permanentlyClosed ? (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-0.5 rounded-full">{t.common.permanentlyClosed}</span>
+            </div>
+          ) : !restaurant.isOpen && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
               <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-0.5 rounded-full">{t.common.closed}</span>
             </div>

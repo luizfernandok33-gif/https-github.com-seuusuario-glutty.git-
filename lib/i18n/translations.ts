@@ -233,6 +233,7 @@ const pt = {
   common: {
     closed: "Fechado",
     open: "Aberto agora",
+    permanentlyClosed: "Encerrado",
     ratedDishPhoto: "Prato avaliado",
     dishPhoto: "Foto do prato",
   },
@@ -833,6 +834,7 @@ const en: Translations = {
   common: {
     closed: "Closed",
     open: "Open now",
+    permanentlyClosed: "Permanently closed",
     ratedDishPhoto: "Rated dish",
     dishPhoto: "Dish photo",
   },
@@ -1358,6 +1360,7 @@ export type Translations = {
   common: {
     closed: string;
     open: string;
+    permanentlyClosed: string;
     ratedDishPhoto: string;
     dishPhoto: string;
   };

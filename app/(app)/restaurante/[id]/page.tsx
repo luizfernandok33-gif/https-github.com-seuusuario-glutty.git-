@@ -23,6 +23,16 @@ function IconEstrela({ size = 12, fill = "#FFC24D" }: { size?: number; fill?: st
   );
 }
 
+function IconInstagram({ size = 13, className }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 export default function RestaurantePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t, language } = useLanguage();
@@ -174,7 +184,9 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
         <div className="flex items-center gap-2 mb-3.5">
           <SafetyBadge level={restaurant.safetyLevel} size="sm" />
           {(() => {
-            const statusConfig = restaurant.isOpen
+            const statusConfig = restaurant.permanentlyClosed
+              ? { label: t.common.permanentlyClosed, bg: "#FCE8E6", text: "#E53935" }
+              : restaurant.isOpen
               ? { label: t.common.open,   bg: "#D9F2D9", text: "#2D8C2D" }
               : { label: t.common.closed, bg: "#F5F5F5", text: "#9CA3AF" };
             return (
@@ -428,6 +440,19 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
                       className="text-primary text-xs font-medium underline underline-offset-2 active:opacity-60"
                     >
                       {restaurant.website.replace(/^https?:\/\//, "")}
+                    </a>
+                  </div>
+                )}
+                {restaurant.instagram && (
+                  <div className="flex items-center gap-2.5">
+                    <IconInstagram size={13} className="text-primary shrink-0" />
+                    <a
+                      href={`https://instagram.com/${restaurant.instagram}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary text-xs font-medium underline underline-offset-2 active:opacity-60"
+                    >
+                      @{restaurant.instagram}
                     </a>
                   </div>
                 )}

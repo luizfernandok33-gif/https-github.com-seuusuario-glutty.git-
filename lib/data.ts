@@ -25,6 +25,7 @@ export interface Restaurant {
   cuisine: string;
   distance: string;
   isOpen: boolean;
+  permanentlyClosed?: boolean;
   openingHours?: string;
   isFavorite: boolean;
   features: string[];
@@ -36,6 +37,7 @@ export interface Restaurant {
   phone: string;
   email?: string;
   website?: string;
+  instagram?: string;
   chef?: string;
   chefPhoto?: string;
   galleryImages?: string[];
@@ -394,6 +396,7 @@ export const mockRestaurants: Restaurant[] = [
     phone: "+41 44 211 22 11",
     email: "info@marktkueche.ch",
     website: "marktkueche.ch",
+    chef: "Tobias Hoesli",
     dishes: [
       {
         id: "d10",
@@ -451,8 +454,9 @@ export const mockRestaurants: Restaurant[] = [
       "Sem confirmação clara de operação dedicada para celíacos",
     ],
     description: "Confeitaria saudável com doces sem glúten, sem lactose e sem açúcar.",
-    phone: "",
-    website: "https://www.instagram.com/healthybitesatelier",
+    phone: "+55 11 99984-9187",
+    chef: "Victória Della Manna",
+    instagram: "healthybitesatelier",
     dishes: [
       {
         id: "hba-d1",
@@ -542,6 +546,7 @@ export const mockRestaurants: Restaurant[] = [
     description: "Padaria funcional com produção sem glúten e sem lactose, focada em alimentação saudável.",
     phone: "",
     website: "https://www.sougraofino.com.br/",
+    instagram: "graofino",
     dishes: [
       {
         id: "grao-fino-d1",
@@ -663,6 +668,8 @@ export const mockRestaurants: Restaurant[] = [
     description: "Restaurante e laboratório especializado em alimentos sem glúten, com foco em segurança e acolhimento.",
     phone: "",
     website: "https://pandanlab.com.br/",
+    chef: "Daniella Kobayashi",
+    instagram: "pandan_sp",
     dishes: [
       {
         id: "pandan-d1",
@@ -776,8 +783,11 @@ export const mockRestaurants: Restaurant[] = [
       "Comunicação explícita sobre ausência de contaminação cruzada",
     ],
     description: "Pizzaria especializada em pizzas 100% sem glúten.",
-    phone: "",
+    phone: "(11) 3360-8075",
+    email: "contato@pizzaforfun.com.br",
     website: "https://pizzaforfun.com.br/",
+    chef: "Alessandra Rabello Jordão",
+    instagram: "pizzaforfunoficial",
     dishes: [
       {
         id: "pff-d1",
@@ -885,7 +895,7 @@ export const mockRestaurants: Restaurant[] = [
     ],
     description: "Restaurante e pizzaria sem glúten, com proposta leve e inclusiva.",
     phone: "",
-    website: "https://www.instagram.com/jampanutrileve",
+    instagram: "jampanutrileve",
     dishes: [
       {
         id: "jnl-d1",
@@ -966,8 +976,9 @@ export const mockRestaurants: Restaurant[] = [
       "Sem comprovação clara de controle rigoroso de contaminação cruzada",
     ],
     description: "Padaria e confeitaria funcional com produtos sem glúten, sem açúcar e sem lactose.",
-    phone: "",
-    website: "https://www.instagram.com/lolapaleo",
+    phone: "+55 83 99665-5024",
+    chef: "Guilherme Castro Nunes Mesquita",
+    instagram: "lolapaleo",
     dishes: [
       {
         id: "lp-d1",
@@ -1065,7 +1076,8 @@ export const mockRestaurants: Restaurant[] = [
     image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop",
     cuisine: "Doceria / Confeitaria",
     distance: "",
-    isOpen: true,
+    isOpen: false,
+    permanentlyClosed: true,
     isFavorite: false,
     features: ["100% sem glúten", "Sem lactose", "Sem açúcar", "Vegano opção"],
     restrictions: ["Sem glúten", "Sem lactose", "Sem açúcar"],
@@ -1190,6 +1202,8 @@ export const mockRestaurants: Restaurant[] = [
     description: "Café e bistrô em Zurique com cardápio sem glúten e foco em segurança.",
     phone: "",
     website: "https://libera-gf.ch/",
+    chef: "Marcello Marini e Laura Casalena",
+    instagram: "libera.glutenfree",
     dishes: [
       {
         id: "lib-d1",
@@ -1291,6 +1305,8 @@ export const mockRestaurants: Restaurant[] = [
     description: "Café e padaria artesanal com operação 100% sem glúten.",
     phone: "",
     website: "https://www.zufreeden.ch/",
+    chef: "Bronwyn e Siobhan",
+    instagram: "zufreeden_glutenfree.zurich",
     dishes: [
       {
         id: "zuf-d1",
@@ -1413,8 +1429,10 @@ export const mockRestaurants: Restaurant[] = [
       "Foco em segurança e sofisticação",
     ],
     description: "Patisserie artesanal em Zurique com produtos sem glúten inspirados na confeitaria francesa.",
-    phone: "",
+    phone: "+41 76 376 05 02",
+    email: "contact@aviebakedgoods.com",
     website: "https://aviebakedgoods.com/",
+    chef: "Bettina Meier-Bickel",
     dishes: [
       {
         id: "avie-d1",
@@ -1503,7 +1521,10 @@ export const mockRestaurants: Restaurant[] = [
     ],
     description: "Padaria artesanal com produção totalmente sem glúten e produtos para o dia a dia.",
     phone: "",
+    email: "info@jackies.ch",
     website: "https://jackies.ch/",
+    chef: "Jacqueline Bättig",
+    instagram: "jackies_glutenfrei",
     dishes: [
       {
         id: "jck-d1",
@@ -1578,8 +1599,11 @@ export const mockRestaurants: Restaurant[] = [
       "Operação sem risco de contaminação cruzada",
     ],
     description: "Restaurante italiano em Zurique com cozinha 100% sem glúten.",
-    phone: "",
+    phone: "+41 44 401 11 99",
+    email: "info@gra-no.ch",
     website: "https://www.gra-no.ch/english",
+    chef: "Marcello Marini e Laura Casalena",
+    instagram: "grano_zurich",
     dishes: [
       {
         id: "grano-d1",

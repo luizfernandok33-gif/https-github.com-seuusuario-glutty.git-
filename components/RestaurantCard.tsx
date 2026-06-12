@@ -31,7 +31,11 @@ export default function RestaurantCard({ restaurant: rawRestaurant, variant = "v
         {/* Thumbnail */}
         <div className="relative w-[80px] h-[80px] rounded-xl overflow-hidden shrink-0">
           <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
-          {!restaurant.isOpen && (
+          {restaurant.permanentlyClosed ? (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+              <span className="text-white text-[9px] font-bold">{t.common.permanentlyClosed}</span>
+            </div>
+          ) : !restaurant.isOpen && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <span className="text-white text-[9px] font-bold">{t.common.closed}</span>
             </div>
@@ -104,7 +108,11 @@ export default function RestaurantCard({ restaurant: rawRestaurant, variant = "v
         </button>
 
         {/* Closed overlay */}
-        {!restaurant.isOpen && (
+        {restaurant.permanentlyClosed ? (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center" style={{ borderRadius: 16 }}>
+            <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">{t.common.permanentlyClosed}</span>
+          </div>
+        ) : !restaurant.isOpen && (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center" style={{ borderRadius: 16 }}>
             <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">{t.common.closed}</span>
           </div>
