@@ -570,7 +570,6 @@ const pt = {
     ingredients: "Ingredientes",
     legendSafe: "Alinhado ao seu perfil de segurança",
     legendSubstituted: "Substituído",
-    contamWarning: "Pode haver risco de contaminação cruzada. Confirme com o restaurante antes de consumir.",
     dishInfo: "Informações do prato",
     restaurantLabel: "Restaurante",
     chefLabel: "Chef",
@@ -1203,7 +1202,6 @@ const en: Translations = {
     ingredients: "Ingredients",
     legendSafe: "Aligned with your safety profile",
     legendSubstituted: "Substituted",
-    contamWarning: "There may be a risk of cross-contamination. Confirm with the restaurant before eating.",
     dishInfo: "Dish information",
     restaurantLabel: "Restaurant",
     chefLabel: "Chef",
@@ -1606,7 +1604,6 @@ export type Translations = {
     ingredients: string;
     legendSafe: string;
     legendSubstituted: string;
-    contamWarning: string;
     dishInfo: string;
     restaurantLabel: string;
     chefLabel: string;

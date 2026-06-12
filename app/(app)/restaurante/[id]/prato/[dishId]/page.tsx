@@ -2,7 +2,7 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock } from "lucide-react";
+import { ArrowLeft, Heart, Star, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock } from "lucide-react";
 import { mockRestaurants, RESTAURANT_LOGOS } from "@/lib/data";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
@@ -157,13 +157,6 @@ export default function DishDetailPage({
               ))}
             </div>
           )}
-
-          <div className="mt-3 flex items-start gap-2">
-            <AlertTriangle size={13} className="text-warning shrink-0 mt-0.5" />
-            <p className="text-text-disabled text-[11px] leading-relaxed">
-              {t.prato.contamWarning}
-            </p>
-          </div>
         </div>
 
         {/* Cross-contamination preparation practices */}
