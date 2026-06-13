@@ -1184,9 +1184,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://libera-gf.ch/wp-content/uploads/2026/01/1-scaled.jpg",
+    image: "/Libera Fachada.jpg",
     galleryImages: [
-      "https://libera-gf.ch/wp-content/uploads/2026/01/1-scaled.jpg",
+      "/Libera Fachada.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/2-scaled.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/3-scaled.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/4-scaled.jpg",
