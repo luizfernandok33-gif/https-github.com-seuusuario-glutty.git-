@@ -316,7 +316,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 241,
     safetyLevel: "muito_seguro",
     safetyScore: 95,
-    image: "https://storage.flyo.cloud/30_7de9a720_tibits-aarau-1.png/thumb/800x600?format=webp",
+    image: "/Tibits Fachada.jpg",
     cuisine: "Vegetariana / Buffet",
     distance: "4,1 km",
     isOpen: true,
