@@ -378,7 +378,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 97,
     safetyLevel: "verificado",
     safetyScore: 88,
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+    image: "/Marktküche Fachada.jpg",
     cuisine: "Europeia Contemporânea",
     distance: "5,0 km",
     isOpen: true,
