@@ -122,7 +122,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 218,
     safetyLevel: "certificado",
     safetyScore: 99,
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop",
+    image: "/Le Manjue Fachada.jpg",
     cuisine: "Orgânica / Sem Glúten",
     distance: "0,4 km",
     isOpen: true,
