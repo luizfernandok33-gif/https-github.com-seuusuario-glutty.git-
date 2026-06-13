@@ -765,8 +765,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://pizzaforfun.com.br/wp-content/uploads/2025/08/IMG_7765-1200x800.jpg",
+    image: "/Pizza For Fun Fachada.jpg",
     galleryImages: [
+      "/Pizza For Fun Fachada.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Marguerita-For-Fun@2x-1200x853.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Tre-Fungui-1@2x-1200x853.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Pero-no-Mucho@2x-1200x853.jpg",
