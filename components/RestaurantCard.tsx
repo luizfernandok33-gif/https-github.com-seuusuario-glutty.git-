@@ -72,7 +72,7 @@ export default function RestaurantCard({ restaurant: rawRestaurant, variant = "v
           <div className="flex justify-end mt-1.5">
             <div className="flex items-center gap-0.5">
               <Star size={11} fill="#FFC24D" className="text-warning" />
-              <span className="text-xs font-bold text-text-primary">{restaurant.rating}</span>
+              <span className="text-xs font-bold text-text-primary">{restaurant.rating > 0 ? restaurant.rating : "—"}</span>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function RestaurantCard({ restaurant: rawRestaurant, variant = "v
         <p className="text-text-disabled text-[11px] truncate mb-1.5">{restaurant.address}</p>
         <div className="flex items-center gap-1">
           <Star size={13} fill="#F59E0B" className="text-warning" />
-          <span className="text-[13px] font-bold text-text-primary">{restaurant.rating}</span>
+          <span className="text-[13px] font-bold text-text-primary">{restaurant.rating > 0 ? restaurant.rating : "—"}</span>
         </div>
       </div>
     </Link>

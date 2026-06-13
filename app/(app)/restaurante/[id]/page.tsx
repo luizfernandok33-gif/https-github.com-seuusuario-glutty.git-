@@ -168,7 +168,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
               <div className="flex flex-col items-end shrink-0">
                 <div className="flex items-center gap-1">
                   <IconEstrela size={14} fill="#FFC24D" />
-                  <span className="font-extrabold text-[15px]" style={{ color: "#1F3D34" }}>{restaurant.rating}</span>
+                  <span className="font-extrabold text-[15px]" style={{ color: "#1F3D34" }}>{restaurant.rating > 0 ? restaurant.rating : "—"}</span>
                 </div>
                 <span className="text-[10px]" style={{ color: "#9AAFA6" }}>{t.restaurante.reviewsCount.replace("{count}", String(restaurant.reviewCount))}</span>
               </div>
