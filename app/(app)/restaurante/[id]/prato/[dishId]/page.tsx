@@ -68,7 +68,7 @@ export default function DishDetailPage({
       </div>
 
       {/* Hero */}
-      <div className="relative h-64" style={{ backgroundColor: "#FFFFFF" }}>
+      <div className="relative h-64 overflow-hidden" style={{ backgroundColor: "#FFFFFF", borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
         {dish.image && !imgError && (
           <>
             <Image
