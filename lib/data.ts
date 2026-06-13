@@ -1504,8 +1504,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=400&fit=crop",
+    image: "/Jackies Fachada.jpg",
     galleryImages: [
+      "/Jackies Fachada.jpg",
       "https://jackies.ch/wp-content/uploads/2021/08/Brote-1024x640.jpg",
       "https://jackies.ch/wp-content/uploads/2025/02/01_Nussbrot-1-1024x768.jpg",
       "https://jackies.ch/wp-content/uploads/2021/11/01_Zopfball-Maxi-1024x768.jpg",
