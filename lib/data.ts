@@ -966,7 +966,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 320,
     safetyLevel: "moderado" as SafetyLevel,
     safetyScore: 0,
-    image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop",
+    image: "/Lola Paleo Fachada.jpg",
     cuisine: "Padaria / Confeitaria / Cafeteria Funcional",
     distance: "",
     isOpen: true,
