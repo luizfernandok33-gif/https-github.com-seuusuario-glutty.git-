@@ -34,6 +34,7 @@ export default function IdiomaPage() {
   const router = useRouter();
   const { language, setLanguage, t } = useLanguage();
   const [selected, setSelected] = useState<string>(language);
+  const [showDeNotice, setShowDeNotice] = useState(false);
 
   const handleContinue = () => {
     if (selected === "pt" || selected === "en") {
@@ -85,7 +86,7 @@ export default function IdiomaPage() {
           return (
             <button
               key={lang.code}
-              onClick={() => setSelected(lang.code)}
+              onClick={() => (lang.code === "de" ? setShowDeNotice(true) : setSelected(lang.code))}
               className="w-full text-left rounded-2xl p-4 transition-all active:scale-[0.98]"
               style={{
                 backgroundColor: isActive ? "#C6F59D" : "#fff",
@@ -149,6 +150,38 @@ export default function IdiomaPage() {
           {t.idioma.continue}
         </button>
       </div>
+
+      {/* Aviso: alemão ainda não disponível (mensagem em alemão) */}
+      {showDeNotice && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-6"
+          style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
+          onClick={() => setShowDeNotice(false)}
+        >
+          <div
+            className="bg-white rounded-3xl p-6 w-full max-w-sm"
+            style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.2)" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-center mb-3">
+              <Image src="/alemanha.png" alt="Deutsch" width={48} height={48} className="rounded-full object-cover" unoptimized />
+            </div>
+            <p className="text-center font-extrabold text-[16px] leading-tight" style={{ color: "#1F3D34" }}>
+              Diese Sprache ist noch nicht verfügbar
+            </p>
+            <p className="text-center text-[13px] mt-2 leading-relaxed" style={{ color: "#6B9E7E" }}>
+              Es tut uns leid! Deutsch wird von Glütty aktuell noch nicht unterstützt. Aber keine Sorge – wir arbeiten daran und werden die App schon bald auch auf Deutsch anbieten.
+            </p>
+            <button
+              onClick={() => setShowDeNotice(false)}
+              className="w-full mt-5 py-3.5 rounded-full font-bold text-base active:scale-95 transition-transform"
+              style={{ backgroundColor: "#1F3D34", color: "#C6F59D" }}
+            >
+              Verstanden
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
