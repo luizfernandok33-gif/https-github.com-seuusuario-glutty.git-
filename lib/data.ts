@@ -1416,8 +1416,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop",
+    image: "/À VIE Baked Goods Capa.jpg",
     galleryImages: [
+      "/À VIE Baked Goods Capa.jpg",
       "https://aviebakedgoods.com/wp-content/uploads/2025/10/a-Vie_17102025_2042-scaled.jpg",
     ],
     cuisine: "Confeitaria / Padaria",
