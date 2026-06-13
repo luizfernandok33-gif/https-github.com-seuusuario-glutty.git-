@@ -571,6 +571,10 @@ const pt = {
     ingredients: "Ingredientes",
     legendSafe: "Alinhado ao seu perfil de segurança",
     legendSubstituted: "Substituído",
+    ingredientsUnavailable:
+      "O restaurante ainda não enviou ao Glutty a lista completa de ingredientes deste prato. Recomendamos confirmar os ingredientes diretamente com o restaurante antes da sua visita.",
+    ingredientsSourceNote:
+      "Os ingredientes são informados pelo próprio restaurante cadastrado no Glutty. É responsabilidade do estabelecimento manter essas informações atualizadas e avisar a nossa plataforma sobre qualquer alteração no cardápio ou na linha de produção.",
     dishInfo: "Informações do prato",
     restaurantLabel: "Restaurante",
     chefLabel: "Chef",
@@ -1204,6 +1208,10 @@ const en: Translations = {
     ingredients: "Ingredients",
     legendSafe: "Aligned with your safety profile",
     legendSubstituted: "Substituted",
+    ingredientsUnavailable:
+      "The restaurant hasn't sent Glutty the full ingredient list for this dish yet. We recommend confirming the ingredients directly with the restaurant before your visit.",
+    ingredientsSourceNote:
+      "Ingredients are provided by the restaurant registered on Glutty. It's the establishment's responsibility to keep this information up to date and notify our platform of any changes to the menu or production line.",
     dishInfo: "Dish information",
     restaurantLabel: "Restaurant",
     chefLabel: "Chef",
@@ -1607,6 +1615,8 @@ export type Translations = {
     ingredients: string;
     legendSafe: string;
     legendSubstituted: string;
+    ingredientsUnavailable: string;
+    ingredientsSourceNote: string;
     dishInfo: string;
     restaurantLabel: string;
     chefLabel: string;

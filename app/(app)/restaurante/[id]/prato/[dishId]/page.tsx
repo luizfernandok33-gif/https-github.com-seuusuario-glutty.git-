@@ -2,7 +2,7 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Star, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock } from "lucide-react";
+import { ArrowLeft, Heart, Star, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock, Info, AlertTriangle } from "lucide-react";
 import { mockRestaurants, localizeRestaurant, RESTAURANT_LOGOS } from "@/lib/data";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
@@ -124,42 +124,57 @@ export default function DishDetailPage({
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
           <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.ingredients}</h3>
 
-          {/* Legend */}
-          <div className="flex items-center gap-4 mb-3">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#2E7D32] shrink-0" />
-              <span className="text-[11px] text-text-secondary">{t.prato.legendSafe}</span>
-            </div>
-            {hasAdaptations && (
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#D97706] shrink-0" />
-                <span className="text-[11px] text-text-secondary">{t.prato.legendSubstituted}</span>
+          {dish.ingredients.length > 0 ? (
+            <>
+              {/* Legend */}
+              <div className="flex items-center gap-4 mb-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2E7D32] shrink-0" />
+                  <span className="text-[11px] text-text-secondary">{t.prato.legendSafe}</span>
+                </div>
+                {hasAdaptations && (
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#D97706] shrink-0" />
+                    <span className="text-[11px] text-text-secondary">{t.prato.legendSubstituted}</span>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Safe ingredients */}
-          <div className="flex flex-wrap gap-2">
-            {dish.ingredients.map((ing) => (
-              <Tag key={ing} label={ing} colorConfig={palette.verde} size="sm" />
-            ))}
-          </div>
+              {/* Safe ingredients */}
+              <div className="flex flex-wrap gap-2">
+                {dish.ingredients.map((ing) => (
+                  <Tag key={ing} label={ing} colorConfig={palette.verde} size="sm" />
+                ))}
+              </div>
 
-          {/* Adaptations: original (strikethrough) → replacement */}
-          {hasAdaptations && (
-            <div className="mt-3 space-y-2">
-              {dish.adaptations!.map((a) => (
-                <Tag
-                  key={a.original}
-                  label={a.original}
-                  colorConfig={getIngredientColor(a.original)}
-                  size="sm"
-                  strikethrough
-                  arrow={a.replacement}
-                />
-              ))}
+              {/* Adaptations: original (strikethrough) → replacement */}
+              {hasAdaptations && (
+                <div className="mt-3 space-y-2">
+                  {dish.adaptations!.map((a) => (
+                    <Tag
+                      key={a.original}
+                      label={a.original}
+                      colorConfig={getIngredientColor(a.original)}
+                      size="sm"
+                      strikethrough
+                      arrow={a.replacement}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="flex items-start gap-2.5 rounded-xl px-3 py-3" style={{ backgroundColor: "#FFF8F0" }}>
+              <AlertTriangle size={15} className="shrink-0 mt-0.5" style={{ color: "#D97706" }} />
+              <p className="text-text-secondary text-xs leading-relaxed">{t.prato.ingredientsUnavailable}</p>
             </div>
           )}
+
+          {/* Source disclaimer */}
+          <div className="flex items-start gap-2 mt-3 pt-3 border-t border-border/50">
+            <Info size={13} className="text-text-disabled shrink-0 mt-0.5" />
+            <p className="text-text-disabled text-[11px] leading-relaxed">{t.prato.ingredientsSourceNote}</p>
+          </div>
         </div>
 
         {/* Cross-contamination preparation practices */}
