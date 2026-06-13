@@ -884,7 +884,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&h=300&fit=crop",
+    image: "/Jampa Nutrileve Capa.jpg",
     cuisine: "Restaurante / Pizzaria",
     distance: "",
     isOpen: true,
