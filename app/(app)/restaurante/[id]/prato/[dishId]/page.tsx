@@ -68,20 +68,22 @@ export default function DishDetailPage({
       </div>
 
       {/* Hero */}
-      <div className="relative h-64 overflow-hidden" style={{ backgroundColor: "#FFFFFF", borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
-        {dish.image && !imgError && (
-          <>
-            <Image
-              src={dish.image}
-              alt={dish.name}
-              fill
-              className="object-cover"
-              unoptimized
-              onError={() => setImgError(true)}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
-          </>
-        )}
+      <div style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="relative h-64 overflow-hidden" style={{ backgroundColor: "#FFFFFF", borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
+          {dish.image && !imgError && (
+            <>
+              <Image
+                src={dish.image}
+                alt={dish.name}
+                fill
+                className="object-cover"
+                unoptimized
+                onError={() => setImgError(true)}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+            </>
+          )}
+        </div>
       </div>
 
       <div
