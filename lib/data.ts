@@ -1584,8 +1584,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&h=400&fit=crop",
+    image: "/Granò Fachada.jpg",
     galleryImages: [
+      "/Granò Fachada.jpg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167708e3240851a86de032_IMG_1914.jpeg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167705fd3933467956712f_IMG_1918.jpeg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167707037c4d86fcfaf398_IMG_2022.jpeg",
