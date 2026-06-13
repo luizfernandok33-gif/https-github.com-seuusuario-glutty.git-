@@ -655,7 +655,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 530,
     safetyLevel: "seguro" as SafetyLevel,
     safetyScore: 90,
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
+    image: "/Pandan Fachada.jpg",
     cuisine: "Restaurante / Padaria / Confeitaria",
     distance: "",
     isOpen: true,
