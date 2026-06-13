@@ -877,7 +877,7 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "jampa-nutrileve",
     name: "Jampa Nutrileve",
-    address: "Av. Ingá, 473 - Loja 106",
+    address: "Av. Ingá, 473",
     neighborhood: "Manaíra",
     city: "João Pessoa",
     rating: 0,
