@@ -1075,7 +1075,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop",
+    image: "/Juro de Dedinho Capa.jpg",
     cuisine: "Doceria / Confeitaria",
     distance: "",
     isOpen: false,
