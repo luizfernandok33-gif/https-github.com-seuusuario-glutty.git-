@@ -6,7 +6,6 @@ import { ArrowLeft, Heart, Star, ChefHat, Building2, ShieldCheck, MapPin, Refres
 import { mockRestaurants, localizeRestaurant, RESTAURANT_LOGOS } from "@/lib/data";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
-import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { palette, getRestrictionColor, getIngredientColor } from "@/lib/tags";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
@@ -20,6 +19,7 @@ export default function DishDetailPage({
   const restaurant = localizeRestaurant(mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0], language);
   const dish = restaurant.dishes.find((d) => d.id === dishId) ?? restaurant.dishes[0];
   const [isFav, setIsFav] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   if (!dish) {
     return (
@@ -68,13 +68,20 @@ export default function DishDetailPage({
       </div>
 
       {/* Hero */}
-      <div className="relative h-64">
-        {dish.image ? (
-          <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
-        ) : (
-          <DishImagePlaceholder rounded={0} bordered={false} />
+      <div className="relative h-64" style={{ backgroundColor: "#FFFFFF" }}>
+        {dish.image && !imgError && (
+          <>
+            <Image
+              src={dish.image}
+              alt={dish.name}
+              fill
+              className="object-cover"
+              unoptimized
+              onError={() => setImgError(true)}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+          </>
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
       </div>
 
       <div
