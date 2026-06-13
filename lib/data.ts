@@ -442,7 +442,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "moderado" as SafetyLevel,
     safetyScore: 0,
-    image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop",
+    image: "/Healthy Bites Atelier Capa.jpg",
     cuisine: "Confeitaria",
     distance: "",
     isOpen: true,
