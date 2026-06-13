@@ -135,7 +135,7 @@ export default function RestaurantePage({ params }: { params: Promise<{ id: stri
       </div>
 
       {/* Hero Image */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-64 overflow-hidden" style={{ backgroundColor: "#FFFFFF", borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
         <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
       </div>
