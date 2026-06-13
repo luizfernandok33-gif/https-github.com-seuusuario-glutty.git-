@@ -54,7 +54,7 @@ export default function PerfilPage() {
     { icon: Info,       label: t.perfil.settingsSection.items.about,    detail: "",          href: "/configuracoes" },
   ];
 
-  const PHOTO = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face";
+  const PHOTO = "/michelle.jpg.jpg";
   const [isEditing, setIsEditing] = useState(false);
   const [bio,       setBio]       = useState("");
   const [bioSaved,  setBioSaved]  = useState("");
@@ -115,7 +115,15 @@ export default function PerfilPage() {
                   className="w-[72px] h-[72px] rounded-full overflow-hidden border-[2.5px]"
                   style={{ borderColor: "#C6F59D", boxShadow: "0 4px 12px rgba(0,0,0,0.10)" }}
                 >
-                  <Image src={PHOTO} alt="Michelle Sagas" width={72} height={72} className="object-cover w-full h-full" unoptimized />
+                  <Image
+                    src={PHOTO}
+                    alt="Michelle Sagas"
+                    width={96}
+                    height={96}
+                    className="object-cover w-full h-full"
+                    style={{ objectPosition: "center top", transform: "scale(1.45)", transformOrigin: "center 12%" }}
+                    unoptimized
+                  />
                 </div>
                 <button
                   className="absolute bottom-0 right-0 w-6 h-6 rounded-full flex items-center justify-center border-2 border-surface active:scale-90 transition-transform"
