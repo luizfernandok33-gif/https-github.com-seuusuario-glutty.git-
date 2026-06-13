@@ -1287,9 +1287,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://static.wixstatic.com/media/dca45e_907a60a6de8b4b198dff01e3e1bcd960~mv2.jpg",
+    image: "/Zufreeden Fachada.jpg",
     galleryImages: [
-      "https://static.wixstatic.com/media/dca45e_907a60a6de8b4b198dff01e3e1bcd960~mv2.jpg",
+      "/Zufreeden Fachada.jpg",
       "https://static.wixstatic.com/media/dca45e_d6c2c7b7c5634322ab1d3c377712cfe3~mv2.jpg",
       "https://static.wixstatic.com/media/dca45e_41c280ee8cc9471dbc6e1638786bef85~mv2.jpg",
       "https://static.wixstatic.com/media/dca45e_8c9208c5740a41b8b1a76df3ed588892~mv2.jpg",
