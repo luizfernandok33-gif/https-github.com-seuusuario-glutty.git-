@@ -877,8 +877,8 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "jampa-nutrileve",
     name: "Jampa Nutrileve",
-    address: "",
-    neighborhood: "",
+    address: "Av. Ingá, 473 - Loja 106",
+    neighborhood: "Manaíra",
     city: "João Pessoa",
     rating: 0,
     reviewCount: 0,
@@ -959,7 +959,7 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "lola-paleo",
     name: "Lola Paleo",
-    address: "",
+    address: "Av. João Câncio da Silva, 958",
     neighborhood: "Manaíra",
     city: "João Pessoa",
     rating: 4.2,
