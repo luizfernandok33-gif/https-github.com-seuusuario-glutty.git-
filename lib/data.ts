@@ -219,7 +219,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 304,
     safetyLevel: "certificado",
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+    image: "/Haus Hiltl Fachada.jpg",
     cuisine: "Vegetariana / Internacional",
     distance: "3,2 km",
     isOpen: true,
