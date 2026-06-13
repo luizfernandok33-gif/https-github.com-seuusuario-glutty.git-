@@ -36,7 +36,7 @@ export default function DishDetailPage({
   const safetyLevel = dish.safetyLevel ?? restaurant.safetyLevel;
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
+    <div className="bg-background min-h-dvh">
 
       {/* Header claro */}
       <div
