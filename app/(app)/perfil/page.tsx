@@ -13,41 +13,48 @@ import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
 import { restrictionConfig, getIngredientColor } from "@/lib/tags";
 import type { SafetyLevel } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 const restrictionKeys = ["sem_gluten","sem_lactose","sem_nozes","sem_ovo","vegano","vegetariano"] as const;
-const prohibitedIngredients = ["Trigo", "Cevada", "Malte", "Leite", "Aveia", "Centeio"];
+const prohibitedIngredientKeys = ["trigo", "cevada", "malte", "leite", "aveia", "centeio"] as const;
 
-const journeyStats = [
-  { icon: Store,           value: 12, label: "Restaurantes\nseguros",  color: "#1F3D34", bg: "#C6F59D" },
-  { icon: UtensilsCrossed, value: 34, label: "Pratos\nexperimentados", color: "#2E7D32", bg: "#E8F5E9" },
-  { icon: Star,            value: 18, label: "Avaliações\nfeitas",     color: "#7C3AED", bg: "#EDE9FE" },
-  { icon: Heart,           value: 5,  label: "Favoritos\nsalvos",      color: "#D97706", bg: "#FEF3C7" },
-];
+const journeyStatsBase = [
+  { id: "restaurants", icon: Store,           value: 12, color: "#1F3D34", bg: "#C6F59D" },
+  { id: "dishes",      icon: UtensilsCrossed, value: 34, color: "#2E7D32", bg: "#E8F5E9" },
+  { id: "reviews",     icon: Star,            value: 18, color: "#7C3AED", bg: "#EDE9FE" },
+  { id: "favorites",   icon: Heart,           value: 5,  color: "#D97706", bg: "#FEF3C7" },
+] as const;
 
-const recentActivity: { title: string; subtitle: string; image: string; level: SafetyLevel }[] = [
+const recentActivityBase: { id: string; image: string; level: SafetyLevel }[] = [
   {
-    title: "Le Manjue Organique",
-    subtitle: "Avaliado há 3 dias",
+    id: "1",
     image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=80&h=80&fit=crop",
     level: "certificado",
   },
   {
-    title: "Risoto de cogumelos",
-    subtitle: "Favorito salvo há 1 semana",
+    id: "2",
     image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=80&h=80&fit=crop",
     level: "muito_seguro",
   },
 ];
 
-const configItems = [
-  { icon: Globe,      label: "Idioma",          detail: "Português", href: "/idioma"       },
-  { icon: HelpCircle, label: "Ajuda e suporte", detail: "",          href: "/configuracoes" },
-  { icon: Info,       label: "Sobre o Glútty",  detail: "",          href: "/configuracoes" },
-];
-
 export default function PerfilPage() {
   const router = useRouter();
-  const PHOTO = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face";
+  const { t } = useLanguage();
+
+  const journeyStats = journeyStatsBase.map(stat => ({ ...stat, label: t.perfil.journey.stats[stat.id] }));
+  const recentActivity = recentActivityBase.map(item => ({
+    ...item,
+    title: t.perfil.recentActivity.items[item.id]?.title ?? "",
+    subtitle: t.perfil.recentActivity.items[item.id]?.subtitle ?? "",
+  }));
+  const configItems = [
+    { icon: Globe,      label: t.perfil.settingsSection.items.language, detail: t.configuracoes.currentLanguageName, href: "/configuracoes" },
+    { icon: HelpCircle, label: t.perfil.settingsSection.items.help,     detail: "",          href: "/configuracoes" },
+    { icon: Info,       label: t.perfil.settingsSection.items.about,    detail: "",          href: "/configuracoes" },
+  ];
+
+  const PHOTO = "/michelle.jpg.jpg";
   const [isEditing, setIsEditing] = useState(false);
   const [bio,       setBio]       = useState("");
   const [bioSaved,  setBioSaved]  = useState("");
@@ -68,8 +75,8 @@ export default function PerfilPage() {
           <ChevronRight size={18} className="rotate-180" style={{ color: "white" }} />
         </button>
         <div className="flex-1">
-          <h1 className="text-xl font-extrabold font-display leading-tight" style={{ color: "#1F3D34" }}>Meu Perfil</h1>
-          <p className="text-[12px] text-text-disabled mt-0.5">Suas informações e preferências</p>
+          <h1 className="text-xl font-extrabold font-display leading-tight" style={{ color: "#1F3D34" }}>{t.perfil.title}</h1>
+          <p className="text-[12px] text-text-disabled mt-0.5">{t.perfil.subtitle}</p>
         </div>
 
         <Link
@@ -108,7 +115,15 @@ export default function PerfilPage() {
                   className="w-[72px] h-[72px] rounded-full overflow-hidden border-[2.5px]"
                   style={{ borderColor: "#C6F59D", boxShadow: "0 4px 12px rgba(0,0,0,0.10)" }}
                 >
-                  <Image src={PHOTO} alt="Michelle Sagas" width={72} height={72} className="object-cover w-full h-full" unoptimized />
+                  <Image
+                    src={PHOTO}
+                    alt="Michelle Sagas"
+                    width={96}
+                    height={96}
+                    className="object-cover w-full h-full"
+                    style={{ objectPosition: "center top", transform: "scale(1.45)", transformOrigin: "center 12%" }}
+                    unoptimized
+                  />
                 </div>
                 <button
                   className="absolute bottom-0 right-0 w-6 h-6 rounded-full flex items-center justify-center border-2 border-surface active:scale-90 transition-transform"
@@ -126,7 +141,7 @@ export default function PerfilPage() {
                       onClick={handleCancel}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-surface active:scale-95 transition-transform"
                     >
-                      <span className="text-text-secondary font-semibold text-[11px]">Cancelar</span>
+                      <span className="text-text-secondary font-semibold text-[11px]">{t.perfil.cancel}</span>
                     </button>
                     <button
                       onClick={handleSave}
@@ -134,7 +149,7 @@ export default function PerfilPage() {
                       style={{ backgroundColor: "#1F3D34" }}
                     >
                       <Check size={11} color="#C6F59D" />
-                      <span className="font-bold text-[11px]" style={{ color: "#C6F59D" }}>Salvar</span>
+                      <span className="font-bold text-[11px]" style={{ color: "#C6F59D" }}>{t.perfil.save}</span>
                     </button>
                   </>
                 ) : (
@@ -145,7 +160,7 @@ export default function PerfilPage() {
                       style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
                     >
                       <Eye size={12} className="text-text-secondary" />
-                      <span className="text-text-secondary font-semibold text-[11px]">Ver público</span>
+                      <span className="text-text-secondary font-semibold text-[11px]">{t.perfil.viewPublic}</span>
                     </Link>
                     <button
                       onClick={() => setIsEditing(true)}
@@ -153,7 +168,7 @@ export default function PerfilPage() {
                       style={{ backgroundColor: "#1F3D34" }}
                     >
                       <Pencil size={11} color="#C6F59D" />
-                      <span className="font-bold text-[11px]" style={{ color: "#C6F59D" }}>Editar</span>
+                      <span className="font-bold text-[11px]" style={{ color: "#C6F59D" }}>{t.perfil.edit}</span>
                     </button>
                   </>
                 )}
@@ -165,7 +180,7 @@ export default function PerfilPage() {
             <p className="text-text-disabled text-[12px] mt-0.5">michellesagas@hotmail.com</p>
             <div className="flex items-center gap-1 mt-1">
               <MapPin size={11} className="shrink-0" style={{ color: "#1F3D34" }} />
-              <span className="text-text-secondary text-[12px]">Zurique, Suíça</span>
+              <span className="text-text-secondary text-[12px]">{t.perfil.location}</span>
             </div>
 
             {/* Bio */}
@@ -178,13 +193,13 @@ export default function PerfilPage() {
                   transition: "border-color 0.2s",
                 }}
               >
-                <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide mb-1.5">Sobre mim</p>
+                <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide mb-1.5">{t.perfil.aboutMe}</p>
                 {isEditing ? (
                   <textarea
                     value={bio}
                     onChange={e => setBio(e.target.value)}
                     autoFocus
-                    placeholder="Conte um pouco sobre você — há quanto tempo é celíaca, onde mora, como lida com a dieta..."
+                    placeholder={t.perfil.bioPlaceholder}
                     className="w-full text-[13px] text-text-primary bg-transparent outline-none resize-none leading-relaxed placeholder:text-text-disabled"
                     rows={3}
                   />
@@ -193,7 +208,7 @@ export default function PerfilPage() {
                     className="text-[13px] leading-relaxed"
                     style={{ color: bioSaved ? "var(--color-text-primary)" : "var(--color-text-disabled)" }}
                   >
-                    {bioSaved || "Conte um pouco sobre você — há quanto tempo é celíaca, onde mora, como lida com a dieta..."}
+                    {bioSaved || t.perfil.bioPlaceholder}
                   </p>
                 )}
               </div>
@@ -205,31 +220,31 @@ export default function PerfilPage() {
         <div className="bg-surface rounded-2xl p-4" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-extrabold text-text-primary text-[15px]">Perfil Alimentar</h3>
-              <p className="text-text-disabled text-[11px] mt-0.5">Personaliza suas recomendações e contextualiza avaliações</p>
+              <h3 className="font-extrabold text-text-primary text-[15px]">{t.perfil.foodProfile.title}</h3>
+              <p className="text-text-disabled text-[11px] mt-0.5">{t.perfil.foodProfile.subtitle}</p>
             </div>
             <Link href="/perfil/restricoes" className="flex items-center gap-1 active:scale-95 transition-transform">
               <Pencil size={12} style={{ color: "#1F3D34" }} />
-              <span className="font-bold text-[12px]" style={{ color: "#1F3D34" }}>Editar</span>
+              <span className="font-bold text-[12px]" style={{ color: "#1F3D34" }}>{t.perfil.edit}</span>
             </Link>
           </div>
 
           {/* Diagnóstico */}
-          <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">Diagnóstico</p>
+          <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">{t.perfil.foodProfile.diagnosis}</p>
           <div className="flex items-center gap-2 mb-5">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
               <BadgeCheck size={12} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
-              <span className="text-[12px] font-bold" style={{ color: "#C6F59D" }}>Celíaca</span>
+              <span className="text-[12px] font-bold" style={{ color: "#C6F59D" }}>{t.perfil.foodProfile.celiac}</span>
             </div>
-            <span className="text-[10px] text-text-disabled italic">· não removível</span>
+            <span className="text-[10px] text-text-disabled italic">{t.perfil.foodProfile.notRemovable}</span>
           </div>
 
           {/* Restrições */}
-          <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">Minhas restrições</p>
+          <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">{t.perfil.foodProfile.myRestrictions}</p>
           <div className="flex flex-wrap gap-2 mb-5">
             {restrictionKeys.filter(k => k !== "sem_gluten").map((key) => {
               const cfg = restrictionConfig[key];
-              return <Tag key={key} label={cfg.tag} colorConfig={{ color: cfg.color, bg: cfg.bg }} size="md" />;
+              return <Tag key={key} label={t.restricoes.restrictionLabels[key] ?? cfg.tag} colorConfig={{ color: cfg.color, bg: cfg.bg }} size="md" />;
             })}
           </div>
 
@@ -237,10 +252,10 @@ export default function PerfilPage() {
           <div className="border-t border-border mb-5" />
 
           {/* Ingredientes proibidos */}
-          <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">Ingredientes proibidos</p>
+          <p className="text-[11px] font-bold text-text-disabled uppercase tracking-wide mb-2">{t.perfil.foodProfile.prohibitedIngredients}</p>
           <div className="flex flex-wrap gap-2">
-            {prohibitedIngredients.map(ing => (
-              <Tag key={ing} label={ing} colorConfig={getIngredientColor(ing)} size="md" strikethrough />
+            {prohibitedIngredientKeys.map(key => (
+              <Tag key={key} label={t.perfil.ingredients[key]} colorConfig={getIngredientColor(key)} size="md" strikethrough />
             ))}
           </div>
         </div>
@@ -248,8 +263,8 @@ export default function PerfilPage() {
         {/* ── Jornada no Glútty ── */}
         <div className="bg-surface rounded-2xl p-4" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-extrabold text-text-primary text-[15px]">Sua jornada no Glútty</h3>
-            <span className="text-[11px] font-medium text-text-disabled">Desde Jan 2023</span>
+            <h3 className="font-extrabold text-text-primary text-[15px]">{t.perfil.journey.title}</h3>
+            <span className="text-[11px] font-medium text-text-disabled">{t.perfil.journey.since}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {journeyStats.map(({ icon: Icon, value, label, color, bg }) => (
@@ -274,9 +289,9 @@ export default function PerfilPage() {
         {/* ── Atividade Recente ── */}
         <div className="bg-surface rounded-2xl p-4" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-extrabold text-text-primary text-[15px]">Atividade recente</h3>
+            <h3 className="font-extrabold text-text-primary text-[15px]">{t.perfil.recentActivity.title}</h3>
             <button className="flex items-center gap-0.5 active:scale-95 transition-transform">
-              <span className="font-bold text-[12px]" style={{ color: "#1F3D34" }}>Ver todas</span>
+              <span className="font-bold text-[12px]" style={{ color: "#1F3D34" }}>{t.perfil.recentActivity.seeAll}</span>
               <ChevronRight size={14} style={{ color: "#1F3D34" }} />
             </button>
           </div>
@@ -301,7 +316,7 @@ export default function PerfilPage() {
 
         {/* ── Configurações ── */}
         <div className="bg-surface rounded-2xl overflow-hidden" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
-          <h3 className="font-extrabold text-text-primary text-[15px] px-4 pt-4 pb-2">Configurações</h3>
+          <h3 className="font-extrabold text-text-primary text-[15px] px-4 pt-4 pb-2">{t.perfil.settingsSection.title}</h3>
           <div className="grid grid-cols-2 divide-x divide-y divide-border">
             {configItems.map(({ icon: Icon, label, detail, href }) => (
               <Link
@@ -323,7 +338,7 @@ export default function PerfilPage() {
         {/* ── Logout ── */}
         <button className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full border border-error/40 active:scale-95 transition-transform">
           <LogOut size={16} className="text-error" />
-          <span className="text-error font-bold text-[14px]">Sair da conta</span>
+          <span className="text-error font-bold text-[14px]">{t.perfil.logout}</span>
         </button>
 
       </div>

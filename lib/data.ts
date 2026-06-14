@@ -1,3 +1,6 @@
+import { restaurantTranslationsEn, safetyLevelLabelsEn } from "@/lib/i18n/dataTranslations";
+import type { Language } from "@/lib/i18n/translations";
+
 export type SafetyLevel =
   | "muito_seguro"
   | "seguro"
@@ -22,6 +25,7 @@ export interface Restaurant {
   cuisine: string;
   distance: string;
   isOpen: boolean;
+  permanentlyClosed?: boolean;
   openingHours?: string;
   isFavorite: boolean;
   features: string[];
@@ -33,6 +37,7 @@ export interface Restaurant {
   phone: string;
   email?: string;
   website?: string;
+  instagram?: string;
   chef?: string;
   chefPhoto?: string;
   galleryImages?: string[];
@@ -53,6 +58,7 @@ export interface Dish {
   adaptations?: DishAdaptation[];
   safetyLevel?: SafetyLevel;
   crossContaminationRisk?: "baixo" | "medio" | "alto";
+  crossContaminationPrep?: string;
   restrictions?: string[];
   isGlutenFree: boolean;
   isCertified: boolean;
@@ -84,6 +90,26 @@ export const safetyLevelConfig: Record<SafetyLevel, { label: string; color: stri
   recomendado:  { label: "Recomendado",  color: "#AD1457", bg: "#FCE4EC", description: "Altamente recomendado" },
 };
 
+// Logos reais enviados pelo usuário — mapeados por nome do restaurante.
+export const RESTAURANT_LOGOS: Record<string, string> = {
+  "Le Manjue Organique": "/Le Manjue Organique.jpg",
+  "Haus Hiltl": "/Haus Hiltl.png",
+  "Tibits": "/Tibits.png",
+  "Marktküche": "/Marktküche.png",
+  "Healthy Bites Atelier": "/Healthy Bites Atelier.jpg",
+  "Grão Fino": "/grão fino.jpg",
+  "Pandan": "/Pandan.jpg",
+  "Pizza For Fun": "/Pizza for fun.png",
+  "Jampa Nutrileve": "/Jampa Nutrileve.png",
+  "Lola Paleo": "/Lola Paleo.jpg",
+  "Juro de Dedinho": "/Juro de Dedinho.jpg",
+  "Libera": "/libera.jpg",
+  "Zufreeden": "/Zufreeden.png",
+  "À VIE Baked Goods": "/À VIE Baked Goods.png",
+  "Jackie's": "/Jackie's.jpg",
+  "Granò": "/Granò.jpg",
+};
+
 export const mockRestaurants: Restaurant[] = [
   // ── SÃO PAULO ──────────────────────────────────────────────
   {
@@ -96,7 +122,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 218,
     safetyLevel: "certificado",
     safetyScore: 99,
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop",
+    image: "/Le Manjue Fachada.jpg",
     cuisine: "Orgânica / Sem Glúten",
     distance: "0,4 km",
     isOpen: true,
@@ -127,6 +153,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Arroz arbóreo", "Cogumelos porcini", "Shiitake", "Parmesão", "Trufa negra", "Vinho branco"],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Preparado em cozinha 100% livre de glúten: panelas, utensílios e bancadas são exclusivos, sem nenhum contato com farinha de trigo ou outros ingredientes com glúten.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: true,
@@ -141,6 +169,8 @@ export const mockRestaurants: Restaurant[] = [
         adaptations: [{ original: "Farinha de trigo", replacement: "Farinha de arroz integral" }],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "A massa de arroz é feita com utensílios e bancada exclusivos, separados dos ingredientes com glúten. A equipe troca as luvas a cada etapa do preparo.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: true,
@@ -189,7 +219,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 304,
     safetyLevel: "certificado",
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+    image: "/Haus Hiltl Fachada.jpg",
     cuisine: "Vegetariana / Internacional",
     distance: "3,2 km",
     isOpen: true,
@@ -220,6 +250,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Batata", "Raclette suíço", "Manteiga clarificada", "Pepino em conserva", "Cebola caramelizada"],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Preparado em chapa exclusiva, higienizada antes do uso, com utensílios separados para os pratos sem glúten e identificação visual no buffet.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: true,
@@ -233,9 +265,27 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Grão-de-bico", "Leite de coco", "Tomate", "Espinafre", "Cúrcuma", "Cominho", "Arroz basmati"],
         safetyLevel: "certificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Cozido em panela exclusiva para pratos sem glúten, com ingredientes pesados e armazenados separadamente dos itens que contêm glúten.",
         restrictions: ["Sem glúten", "Vegano"],
         isGlutenFree: true,
         isCertified: true,
+      },
+      {
+        id: "d11",
+        name: "Hiltl Burger",
+        description:
+          "Hambúrguer vegano à base de proteína vegetal, com alface baby, tomate, cebola roxa, burger sauce e ketchup apimentado, servido no pão brioche tradicional. Opção com queijo suíço disponível.",
+        price: 26.0,
+        image: "",
+        ingredients: ["Hambúrguer vegetal Hiltl", "Pão brioche", "Alface baby", "Tomate", "Cebola roxa", "Burger sauce", "Ketchup apimentado"],
+        safetyLevel: "moderado",
+        crossContaminationRisk: "medio",
+        crossContaminationPrep:
+          "O pão brioche tradicional contém glúten. O restaurante pode oferecer pão sem glúten como substituição sob consulta, mas não garante ausência total de contaminação cruzada na cozinha para este item.",
+        restrictions: ["Vegano", "Vegetariano"],
+        isGlutenFree: false,
+        isCertified: false,
       },
     ],
     reviews: [
@@ -266,7 +316,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 241,
     safetyLevel: "muito_seguro",
     safetyScore: 95,
-    image: "https://storage.flyo.cloud/30_7de9a720_tibits-aarau-1.png/thumb/800x600?format=webp",
+    image: "/Tibits Fachada.jpg",
     cuisine: "Vegetariana / Buffet",
     distance: "4,1 km",
     isOpen: true,
@@ -294,6 +344,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Lentilha Puy", "Cenoura", "Salsão", "Mostarda de Dijon GF", "Vinagre balsâmico", "Salsinha"],
         safetyLevel: "muito_seguro",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Montada em estação separada do buffet, com utensílios de servir exclusivos e troca de luvas entre as preparações para evitar contato cruzado.",
         restrictions: ["Sem glúten", "Vegano"],
         isGlutenFree: true,
         isCertified: false,
@@ -326,7 +378,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 97,
     safetyLevel: "verificado",
     safetyScore: 88,
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+    image: "/Marktküche Fachada.jpg",
     cuisine: "Europeia Contemporânea",
     distance: "5,0 km",
     isOpen: true,
@@ -344,6 +396,7 @@ export const mockRestaurants: Restaurant[] = [
     phone: "+41 44 211 22 11",
     email: "info@marktkueche.ch",
     website: "marktkueche.ch",
+    chef: "Tobias Hoesli",
     dishes: [
       {
         id: "d10",
@@ -354,6 +407,8 @@ export const mockRestaurants: Restaurant[] = [
         ingredients: ["Polenta fina", "Cogumelos porcini", "Chanterelle", "Alho", "Tomilho", "Queijo Sbrinz"],
         safetyLevel: "verificado",
         crossContaminationRisk: "baixo",
+        crossContaminationPrep:
+          "Preparada em panela exclusiva para pratos sem glúten, com o chef avisado previamente para reforçar o uso de utensílios e tábuas separadas.",
         restrictions: ["Sem glúten", "Vegetariano"],
         isGlutenFree: true,
         isCertified: false,
@@ -380,14 +435,14 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "healthy-bites-atelier",
     name: "Healthy Bites Atelier",
-    address: "",
-    neighborhood: "",
-    city: "",
+    address: "R. Clodomiro Amazonas, 1158 - Loja 20",
+    neighborhood: "Vila Nova Conceição",
+    city: "São Paulo",
     rating: 0,
     reviewCount: 0,
     safetyLevel: "moderado" as SafetyLevel,
     safetyScore: 0,
-    image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop",
+    image: "/Healthy Bites Atelier Capa.jpg",
     cuisine: "Confeitaria",
     distance: "",
     isOpen: true,
@@ -399,8 +454,9 @@ export const mockRestaurants: Restaurant[] = [
       "Sem confirmação clara de operação dedicada para celíacos",
     ],
     description: "Confeitaria saudável com doces sem glúten, sem lactose e sem açúcar.",
-    phone: "",
-    website: "https://www.instagram.com/healthybitesatelier",
+    phone: "+55 11 99984-9187",
+    chef: "Victória Della Manna",
+    instagram: "healthybitesatelier",
     dishes: [
       {
         id: "hba-d1",
@@ -469,8 +525,9 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 89,
     safetyLevel: "seguro" as SafetyLevel,
     safetyScore: 90,
-    image: "https://static.wixstatic.com/media/4614e6_03405cb3563f4c609004d49cfa59a3c2~mv2.jpg",
+    image: "/Grão Fino Fachada.jpg",
     galleryImages: [
+      "/Grão Fino Fachada.jpg",
       "https://static.wixstatic.com/media/4614e6_08f73bfc2b4f4152907b2495bb1550a0~mv2.jpg",
       "https://static.wixstatic.com/media/4614e6_94a180dda3d8414c83c89861e6829b05~mv2.jpg",
       "https://static.wixstatic.com/media/4614e6_92e7afedb4a24b69b54066fc799e0890~mv2.jpg",
@@ -490,6 +547,7 @@ export const mockRestaurants: Restaurant[] = [
     description: "Padaria funcional com produção sem glúten e sem lactose, focada em alimentação saudável.",
     phone: "",
     website: "https://www.sougraofino.com.br/",
+    instagram: "graofino",
     dishes: [
       {
         id: "grao-fino-d1",
@@ -597,7 +655,7 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 530,
     safetyLevel: "seguro" as SafetyLevel,
     safetyScore: 90,
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
+    image: "/Pandan Fachada.jpg",
     cuisine: "Restaurante / Padaria / Confeitaria",
     distance: "",
     isOpen: true,
@@ -611,6 +669,8 @@ export const mockRestaurants: Restaurant[] = [
     description: "Restaurante e laboratório especializado em alimentos sem glúten, com foco em segurança e acolhimento.",
     phone: "",
     website: "https://pandanlab.com.br/",
+    chef: "Daniella Kobayashi",
+    instagram: "pandan_sp",
     dishes: [
       {
         id: "pandan-d1",
@@ -698,15 +758,16 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "pizza-for-fun",
     name: "Pizza For Fun",
-    address: "",
-    neighborhood: "",
+    address: "R. Mourato Coelho, 1011",
+    neighborhood: "Vila Madalena",
     city: "São Paulo",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.4,
+    reviewCount: 600,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Caprese@2x-1200x853.jpg",
+    image: "/Pizza For Fun Fachada.jpg",
     galleryImages: [
+      "/Pizza For Fun Fachada.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Marguerita-For-Fun@2x-1200x853.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Tre-Fungui-1@2x-1200x853.jpg",
       "https://pizzaforfun.com.br/wp-content/uploads/2021/05/Pero-no-Mucho@2x-1200x853.jpg",
@@ -723,9 +784,12 @@ export const mockRestaurants: Restaurant[] = [
       "Ambiente dedicado, sem entrada de glúten",
       "Comunicação explícita sobre ausência de contaminação cruzada",
     ],
-    description: "Pizzaria especializada em pizzas 100% sem glúten.",
-    phone: "",
+    description: "Rede de pizzarias de São Paulo especializada em pizzas 100% sem glúten, com unidades em diversos bairros da cidade.",
+    phone: "(11) 3360-8075",
+    email: "contato@pizzaforfun.com.br",
     website: "https://pizzaforfun.com.br/",
+    chef: "Alessandra Rabello Jordão",
+    instagram: "pizzaforfunoficial",
     dishes: [
       {
         id: "pff-d1",
@@ -813,14 +877,14 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "jampa-nutrileve",
     name: "Jampa Nutrileve",
-    address: "",
-    neighborhood: "",
+    address: "Av. Ingá, 473",
+    neighborhood: "Manaíra",
     city: "João Pessoa",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.6,
+    reviewCount: 62,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&h=300&fit=crop",
+    image: "/Jampa Nutrileve Capa.jpg",
     cuisine: "Restaurante / Pizzaria",
     distance: "",
     isOpen: true,
@@ -833,7 +897,7 @@ export const mockRestaurants: Restaurant[] = [
     ],
     description: "Restaurante e pizzaria sem glúten, com proposta leve e inclusiva.",
     phone: "",
-    website: "https://www.instagram.com/jampanutrileve",
+    instagram: "jampanutrileve",
     dishes: [
       {
         id: "jnl-d1",
@@ -895,14 +959,14 @@ export const mockRestaurants: Restaurant[] = [
   {
     id: "lola-paleo",
     name: "Lola Paleo",
-    address: "",
+    address: "Av. João Câncio da Silva, 958",
     neighborhood: "Manaíra",
     city: "João Pessoa",
     rating: 4.2,
     reviewCount: 320,
     safetyLevel: "moderado" as SafetyLevel,
     safetyScore: 0,
-    image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop",
+    image: "/Lola Paleo Fachada.jpg",
     cuisine: "Padaria / Confeitaria / Cafeteria Funcional",
     distance: "",
     isOpen: true,
@@ -914,8 +978,9 @@ export const mockRestaurants: Restaurant[] = [
       "Sem comprovação clara de controle rigoroso de contaminação cruzada",
     ],
     description: "Padaria e confeitaria funcional com produtos sem glúten, sem açúcar e sem lactose.",
-    phone: "",
-    website: "https://www.instagram.com/lolapaleo",
+    phone: "+55 83 99665-5024",
+    chef: "Guilherme Castro Nunes Mesquita",
+    instagram: "lolapaleo",
     dishes: [
       {
         id: "lp-d1",
@@ -1010,10 +1075,11 @@ export const mockRestaurants: Restaurant[] = [
     reviewCount: 0,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop",
+    image: "/Juro de Dedinho Capa.jpg",
     cuisine: "Doceria / Confeitaria",
     distance: "",
-    isOpen: true,
+    isOpen: false,
+    permanentlyClosed: true,
     isFavorite: false,
     features: ["100% sem glúten", "Sem lactose", "Sem açúcar", "Vegano opção"],
     restrictions: ["Sem glúten", "Sem lactose", "Sem açúcar"],
@@ -1114,13 +1180,13 @@ export const mockRestaurants: Restaurant[] = [
     address: "Badenerstrasse 298, 8004 Zürich",
     neighborhood: "",
     city: "Zürich",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.6,
+    reviewCount: 120,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://libera-gf.ch/wp-content/uploads/2026/01/6-1-scaled.jpg",
+    image: "/Libera Fachada.jpg",
     galleryImages: [
-      "https://libera-gf.ch/wp-content/uploads/2026/01/1-scaled.jpg",
+      "/Libera Fachada.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/2-scaled.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/3-scaled.jpg",
       "https://libera-gf.ch/wp-content/uploads/2026/01/4-scaled.jpg",
@@ -1138,6 +1204,8 @@ export const mockRestaurants: Restaurant[] = [
     description: "Café e bistrô em Zurique com cardápio sem glúten e foco em segurança.",
     phone: "",
     website: "https://libera-gf.ch/",
+    chef: "Marcello Marini e Laura Casalena",
+    instagram: "libera.glutenfree",
     dishes: [
       {
         id: "lib-d1",
@@ -1215,13 +1283,13 @@ export const mockRestaurants: Restaurant[] = [
     address: "Weinbergstrasse 157, Zürich",
     neighborhood: "",
     city: "Zürich",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.8,
+    reviewCount: 170,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://static.wixstatic.com/media/dca45e_907a60a6de8b4b198dff01e3e1bcd960~mv2.jpg",
+    image: "/Zufreeden Fachada.jpg",
     galleryImages: [
-      "https://static.wixstatic.com/media/dca45e_907a60a6de8b4b198dff01e3e1bcd960~mv2.jpg",
+      "/Zufreeden Fachada.jpg",
       "https://static.wixstatic.com/media/dca45e_d6c2c7b7c5634322ab1d3c377712cfe3~mv2.jpg",
       "https://static.wixstatic.com/media/dca45e_41c280ee8cc9471dbc6e1638786bef85~mv2.jpg",
       "https://static.wixstatic.com/media/dca45e_8c9208c5740a41b8b1a76df3ed588892~mv2.jpg",
@@ -1239,6 +1307,8 @@ export const mockRestaurants: Restaurant[] = [
     description: "Café e padaria artesanal com operação 100% sem glúten.",
     phone: "",
     website: "https://www.zufreeden.ch/",
+    chef: "Bronwyn e Siobhan",
+    instagram: "zufreeden_glutenfree.zurich",
     dishes: [
       {
         id: "zuf-d1",
@@ -1320,7 +1390,7 @@ export const mockRestaurants: Restaurant[] = [
       },
       {
         id: "zuf-d7",
-        name: "Banana bread",
+        name: "Pão de banana",
         description: "",
         price: 0,
         image: "https://static.wixstatic.com/media/dca45e_41c280ee8cc9471dbc6e1638786bef85~mv2.jpg",
@@ -1342,12 +1412,13 @@ export const mockRestaurants: Restaurant[] = [
     address: "Zelgstrasse 13, 8003 Zürich",
     neighborhood: "",
     city: "Zürich",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.8,
+    reviewCount: 60,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop",
+    image: "/À VIE Baked Goods Capa.jpg",
     galleryImages: [
+      "/À VIE Baked Goods Capa.jpg",
       "https://aviebakedgoods.com/wp-content/uploads/2025/10/a-Vie_17102025_2042-scaled.jpg",
     ],
     cuisine: "Confeitaria / Padaria",
@@ -1361,8 +1432,10 @@ export const mockRestaurants: Restaurant[] = [
       "Foco em segurança e sofisticação",
     ],
     description: "Patisserie artesanal em Zurique com produtos sem glúten inspirados na confeitaria francesa.",
-    phone: "",
+    phone: "+41 76 376 05 02",
+    email: "contact@aviebakedgoods.com",
     website: "https://aviebakedgoods.com/",
+    chef: "Bettina Meier-Bickel",
     dishes: [
       {
         id: "avie-d1",
@@ -1427,12 +1500,13 @@ export const mockRestaurants: Restaurant[] = [
     address: "Kemptpark 13, 8310 Kemptthal",
     neighborhood: "",
     city: "Kemptthal",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.5,
+    reviewCount: 220,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=400&fit=crop",
+    image: "/Jackies Fachada.jpg",
     galleryImages: [
+      "/Jackies Fachada.jpg",
       "https://jackies.ch/wp-content/uploads/2021/08/Brote-1024x640.jpg",
       "https://jackies.ch/wp-content/uploads/2025/02/01_Nussbrot-1-1024x768.jpg",
       "https://jackies.ch/wp-content/uploads/2021/11/01_Zopfball-Maxi-1024x768.jpg",
@@ -1451,7 +1525,10 @@ export const mockRestaurants: Restaurant[] = [
     ],
     description: "Padaria artesanal com produção totalmente sem glúten e produtos para o dia a dia.",
     phone: "",
+    email: "info@jackies.ch",
     website: "https://jackies.ch/",
+    chef: "Jacqueline Bättig",
+    instagram: "jackies_glutenfrei",
     dishes: [
       {
         id: "jck-d1",
@@ -1503,12 +1580,13 @@ export const mockRestaurants: Restaurant[] = [
     address: "Badenerstrasse 298, 8004 Zürich",
     neighborhood: "",
     city: "Zürich",
-    rating: 0,
-    reviewCount: 0,
+    rating: 4.7,
+    reviewCount: 180,
     safetyLevel: "muito_seguro" as SafetyLevel,
     safetyScore: 98,
-    image: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&h=400&fit=crop",
+    image: "/Granò Fachada.jpg",
     galleryImages: [
+      "/Granò Fachada.jpg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167708e3240851a86de032_IMG_1914.jpeg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167705fd3933467956712f_IMG_1918.jpeg",
       "https://cdn.prod.website-files.com/6475bde4c3f3fd0a9eacd1e2/66167707037c4d86fcfaf398_IMG_2022.jpeg",
@@ -1526,8 +1604,11 @@ export const mockRestaurants: Restaurant[] = [
       "Operação sem risco de contaminação cruzada",
     ],
     description: "Restaurante italiano em Zurique com cozinha 100% sem glúten.",
-    phone: "",
+    phone: "+41 44 401 11 99",
+    email: "info@gra-no.ch",
     website: "https://www.gra-no.ch/english",
+    chef: "Marcello Marini e Laura Casalena",
+    instagram: "grano_zurich",
     dishes: [
       {
         id: "grano-d1",
@@ -1642,6 +1723,66 @@ export const mockDishes = [
     image: "https://aviebakedgoods.com/wp-content/uploads/2025/10/a-Vie_17102025_2042-scaled.jpg",
   },
 ];
+
+export function localizeDish(dish: Dish, restaurantId: string, lang: Language): Dish {
+  if (lang !== "en") return dish;
+  const tr = restaurantTranslationsEn[restaurantId]?.dishes?.[dish.id];
+  if (!tr) return dish;
+  return {
+    ...dish,
+    ...(tr.name !== undefined && { name: tr.name }),
+    ...(tr.description !== undefined && { description: tr.description }),
+    ...(tr.ingredients !== undefined && { ingredients: tr.ingredients }),
+    ...(tr.adaptations !== undefined && { adaptations: tr.adaptations }),
+    ...(tr.restrictions !== undefined && { restrictions: tr.restrictions }),
+    ...(tr.crossContaminationPrep !== undefined && { crossContaminationPrep: tr.crossContaminationPrep }),
+  };
+}
+
+export function localizeReview(review: Review, restaurantId: string, lang: Language): Review {
+  if (lang !== "en") return review;
+  const tr = restaurantTranslationsEn[restaurantId]?.reviews?.[review.id];
+  if (!tr) return review;
+  return {
+    ...review,
+    ...(tr.tags !== undefined && { tags: tr.tags }),
+    ...(tr.comment !== undefined && { comment: tr.comment }),
+  };
+}
+
+export function localizeRestaurant(restaurant: Restaurant, lang: Language): Restaurant {
+  if (lang !== "en") return restaurant;
+  const tr = restaurantTranslationsEn[restaurant.id];
+  return {
+    ...restaurant,
+    ...(tr?.city !== undefined && { city: tr.city }),
+    ...(tr?.cuisine !== undefined && { cuisine: tr.cuisine }),
+    ...(tr?.description !== undefined && { description: tr.description }),
+    ...(tr?.openingHours !== undefined && { openingHours: tr.openingHours }),
+    ...(tr?.features !== undefined && { features: tr.features }),
+    ...(tr?.restrictions !== undefined && { restrictions: tr.restrictions }),
+    ...(tr?.safetyProcedures !== undefined && { safetyProcedures: tr.safetyProcedures }),
+    dishes: restaurant.dishes.map((d) => localizeDish(d, restaurant.id, lang)),
+    reviews: restaurant.reviews.map((r) => localizeReview(r, restaurant.id, lang)),
+  };
+}
+
+export function localizeSafetyLevelConfig(
+  lang: Language
+): Record<SafetyLevel, { label: string; color: string; bg: string; description: string }> {
+  if (lang !== "en") return safetyLevelConfig;
+  const result = {} as Record<SafetyLevel, { label: string; color: string; bg: string; description: string }>;
+  (Object.keys(safetyLevelConfig) as SafetyLevel[]).forEach((key) => {
+    const base = safetyLevelConfig[key];
+    const tr = safetyLevelLabelsEn[key];
+    result[key] = {
+      ...base,
+      ...(tr?.label !== undefined && { label: tr.label }),
+      ...(tr?.description !== undefined && { description: tr.description }),
+    };
+  });
+  return result;
+}
 
 export const safetyFilters = [
   { id: "muito_seguro", label: "Muito seguro", icon: "🛡️" },

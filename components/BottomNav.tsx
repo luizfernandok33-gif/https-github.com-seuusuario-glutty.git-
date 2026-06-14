@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 // Ícone de Favoritos — SVG enviado pelo usuário (coração).
 function IconFavorito({ size, active, color }: { size: number; active: boolean; color: string }) {
@@ -68,16 +69,17 @@ function IconComunidade({ size, active, color }: { size: number; active: boolean
   );
 }
 
-const navItems = [
-  { href: "/home",       label: "Início",       Icon: null   },
-  { href: "/busca",      label: "Restaurantes", Icon: Search },
-  { href: "/favoritos",  label: "Favoritos",    Icon: null   },
-  { href: "/comunidade", label: "Comunidade",   Icon: null   },
-  { href: "/perfil",     label: "Perfil",       Icon: null   },
-];
-
 export default function BottomNav() {
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const navItems = [
+    { href: "/home",       label: t.bottomNav.inicio,       Icon: null   },
+    { href: "/busca",      label: t.bottomNav.restaurantes, Icon: Search },
+    { href: "/favoritos",  label: t.bottomNav.favoritos,    Icon: null   },
+    { href: "/comunidade", label: t.bottomNav.comunidade,   Icon: null   },
+    { href: "/perfil",     label: t.bottomNav.perfil,       Icon: null   },
+  ];
 
   return (
     <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50">

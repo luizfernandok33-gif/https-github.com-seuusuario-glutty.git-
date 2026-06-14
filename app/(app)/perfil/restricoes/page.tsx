@@ -4,18 +4,19 @@ import { useRouter } from "next/navigation";
 import { Plus, X, ShieldCheck } from "lucide-react";
 import BackButton from "@/components/BackButton";
 import { restrictionConfig, getIngredientColor, palette, type TagColor } from "@/lib/tags";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 const RESTRICTION_OPTIONS = [
-  { key: "sem_gluten",    label: "Sem glúten",    icon: "🌾", locked: true  },
-  { key: "sem_lactose",   label: "Sem lactose",   icon: "🥛", locked: false },
-  { key: "sem_nozes",     label: "Sem nozes",     icon: "🥜", locked: false },
-  { key: "sem_ovo",       label: "Sem ovo",       icon: "🥚", locked: false },
-  { key: "vegano",        label: "Vegano",        icon: "🥗", locked: false },
-  { key: "vegetariano",   label: "Vegetariano",   icon: "🌿", locked: false },
-  { key: "sem_soja",      label: "Sem soja",      icon: "🫘", locked: false },
-  { key: "sem_amendoim",  label: "Sem amendoim",  icon: "🥜", locked: false },
-  { key: "sem_frutos",    label: "Sem frutos do mar", icon: "🦐", locked: false },
-];
+  { key: "sem_gluten",    icon: "🌾", locked: true  },
+  { key: "sem_lactose",   icon: "🥛", locked: false },
+  { key: "sem_nozes",     icon: "🥜", locked: false },
+  { key: "sem_ovo",       icon: "🥚", locked: false },
+  { key: "vegano",        icon: "🥗", locked: false },
+  { key: "vegetariano",   icon: "🌿", locked: false },
+  { key: "sem_soja",      icon: "🫘", locked: false },
+  { key: "sem_amendoim",  icon: "🥜", locked: false },
+  { key: "sem_frutos",    icon: "🦐", locked: false },
+] as const;
 
 const INGREDIENT_OPTIONS = [
   "Trigo", "Cevada", "Malte", "Aveia", "Centeio",
@@ -39,6 +40,7 @@ function getRestrictionColor(key: string): TagColor {
 
 export default function RestricoesPerfil() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [activeRestrictions, setActiveRestrictions] = useState<string[]>(
     ["sem_gluten", "sem_lactose", "sem_nozes", "sem_ovo", "vegano", "vegetariano"]
   );
@@ -97,8 +99,8 @@ export default function RestricoesPerfil() {
         <div className="flex items-start gap-3">
           <BackButton />
           <div className="flex-1">
-            <h1 className="font-black text-primary text-base font-display leading-tight">Editar restrições</h1>
-            <p className="text-[12px] text-text-disabled mt-0.5">Suas alergias e intolerâncias</p>
+            <h1 className="font-black text-primary text-base font-display leading-tight">{t.restricoes.title}</h1>
+            <p className="text-[12px] text-text-disabled mt-0.5">{t.restricoes.subtitle}</p>
           </div>
         </div>
       </div>
@@ -112,17 +114,17 @@ export default function RestricoesPerfil() {
         >
           <ShieldCheck size={18} style={{ color: "#00838F" }} className="shrink-0 mt-0.5" />
           <p className="text-[12px] leading-relaxed" style={{ color: "#00838F" }}>
-            O Glútty é focado em pessoas com restrição ao glúten, por isso essa opção permanece ativa.
+            {t.restricoes.glutenNotice}
           </p>
         </div>
 
         {/* ── Restrições ── */}
         <div>
-          <p className="font-extrabold text-text-primary text-base mb-2">Restrições alimentares</p>
-          <p className="text-text-disabled text-xs mb-3">Selecione o que você não pode consumir.</p>
+          <p className="font-extrabold text-text-primary text-base mb-2">{t.restricoes.dietarySection.title}</p>
+          <p className="text-text-disabled text-xs mb-3">{t.restricoes.dietarySection.subtitle}</p>
 
           <div className="flex flex-wrap gap-2">
-            {RESTRICTION_OPTIONS.map(({ key, label, locked }) => {
+            {RESTRICTION_OPTIONS.map(({ key, locked }) => {
               const isActive = activeRestrictions.includes(key);
               const col = getRestrictionColor(key);
               return (
@@ -141,7 +143,7 @@ export default function RestricoesPerfil() {
                     opacity: isActive ? 1 : 0.35,
                   }}
                 >
-                  {label}
+                  {t.restricoes.restrictionLabels[key]}
                   {locked && <ShieldCheck size={10} style={{ color: col.color }} />}
                 </button>
               );
@@ -151,9 +153,9 @@ export default function RestricoesPerfil() {
 
         {/* ── Ingredientes proibidos ── */}
         <div>
-          <p className="font-extrabold text-text-primary text-base mb-2">Ingredientes proibidos</p>
+          <p className="font-extrabold text-text-primary text-base mb-2">{t.restricoes.ingredientsSection.title}</p>
           <p className="text-text-disabled text-xs mb-3">
-            Toque para marcar ingredientes que você não pode consumir.
+            {t.restricoes.ingredientsSection.subtitle}
           </p>
 
           <div className="flex flex-wrap gap-2">
@@ -173,7 +175,7 @@ export default function RestricoesPerfil() {
                     opacity: isActive ? 1 : 0.5,
                   }}
                 >
-                  {ing}
+                  {t.restricoes.ingredientNames[ing] ?? ing}
                 </button>
               );
             })}
@@ -213,7 +215,7 @@ export default function RestricoesPerfil() {
                 value={customInput}
                 onChange={(e) => setCustomInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addCustom()}
-                placeholder="Outra restrição"
+                placeholder={t.restricoes.customPlaceholder}
                 className="flex-1 text-sm text-text-primary outline-none placeholder:text-text-disabled bg-transparent"
               />
             </div>
@@ -249,7 +251,7 @@ export default function RestricoesPerfil() {
             boxShadow: saved ? "0 4px 16px rgba(46,125,50,0.35)" : "none",
           }}
         >
-          {saved ? "✓ Salvo!" : "Salvar alterações"}
+          {saved ? t.restricoes.savedButton : t.restricoes.saveButton}
         </button>
       </div>
     </div>
