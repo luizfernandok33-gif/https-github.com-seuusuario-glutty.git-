@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // /site is a separate Next.js project with its own tsconfig/eslint config.
+    "site/**",
   ]),
 ]);
 
