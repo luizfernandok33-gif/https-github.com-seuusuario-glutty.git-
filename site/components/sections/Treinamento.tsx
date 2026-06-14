@@ -1,6 +1,7 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+import NumberMark from "@/components/ui/NumberMark";
 import {
   Users,
   ChefHat,
@@ -55,15 +56,18 @@ export default function Treinamento() {
         </Reveal>
 
         <Reveal stagger={0.06} className="mt-10 grid gap-4 sm:grid-cols-2">
-          {topics.map((topic) => (
+          {topics.map((topic, i) => (
             <div
               key={topic}
-              className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.04] p-5"
+              className="flex items-start justify-between gap-3 rounded-2xl border border-white/8 bg-white/[0.04] p-5"
             >
-              <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-(--color-primary-tint)/20 text-(--color-primary-tint)">
-                <CheckCircle2 size={14} strokeWidth={2.5} />
-              </span>
-              <p className="text-sm leading-relaxed text-(--color-cream)/85 sm:text-base">{topic}</p>
+              <div className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-(--color-primary-tint)/20 text-(--color-primary-tint)">
+                  <CheckCircle2 size={14} strokeWidth={2.5} />
+                </span>
+                <p className="text-sm leading-relaxed text-(--color-cream)/85 sm:text-base">{topic}</p>
+              </div>
+              <NumberMark index={i + 1} tone="light" className="flex-shrink-0" />
             </div>
           ))}
         </Reveal>

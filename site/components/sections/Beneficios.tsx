@@ -2,6 +2,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import TiltCard from "@/components/ui/TiltCard";
+import NumberMark from "@/components/ui/NumberMark";
 import { Users, ClipboardCheck, Award, GraduationCap } from "lucide-react";
 
 const benefits = [
@@ -44,13 +45,16 @@ export default function Beneficios() {
         />
 
         <Reveal stagger={0.1} className="mt-14 grid gap-6 sm:grid-cols-2">
-          {benefits.map(({ icon: Icon, title, description }) => (
+          {benefits.map(({ icon: Icon, title, description }, i) => (
             <TiltCard
               key={title}
               className="rounded-3xl border border-(--color-primary)/8 bg-white p-8 shadow-[0_25px_55px_-30px_rgba(31,61,52,0.25)]"
             >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-(--color-primary) text-(--color-primary-tint)">
-                <Icon size={26} />
+              <div className="mb-5 flex items-start justify-between">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-(--color-primary) text-(--color-primary-tint)">
+                  <Icon size={26} />
+                </div>
+                <NumberMark index={i + 1} />
               </div>
               <h3 className="font-display text-xl font-semibold text-(--color-primary)">{title}</h3>
               <p className="mt-2.5 text-base leading-relaxed text-(--color-ink-soft)">{description}</p>

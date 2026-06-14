@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
+import NumberMark from "@/components/ui/NumberMark";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import {
   UserPlus,
@@ -150,12 +151,12 @@ export default function ComoFunciona() {
                     <Icon size={20} className="sm:h-[22px] sm:w-[22px]" />
                   </div>
                   <div className="pt-1.5">
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-(--color-primary-tint)/70">
-                      Passo {i + 1}
-                    </p>
-                    <h3 className="mt-1 font-display text-xl font-semibold text-(--color-cream) sm:text-2xl">
-                      {step.title}
-                    </h3>
+                    <div className="flex items-baseline gap-3">
+                      <NumberMark index={i + 1} tone="light" />
+                      <h3 className="font-display text-xl font-semibold text-(--color-cream) sm:text-2xl">
+                        {step.title}
+                      </h3>
+                    </div>
                     <p className="mt-2 max-w-md text-sm leading-relaxed text-(--color-cream)/70 sm:text-base">
                       {step.description}
                     </p>

@@ -1,6 +1,7 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+import NumberMark from "@/components/ui/NumberMark";
 import { CheckCircle2 } from "lucide-react";
 
 const requirements = [
@@ -36,10 +37,11 @@ export default function Exigencias() {
         />
 
         <Reveal stagger={0.07}>
-          <div className="rounded-[2rem] border border-(--color-primary)/8 bg-(--color-cream) p-3 shadow-[0_30px_60px_-30px_rgba(31,61,52,0.25)] sm:p-4">
+          <div className="rounded-[2.5rem] border border-(--color-primary)/8 bg-(--color-cream) p-3 shadow-[0_30px_60px_-30px_rgba(31,61,52,0.25)] sm:rounded-[3rem] sm:p-4">
             <ul className="divide-y divide-(--color-primary)/8">
-              {requirements.map((req) => (
+              {requirements.map((req, i) => (
                 <li key={req} className="flex items-start gap-4 px-4 py-5 sm:px-6">
+                  <NumberMark index={i + 1} className="hidden w-10 flex-shrink-0 sm:block" />
                   <span className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-(--color-primary-tint)/50 text-(--color-primary)">
                     <CheckCircle2 size={16} strokeWidth={2.5} />
                   </span>

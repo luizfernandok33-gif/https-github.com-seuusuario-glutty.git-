@@ -1,6 +1,7 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+import NumberMark from "@/components/ui/NumberMark";
 import { Eye, ShieldCheck, MapPin, MessageCircle, GraduationCap, Calendar } from "lucide-react";
 
 const items = [
@@ -53,13 +54,16 @@ export default function PorQueParticipar() {
         />
 
         <Reveal stagger={0.08} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(({ icon: Icon, title, description }) => (
+          {items.map(({ icon: Icon, title, description }, i) => (
             <div
               key={title}
               className="group rounded-3xl border border-(--color-primary)/8 bg-white p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-(--color-primary)/15 hover:shadow-[0_20px_45px_-20px_rgba(31,61,52,0.25)]"
             >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-(--color-primary-tint)/40 text-(--color-primary) transition-colors duration-300 group-hover:bg-(--color-primary) group-hover:text-(--color-primary-tint)">
-                <Icon size={22} strokeWidth={2.2} />
+              <div className="mb-5 flex items-start justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-(--color-primary-tint)/40 text-(--color-primary) transition-colors duration-300 group-hover:bg-(--color-primary) group-hover:text-(--color-primary-tint)">
+                  <Icon size={22} strokeWidth={2.2} />
+                </div>
+                <NumberMark index={i + 1} />
               </div>
               <h3 className="font-display text-lg font-semibold text-(--color-primary)">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-(--color-ink-soft)">{description}</p>

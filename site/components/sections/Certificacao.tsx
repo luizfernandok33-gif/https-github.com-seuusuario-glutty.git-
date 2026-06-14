@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+import PillCard from "@/components/ui/PillCard";
 import { GraduationCap, FileCheck2, BadgeCheck } from "lucide-react";
 
 const SeloScene = dynamic(() => import("@/components/three/SeloScene"), {
@@ -86,12 +87,15 @@ export default function Certificacao() {
           </Reveal>
         </div>
 
-        <div ref={ref} className="relative mx-auto h-[360px] w-full max-w-md sm:h-[440px]">
+        <PillCard
+          ref={ref}
+          className="relative mx-auto h-[360px] w-full max-w-md overflow-hidden border border-(--color-primary)/8 bg-white/40 sm:h-[440px]"
+        >
           <SeloScene active={active} />
           <p className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 text-center text-xs uppercase tracking-[0.2em] text-(--color-primary)/40">
             {active ? "Selo ativado" : "Role para ativar o selo"}
           </p>
-        </div>
+        </PillCard>
       </Container>
     </section>
   );
