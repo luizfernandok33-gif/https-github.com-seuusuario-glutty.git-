@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* === GLÚTTY BRAND === */
+  --color-primary: #1F3D34;
+  --color-primary-shade: #14241F;
+  --color-primary-tint: #C6F59D;
+  --color-leaf: #A8D86E;
+
+  --color-accent: #FC6904;
+  --color-accent-tint: #FFF0E6;
+
+  --color-cream: #F5F2DF;
+  --color-cream-deep: #ECE6CB;
+  --color-ink: #1C1C1C;
+  --color-ink-soft: #6F6F6F;
+
+  --font-sans: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F5F2DF;
+  color: #1C1C1C;
+  font-family: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), "Fraunces", Georgia, serif;
+}
+
+/* Organic blob shapes */
+.blob {
+  border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%;
+}
+
+/* Reveal-on-scroll base state (GSAP toggles .is-visible) */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle grain overlay for premium feel */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+}
+
+/* "Como funciona" timeline step badges */
+.timeline-badge {
+  transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+.timeline-badge.is-active {
+  background-color: var(--color-primary-tint);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 8px rgba(198, 245, 157, 0.15);
+  transform: scale(1.08);
+}
