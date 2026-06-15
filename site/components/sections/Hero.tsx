@@ -35,7 +35,7 @@ export default function Hero() {
     <section
       id="top"
       ref={root}
-      className="relative isolate flex min-h-[640px] items-center overflow-hidden bg-(--color-primary) pt-28 pb-20 lg:min-h-[760px]"
+      className="relative isolate flex min-h-dvh items-center overflow-hidden bg-(--color-primary) pt-28 pb-20"
     >
       <Image src="/hero-bg-3.png" alt="" fill priority sizes="100vw" className="object-cover" />
       <div
