@@ -37,7 +37,7 @@ export default function Exigencias() {
         />
 
         <Reveal stagger={0.07}>
-          <div className="rounded-[2.5rem] border border-(--color-primary)/8 bg-(--color-cream) p-3 shadow-[0_30px_60px_-30px_rgba(31,61,52,0.25)] sm:rounded-[3rem] sm:p-4">
+          <div className="rounded-[2.5rem] border border-(--color-primary)/8 bg-(--color-cream) p-3 shadow-[0_30px_60px_-30px_rgba(20,47,23,0.25)] sm:rounded-[3rem] sm:p-4">
             <ul className="divide-y divide-(--color-primary)/8">
               {requirements.map((req, i) => (
                 <li key={req} className="flex items-start gap-4 px-4 py-5 sm:px-6">

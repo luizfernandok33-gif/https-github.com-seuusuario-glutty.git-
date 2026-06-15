@@ -40,7 +40,7 @@ export default function Comunidade() {
         />
 
         <Reveal delay={0.1}>
-          <div className="relative mx-auto w-full max-w-md rounded-[2.5rem] border border-(--color-primary)/8 bg-white p-7 shadow-[0_30px_70px_-30px_rgba(31,61,52,0.3)] sm:rounded-[3rem]">
+          <div className="relative mx-auto w-full max-w-md rounded-[2.5rem] border border-(--color-primary)/8 bg-white p-7 shadow-[0_30px_70px_-30px_rgba(20,47,23,0.3)] sm:rounded-[3rem]">
             <div className="flex items-center gap-4 border-b border-(--color-primary)/8 pb-5">
               <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-2xl">
                 <PhotoPlaceholder tone="dark" iconSize={16} />

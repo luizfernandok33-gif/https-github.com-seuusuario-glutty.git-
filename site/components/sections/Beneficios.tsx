@@ -48,7 +48,7 @@ export default function Beneficios() {
           {benefits.map(({ icon: Icon, title, description }, i) => (
             <TiltCard
               key={title}
-              className="rounded-3xl border border-(--color-primary)/8 bg-white p-8 shadow-[0_25px_55px_-30px_rgba(31,61,52,0.25)]"
+              className="rounded-3xl border border-(--color-primary)/8 bg-white p-8 shadow-[0_25px_55px_-30px_rgba(20,47,23,0.25)]"
             >
               <div className="mb-5 flex items-start justify-between">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-(--color-primary) text-(--color-primary-tint)">

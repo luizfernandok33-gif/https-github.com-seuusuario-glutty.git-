@@ -2,16 +2,16 @@
 
 @theme inline {
   /* === GLÚTTY BRAND === */
-  --color-primary: #1F3D34;
+  --color-primary: #142F17;
   --color-primary-shade: #14241F;
-  --color-primary-tint: #C6F59D;
+  --color-primary-tint: #EDF4A1;
   --color-leaf: #A8D86E;
 
   --color-accent: #FC6904;
   --color-accent-tint: #FFF0E6;
 
-  --color-cream: #D6E3D9;
-  --color-cream-deep: #C6D5CA;
+  --color-cream: #DBE3CF;
+  --color-cream-deep: #A0B093;
   --color-ink: #1C1C1C;
   --color-ink-soft: #6F6F6F;
 
@@ -28,7 +28,7 @@ html {
 }
 
 body {
-  background-color: #D6E3D9;
+  background-color: #DBE3CF;
   color: #1C1C1C;
   font-family: var(--font-nunito), "Nunito", system-ui, sans-serif;
   width: 100%;
@@ -73,6 +73,6 @@ body {
 .timeline-badge.is-active {
   background-color: var(--color-primary-tint);
   color: var(--color-primary);
-  box-shadow: 0 0 0 8px rgba(198, 245, 157, 0.15);
+  box-shadow: 0 0 0 8px rgba(237, 244, 161, 0.15);
   transform: scale(1.08);
 }

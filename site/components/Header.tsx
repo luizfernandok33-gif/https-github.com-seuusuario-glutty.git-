@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 bg-(--color-cream) transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_8px_30px_-12px_rgba(31,61,52,0.25)]" : ""
+        scrolled ? "shadow-[0_8px_30px_-12px_rgba(20,47,23,0.25)]" : ""
       }`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
