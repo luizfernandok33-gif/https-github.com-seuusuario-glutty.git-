@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
@@ -10,6 +11,7 @@ const services = [
     description:
       "Cardápio sem glúten real, identificado e sempre atualizado, com transparência total sobre ingredientes, rótulos e fornecedores.",
     photoLabel: "Foto: cardápio sem glúten do restaurante parceiro",
+    photo: "/cardapio-sem-gluten.webp",
   },
   {
     title: "Prevenção de contaminação cruzada",
@@ -39,13 +41,19 @@ export default function NossosServicos() {
         />
 
         <Reveal stagger={0.08} className="mt-14 grid gap-6 sm:grid-cols-3">
-          {services.map(({ title, description, photoLabel }) => (
+          {services.map(({ title, description, photoLabel, photo }) => (
             <div key={title}>
-              <PhotoPlaceholder
-                tone="light"
-                label={photoLabel}
-                className="aspect-[4/3] rounded-2xl border-0 bg-white/[0.03]"
-              />
+              {photo ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                  <Image src={photo} alt={photoLabel} fill className="object-cover" />
+                </div>
+              ) : (
+                <PhotoPlaceholder
+                  tone="light"
+                  label={photoLabel}
+                  className="aspect-[4/3] rounded-2xl border-0 bg-white/[0.03]"
+                />
+              )}
               <h3 className="mt-5 font-display text-xl font-semibold text-(--color-cream)">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-(--color-cream)/60">{description}</p>
               <a
