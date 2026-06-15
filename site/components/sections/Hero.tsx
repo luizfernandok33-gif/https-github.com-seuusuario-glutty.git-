@@ -37,7 +37,7 @@ export default function Hero() {
       ref={root}
       className="relative isolate flex min-h-[640px] items-center overflow-hidden bg-(--color-primary) pt-28 pb-20 lg:min-h-[760px]"
     >
-      <Image src="/hero-bg.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+      <Image src="/hero-bg-2.webp" alt="" fill priority sizes="100vw" className="object-cover" />
       <div
         className="absolute inset-0"
         style={{ background: "linear-gradient(89.69deg, #142F17 54.115%, rgba(22, 38, 21, 0) 99.652%)" }}
