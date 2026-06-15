@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { Star } from "lucide-react";
 
 const criteria = [
@@ -42,13 +42,9 @@ export default function Comunidade() {
         <Reveal delay={0.1}>
           <div className="relative mx-auto w-full max-w-md rounded-[2.5rem] border border-(--color-primary)/8 bg-white p-7 shadow-[0_30px_70px_-30px_rgba(31,61,52,0.3)] sm:rounded-[3rem]">
             <div className="flex items-center gap-4 border-b border-(--color-primary)/8 pb-5">
-              <Image
-                src="/mascote-comunidade.png"
-                alt="Comunidade Glútty"
-                width={64}
-                height={64}
-                className="h-14 w-14 rounded-2xl object-cover"
-              />
+              <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-2xl">
+                <PhotoPlaceholder tone="dark" iconSize={16} />
+              </div>
               <div>
                 <p className="font-display text-lg font-semibold text-(--color-primary)">
                   Avaliação da comunidade

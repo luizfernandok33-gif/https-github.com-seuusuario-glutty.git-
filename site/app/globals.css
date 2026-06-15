@@ -16,7 +16,7 @@
   --color-ink-soft: #6F6F6F;
 
   --font-sans: var(--font-nunito), "Nunito", system-ui, sans-serif;
-  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-display: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
 }
 
 *, *::before, *::after {
@@ -37,12 +37,7 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-fraunces), "Fraunces", Georgia, serif;
-}
-
-/* Organic blob shapes */
-.blob {
-  border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%;
+  font-family: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
 }
 
 /* Reveal-on-scroll base state (GSAP toggles .is-visible) */

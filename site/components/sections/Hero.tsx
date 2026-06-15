@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
-import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import PillCard from "@/components/ui/PillCard";
+import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import StatsBar from "@/components/ui/StatsBar";
 import { gsap } from "@/lib/gsap";
 import { ArrowRight, ShieldCheck, Users, ChefHat } from "lucide-react";
-
-const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
-  ssr: false,
-  loading: () => null,
-});
 
 const heroStats = [
   { value: "8", label: "etapas guiadas, do cadastro ao Selo Glútty Verificado" },
@@ -40,13 +34,6 @@ export default function Hero() {
         ease: "power3.out",
         stagger: 0.12,
         delay: 0.15,
-      });
-      gsap.to(".hero-mascot", {
-        y: -16,
-        duration: 2.6,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
       });
     }, root);
 
@@ -110,20 +97,13 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* video background, with 3D scene + mascot as fallback, in a rounded pill card */}
+          {/* video/photo, in a rounded pill card */}
           <PillCard className="hero-anim relative h-[420px] w-full overflow-hidden border border-white/10 bg-white/[0.03] sm:h-[520px] lg:h-[600px]">
-            <div className="absolute inset-0">
-              <HeroScene />
-            </div>
-            <Image
-              src="/mascote-aceno.png"
-              alt="Mascote Glútty acenando"
-              width={679}
-              height={853}
-              className="hero-mascot absolute bottom-0 left-1/2 h-[55%] w-auto -translate-x-1/2 drop-shadow-2xl sm:h-[60%]"
-              priority
+            <PhotoPlaceholder
+              tone="light"
+              label="Foto: equipe do restaurante preparando um prato sem glúten"
             />
-            {/* Drop a /public/hero-bg.mp4 to replace the 3D scene with a real background video */}
+            {/* Drop a /public/hero-bg.mp4 to show a background video instead of the photo */}
             <video
               className="absolute inset-0 h-full w-full object-cover"
               src="/hero-bg.mp4"
