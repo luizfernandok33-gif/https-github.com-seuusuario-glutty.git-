@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Container from "@/components/ui/Container";
 
 const links = [
@@ -16,7 +15,9 @@ export default function Footer() {
     <footer className="bg-(--color-primary-shade) py-16">
       <Container className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-sm">
-          <Image src="/glutty-logo.png" alt="Glútty" width={132} height={52} className="h-9 w-auto" />
+          <span className="font-display text-2xl font-bold text-(--color-cream)">
+            Gl<span className="text-(--color-primary-tint)">ú</span>tty
+          </span>
           <p className="mt-4 text-sm leading-relaxed text-(--color-cream)/60">
             O Glútty conecta a comunidade celíaca a restaurantes preparados, treinados e
             transparentes — para que comer fora possa ser, cada vez mais, uma experiência sem

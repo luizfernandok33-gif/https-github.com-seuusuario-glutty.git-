@@ -4,7 +4,7 @@ import clsx from "clsx";
 interface ButtonProps {
   children: ReactNode;
   href?: string;
-  variant?: "primary" | "secondary" | "ghost" | "ghost-light";
+  variant?: "primary" | "secondary" | "tint" | "ghost" | "ghost-light";
   className?: string;
   icon?: ReactNode;
 }
@@ -18,6 +18,8 @@ export default function Button({ children, href = "#", variant = "primary", clas
       "bg-(--color-accent) text-white shadow-[0_10px_30px_-10px_rgba(252,105,4,0.6)] hover:shadow-[0_14px_36px_-8px_rgba(252,105,4,0.7)] hover:-translate-y-0.5 hover:scale-[1.02]",
     secondary:
       "bg-(--color-primary) text-(--color-primary-tint) hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-(--color-primary-shade)",
+    tint:
+      "bg-(--color-primary-tint) text-(--color-primary) hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-(--color-leaf)",
     ghost:
       "border-2 border-(--color-primary)/15 text-(--color-primary) hover:border-(--color-primary)/40 hover:-translate-y-0.5 bg-white/40",
     "ghost-light":

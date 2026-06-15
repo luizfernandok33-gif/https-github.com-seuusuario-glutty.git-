@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
 
@@ -33,21 +32,12 @@ export default function Header() {
     >
       <div className="mx-auto w-full max-w-7xl px-4 lg:px-8">
         <div
-          className={`flex items-center justify-between rounded-full border px-4 py-2 transition-all duration-300 ${
-            scrolled
-              ? "border-(--color-primary)/10 bg-(--color-cream)/85 shadow-[0_8px_30px_-12px_rgba(31,61,52,0.25)] backdrop-blur-md"
-              : "border-transparent bg-transparent"
+          className={`flex items-center justify-between rounded-full border border-(--color-primary)/10 bg-(--color-cream) px-4 py-2 backdrop-blur-md transition-all duration-300 ${
+            scrolled ? "shadow-[0_8px_30px_-12px_rgba(31,61,52,0.25)]" : ""
           }`}
         >
-          <a href="#top" className="flex items-center gap-2 pl-1">
-            <Image
-              src="/glutty-logo.png"
-              alt="Glútty"
-              width={132}
-              height={52}
-              className="h-9 w-auto"
-              priority
-            />
+          <a href="#top" className="flex items-center gap-1 pl-2 font-display text-2xl font-bold text-(--color-primary)">
+            Gl<span className="text-(--color-leaf)">ú</span>tty
           </a>
 
           <nav className="hidden items-center gap-1 lg:flex">
