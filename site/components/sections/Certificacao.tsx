@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { GraduationCap, FileCheck2, BadgeCheck } from "lucide-react";
 
 const steps = [
@@ -27,11 +27,7 @@ export default function Certificacao() {
     <section id="certificacao" className="relative overflow-hidden bg-(--color-primary)">
       <div className="grid lg:grid-cols-2">
         <div className="relative min-h-[320px] lg:min-h-[640px]">
-          <PhotoPlaceholder
-            tone="light"
-            label="Foto: Selo Glútty Verificado em destaque"
-            className="absolute inset-0 h-full w-full rounded-none border-0"
-          />
+          <Image src="/selo-glutty.webp" alt="Selo Glútty Verificado em destaque" fill className="object-cover" />
         </div>
 
         <div className="flex items-center py-16 sm:py-24">
