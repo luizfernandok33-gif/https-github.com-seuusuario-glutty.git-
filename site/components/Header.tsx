@@ -53,12 +53,12 @@ export default function Header() {
           <Image src="/logo-glutty.webp" alt="Glútty" width={252} height={100} priority className="h-9 w-auto sm:h-10" />
         </a>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-1 xl:flex">
           {t.nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="rounded-full px-3.5 py-2 text-sm font-semibold text-(--color-primary)/80 transition-colors hover:bg-(--color-primary)/8 hover:text-(--color-primary)"
+              className="whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-semibold text-(--color-primary)/80 transition-colors hover:bg-(--color-primary)/8 hover:text-(--color-primary)"
             >
               {link.label}
             </a>
@@ -84,7 +84,7 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={t.menuLabel}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-(--color-primary) transition-colors hover:bg-(--color-primary)/8 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-(--color-primary) transition-colors hover:bg-(--color-primary)/8 xl:hidden"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -94,7 +94,7 @@ export default function Header() {
       <div
         id="mobile-menu"
         className={clsx(
-          "overflow-hidden transition-[max-height,opacity] duration-300 ease-out lg:hidden",
+          "overflow-hidden transition-[max-height,opacity] duration-300 ease-out xl:hidden",
           menuOpen ? "max-h-[26rem] opacity-100" : "max-h-0 opacity-0"
         )}
       >
