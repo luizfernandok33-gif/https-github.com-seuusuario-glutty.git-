@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
 import Statement from "@/components/sections/Statement";
-import StatsGallery from "@/components/sections/StatsGallery";
 import PorQueParticipar from "@/components/sections/PorQueParticipar";
 import Numeros from "@/components/sections/Numeros";
 import NossosServicos from "@/components/sections/NossosServicos";
@@ -19,7 +18,6 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <StatsGallery />
         <PorQueParticipar />
         <Numeros />
         <NossosServicos />
