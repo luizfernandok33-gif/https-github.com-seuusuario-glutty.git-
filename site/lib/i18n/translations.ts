@@ -107,6 +107,14 @@ const navEn: NavLink[] = [
   { label: "How it works", href: "#como-funciona" },
 ];
 
+const navDe: NavLink[] = [
+  { label: "Warum mitmachen", href: "#beneficios" },
+  { label: "Unsere Leistungen", href: "#servicos" },
+  { label: "Glútty-Siegel", href: "#certificacao" },
+  { label: "Mitmachen", href: "#faca-parte" },
+  { label: "So funktioniert's", href: "#como-funciona" },
+];
+
 export const pt: TextDict = {
   nav: navPt,
   ctaLabel: "Quero ser parceiro",
@@ -555,5 +563,229 @@ export const en: TextDict = {
   },
 };
 
-export const translations = { pt, en };
+export const de: TextDict = {
+  nav: navDe,
+  ctaLabel: "Partner werden",
+  hero: {
+    features: ["100 % geprüft", "Geschultes Personal", "Zöliakie-Community"],
+    titleLine1: "Sicher essen",
+    titleLine2: "außer Haus",
+    description:
+      "Glútty verbindet gut vorbereitete Betriebe mit Menschen mit Zöliakie, die vor der Wahl eines Restaurants klare Informationen, geschultes Personal und Transparenz brauchen.",
+    ctaPrimary: "Ich möchte Glútty-Partner werden",
+    ctaSecondary: "Unsere Leistungen ansehen",
+  },
+  porQueParticipar: {
+    eyebrow: "Über Glútty",
+    title: "Ihre Marke, nah an denen, die Transparenz am meisten brauchen",
+    description:
+      "Die Zöliakie-Community sucht jeden Tag nach Orten, an denen sie mit mehr Vertrauen essen kann. Glútty ist die Brücke zwischen dieser Community und Restaurants, die sich wirklich darauf vorbereiten, sie willkommen zu heißen.",
+    badge: "Was wir bieten",
+    subtitle: "Vorteile der Mitgliedschaft in der Glútty-Community",
+    imageAlt: "Glútty-Community",
+    items: [
+      {
+        title: "Qualifizierte Sichtbarkeit",
+        description:
+          "Ihr Restaurant wird einer Community gezeigt, die bereits nach sicheren Optionen sucht — ohne um allgemeine Aufmerksamkeit konkurrieren zu müssen.",
+      },
+      {
+        title: "Vertrauen durch Transparenz",
+        description:
+          "Wer seine Prozesse, Zutaten und Sorgfalt zeigt, baut sich einen Ruf auf, den gewöhnliche Bewertungen nicht erreichen.",
+      },
+      {
+        title: "Präsenz in der Glútty-App",
+        description:
+          "Ihr Restaurant auf der Karte, in der Kategoriesuche und in personalisierten Empfehlungen für die Zöliakie-Community.",
+      },
+      {
+        title: "Bewertungen der Community",
+        description:
+          "Echtes Feedback zu Essen, Service, Klarheit und Sicherheit — wertvolle Informationen für stetige Verbesserung.",
+      },
+      {
+        title: "Anerkennung für Schulung",
+        description:
+          "Zertifizierte Teams erhalten besondere Anerkennung und zeigen, dass die Sorgfalt Ihres Restaurants über die Speisekarte hinausgeht.",
+      },
+      {
+        title: "Teilnahme an Glútty-Events",
+        description:
+          "Messen, sichere Verkostungen und Workshops bringen Ihr Restaurant der Zöliakie-Community persönlich näher.",
+      },
+    ],
+  },
+  numeros: {
+    stats: [
+      { value: "500", suffix: "+", label: "Partnerrestaurants" },
+      { value: "12.000", suffix: "+", label: "Menschen in der Zöliakie-Community" },
+      { value: "100", suffix: "%", label: "Geschulte und zertifizierte Teams" },
+      { value: "50", suffix: "+", label: "Städte mit Partnerrestaurants" },
+      { value: "4.000", suffix: "+", label: "Bewertungen der Community" },
+    ],
+  },
+  nossosServicos: {
+    eyebrow: "Unsere Leistungen",
+    title: "So bereiten wir Ihr Restaurant auf die Zöliakie-Community vor",
+    description:
+      "Bevor ein Partnerrestaurant das Glútty-Verifiziert-Siegel erhält, durchläuft es eine Reihe von Anforderungen und Schulungen, die Speisekarte, Prozesse und Service darauf vorbereiten, die Zöliakie-Community sicher willkommen zu heißen.",
+    services: [
+      {
+        title: "Speisekarte und Transparenz",
+        description:
+          "Eine echte, klar gekennzeichnete und stets aktuelle glutenfreie Speisekarte mit voller Transparenz über Zutaten, Kennzeichnungen und Lieferanten.",
+        photoLabel: "Foto: glutenfreie Speisekarte des Partnerrestaurants",
+      },
+      {
+        title: "Vermeidung von Kreuzkontamination",
+        description:
+          "Festgelegte Prozesse zur Vermeidung von Kreuzkontamination mit korrekter Trennung von Utensilien, Oberflächen und Zubereitungsbereichen.",
+        photoLabel: "Foto: organisierte Küche des Partnerrestaurants",
+      },
+      {
+        title: "Verpflichtende Mitarbeiterschulung",
+        description:
+          "Von der Küche bis zum Service durchläuft das gesamte Team die Glútty-Schulung zu Zöliakie, Lebensmittelsicherheit und dem Umgang mit Gästen mit Zöliakie.",
+        photoLabel: "Foto: Team während der Glútty-Schulung",
+      },
+    ],
+    cta: "Mehr erfahren",
+  },
+  certificacao: {
+    imageAlt: "Glútty-Verifiziert-Siegel im Fokus",
+    eyebrow: "Warum Glútty?",
+    title: "Das Glútty-Verifiziert-Siegel",
+    description:
+      "Das Siegel zeigt, dass das Restaurant die Pflichtschulung abgeschlossen, seine Lebensmittelsicherheitsprozesse erklärt hat und bewährte Verfahren zur Reduzierung des Kreuzkontaminationsrisikos befolgt.",
+    importantLabel: "Wichtig:",
+    importantText:
+      " das Siegel ist keine 100%ige Sicherheitsgarantie — Zöliakie erfordert kontinuierliche Sorgfalt von allen Beteiligten. Es steht für ein öffentliches Bekenntnis zu Transparenz, Schulung und stetiger Prozessverbesserung.",
+    steps: [
+      {
+        title: "Schulung abgeschlossen",
+        description: "Das gesamte Team schließt die verpflichtende Glútty-Schulung zu Zöliakie und Lebensmittelsicherheit ab.",
+      },
+      {
+        title: "Prozesse erklärt",
+        description: "Das Restaurant erklärt seine Lebensmittelsicherheitsprozesse und bewährten Küchenpraktiken.",
+      },
+      {
+        title: "Siegel im Profil aktiviert",
+        description: "Das Glútty-Verifiziert-Siegel wird im Profil des Restaurants in der App angezeigt.",
+      },
+    ],
+  },
+  facaParte: {
+    eyebrow: "Mitmachen",
+    title: "Eine Community, die sorgfältig bewertet — und Vertrauen schafft",
+    description:
+      "Menschen mit Zöliakie bewerten Partnerrestaurants nach Geschmack, Service, Klarheit und Sicherheit — und schaffen so ein Vertrauensnetzwerk. Über die App hinaus veranstaltet Glútty Messen, Verkostungen, Workshops und persönliche Treffen.",
+    items: [
+      "Bewertungen der Community zu Geschmack, Service, Klarheit und Sicherheit",
+      "Glutenfreie Food-Messen",
+      "Sichere, speisekartengeführte Verkostungen",
+      "Workshops und Vorträge mit Köchen und Experten",
+      "Persönliche Treffen zum Thema Kreuzkontamination",
+    ],
+    imageAlt: "Glútty-Community bei einem Event",
+  },
+  depoimento: {
+    quote:
+      "Vor Glútty habe ich es vermieden, auswärts zu essen, aus Angst vor Kreuzkontamination. Heute wähle ich nach dem Verifiziert-Siegel und fühle mich sicher, neue Gerichte mit meiner Familie auszuprobieren.",
+    name: "Marina Souza",
+    role: "Person mit Zöliakie, Nutzerin der Glútty-App",
+  },
+  beneficios: {
+    eyebrow: "Vorteile für Ihr Unternehmen",
+    title: "Was sich in der Praxis für Ihr Restaurant ändert",
+    description:
+      "Teil von Glútty zu sein bedeutet mehr, als nur in einer App zu erscheinen — es stärkt die Verbindung Ihres Restaurants mit der Zöliakie-Community.",
+    items: [
+      {
+        title: "Neue Stammgäste",
+        description:
+          "Die Zöliakie-Community schätzt und empfiehlt die Orte, denen sie vertraut — das bringt Ihrem Restaurant Stammgäste.",
+      },
+      {
+        title: "Weniger Fehler und Nacharbeit",
+        description:
+          "Klarere Prozesse bedeuten weniger Rückgaben, Beschwerden und Verluste durch Kreuzkontamination.",
+      },
+      {
+        title: "Eine Marke, die für Vertrauen steht",
+        description:
+          "Das Glútty-Verifiziert-Siegel zeigt auf einen Blick, dass Ihrem Restaurant Lebensmittelsicherheit wichtig ist.",
+      },
+      {
+        title: "Ein besser vorbereitetes Team",
+        description:
+          "Kontinuierliche Schulung reduziert Risiken, verbessert den Service und stärkt die Sorgfaltskultur Ihres Teams.",
+      },
+    ],
+  },
+  comoFunciona: {
+    eyebrow: "So funktioniert's",
+    title: "Von der Anmeldung bis zum Siegel: der Weg zur Glútty-Partnerschaft",
+    description:
+      "Ein begleiteter Acht-Schritte-Prozess, der Ihr Restaurant darauf vorbereitet, die Zöliakie-Community sicher willkommen zu heißen.",
+    steps: [
+      {
+        title: "Anmeldung",
+        description: "Sie registrieren Ihr Restaurant und teilen ein paar Informationen zu Ihrer Struktur, Speisekarte und aktuellen Prozessen.",
+      },
+      {
+        title: "Erste Prüfung",
+        description: "Unser Team prüft die übermittelten Informationen und identifiziert Punkte, die vor der Schulung beachtet werden müssen.",
+      },
+      {
+        title: "Teamschulung",
+        description: "Das gesamte Team nimmt an der verpflichtenden Glútty-Schulung zu Zöliakie und Lebensmittelsicherheit teil.",
+      },
+      {
+        title: "Prozessanpassungen",
+        description:
+          "Mit dem Erlernten überprüft das Restaurant Abläufe, die Trennung von Utensilien und die Kommunikation mit den Gästen.",
+      },
+      {
+        title: "Zertifizierung",
+        description: "Nach Abschluss der Schulung und Erklärung seiner Prozesse erhält das Restaurant das Glútty-Verifiziert-Siegel.",
+      },
+      {
+        title: "Eintrag in der App",
+        description: "Das Profil des Restaurants wird in der App veröffentlicht, mit Siegel, Speisekarte und geprüften Informationen.",
+      },
+      {
+        title: "Bewertungen der Community",
+        description: "Gäste mit Zöliakie beginnen, Gerichte, Service, Klarheit und gefühlte Sicherheit zu bewerten.",
+      },
+      {
+        title: "Teilnahme an Events",
+        description: "Das Restaurant nimmt fortan an Messen, Verkostungen und Aktionen der Glútty-Community teil.",
+      },
+    ],
+  },
+  statement: {
+    words: ["Fürsorge", "Gemeinschaft", "Zugehörigkeit"],
+  },
+  ctaFinal: {
+    eyebrow: "Werden Sie Teil von Glútty",
+    title: "Bereiten Sie Ihr Restaurant darauf vor, die Zöliakie-Community besser willkommen zu heißen.",
+    description:
+      "Schulung, Zertifizierung, Präsenz in der App und eine Community, die bereit ist, denen zu vertrauen, denen Lebensmittelsicherheit wirklich wichtig ist.",
+    ctaPrimary: "Ich möchte Glútty-Partner werden",
+    ctaSecondary: "Unsere Leistungen ansehen",
+    imageAlt: "Glutenfreies Gericht, servierbereit",
+  },
+  footer: {
+    description:
+      "Glútty verbindet die Zöliakie-Community mit vorbereiteten, geschulten und transparenten Restaurants — damit Essengehen zunehmend zu einem sorgenfreien Erlebnis wird.",
+    exploreHeading: "Entdecken",
+    contatoHeading: "Kontakt",
+    partnerLink: "Partner werden",
+    legalText: "Das Glútty-Verifiziert-Siegel garantiert kein vollständiges Fehlen des Risikos einer Kreuzkontamination.",
+  },
+};
+
+export const translations = { pt, en, de };
 export type Lang = keyof typeof translations;

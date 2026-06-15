@@ -7,6 +7,7 @@ import type { Lang } from "@/lib/i18n/translations";
 const options: { code: Lang; label: string }[] = [
   { code: "pt", label: "PT" },
   { code: "en", label: "EN" },
+  { code: "de", label: "DE" },
 ];
 
 export default function LanguageToggle({ className }: { className?: string }) {

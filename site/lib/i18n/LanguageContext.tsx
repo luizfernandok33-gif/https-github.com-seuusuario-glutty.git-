@@ -15,7 +15,7 @@ const STORAGE_KEY = "glutty-lang";
 const listeners = new Set<() => void>();
 
 function isLang(value: string | null): value is Lang {
-  return value === "pt" || value === "en";
+  return value === "pt" || value === "en" || value === "de";
 }
 
 function getSnapshot(): Lang {
@@ -36,7 +36,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const lang = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+    document.documentElement.lang = lang === "pt" ? "pt-BR" : lang === "de" ? "de" : "en";
   }, [lang]);
 
   const setLang = (next: Lang) => {
