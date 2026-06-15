@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { CheckCircle2 } from "lucide-react";
 
 const items = [
@@ -34,11 +34,9 @@ export default function FacaParte() {
         </div>
 
         <Reveal delay={0.1}>
-          <PhotoPlaceholder
-            tone="dark"
-            label="Foto: comunidade Glútty em evento"
-            className="aspect-[4/5] rounded-[2.5rem] border-(--color-primary)/15 sm:rounded-[3rem]"
-          />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] sm:rounded-[3rem]">
+            <Image src="/comunidade-evento.webp" alt="Comunidade Glútty em evento" fill className="object-cover" />
+          </div>
         </Reveal>
       </Container>
     </section>
