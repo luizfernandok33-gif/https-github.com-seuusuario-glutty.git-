@@ -18,6 +18,7 @@ const services = [
     description:
       "Processos definidos para evitar contaminação cruzada, com separação correta de utensílios, superfícies e áreas de preparo.",
     photoLabel: "Foto: cozinha organizada do restaurante parceiro",
+    photo: "/cozinha-organizada.webp",
   },
   {
     title: "Treinamento obrigatório da equipe",
