@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import PillCard from "@/components/ui/PillCard";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { ArrowRight } from "lucide-react";
 
 export default function CTAFinal() {
@@ -32,7 +32,7 @@ export default function CTAFinal() {
 
         <Reveal delay={0.1}>
           <PillCard className="relative mx-auto h-[280px] w-full max-w-sm overflow-hidden border border-(--color-primary)/10 bg-white/30 sm:h-[360px]">
-            <PhotoPlaceholder tone="dark" label="Foto: prato sem glúten pronto para servir" />
+            <Image src="/cta-prato.webp" alt="Prato sem glúten pronto para servir" fill className="object-cover" />
           </PillCard>
         </Reveal>
       </Container>
