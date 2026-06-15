@@ -8,6 +8,7 @@ import Numeros from "@/components/sections/Numeros";
 import NossosServicos from "@/components/sections/NossosServicos";
 import Certificacao from "@/components/sections/Certificacao";
 import FacaParte from "@/components/sections/FacaParte";
+import Depoimento from "@/components/sections/Depoimento";
 import Beneficios from "@/components/sections/Beneficios";
 import ComoFunciona from "@/components/sections/ComoFunciona";
 import CTAFinal from "@/components/sections/CTAFinal";
@@ -24,6 +25,7 @@ export default function Home() {
         <NossosServicos />
         <Certificacao />
         <FacaParte />
+        <Depoimento />
         <Beneficios />
         <ComoFunciona />
         <Statement
