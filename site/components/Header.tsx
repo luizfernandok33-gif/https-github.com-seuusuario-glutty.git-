@@ -47,7 +47,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <Button href="#cta" variant="primary" className="px-5 py-2.5 text-sm" icon={<ArrowRight size={16} />}>
+        <Button href="#cta" variant="tint" className="px-5 py-2.5 text-sm" icon={<ArrowRight size={16} />}>
           Quero ser parceiro
         </Button>
       </div>

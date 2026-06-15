@@ -59,10 +59,6 @@ export default function Hero() {
             </div>
 
             <div className="relative">
-              <span className="hero-anim mb-6 inline-flex items-center gap-2 rounded-full border border-(--color-primary-tint)/25 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-(--color-primary-tint)">
-                Glútty para Restaurantes
-              </span>
-
               <h1 className="hero-anim font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
                 <span className="block text-(--color-cream)">Alimentação segura</span>
                 <span className="block text-(--color-primary-tint)">fora de casa</span>
