@@ -4,8 +4,7 @@ const links = [
   { label: "Por que participar", href: "#beneficios" },
   { label: "Nossos Serviços", href: "#servicos" },
   { label: "Selo Glútty", href: "#certificacao" },
-  { label: "Comunidade", href: "#comunidade" },
-  { label: "Eventos", href: "#eventos" },
+  { label: "Faça Parte", href: "#faca-parte" },
   { label: "Como funciona", href: "#como-funciona" },
 ];
 

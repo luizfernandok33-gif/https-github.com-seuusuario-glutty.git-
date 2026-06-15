@@ -7,8 +7,7 @@ import PorQueParticipar from "@/components/sections/PorQueParticipar";
 import Numeros from "@/components/sections/Numeros";
 import NossosServicos from "@/components/sections/NossosServicos";
 import Certificacao from "@/components/sections/Certificacao";
-import Comunidade from "@/components/sections/Comunidade";
-import Eventos from "@/components/sections/Eventos";
+import FacaParte from "@/components/sections/FacaParte";
 import Beneficios from "@/components/sections/Beneficios";
 import ComoFunciona from "@/components/sections/ComoFunciona";
 import CTAFinal from "@/components/sections/CTAFinal";
@@ -24,8 +23,7 @@ export default function Home() {
         <Numeros />
         <NossosServicos />
         <Certificacao />
-        <Comunidade />
-        <Eventos />
+        <FacaParte />
         <Beneficios />
         <ComoFunciona />
         <Statement
