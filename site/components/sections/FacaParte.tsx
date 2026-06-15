@@ -5,22 +5,22 @@ import Reveal from "@/components/ui/Reveal";
 import { CheckCircle2 } from "lucide-react";
 
 const items = [
-  "Avaliações da comunidade sobre sabor do prato sem glúten, atendimento, clareza das informações e segurança percebida",
-  "Feiras gastronômicas sem glúten para apresentar seus pratos à comunidade",
-  "Degustações seguras e guiadas para a comunidade conhecer seu cardápio",
-  "Workshops e palestras com chefs, nutricionistas e especialistas",
-  "Encontros presenciais e ações educativas sobre contaminação cruzada",
+  "Avaliações da comunidade sobre sabor, atendimento, clareza e segurança",
+  "Feiras gastronômicas sem glúten",
+  "Degustações seguras e guiadas pelo cardápio",
+  "Workshops e palestras com chefs e especialistas",
+  "Encontros presenciais sobre contaminação cruzada",
 ];
 
 export default function FacaParte() {
   return (
     <section id="faca-parte" className="relative overflow-hidden bg-(--color-leaf) py-24 sm:py-32">
-      <Container className="grid items-center gap-14 lg:grid-cols-[1fr_0.9fr]">
+      <Container className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <SectionHeading
             eyebrow="Faça Parte"
             title="Uma comunidade que avalia com cuidado — e constrói confiança"
-            description="Pessoas celíacas avaliam restaurantes parceiros em critérios como sabor do prato sem glúten, atendimento, clareza das informações e segurança percebida — construindo uma rede de confiança que ajuda outras pessoas a escolher onde comer. Além do app, o Glútty promove feiras, degustações, workshops e encontros presenciais que aproximam você dessa comunidade."
+            description="Pessoas celíacas avaliam restaurantes parceiros em sabor, atendimento, clareza e segurança — construindo uma rede de confiança. Além do app, o Glútty promove feiras, degustações, workshops e encontros presenciais."
           />
 
           <Reveal stagger={0.06} className="mt-8 space-y-3">
