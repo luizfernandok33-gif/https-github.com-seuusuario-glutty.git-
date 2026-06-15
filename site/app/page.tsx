@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
 import Statement from "@/components/sections/Statement";
+import StatsGallery from "@/components/sections/StatsGallery";
 import PorQueParticipar from "@/components/sections/PorQueParticipar";
 import Exigencias from "@/components/sections/Exigencias";
 import Treinamento from "@/components/sections/Treinamento";
@@ -18,12 +19,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Statement
-          words={["Transparência", "Treinamento", "Confiança"]}
-          bgClassName="bg-(--color-leaf)"
-          textClassName="text-(--color-primary)"
-          plusClassName="text-(--color-accent)"
-        />
+        <StatsGallery />
         <PorQueParticipar />
         <Exigencias />
         <Treinamento />
