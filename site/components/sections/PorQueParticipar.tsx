@@ -1,7 +1,8 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import NumberMark from "@/components/ui/NumberMark";
+import PillCard from "@/components/ui/PillCard";
+import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { Eye, ShieldCheck, MapPin, MessageCircle, GraduationCap, Calendar } from "lucide-react";
 
 const items = [
@@ -45,31 +46,56 @@ const items = [
 
 export default function PorQueParticipar() {
   return (
-    <section id="beneficios" className="relative bg-(--color-cream) py-24 sm:py-32">
-      <Container>
+    <section id="beneficios" className="relative overflow-hidden bg-(--color-primary) py-24 sm:py-32">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 top-1/3 h-[26rem] w-[26rem] rounded-full bg-(--color-primary-tint)/10 blur-[120px]" />
+      </div>
+
+      <Container className="relative z-10">
         <SectionHeading
-          eyebrow="Por que participar"
+          eyebrow="Sobre o Glútty"
           title="Sua marca, perto de quem mais precisa de transparência"
           description="A comunidade celíaca está, todos os dias, em busca de lugares onde possa comer com mais confiança. O Glútty é a ponte entre essa comunidade e restaurantes que se preparam de verdade para recebê-la."
+          align="center"
+          tone="light"
+          className="mx-auto"
         />
 
-        <Reveal stagger={0.08} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(({ icon: Icon, title, description }, i) => (
-            <div
-              key={title}
-              className="group rounded-3xl border border-(--color-primary)/8 bg-white p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-(--color-primary)/15 hover:shadow-[0_20px_45px_-20px_rgba(20,47,23,0.25)]"
-            >
-              <div className="mb-5 flex items-start justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-(--color-primary-tint)/40 text-(--color-primary) transition-colors duration-300 group-hover:bg-(--color-primary) group-hover:text-(--color-primary-tint)">
-                  <Icon size={22} strokeWidth={2.2} />
+        <div className="mt-16 grid items-stretch gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <Reveal>
+            <PillCard className="relative h-full min-h-[360px] overflow-hidden border border-white/10 bg-white/[0.02]">
+              <PhotoPlaceholder
+                tone="light"
+                label="Foto: equipe do restaurante parceiro recebendo a comunidade Glútty"
+              />
+            </PillCard>
+          </Reveal>
+
+          <div>
+            <Reveal>
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-(--color-primary-tint)">
+                O que oferecemos
+              </span>
+              <h3 className="font-display text-2xl font-semibold leading-tight text-(--color-cream) sm:text-3xl">
+                Vantagens de fazer parte da comunidade Glútty
+              </h3>
+            </Reveal>
+
+            <Reveal stagger={0.08} className="mt-8 grid gap-6 sm:grid-cols-2">
+              {items.map(({ icon: Icon, title, description }) => (
+                <div key={title} className="flex items-start gap-3">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/10 text-(--color-primary-tint)">
+                    <Icon size={18} strokeWidth={2.2} />
+                  </span>
+                  <div>
+                    <p className="font-display text-sm font-semibold text-(--color-cream)">{title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-(--color-cream)/55">{description}</p>
+                  </div>
                 </div>
-                <NumberMark index={i + 1} />
-              </div>
-              <h3 className="font-display text-lg font-semibold text-(--color-primary)">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-(--color-ink-soft)">{description}</p>
-            </div>
-          ))}
-        </Reveal>
+              ))}
+            </Reveal>
+          </div>
+        </div>
       </Container>
     </section>
   );
