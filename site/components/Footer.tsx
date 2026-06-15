@@ -38,10 +38,13 @@ export default function Footer() {
         </nav>
       </Container>
 
-      <Container className="mt-12 border-t border-white/10 pt-6">
+      <Container className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-(--color-cream)/40">
-          © {new Date().getFullYear()} Glútty. Comunicação informativa — o Selo Glútty Verificado
-          não constitui garantia de ausência total de risco de contaminação cruzada.
+          Copyright © {new Date().getFullYear()} Glútty by Luiz Fernando Mendes
+        </p>
+        <p className="text-xs text-(--color-cream)/40">
+          O Selo Glútty Verificado não constitui garantia de ausência total de risco de
+          contaminação cruzada.
         </p>
       </Container>
     </footer>
