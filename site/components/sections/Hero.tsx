@@ -40,7 +40,7 @@ export default function Hero() {
       <Image src="/hero-bg-3.png" alt="" fill priority sizes="100vw" className="object-cover" />
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(89.69deg, #142F17 54.115%, rgba(22, 38, 21, 0) 99.652%)" }}
+        style={{ background: "linear-gradient(89.69deg, #142F17 38%, rgba(22, 38, 21, 0) 68%)" }}
       />
       <div className="pointer-events-none absolute -left-[27px] top-[511px] h-[28rem] w-[28rem] rounded-full bg-[rgba(237,244,161,0.15)] blur-[120px]" />
 
