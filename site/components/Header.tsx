@@ -43,9 +43,16 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <LanguageToggle />
-          <Button href="#cta" variant="secondary" className="px-5 py-2.5 text-sm" icon={<ArrowRight size={16} />}>
-            {t.ctaLabel}
-          </Button>
+          <div className="hidden sm:block">
+            <Button
+              href="#cta"
+              variant="secondary"
+              className="whitespace-nowrap px-5 py-2.5 text-sm"
+              icon={<ArrowRight size={16} />}
+            >
+              {t.ctaLabel}
+            </Button>
+          </div>
         </div>
       </div>
     </header>
