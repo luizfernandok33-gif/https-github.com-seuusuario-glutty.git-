@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
-import { Camera, ThumbsUp, Play } from "lucide-react";
+import { Facebook, Instagram, Youtube } from "@/components/icons/SocialIcons";
 
 const exploreLinks = [
   { label: "Por que participar", href: "#beneficios" },
@@ -9,19 +10,20 @@ const exploreLinks = [
   { label: "Como funciona", href: "#como-funciona" },
 ];
 
-const socials = [Camera, ThumbsUp, Play];
+const socials = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Youtube, href: "#", label: "YouTube" },
+];
 
-// E-mail de exemplo — substituir pelo contato real do Glútty quando disponível.
-const contactEmail = "contato@glutty.app";
+const contactEmail = "luizfernando.cdc1@hotmail.com";
 
 export default function Footer() {
   return (
     <footer className="bg-(--color-primary-shade) py-16">
       <Container className="grid gap-12 sm:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div className="max-w-sm">
-          <span className="font-display text-2xl font-bold text-(--color-cream)">
-            Gl<span className="text-(--color-primary-tint)">ú</span>tty
-          </span>
+          <Image src="/logo-glutty-white.webp" alt="Glútty" width={2000} height={796} className="h-8 w-auto" />
           <p className="mt-4 text-sm leading-relaxed text-(--color-cream)/60">
             O Glútty conecta a comunidade celíaca a restaurantes preparados, treinados e
             transparentes — para que comer fora possa ser, cada vez mais, uma experiência sem
@@ -29,10 +31,11 @@ export default function Footer() {
           </p>
 
           <div className="mt-6 flex gap-3">
-            {socials.map((Icon, i) => (
+            {socials.map(({ icon: Icon, href, label }) => (
               <a
-                key={i}
-                href="#"
+                key={label}
+                href={href}
+                aria-label={label}
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-(--color-primary-tint)/15 text-(--color-primary-tint) transition-colors hover:bg-(--color-primary-tint) hover:text-(--color-primary)"
               >
                 <Icon size={16} />
