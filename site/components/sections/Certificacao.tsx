@@ -16,7 +16,7 @@ export default function Certificacao() {
     <section id="certificacao" className="relative overflow-hidden bg-(--color-primary)">
       <div className="grid lg:grid-cols-2">
         <div className="relative min-h-[320px] lg:min-h-[640px]">
-          <Image src="/selo-glutty.webp" alt={t.certificacao.imageAlt} fill className="object-cover" />
+          <Image src="/selo-glutty.webp" alt={t.certificacao.imageAlt} fill className="object-cover lg:object-[10%_center]" />
         </div>
 
         <div className="flex items-center py-16 sm:py-24">
