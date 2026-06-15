@@ -25,6 +25,7 @@ const services = [
     description:
       "Da cozinha ao salão, toda a equipe passa pelo treinamento Glútty sobre doença celíaca, segurança alimentar e atendimento ao cliente celíaco.",
     photoLabel: "Foto: equipe durante o treinamento Glútty",
+    photo: "/treinamento-glutty.webp",
   },
 ];
 
@@ -45,14 +46,14 @@ export default function NossosServicos() {
           {services.map(({ title, description, photoLabel, photo }) => (
             <div key={title}>
               {photo ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                <div className="relative aspect-[328/435] overflow-hidden rounded-2xl">
                   <Image src={photo} alt={photoLabel} fill className="object-cover" />
                 </div>
               ) : (
                 <PhotoPlaceholder
                   tone="light"
                   label={photoLabel}
-                  className="aspect-[4/3] rounded-2xl border-0 bg-white/[0.03]"
+                  className="aspect-[328/435] rounded-2xl border-0 bg-white/[0.03]"
                 />
               )}
               <h3 className="mt-5 font-display text-xl font-semibold text-(--color-cream)">{title}</h3>
