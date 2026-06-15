@@ -22,6 +22,12 @@ const heroStats = [
   { value: "1", label: "selo que conecta seu restaurante à comunidade celíaca" },
 ];
 
+const heroFeatures = [
+  { icon: ShieldCheck, label: "100% verificado" },
+  { icon: ChefHat, label: "Equipe treinada" },
+  { icon: Users, label: "Comunidade celíaca" },
+];
+
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
 
@@ -74,9 +80,9 @@ export default function Hero() {
               Glútty para Restaurantes
             </span>
 
-            <h1 className="hero-anim font-display text-[2.6rem] font-semibold leading-[1.08] tracking-tight text-(--color-cream) sm:text-[3.4rem] lg:text-[3.8rem]">
-              Leve seu restaurante para uma comunidade que busca{" "}
-              <span className="text-(--color-primary-tint)">comer sem medo</span>.
+            <h1 className="hero-anim font-display text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
+              <span className="block text-(--color-cream)">Sem glúten.</span>
+              <span className="block text-(--color-primary-tint)">Sem medo.</span>
             </h1>
 
             <p className="hero-anim mt-6 max-w-xl text-lg leading-relaxed text-(--color-cream)/75">
@@ -94,23 +100,17 @@ export default function Hero() {
               </Button>
             </div>
 
-            <div className="hero-anim mt-12 flex flex-wrap gap-x-8 gap-y-4 text-sm text-(--color-cream)/70">
-              <div className="flex items-center gap-2">
-                <Users size={18} className="text-(--color-primary-tint)" />
-                Comunidade celíaca ativa
-              </div>
-              <div className="flex items-center gap-2">
-                <ChefHat size={18} className="text-(--color-primary-tint)" />
-                Equipe treinada e certificada
-              </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={18} className="text-(--color-primary-tint)" />
-                Processos transparentes
-              </div>
+            <div className="hero-anim mt-12 flex flex-wrap divide-x divide-white/10 text-sm text-(--color-cream)/70">
+              {heroFeatures.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-start gap-2 px-5 first:pl-0">
+                  <Icon size={20} className="text-(--color-primary-tint)" />
+                  {label}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* 3D scene + mascot, in a rounded pill card */}
+          {/* video background, with 3D scene + mascot as fallback, in a rounded pill card */}
           <PillCard className="hero-anim relative h-[420px] w-full overflow-hidden border border-white/10 bg-white/[0.03] sm:h-[520px] lg:h-[600px]">
             <div className="absolute inset-0">
               <HeroScene />
@@ -122,6 +122,18 @@ export default function Hero() {
               height={853}
               className="hero-mascot absolute bottom-0 left-1/2 h-[55%] w-auto -translate-x-1/2 drop-shadow-2xl sm:h-[60%]"
               priority
+            />
+            {/* Drop a /public/hero-bg.mp4 to replace the 3D scene with a real background video */}
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              src="/hero-bg.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
           </PillCard>
         </div>
