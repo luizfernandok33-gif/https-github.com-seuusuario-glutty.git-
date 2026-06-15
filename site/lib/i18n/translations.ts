@@ -11,6 +11,7 @@ export interface ItemCopy {
 export interface TextDict {
   nav: NavLink[];
   ctaLabel: string;
+  menuLabel: string;
   hero: {
     features: string[];
     titleLine1: string;
@@ -118,6 +119,7 @@ const navDe: NavLink[] = [
 export const pt: TextDict = {
   nav: navPt,
   ctaLabel: "Quero ser parceiro",
+  menuLabel: "Menu",
   hero: {
     features: ["100% verificado", "Equipe treinada", "Comunidade celíaca"],
     titleLine1: "Alimentação segura",
@@ -342,6 +344,7 @@ export const pt: TextDict = {
 export const en: TextDict = {
   nav: navEn,
   ctaLabel: "Become a partner",
+  menuLabel: "Menu",
   hero: {
     features: ["100% verified", "Trained staff", "Celiac community"],
     titleLine1: "Safe eating",
@@ -566,6 +569,7 @@ export const en: TextDict = {
 export const de: TextDict = {
   nav: navDe,
   ctaLabel: "Partner werden",
+  menuLabel: "Menü",
   hero: {
     features: ["100 % geprüft", "Geschultes Personal", "Zöliakie-Community"],
     titleLine1: "Sicher essen",

@@ -7,9 +7,10 @@ interface ButtonProps {
   variant?: "primary" | "secondary" | "tint" | "ghost" | "ghost-light";
   className?: string;
   icon?: ReactNode;
+  onClick?: () => void;
 }
 
-export default function Button({ children, href = "#", variant = "primary", className, icon }: ButtonProps) {
+export default function Button({ children, href = "#", variant = "primary", className, icon, onClick }: ButtonProps) {
   const base =
     "group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold tracking-tight transition-all duration-300 ease-out will-change-transform";
 
@@ -27,7 +28,7 @@ export default function Button({ children, href = "#", variant = "primary", clas
   };
 
   return (
-    <a href={href} className={clsx(base, variants[variant], className)}>
+    <a href={href} onClick={onClick} className={clsx(base, variants[variant], className)}>
       {children}
       {icon && (
         <span className="transition-transform duration-300 group-hover:translate-x-1">{icon}</span>
