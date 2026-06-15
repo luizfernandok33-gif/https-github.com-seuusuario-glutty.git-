@@ -24,8 +24,8 @@ export default function CTAFinal() {
             <Button href="#" variant="secondary" icon={<ArrowRight size={18} />}>
               Quero ser parceiro do Glútty
             </Button>
-            <Button href="#treinamento" variant="ghost">
-              Conhecer o treinamento
+            <Button href="#servicos" variant="ghost">
+              Conhecer nossos serviços
             </Button>
           </div>
         </Reveal>

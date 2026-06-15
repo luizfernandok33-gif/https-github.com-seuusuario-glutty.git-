@@ -61,8 +61,8 @@ export default function Hero() {
             <Button href="#cta" variant="tint" icon={<ArrowRight size={18} />}>
               Quero ser parceiro do Glútty
             </Button>
-            <Button href="#treinamento" variant="ghost-light">
-              Conhecer o treinamento
+            <Button href="#servicos" variant="ghost-light">
+              Conhecer nossos serviços
             </Button>
           </div>
 

@@ -2,8 +2,7 @@ import Container from "@/components/ui/Container";
 
 const links = [
   { label: "Por que participar", href: "#beneficios" },
-  { label: "Exigências", href: "#exigencias" },
-  { label: "Treinamento", href: "#treinamento" },
+  { label: "Nossos Serviços", href: "#servicos" },
   { label: "Selo Glútty", href: "#certificacao" },
   { label: "Comunidade", href: "#comunidade" },
   { label: "Eventos", href: "#eventos" },

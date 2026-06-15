@@ -5,8 +5,7 @@ import Statement from "@/components/sections/Statement";
 import StatsGallery from "@/components/sections/StatsGallery";
 import PorQueParticipar from "@/components/sections/PorQueParticipar";
 import Numeros from "@/components/sections/Numeros";
-import Exigencias from "@/components/sections/Exigencias";
-import Treinamento from "@/components/sections/Treinamento";
+import NossosServicos from "@/components/sections/NossosServicos";
 import Certificacao from "@/components/sections/Certificacao";
 import Comunidade from "@/components/sections/Comunidade";
 import Eventos from "@/components/sections/Eventos";
@@ -23,8 +22,7 @@ export default function Home() {
         <StatsGallery />
         <PorQueParticipar />
         <Numeros />
-        <Exigencias />
-        <Treinamento />
+        <NossosServicos />
         <Certificacao />
         <Comunidade />
         <Eventos />
