@@ -4,6 +4,7 @@ import Hero from "@/components/sections/Hero";
 import Statement from "@/components/sections/Statement";
 import StatsGallery from "@/components/sections/StatsGallery";
 import PorQueParticipar from "@/components/sections/PorQueParticipar";
+import Numeros from "@/components/sections/Numeros";
 import Exigencias from "@/components/sections/Exigencias";
 import Treinamento from "@/components/sections/Treinamento";
 import Certificacao from "@/components/sections/Certificacao";
@@ -21,6 +22,7 @@ export default function Home() {
         <Hero />
         <StatsGallery />
         <PorQueParticipar />
+        <Numeros />
         <Exigencias />
         <Treinamento />
         <Certificacao />
