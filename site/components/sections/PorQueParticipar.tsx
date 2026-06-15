@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import PillCard from "@/components/ui/PillCard";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { Eye, ShieldCheck, MapPin, MessageCircle, GraduationCap, Calendar } from "lucide-react";
 
 const items = [
@@ -64,9 +64,11 @@ export default function PorQueParticipar() {
         <div className="mt-16 grid items-stretch gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal>
             <PillCard className="relative h-full min-h-[360px] overflow-hidden border border-white/10 bg-white/[0.02]">
-              <PhotoPlaceholder
-                tone="light"
-                label="Foto: equipe do restaurante parceiro recebendo a comunidade Glútty"
+              <Image
+                src="/comunidade-glutty.webp"
+                alt="Comunidade Glútty"
+                fill
+                className="object-cover"
               />
             </PillCard>
           </Reveal>
