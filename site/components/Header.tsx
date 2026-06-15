@@ -3,18 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import LanguageToggle from "@/components/ui/LanguageToggle";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { ArrowRight } from "lucide-react";
-
-const links = [
-  { label: "Por que participar", href: "#beneficios" },
-  { label: "Nossos Serviços", href: "#servicos" },
-  { label: "Selo Glútty", href: "#certificacao" },
-  { label: "Faça Parte", href: "#faca-parte" },
-  { label: "Como funciona", href: "#como-funciona" },
-];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -35,7 +30,7 @@ export default function Header() {
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {links.map((link) => (
+          {t.nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -46,9 +41,12 @@ export default function Header() {
           ))}
         </nav>
 
-        <Button href="#cta" variant="secondary" className="px-5 py-2.5 text-sm" icon={<ArrowRight size={16} />}>
-          Quero ser parceiro
-        </Button>
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
+          <Button href="#cta" variant="secondary" className="px-5 py-2.5 text-sm" icon={<ArrowRight size={16} />}>
+            {t.ctaLabel}
+          </Button>
+        </div>
       </div>
     </header>
   );

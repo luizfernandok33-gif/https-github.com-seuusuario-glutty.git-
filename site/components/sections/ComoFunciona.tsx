@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import NumberMark from "@/components/ui/NumberMark";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import {
   UserPlus,
@@ -16,59 +17,12 @@ import {
   PartyPopper,
 } from "lucide-react";
 
-const steps = [
-  {
-    icon: UserPlus,
-    title: "Cadastro",
-    description:
-      "Você registra seu restaurante e conta um pouco sobre sua estrutura, cardápio e processos atuais.",
-  },
-  {
-    icon: SearchCheck,
-    title: "Análise inicial",
-    description:
-      "Nossa equipe avalia as informações enviadas e identifica pontos de atenção antes do treinamento.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Treinamento da equipe",
-    description:
-      "Todo o time participa do treinamento obrigatório Glútty sobre doença celíaca e segurança alimentar.",
-  },
-  {
-    icon: Settings2,
-    title: "Ajustes de processos",
-    description:
-      "Com o que foi aprendido, o restaurante revisa rotinas, separação de utensílios e comunicação com o cliente.",
-  },
-  {
-    icon: BadgeCheck,
-    title: "Certificação",
-    description:
-      "Após concluir o treinamento e declarar seus processos, o restaurante recebe o Selo Glútty Verificado.",
-  },
-  {
-    icon: Smartphone,
-    title: "Entrada no app",
-    description:
-      "O perfil do restaurante é publicado no aplicativo, com selo, cardápio e informações verificadas.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Avaliações da comunidade",
-    description:
-      "Clientes celíacos começam a avaliar pratos, atendimento, clareza e segurança percebida.",
-  },
-  {
-    icon: PartyPopper,
-    title: "Participação em eventos",
-    description: "O restaurante passa a integrar feiras, degustações e ações da comunidade Glútty.",
-  },
-];
+const stepIcons = [UserPlus, SearchCheck, GraduationCap, Settings2, BadgeCheck, Smartphone, MessageCircle, PartyPopper];
 
 export default function ComoFunciona() {
   const root = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const rootEl = root.current;
@@ -126,11 +80,11 @@ export default function ComoFunciona() {
 
       <Container className="relative z-10">
         <SectionHeading
-          eyebrow="Como funciona"
+          eyebrow={t.comoFunciona.eyebrow}
           tone="light"
           align="center"
-          title="Do cadastro ao selo: veja o caminho até fazer parte do Glútty"
-          description="Um processo guiado, em oito etapas, que prepara o seu restaurante para receber a comunidade celíaca com confiança."
+          title={t.comoFunciona.title}
+          description={t.comoFunciona.description}
           className="mx-auto"
         />
 
@@ -143,8 +97,8 @@ export default function ComoFunciona() {
           />
 
           <div className="space-y-8">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
+            {t.comoFunciona.steps.map((step, i) => {
+              const Icon = stepIcons[i];
               return (
                 <div key={step.title} className="timeline-step relative flex gap-5 sm:gap-6">
                   <div className="timeline-badge relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-(--color-primary) text-(--color-cream) sm:h-14 sm:w-14">

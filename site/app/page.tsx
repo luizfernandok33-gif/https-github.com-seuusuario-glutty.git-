@@ -27,7 +27,6 @@ export default function Home() {
         <Beneficios />
         <ComoFunciona />
         <Statement
-          words={["Cuidado", "Comunidade", "Pertencimento"]}
           bgClassName="bg-(--color-primary)"
           textClassName="text-(--color-cream)"
           plusClassName="text-(--color-primary-tint)"
