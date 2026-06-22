@@ -10,6 +10,8 @@ import FacaParte from "@/components/sections/FacaParte";
 import Depoimento from "@/components/sections/Depoimento";
 import Beneficios from "@/components/sections/Beneficios";
 import ComoFunciona from "@/components/sections/ComoFunciona";
+import Pacotes from "@/components/sections/Pacotes";
+import FAQ from "@/components/sections/FAQ";
 import CTAFinal from "@/components/sections/CTAFinal";
 
 export default function Home() {
@@ -26,6 +28,8 @@ export default function Home() {
         <Depoimento />
         <Beneficios />
         <ComoFunciona />
+        <Pacotes />
+        <FAQ />
         <Statement
           bgClassName="bg-(--color-primary)"
           textClassName="text-(--color-cream)"

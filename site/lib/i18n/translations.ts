@@ -8,6 +8,12 @@ export interface ItemCopy {
   description: string;
 }
 
+export interface TestimonialCopy {
+  quote: string;
+  name: string;
+  role: string;
+}
+
 export interface TextDict {
   nav: NavLink[];
   ctaLabel: string;
@@ -55,11 +61,8 @@ export interface TextDict {
     items: string[];
     imageAlt: string;
   };
-  depoimento: {
-    quote: string;
-    name: string;
-    role: string;
-  };
+  depoimento: TestimonialCopy;
+  depoimentoParceiro: TestimonialCopy;
   beneficios: {
     eyebrow: string;
     title: string;
@@ -75,13 +78,51 @@ export interface TextDict {
   statement: {
     words: string[];
   };
+  regions: {
+    selectorLabel: string;
+    labels: { BR: string; US: string; CH: string };
+  };
+  pricing: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    mostPopularLabel: string;
+    recommendedForLabel: string;
+    priceNote: string;
+    ctaLabel: string;
+    tiers: {
+      name: string;
+      recommendedFor: string;
+      features: string[];
+      highlighted?: boolean;
+    }[];
+  };
+  faq: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: ItemCopy[];
+  };
   ctaFinal: {
     eyebrow: string;
     title: string;
     description: string;
-    ctaPrimary: string;
     ctaSecondary: string;
-    imageAlt: string;
+    reassurance: string[];
+    form: {
+      restaurantLabel: string;
+      restaurantPlaceholder: string;
+      nameLabel: string;
+      namePlaceholder: string;
+      regionLabel: string;
+      cityLabel: string;
+      cityPlaceholder: string;
+      phoneLabel: string;
+      phonePlaceholder: string;
+      messageLabel: string;
+      messagePlaceholder: string;
+      submitLabel: string;
+    };
   };
   footer: {
     description: string;
@@ -98,6 +139,7 @@ const navPt: NavLink[] = [
   { label: "Selo Glútty", href: "#certificacao" },
   { label: "Faça Parte", href: "#faca-parte" },
   { label: "Como funciona", href: "#como-funciona" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 const navEn: NavLink[] = [
@@ -106,6 +148,7 @@ const navEn: NavLink[] = [
   { label: "Glútty Seal", href: "#certificacao" },
   { label: "Get Involved", href: "#faca-parte" },
   { label: "How it works", href: "#como-funciona" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 const navDe: NavLink[] = [
@@ -114,6 +157,7 @@ const navDe: NavLink[] = [
   { label: "Glútty-Siegel", href: "#certificacao" },
   { label: "Mitmachen", href: "#faca-parte" },
   { label: "So funktioniert's", href: "#como-funciona" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export const pt: TextDict = {
@@ -250,6 +294,12 @@ export const pt: TextDict = {
     name: "Marina Souza",
     role: "Pessoa celíaca, usuária do app Glútty",
   },
+  depoimentoParceiro: {
+    quote:
+      "Depois do Selo Glútty Verificado, o treinamento da equipe deixou nossos processos muito mais claros e passamos a receber clientes celíacos com muito mais confiança — e eles voltam.",
+    name: "Restaurante parceiro Glútty",
+    role: "Depoimento de exemplo — substituir por um parceiro real",
+  },
   beneficios: {
     eyebrow: "Benefícios para o seu negócio",
     title: "O que muda na prática para o seu restaurante",
@@ -322,14 +372,107 @@ export const pt: TextDict = {
   statement: {
     words: ["Cuidado", "Comunidade", "Pertencimento"],
   },
+  regions: {
+    selectorLabel: "Região",
+    labels: { BR: "Brasil", US: "Estados Unidos", CH: "Suíça" },
+  },
+  pricing: {
+    eyebrow: "Pacotes de parceria",
+    title: "Um pacote para cada etapa da sua jornada celíaca-segura",
+    description:
+      "Escolha o pacote que faz sentido para o tamanho do seu restaurante hoje — e evolua quando quiser. Selecione sua região para ver a moeda correspondente.",
+    mostPopularLabel: "Mais escolhido",
+    recommendedForLabel: "Indicado para",
+    priceNote: "Valores em definição — fale com a gente pelo WhatsApp para receber uma proposta personalizada.",
+    ctaLabel: "Quero esse pacote",
+    tiers: [
+      {
+        name: "Básico",
+        recommendedFor: "Restaurantes que estão começando a jornada de certificação",
+        features: [
+          "Treinamento obrigatório da equipe (módulo essencial)",
+          "Selo Glútty Verificado",
+          "Perfil no app Glútty",
+          "Avaliações da comunidade",
+        ],
+      },
+      {
+        name: "Intermediário",
+        recommendedFor: "Restaurantes que já têm fluxo de clientes celíacos e querem crescer",
+        features: [
+          "Tudo do pacote Básico",
+          "Destaque na busca e nas recomendações do app",
+          "Participação em eventos Glútty",
+          "Suporte prioritário",
+        ],
+        highlighted: true,
+      },
+      {
+        name: "Avançado",
+        recommendedFor: "Redes e restaurantes que querem liderar a categoria sem glúten",
+        features: [
+          "Tudo do pacote Intermediário",
+          "Consultoria personalizada de processos",
+          "Campanhas de marketing conjuntas com o Glútty",
+          "Relatórios de insights da comunidade",
+        ],
+      },
+    ],
+  },
+  faq: {
+    eyebrow: "Perguntas frequentes",
+    title: "Tudo o que você precisa saber antes de se tornar parceiro",
+    description:
+      "Reunimos as dúvidas mais comuns de quem está avaliando entrar para a comunidade Glútty.",
+    items: [
+      {
+        title: "Quanto custa ser parceiro Glútty?",
+        description:
+          "O investimento varia de acordo com o pacote escolhido (Básico, Intermediário ou Avançado) e com a sua região (Brasil, Estados Unidos ou Suíça). Veja os pacotes na seção acima ou fale com a gente pelo WhatsApp para receber uma proposta personalizada.",
+      },
+      {
+        title: "Quanto tempo dura o treinamento da equipe?",
+        description:
+          "O treinamento obrigatório é dividido em módulos online e um checklist prático aplicado na cozinha e no salão, concluído em poucos dias sem pausar o funcionamento do restaurante.",
+      },
+      {
+        title: "Minha equipe tem alta rotatividade. O selo continua valendo?",
+        description:
+          "Sim. Recomendamos treinar novos colaboradores assim que entrarem — o acesso ao treinamento Glútty continua disponível durante toda a parceria, sem custo adicional por pessoa.",
+      },
+      {
+        title: "Existe exclusividade de bairro ou cidade?",
+        description:
+          "Não. O Glútty não limita o número de restaurantes parceiros por região — nosso objetivo é que a comunidade celíaca tenha o maior número possível de opções seguras.",
+      },
+      {
+        title: "O Selo Glútty Verificado garante 100% de segurança contra contaminação cruzada?",
+        description:
+          "Não. O selo representa um compromisso público com transparência, treinamento e melhoria contínua dos processos — mas a doença celíaca exige cuidado constante de toda a equipe, todos os dias.",
+      },
+    ],
+  },
   ctaFinal: {
     eyebrow: "Faça parte do Glútty",
     title: "Prepare seu restaurante para receber melhor a comunidade celíaca.",
     description:
-      "Treinamento, certificação, presença no app e uma comunidade pronta para confiar em quem se importa de verdade com segurança alimentar.",
-    ctaPrimary: "Quero ser parceiro do Glútty",
+      "Preencha o formulário abaixo e nossa equipe entra em contato pelo WhatsApp para apresentar o pacote ideal para o seu restaurante.",
     ctaSecondary: "Conhecer nossos serviços",
-    imageAlt: "Prato sem glúten pronto para servir",
+    reassurance: ["Sem compromisso", "Resposta em até 1 dia útil", "Atendimento em português, inglês e alemão"],
+    form: {
+      restaurantLabel: "Nome do restaurante",
+      restaurantPlaceholder: "Ex: Cantina da Maria",
+      nameLabel: "Seu nome",
+      namePlaceholder: "Ex: João Silva",
+      regionLabel: "Região do seu restaurante",
+      cityLabel: "Cidade",
+      cityPlaceholder: "Ex: São Paulo",
+      phoneLabel: "WhatsApp para contato",
+      phonePlaceholder: "(00) 00000-0000",
+      messageLabel: "Conte um pouco sobre o seu restaurante",
+      messagePlaceholder: "Tipo de cozinha, tamanho da equipe, dúvidas...",
+      submitLabel: "Quero ser parceiro do Glútty",
+    },
   },
   footer: {
     description:
@@ -475,6 +618,12 @@ export const en: TextDict = {
     name: "Marina Souza",
     role: "Person with celiac disease, Glútty app user",
   },
+  depoimentoParceiro: {
+    quote:
+      "After the Glútty Verified Seal, staff training made our processes much clearer and we started welcoming celiac customers with a lot more confidence — and they keep coming back.",
+    name: "Glútty partner restaurant",
+    role: "Example testimonial — to be replaced with a real partner",
+  },
   beneficios: {
     eyebrow: "Benefits for your business",
     title: "What changes in practice for your restaurant",
@@ -547,14 +696,107 @@ export const en: TextDict = {
   statement: {
     words: ["Care", "Community", "Belonging"],
   },
+  regions: {
+    selectorLabel: "Region",
+    labels: { BR: "Brazil", US: "United States", CH: "Switzerland" },
+  },
+  pricing: {
+    eyebrow: "Partnership packages",
+    title: "A package for every stage of your celiac-safe journey",
+    description:
+      "Pick the package that fits your restaurant's size today — and upgrade whenever you're ready. Select your region to see the matching currency.",
+    mostPopularLabel: "Most chosen",
+    recommendedForLabel: "Recommended for",
+    priceNote: "Prices are being finalized — reach out on WhatsApp for a personalized quote.",
+    ctaLabel: "I want this package",
+    tiers: [
+      {
+        name: "Basic",
+        recommendedFor: "Restaurants just starting their certification journey",
+        features: [
+          "Mandatory staff training (core module)",
+          "Glútty Verified Seal",
+          "Profile in the Glútty app",
+          "Community reviews",
+        ],
+      },
+      {
+        name: "Intermediate",
+        recommendedFor: "Restaurants already serving celiac customers and ready to grow",
+        features: [
+          "Everything in Basic",
+          "Featured placement in app search and recommendations",
+          "Participation in Glútty events",
+          "Priority support",
+        ],
+        highlighted: true,
+      },
+      {
+        name: "Advanced",
+        recommendedFor: "Chains and restaurants aiming to lead the gluten-free category",
+        features: [
+          "Everything in Intermediate",
+          "Personalized process consulting",
+          "Joint marketing campaigns with Glútty",
+          "Community insight reports",
+        ],
+      },
+    ],
+  },
+  faq: {
+    eyebrow: "Frequently asked questions",
+    title: "Everything you need to know before becoming a partner",
+    description:
+      "We've gathered the most common questions from restaurants evaluating the Glútty community.",
+    items: [
+      {
+        title: "How much does it cost to become a Glútty partner?",
+        description:
+          "Investment varies by package (Basic, Intermediate or Advanced) and by region (Brazil, United States or Switzerland). See the packages above or reach out on WhatsApp for a personalized quote.",
+      },
+      {
+        title: "How long does staff training take?",
+        description:
+          "Mandatory training is split into online modules and a practical checklist applied in the kitchen and dining room, completed in a few days without pausing the restaurant's operations.",
+      },
+      {
+        title: "My team has high turnover. Does the seal still hold?",
+        description:
+          "Yes. We recommend training new hires as soon as they join — access to Glútty training stays available for the entire partnership, with no extra cost per person.",
+      },
+      {
+        title: "Is there neighborhood or city exclusivity?",
+        description:
+          "No. Glútty doesn't limit the number of partner restaurants per region — our goal is for the celiac community to have as many safe options as possible.",
+      },
+      {
+        title: "Does the Glútty Verified Seal guarantee 100% protection against cross-contamination?",
+        description:
+          "No. The seal represents a public commitment to transparency, training and continuous process improvement — but celiac disease requires constant care from the whole team, every day.",
+      },
+    ],
+  },
   ctaFinal: {
     eyebrow: "Become part of Glútty",
     title: "Prepare your restaurant to better welcome the celiac community.",
     description:
-      "Training, certification, app presence, and a community ready to trust those who truly care about food safety.",
-    ctaPrimary: "I want to become a Glútty partner",
+      "Fill out the form below and our team will reach out on WhatsApp to present the right package for your restaurant.",
     ctaSecondary: "See our services",
-    imageAlt: "Gluten-free dish ready to serve",
+    reassurance: ["No commitment", "Response within 1 business day", "Support in Portuguese, English and German"],
+    form: {
+      restaurantLabel: "Restaurant name",
+      restaurantPlaceholder: "E.g. Maria's Kitchen",
+      nameLabel: "Your name",
+      namePlaceholder: "E.g. John Smith",
+      regionLabel: "Your restaurant's region",
+      cityLabel: "City",
+      cityPlaceholder: "E.g. New York",
+      phoneLabel: "WhatsApp number",
+      phonePlaceholder: "(000) 000-0000",
+      messageLabel: "Tell us a bit about your restaurant",
+      messagePlaceholder: "Type of cuisine, team size, questions...",
+      submitLabel: "I want to become a Glútty partner",
+    },
   },
   footer: {
     description:
@@ -700,6 +942,12 @@ export const de: TextDict = {
     name: "Marina Souza",
     role: "Person mit Zöliakie, Nutzerin der Glútty-App",
   },
+  depoimentoParceiro: {
+    quote:
+      "Seit dem Glútty-Verifiziert-Siegel sind unsere Abläufe durch die Mitarbeiterschulung viel klarer geworden, und wir empfangen Gäste mit Zöliakie mit viel mehr Sicherheit — und sie kommen wieder.",
+    name: "Glútty-Partnerrestaurant",
+    role: "Beispiel-Erfahrungsbericht — wird durch einen echten Partner ersetzt",
+  },
   beneficios: {
     eyebrow: "Vorteile für Ihr Unternehmen",
     title: "Was sich in der Praxis für Ihr Restaurant ändert",
@@ -772,14 +1020,107 @@ export const de: TextDict = {
   statement: {
     words: ["Fürsorge", "Gemeinschaft", "Zugehörigkeit"],
   },
+  regions: {
+    selectorLabel: "Region",
+    labels: { BR: "Brasilien", US: "USA", CH: "Schweiz" },
+  },
+  pricing: {
+    eyebrow: "Partnerschaftspakete",
+    title: "Ein Paket für jede Etappe Ihrer zöliakiesicheren Reise",
+    description:
+      "Wählen Sie das Paket, das zur aktuellen Größe Ihres Restaurants passt — und wechseln Sie jederzeit. Wählen Sie Ihre Region, um die passende Währung zu sehen.",
+    mostPopularLabel: "Meistgewählt",
+    recommendedForLabel: "Empfohlen für",
+    priceNote: "Preise werden noch festgelegt — kontaktieren Sie uns per WhatsApp für ein individuelles Angebot.",
+    ctaLabel: "Dieses Paket wählen",
+    tiers: [
+      {
+        name: "Basic",
+        recommendedFor: "Restaurants, die mit der Zertifizierung beginnen",
+        features: [
+          "Verpflichtende Mitarbeiterschulung (Kernmodul)",
+          "Glútty-Verifiziert-Siegel",
+          "Profil in der Glútty-App",
+          "Bewertungen der Community",
+        ],
+      },
+      {
+        name: "Intermediate",
+        recommendedFor: "Restaurants, die bereits Gäste mit Zöliakie bedienen und wachsen möchten",
+        features: [
+          "Alles aus Basic",
+          "Hervorhebung in Suche und Empfehlungen der App",
+          "Teilnahme an Glútty-Events",
+          "Bevorzugter Support",
+        ],
+        highlighted: true,
+      },
+      {
+        name: "Advanced",
+        recommendedFor: "Ketten und Restaurants, die die glutenfreie Kategorie anführen wollen",
+        features: [
+          "Alles aus Intermediate",
+          "Individuelle Prozessberatung",
+          "Gemeinsame Marketingkampagnen mit Glútty",
+          "Insight-Berichte aus der Community",
+        ],
+      },
+    ],
+  },
+  faq: {
+    eyebrow: "Häufige Fragen",
+    title: "Alles, was Sie vor der Partnerschaft wissen müssen",
+    description:
+      "Wir haben die häufigsten Fragen von Restaurants gesammelt, die eine Partnerschaft mit Glútty prüfen.",
+    items: [
+      {
+        title: "Wie viel kostet eine Glútty-Partnerschaft?",
+        description:
+          "Die Investition richtet sich nach dem gewählten Paket (Basic, Intermediate oder Advanced) und Ihrer Region (Brasilien, USA oder Schweiz). Sehen Sie sich die Pakete oben an oder kontaktieren Sie uns per WhatsApp für ein individuelles Angebot.",
+      },
+      {
+        title: "Wie lange dauert die Mitarbeiterschulung?",
+        description:
+          "Die Pflichtschulung besteht aus Online-Modulen und einer praktischen Checkliste für Küche und Service und wird in wenigen Tagen abgeschlossen, ohne den Restaurantbetrieb zu unterbrechen.",
+      },
+      {
+        title: "Unser Team hat eine hohe Fluktuation. Bleibt das Siegel trotzdem gültig?",
+        description:
+          "Ja. Wir empfehlen, neue Mitarbeitende sofort zu schulen — der Zugang zur Glútty-Schulung bleibt während der gesamten Partnerschaft ohne zusätzliche Kosten pro Person bestehen.",
+      },
+      {
+        title: "Gibt es eine Exklusivität nach Stadtteil oder Stadt?",
+        description:
+          "Nein. Glútty begrenzt die Anzahl der Partnerrestaurants pro Region nicht — unser Ziel ist es, der Zöliakie-Community möglichst viele sichere Optionen zu bieten.",
+      },
+      {
+        title: "Garantiert das Glútty-Verifiziert-Siegel 100 % Schutz vor Kreuzkontamination?",
+        description:
+          "Nein. Das Siegel steht für ein öffentliches Bekenntnis zu Transparenz, Schulung und stetiger Prozessverbesserung — Zöliakie erfordert jedoch täglich kontinuierliche Sorgfalt des gesamten Teams.",
+      },
+    ],
+  },
   ctaFinal: {
     eyebrow: "Werden Sie Teil von Glútty",
     title: "Bereiten Sie Ihr Restaurant darauf vor, die Zöliakie-Community besser willkommen zu heißen.",
     description:
-      "Schulung, Zertifizierung, Präsenz in der App und eine Community, die bereit ist, denen zu vertrauen, denen Lebensmittelsicherheit wirklich wichtig ist.",
-    ctaPrimary: "Ich möchte Glútty-Partner werden",
+      "Füllen Sie das Formular unten aus — unser Team meldet sich per WhatsApp und stellt Ihnen das passende Paket vor.",
     ctaSecondary: "Unsere Leistungen ansehen",
-    imageAlt: "Glutenfreies Gericht, servierbereit",
+    reassurance: ["Ohne Verpflichtung", "Antwort innerhalb von 1 Werktag", "Support auf Portugiesisch, Englisch und Deutsch"],
+    form: {
+      restaurantLabel: "Name des Restaurants",
+      restaurantPlaceholder: "Z. B. Maria's Küche",
+      nameLabel: "Ihr Name",
+      namePlaceholder: "Z. B. Hans Müller",
+      regionLabel: "Region Ihres Restaurants",
+      cityLabel: "Stadt",
+      cityPlaceholder: "Z. B. Zürich",
+      phoneLabel: "WhatsApp-Nummer",
+      phonePlaceholder: "(000) 000 00 00",
+      messageLabel: "Erzählen Sie uns kurz von Ihrem Restaurant",
+      messagePlaceholder: "Art der Küche, Teamgröße, Fragen...",
+      submitLabel: "Ich möchte Glútty-Partner werden",
+    },
   },
   footer: {
     description:
