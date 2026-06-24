@@ -4,7 +4,9 @@ import Image from "next/image";
 import { Star, MapPin, Heart } from "lucide-react";
 import { useState } from "react";
 import SafetyBadge from "./SafetyBadge";
+import { localizeRestaurant } from "@/lib/data";
 import type { Restaurant, SafetyLevel } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 
 interface RestaurantCardProps {
@@ -13,7 +15,9 @@ interface RestaurantCardProps {
   width?: number;
 }
 
-export default function RestaurantCard({ restaurant, variant = "vertical", width = 168 }: RestaurantCardProps) {
+export default function RestaurantCard({ restaurant: rawRestaurant, variant = "vertical", width = 168 }: RestaurantCardProps) {
+  const { t, language } = useLanguage();
+  const restaurant = localizeRestaurant(rawRestaurant, language);
   const [isFav, setIsFav] = useState(restaurant.isFavorite);
 
   // ── Horizontal (list view) ──────────────────────
@@ -27,9 +31,13 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
         {/* Thumbnail */}
         <div className="relative w-[80px] h-[80px] rounded-xl overflow-hidden shrink-0">
           <Image src={restaurant.image} alt={restaurant.name} fill className="object-cover" unoptimized />
-          {!restaurant.isOpen && (
+          {restaurant.permanentlyClosed ? (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+              <span className="text-white text-[9px] font-bold">{t.common.permanentlyClosed}</span>
+            </div>
+          ) : !restaurant.isOpen && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <span className="text-white text-[9px] font-bold">Fechado</span>
+              <span className="text-white text-[9px] font-bold">{t.common.closed}</span>
             </div>
           )}
         </div>
@@ -64,7 +72,7 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
           <div className="flex justify-end mt-1.5">
             <div className="flex items-center gap-0.5">
               <Star size={11} fill="#FFC24D" className="text-warning" />
-              <span className="text-xs font-bold text-text-primary">{restaurant.rating}</span>
+              <span className="text-xs font-bold text-text-primary">{restaurant.rating > 0 ? restaurant.rating : "—"}</span>
             </div>
           </div>
         </div>
@@ -100,9 +108,13 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
         </button>
 
         {/* Closed overlay */}
-        {!restaurant.isOpen && (
+        {restaurant.permanentlyClosed ? (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center" style={{ borderRadius: 16 }}>
+            <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">{t.common.permanentlyClosed}</span>
+          </div>
+        ) : !restaurant.isOpen && (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center" style={{ borderRadius: 16 }}>
-            <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">Fechado</span>
+            <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-1 rounded-full">{t.common.closed}</span>
           </div>
         )}
       </div>
@@ -113,7 +125,7 @@ export default function RestaurantCard({ restaurant, variant = "vertical", width
         <p className="text-text-disabled text-[11px] truncate mb-1.5">{restaurant.address}</p>
         <div className="flex items-center gap-1">
           <Star size={13} fill="#F59E0B" className="text-warning" />
-          <span className="text-[13px] font-bold text-text-primary">{restaurant.rating}</span>
+          <span className="text-[13px] font-bold text-text-primary">{restaurant.rating > 0 ? restaurant.rating : "—"}</span>
         </div>
       </div>
     </Link>

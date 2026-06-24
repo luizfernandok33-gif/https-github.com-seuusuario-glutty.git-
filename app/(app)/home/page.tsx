@@ -7,8 +7,11 @@ import { Search, Shield, ChevronRight, Star, Heart, X, Check, Camera, MapPin, Gl
 import RestaurantCard from "@/components/RestaurantCard";
 import SafetyBadge from "@/components/SafetyBadge";
 import { DishImagePlaceholder } from "@/components/DishPlaceholder";
-import { mockRestaurants, mockDishes, safetyLevelConfig } from "@/lib/data";
+import { mockRestaurants, mockDishes, localizeSafetyLevelConfig } from "@/lib/data";
+import { restaurantTranslationsEn } from "@/lib/i18n/dataTranslations";
 import type { SafetyLevel, Restaurant } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import type { Translations, Language } from "@/lib/i18n/translations";
 
 // ── Localização ───────────────────────────────────────────────────────────────
 const LOCATION_RECENT_KEY = "glutty_home_locations";
@@ -19,27 +22,29 @@ const LOCATION_SUGGESTIONS = [
   { label: "Porto Alegre",         type: "cidade"  as const, match: ["porto alegre", "rs"] },
   { label: "Zürich",               type: "cidade"  as const, match: ["zürich", "zurich", "zurique", "zh"] },
   { label: "Kemptthal",            type: "cidade"  as const, match: ["kemptthal"] },
-  { label: "Brasil",               type: "pais"    as const, match: ["brasil", "brazil", "br"] },
-  { label: "Suíça",                type: "pais"    as const, match: ["suíça", "suica", "switzerland", "ch"] },
+  { label: "Brasil",               labelEn: "Brazil",      type: "pais"    as const, match: ["brasil", "brazil", "br"] },
+  { label: "Suíça",                labelEn: "Switzerland", type: "pais"    as const, match: ["suíça", "suica", "switzerland", "ch"] },
   { label: "SP — São Paulo",       type: "estado"  as const, match: ["sp — são paulo", "estado de são paulo"] },
   { label: "PB — Paraíba",         type: "estado"  as const, match: ["pb — paraíba", "paraíba", "paraiba"] },
   { label: "RS — Rio Grande do Sul", type: "estado" as const, match: ["rs — rio grande do sul", "rio grande do sul"] },
 ];
 
-function getRegionInfo(city: string): { country: string; state: string } {
+function getRegionInfo(city: string, language: Language = "pt"): { country: string; state: string } {
   const c = (city ?? "").toLowerCase();
-  if (["zürich", "zurique", "zurich", "kemptthal"].includes(c)) return { country: "Suíça",  state: "Zürich" };
-  if (c === "joão pessoa")   return { country: "Brasil", state: "Paraíba" };
-  if (c === "porto alegre")  return { country: "Brasil", state: "Rio Grande do Sul" };
-  if (c.includes("são paulo") || c === "") return { country: "Brasil", state: "São Paulo" };
-  return { country: "Brasil", state: "" };
+  const countryBR = language === "en" ? "Brazil" : "Brasil";
+  const countryCH = language === "en" ? "Switzerland" : "Suíça";
+  if (["zürich", "zurique", "zurich", "kemptthal"].includes(c)) return { country: countryCH, state: "Zürich" };
+  if (c === "joão pessoa")   return { country: countryBR, state: "Paraíba" };
+  if (c === "porto alegre")  return { country: countryBR, state: "Rio Grande do Sul" };
+  if (c.includes("são paulo") || c === "") return { country: countryBR, state: "São Paulo" };
+  return { country: countryBR, state: "" };
 }
 
-function matchesLocation(city: string, query: string): boolean {
+function matchesLocation(city: string, query: string, language: Language = "pt"): boolean {
   if (!query) return true;
   const q = query.toLowerCase().trim();
   const c = (city ?? "").toLowerCase();
-  const { country, state } = getRegionInfo(city);
+  const { country, state } = getRegionInfo(city, language);
   // Aliases de estado abreviados
   const stateAliases: Record<string, string> = {
     "sp": "São Paulo", "pb": "Paraíba", "rs": "Rio Grande do Sul",
@@ -54,9 +59,9 @@ function matchesLocation(city: string, query: string): boolean {
   );
 }
 
-function proximityScore(city: string, refCity: string): number {
-  const r = getRegionInfo(city);
-  const ref = getRegionInfo(refCity || "São Paulo");
+function proximityScore(city: string, refCity: string, language: Language = "pt"): number {
+  const r = getRegionInfo(city, language);
+  const ref = getRegionInfo(refCity || "São Paulo", language);
   if ((city ?? "").toLowerCase() === (refCity ?? "").toLowerCase()) return 0;
   if (r.country === ref.country) return 1;
   return 2;
@@ -89,13 +94,8 @@ function LocIcon({ type }: { type: LocType }) {
 // Ordem do mais seguro para menos seguro
 const SAFETY_ORDER: SafetyLevel[] = ["certificado", "muito_seguro", "verificado", "seguro", "moderado", "cuidado"];
 
-const SAFETY_OPTIONS: { level: SafetyLevel; description: string }[] = [
-  { level: "certificado",  description: "Altamente avaliado e recomendado por celíacos"   },
-  { level: "muito_seguro", description: "Protocolo rigoroso, sem risco de contaminação"   },
-  { level: "verificado",   description: "Verificado e aprovado pela comunidade Glútty"    },
-  { level: "seguro",       description: "Adaptações disponíveis com cuidado"              },
-  { level: "moderado",     description: "Pratos sem glúten, atenção à contaminação"       },
-];
+const SAFETY_OPTION_LEVELS: ("certificado" | "muito_seguro" | "verificado" | "seguro" | "moderado")[] =
+  ["certificado", "muito_seguro", "verificado", "seguro", "moderado"];
 
 function meetsPreference(restaurantLevel: SafetyLevel, preference: SafetyLevel): boolean {
   const rIdx = SAFETY_ORDER.indexOf(restaurantLevel);
@@ -109,7 +109,7 @@ type DishData = { id: string; name: string; restaurantName: string; restaurantId
 const DISH_PREVIEWS: Record<string, {
   reviewCount: number;
   avatars: string[];
-  topReview: { author: string; avatar: string; comment: string; stars: number; date: string };
+  topReview: { author: string; avatar: string; stars: number };
 }> = {
   dd1: {
     reviewCount: 43,
@@ -118,7 +118,7 @@ const DISH_PREVIEWS: Record<string, {
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face",
     ],
-    topReview: { author: "Mariana L.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face", comment: "A Marguerita da Pizza For Fun é perfeita — massa crocante, sem glúten de verdade. Não tive nenhuma reação!", stars: 5, date: "há 2 dias" },
+    topReview: { author: "Mariana L.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face", stars: 5 },
   },
   dd2: {
     reviewCount: 28,
@@ -127,7 +127,7 @@ const DISH_PREVIEWS: Record<string, {
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
     ],
-    topReview: { author: "Felipe S.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face", comment: "O pão francês do Grão Fino é incrível, parece um pão normal de padaria. A equipe sabe muito sobre celíaca!", stars: 5, date: "há 3 dias" },
+    topReview: { author: "Felipe S.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face", stars: 5 },
   },
   dd3: {
     reviewCount: 35,
@@ -136,7 +136,7 @@ const DISH_PREVIEWS: Record<string, {
       "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
     ],
-    topReview: { author: "Anna K.", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face", comment: "A tarte de framboesa da Jackie's é uma obra de arte — linda e deliciosa. 100% sem glúten e sem sintomas.", stars: 5, date: "há 1 semana" },
+    topReview: { author: "Anna K.", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face", stars: 5 },
   },
   dd4: {
     reviewCount: 19,
@@ -145,7 +145,7 @@ const DISH_PREVIEWS: Record<string, {
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
     ],
-    topReview: { author: "Giulia R.", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face", comment: "O bowl da Libera é fresquinho e nutritivo. Ambiente acolhedor e totalmente seguro para celíacos.", stars: 5, date: "há 4 dias" },
+    topReview: { author: "Giulia R.", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face", stars: 5 },
   },
   dd5: {
     reviewCount: 22,
@@ -154,7 +154,7 @@ const DISH_PREVIEWS: Record<string, {
       "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
     ],
-    topReview: { author: "Marco B.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face", comment: "A Marinara do Granò é autentica — masa napolitana, sem glúten. Uma das melhores pizzas que já comi na Suíça!", stars: 5, date: "há 5 dias" },
+    topReview: { author: "Marco B.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face", stars: 5 },
   },
   dd6: {
     reviewCount: 14,
@@ -163,17 +163,22 @@ const DISH_PREVIEWS: Record<string, {
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
       "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face",
     ],
-    topReview: { author: "Sophie M.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face", comment: "As brioches da À VIE são leves e macias demais. Nunca imaginei que sem glúten poderia ser tão bom!", stars: 5, date: "há 2 dias" },
+    topReview: { author: "Sophie M.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face", stars: 5 },
   },
 };
 
 function DishCard({ dish }: { dish: DishData }) {
   const router = useRouter();
+  const { t, language } = useLanguage();
   const [fav, setFav] = useState(false);
   const preview = DISH_PREVIEWS[dish.id];
   const href = dish.restaurantId && dish.dishId
     ? `/restaurante/${dish.restaurantId}/prato/${dish.dishId}`
     : `/restaurante/${dish.restaurantId ?? ""}`;
+  const dishNameTr = language === "en" && dish.restaurantId && dish.dishId
+    ? restaurantTranslationsEn[dish.restaurantId]?.dishes?.[dish.dishId]?.name
+    : undefined;
+  const dishName = dishNameTr ?? dish.name;
 
   return (
     <Link
@@ -183,7 +188,7 @@ function DishCard({ dish }: { dish: DishData }) {
     >
       {/* Full-card image */}
       {dish.image ? (
-        <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
+        <Image src={dish.image} alt={dishName} fill className="object-cover" unoptimized />
       ) : (
         <DishImagePlaceholder rounded={20} />
       )}
@@ -217,7 +222,7 @@ function DishCard({ dish }: { dish: DishData }) {
       {/* Bottom content */}
       <div className="absolute z-10 left-0 right-0" style={{ bottom: 0, padding: "0 12px 12px" }}>
         {/* Dish name */}
-        <p className="text-white font-semibold text-[14px] leading-tight mb-1">{dish.name}</p>
+        <p className="text-white font-semibold text-[14px] leading-tight mb-1">{dishName}</p>
         {/* Restaurant */}
         <p className="text-white/55 text-[9px] font-semibold uppercase tracking-wider mb-3">{dish.restaurantName}</p>
 
@@ -238,7 +243,7 @@ function DishCard({ dish }: { dish: DishData }) {
               </div>
             ))}
           </div>
-          <span className="text-[10px] font-semibold" style={{ color: "#a8c09a" }}>Feedback</span>
+          <span className="text-[10px] font-semibold" style={{ color: "#a8c09a" }}>{t.home.feedback}</span>
           <ChevronRight size={9} strokeWidth={2.5} style={{ color: "#6aaa62" }} />
         </button>
       </div>
@@ -247,9 +252,11 @@ function DishCard({ dish }: { dish: DishData }) {
 }
 
 function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () => void }) {
+  const { t } = useLanguage();
   const data = DISH_PREVIEWS[dishId];
   if (!data) return null;
   const { topReview, avatars, reviewCount } = data;
+  const content = t.home.dishPreviews[dishId];
 
   return (
     <>
@@ -278,8 +285,8 @@ function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () 
             ))}
           </div>
           <div>
-            <p className="font-semibold text-gray-800 text-[13px]">+{reviewCount} celíacos avaliaram</p>
-            <p className="text-gray-400 text-[11px] mt-0.5">Veja o que estão dizendo</p>
+            <p className="font-semibold text-gray-800 text-[13px]">{t.home.reviewersCount.replace("{count}", String(reviewCount))}</p>
+            <p className="text-gray-400 text-[11px] mt-0.5">{t.home.seeWhatTheySay}</p>
           </div>
         </div>
 
@@ -291,7 +298,7 @@ function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () 
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-800 text-[12px]">{topReview.author}</p>
-              <p className="text-gray-400 text-[10px]">{topReview.date}</p>
+              <p className="text-gray-400 text-[10px]">{content?.date}</p>
             </div>
             <div className="flex items-center gap-0.5">
               {[1,2,3,4,5].map((i) => (
@@ -300,7 +307,7 @@ function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () 
             </div>
           </div>
           <p className="text-gray-600 text-[12.5px] leading-relaxed pl-3" style={{ borderLeft: "2px solid #c5d8b8" }}>
-            {topReview.comment}
+            {content?.comment}
           </p>
         </div>
 
@@ -309,7 +316,7 @@ function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () 
           className="w-full py-4 rounded-full font-semibold text-[14px] active:scale-95 transition-transform"
           style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}
         >
-          Ver todos os feedbacks deste prato
+          {t.home.viewAllFeedbacks}
         </button>
       </div>
     </>
@@ -317,11 +324,11 @@ function FeedbackBottomSheet({ dishId, onClose }: { dishId: string; onClose: () 
 }
 
 const categories = [
-  { id: "mais-seguros", label: "Mais\nseguros",         icon: "/feliz.png",   bg: "#E4EFC6", color: "#2E4F2A", href: "/categoria/mais-seguros"    },
-  { id: "festa",        label: "Festa sem\nglúten",     icon: "/festa.png",   bg: "#FDEFCC", color: "#6B5F2A", href: "/categoria/festa"   },
-  { id: "familia",      label: "Para a\nfamília",       icon: "/familia.png", bg: "#DDEFE5", color: "#1F4A44", href: "/categoria/familia" },
-  { id: "doces",        label: "Doces sem\nglúten",     icon: "/doces.png",   bg: "#F0E0F2", color: "#5A4580", href: "/categoria/doces"   },
-  { id: "amigos",       label: "Para sair\ncom amigos", icon: "/amigos.png",  bg: "#D9E7F0", color: "#1F4A60", href: "/categoria/amigos"  },
+  { id: "mais-seguros", icon: "/feliz.png",   bg: "#E4EFC6", color: "#2E4F2A", href: "/categoria/mais-seguros" },
+  { id: "festa",        icon: "/festa.png",   bg: "#FDEFCC", color: "#6B5F2A", href: "/categoria/festa"        },
+  { id: "familia",      icon: "/familia.png", bg: "#DDEFE5", color: "#1F4A44", href: "/categoria/familia"      },
+  { id: "doces",        icon: "/doces.png",   bg: "#F0E0F2", color: "#5A4580", href: "/categoria/doces"        },
+  { id: "amigos",       icon: "/amigos.png",  bg: "#D9E7F0", color: "#1F4A60", href: "/categoria/amigos"       },
 ];
 
 // ── Skeleton card (layout sem conteúdo) ──────────────────────────────────────
@@ -338,6 +345,8 @@ function SkeletonCard({ width = 168 }: { width?: number }) {
 
 export default function HomePage() {
   const router = useRouter();
+  const { t, language } = useLanguage();
+  const localizedSafetyLevelConfig = localizeSafetyLevelConfig(language);
   const [activeCategory,    setActiveCategory]    = useState<string | null>(null);
   const [searchInput,       setSearchInput]       = useState("");
   const [locationFilter,    setLocationFilter]    = useState("São Paulo");
@@ -360,18 +369,18 @@ export default function HomePage() {
 
   // ── Filtragem por localização ─────────────────────────────────────────────
   const localRestaurants = mockRestaurants.filter(r =>
-    matchesLocation(r.city, locationFilter) && meetsPreference(r.safetyLevel, safetyPreference)
+    matchesLocation(r.city, locationFilter, language) && meetsPreference(r.safetyLevel, safetyPreference)
   );
   const nearbyRestaurants = mockRestaurants
-    .filter(r => !matchesLocation(r.city, locationFilter) && meetsPreference(r.safetyLevel, safetyPreference))
-    .sort((a, b) => proximityScore(a.city, locationFilter) - proximityScore(b.city, locationFilter));
+    .filter(r => !matchesLocation(r.city, locationFilter, language) && meetsPreference(r.safetyLevel, safetyPreference))
+    .sort((a, b) => proximityScore(a.city, locationFilter, language) - proximityScore(b.city, locationFilter, language));
 
   const hasLocalResults = localRestaurants.length > 0;
 
   // Pratos: mapeia restaurante → cidade
   const restaurantCityMap = Object.fromEntries(mockRestaurants.map(r => [r.name, r.city]));
-  const localDishes  = mockDishes.filter(d => matchesLocation(restaurantCityMap[d.restaurantName] ?? "", locationFilter));
-  const nearbyDishes = mockDishes.filter(d => !matchesLocation(restaurantCityMap[d.restaurantName] ?? "", locationFilter));
+  const localDishes  = mockDishes.filter(d => matchesLocation(restaurantCityMap[d.restaurantName] ?? "", locationFilter, language));
+  const nearbyDishes = mockDishes.filter(d => !matchesLocation(restaurantCityMap[d.restaurantName] ?? "", locationFilter, language));
 
   const suggestions = filterSuggestions(searchInput);
   const showDropdownContent = showDropdown && (searchInput.trim() ? suggestions.length > 0 : recentLocations.length > 0);
@@ -411,16 +420,16 @@ export default function HomePage() {
             <p className="text-text-secondary text-[13px] leading-snug mb-1">
               {(() => {
                 const h = new Date().getHours();
-                if (h < 12) return "Bom dia";
-                if (h < 18) return "Boa tarde";
-                return "Boa noite";
+                if (h < 12) return t.home.greeting.morning;
+                if (h < 18) return t.home.greeting.afternoon;
+                return t.home.greeting.evening;
               })()}
             </p>
             <h1 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontSize: 32, fontWeight: 900, lineHeight: "36px", letterSpacing: "-0.5px", color: "#2E7D32" }}>
               Michelle
             </h1>
             <p className="text-text-secondary text-[13px] mt-1.5 leading-snug">
-              Aonde você quer comer hoje?
+              {t.home.question}
             </p>
           </div>
 
@@ -466,7 +475,7 @@ export default function HomePage() {
                 if (e.key === "Enter" && searchInput.trim()) applyLocation(searchInput.trim());
                 if (e.key === "Escape") setShowDropdown(false);
               }}
-              placeholder="Cidade ou país…"
+              placeholder={t.home.searchPlaceholder}
               className="flex-1 min-w-0 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-semibold"
             />
             {searchInput && (
@@ -482,7 +491,7 @@ export default function HomePage() {
             >
               <Shield size={12} fill="#2E7D32" strokeWidth={2} style={{ color: "#2E7D32" }} />
               <span className="text-[11px] font-semibold" style={{ color: "#2E7D32" }}>
-                {safetyLevelConfig[safetyPreference].label} ▾
+                {localizedSafetyLevelConfig[safetyPreference].label} ▾
               </span>
             </button>
           </div>
@@ -501,7 +510,7 @@ export default function HomePage() {
             >
               <div className="px-4 pt-3 pb-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#B0977E" }}>
-                  {!searchInput.trim() ? "Buscas recentes" : "Sugestões"}
+                  {!searchInput.trim() ? t.home.recentSearches : t.home.suggestions}
                 </span>
               </div>
 
@@ -512,13 +521,13 @@ export default function HomePage() {
                       className="w-full text-left px-4 py-2.5 flex items-center gap-3 active:bg-[#F5EDE6] transition-colors"
                       style={{ borderTop: i > 0 ? "1px solid #F5EDE6" : "none" }}
                       onMouseDown={e => e.preventDefault()}
-                      onClick={() => applyLocation(s.label)}
+                      onClick={() => applyLocation(language === "en" && "labelEn" in s ? (s.labelEn ?? s.label) : s.label)}
                     >
                       <LocIcon type={s.type} />
                       <div className="flex-1 min-w-0">
-                        <span className="text-[13px] font-semibold text-text-primary block truncate">{s.label}</span>
+                        <span className="text-[13px] font-semibold text-text-primary block truncate">{language === "en" && "labelEn" in s ? s.labelEn : s.label}</span>
                         <span className="text-[10px] font-semibold" style={{ color: "#B0977E" }}>
-                          {{ cidade: "Cidade", estado: "Estado", pais: "País" }[s.type]}
+                          {t.home.locationTypes[s.type]}
                         </span>
                       </div>
                     </button>
@@ -552,7 +561,7 @@ export default function HomePage() {
                   onMouseDown={e => e.preventDefault()}
                   onClick={() => { setRecentLocations([]); localStorage.removeItem(LOCATION_RECENT_KEY); setShowDropdown(false); }}
                 >
-                  Limpar histórico
+                  {t.home.clearHistory}
                 </button>
               )}
             </div>
@@ -563,7 +572,10 @@ export default function HomePage() {
         <div className="flex items-center gap-1.5 mt-2.5 px-1">
           <MapPin size={11} style={{ color: "#4A9070" }} />
           <span className="text-[12px] font-semibold" style={{ color: "#4A9070" }}>
-            Resultados para <span style={{ color: "#1F3D34" }}>{locationFilter}</span> · com base no seu perfil
+            {(() => {
+              const [before, after] = t.home.resultsFor.split("{location}");
+              return (<>{before}<span style={{ color: "#1F3D34" }}>{locationFilter}</span>{after}</>);
+            })()}
           </span>
         </div>
       </div>
@@ -577,7 +589,7 @@ export default function HomePage() {
           {/* Food image — full cover */}
           <Image
             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=300&fit=crop"
-            alt="Prato saudável"
+            alt={t.home.promo.title}
             fill
             className="object-cover"
             style={{ objectPosition: "center 40%" }}
@@ -596,12 +608,12 @@ export default function HomePage() {
               className="inline-block self-start text-white text-[9px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-widest mb-2"
               style={{ background: "linear-gradient(135deg, #1F3D34 0%, #2E6B55 100%)" }}
             >
-              NOVO
+              {t.home.promo.badge}
             </span>
-            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 17, lineHeight: 1.2, color: "white" }}>
-              Novos restaurantes<br />recomendados
+            <h2 className="whitespace-pre-line" style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 17, lineHeight: 1.2, color: "white" }}>
+              {t.home.promo.title}
             </h2>
-            <p className="text-white/55 text-[10px] mt-1 font-semibold">Baseado no seu padrão de segurança</p>
+            <p className="text-white/55 text-[10px] mt-1 font-semibold">{t.home.promo.subtitle}</p>
           </div>
 
           {/* CTA pill — bottom right */}
@@ -610,7 +622,7 @@ export default function HomePage() {
               className="px-4 py-2 rounded-full font-semibold text-[11px]"
               style={{ backgroundColor: "#C6F59D", color: "#1F3D34", boxShadow: "0 3px 10px rgba(198,245,157,0.4)" }}
             >
-              Ver agora →
+              {t.home.promo.cta}
             </span>
           </div>
         </div>
@@ -619,12 +631,13 @@ export default function HomePage() {
       {/* ── Categorias ── */}
       <div className="mb-6">
         <div className="flex items-center justify-between px-5 mb-3">
-          <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>Categorias celíaca</h2>
-          <Link href="/busca" className="text-primary font-semibold text-[13px]">Ver todos</Link>
+          <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>{t.home.categoriesTitle}</h2>
+          <Link href="/busca" className="text-primary font-semibold text-[13px]">{t.home.seeAll}</Link>
         </div>
         <div className="flex gap-5 overflow-x-auto px-5 pb-1">
-          {categories.map((cat) => {
+          {categories.map((cat, catIndex) => {
             const isActive = activeCategory === cat.id;
+            const catLabel = t.home.categories[catIndex];
             return (
               <Link
                 key={cat.id}
@@ -651,7 +664,7 @@ export default function HomePage() {
                       backgroundColor: "#FFFFFF",
                     }}
                   >
-                    <img src={cat.icon} alt={cat.label} width={28} height={28}
+                    <img src={cat.icon} alt={catLabel} width={28} height={28}
                       style={{ objectFit: "contain", filter: "brightness(0)", opacity: 0.85 }} />
                     {!isActive && (
                       <div className="absolute inset-0" style={{ backgroundColor: cat.color, mixBlendMode: "color" }} />
@@ -659,7 +672,7 @@ export default function HomePage() {
                   </div>
                   <p className="text-center leading-tight whitespace-pre-line"
                     style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 11, color: isActive ? "#FFFFFF" : cat.color }}>
-                    {cat.label}
+                    {catLabel}
                   </p>
                 </div>
               </Link>
@@ -672,12 +685,12 @@ export default function HomePage() {
       <div className="mb-6" onClick={() => setShowDropdown(false)}>
         <div className="flex items-start justify-between px-5 mb-1">
           <div>
-            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>Recomendado para você</h2>
+            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>{t.home.recommendedTitle}</h2>
             <p className="text-text-disabled text-[12px] mt-0.5">
-              {hasLocalResults ? locationFilter : `Mais próximos de ${locationFilter}`}
+              {hasLocalResults ? locationFilter : t.home.nearbyPrefix.replace("{location}", locationFilter)}
             </p>
           </div>
-          <Link href="/busca" className="text-primary text-[13px] shrink-0 mt-1">Ver todos</Link>
+          <Link href="/busca" className="text-primary text-[13px] shrink-0 mt-1">{t.home.seeAll}</Link>
         </div>
 
         {/* Sem resultados locais */}
@@ -685,8 +698,8 @@ export default function HomePage() {
           <div className="mx-5 mb-3 px-4 py-3.5 rounded-2xl flex items-center gap-3" style={{ backgroundColor: "#FFF3E0", border: "1px solid #FFD180" }}>
             <span className="text-[22px]">📍</span>
             <div>
-              <p className="text-[13px] font-semibold" style={{ color: "#E65100" }}>Nada encontrado em {locationFilter}</p>
-              <p className="text-[11px] mt-0.5" style={{ color: "#BF360C" }}>Mostrando os restaurantes mais próximos dessa região</p>
+              <p className="text-[13px] font-semibold" style={{ color: "#E65100" }}>{t.home.noResultsTitle.replace("{location}", locationFilter)}</p>
+              <p className="text-[11px] mt-0.5" style={{ color: "#BF360C" }}>{t.home.noResultsSubtitle}</p>
             </div>
           </div>
         )}
@@ -703,7 +716,7 @@ export default function HomePage() {
           <>
             <div className="flex items-center gap-3 px-5 mt-4 mb-3">
               <div className="flex-1 h-px bg-border" />
-              <span className="text-[11px] font-semibold text-text-disabled whitespace-nowrap">Mais próximos</span>
+              <span className="text-[11px] font-semibold text-text-disabled whitespace-nowrap">{t.home.mostNearby}</span>
               <div className="flex-1 h-px bg-border" />
             </div>
             <div className="flex gap-3 overflow-x-auto pl-5 pb-2">
@@ -720,10 +733,10 @@ export default function HomePage() {
       <div className="mb-6" onClick={() => setShowDropdown(false)}>
         <div className="flex items-start justify-between px-5 mb-1">
           <div>
-            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>Melhores para celíacos</h2>
-            <p className="text-text-disabled text-[12px] mt-0.5">Avaliados pela comunidade</p>
+            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>{t.home.bestForCeliacs.title}</h2>
+            <p className="text-text-disabled text-[12px] mt-0.5">{t.home.bestForCeliacs.subtitle}</p>
           </div>
-          <Link href="/busca" className="text-primary text-[13px] shrink-0 mt-1">Ver todos</Link>
+          <Link href="/busca" className="text-primary text-[13px] shrink-0 mt-1">{t.home.seeAll}</Link>
         </div>
         <div className="flex gap-3 overflow-x-auto px-5 pb-2 mt-3">
           {(hasLocalResults ? localRestaurants : nearbyRestaurants).slice(0, 4).map(r => (
@@ -736,12 +749,12 @@ export default function HomePage() {
       <div className="mb-6" onClick={() => setShowDropdown(false)}>
         <div className="flex items-center justify-between px-5 mb-1">
           <div>
-            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>Pratos recomendados</h2>
+            <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>{t.home.recommendedDishes.title}</h2>
             <p className="text-text-disabled text-[12px] mt-0.5">
-              {localDishes.length > 0 ? locationFilter : `Próximos de ${locationFilter}`}
+              {localDishes.length > 0 ? locationFilter : t.home.recommendedDishes.nearbyPrefix.replace("{location}", locationFilter)}
             </p>
           </div>
-          <Link href="/busca" className="text-primary font-semibold text-[13px]">Ver todos</Link>
+          <Link href="/busca" className="text-primary font-semibold text-[13px]">{t.home.seeAll}</Link>
         </div>
         <div className="flex gap-3 overflow-x-auto px-5 pb-2 mt-3">
           {(localDishes.length > 0 ? localDishes : nearbyDishes).map(dish => (
@@ -752,7 +765,7 @@ export default function HomePage() {
           <>
             <div className="flex items-center gap-3 px-5 mt-4 mb-3">
               <div className="flex-1 h-px bg-border" />
-              <span className="text-[11px] font-semibold text-text-disabled whitespace-nowrap">Pratos próximos</span>
+              <span className="text-[11px] font-semibold text-text-disabled whitespace-nowrap">{t.home.nearbyDishesLabel}</span>
               <div className="flex-1 h-px bg-border" />
             </div>
             <div className="flex gap-3 overflow-x-auto px-5 pb-2">
@@ -771,8 +784,8 @@ export default function HomePage() {
             photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
             date: "15/03/2024",
             rating: 5,
-            comment: "Frequento há 4 anos. Nunca tive nenhuma reação. A equipe conhece celíaca de verdade, não é só marketing. Prato favorito: o tagliatelle de arroz.",
-            tags: ["Sem contaminação", "Equipe bem informada", "Me senti seguro"],
+            comment: t.home.topReviews.r1.comment,
+            tags: t.home.topReviews.r1.tags,
             verified: true,
             restaurantName: "Le Manjue Organique",
             restaurantId: "1",
@@ -787,8 +800,8 @@ export default function HomePage() {
             photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
             date: "12/03/2024",
             rating: 5,
-            comment: "O Pandan é incrível — comi um pão francês sem glúten que parecia de verdade. A equipe entende muito de celíaca e me fiz segura do início ao fim.",
-            tags: ["Me senti seguro", "Voltaria com certeza", "Cardápio claro"],
+            comment: t.home.topReviews.r3.comment,
+            tags: t.home.topReviews.r3.tags,
             verified: true,
             restaurantName: "Pandan · São Paulo",
             restaurantId: "pandan",
@@ -803,10 +816,10 @@ export default function HomePage() {
             photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face",
             date: "20/02/2024",
             rating: 5,
-            comment: "O Haus Hiltl é incrível — cada item do buffet tem etiqueta com alérgenos e a equipe fala sobre celíaca com naturalidade.",
-            tags: ["Sem contaminação", "Equipe bem informada", "Ambiente limpo"],
+            comment: t.home.topReviews.r6.comment,
+            tags: t.home.topReviews.r6.tags,
             verified: true,
-            restaurantName: "Haus Hiltl · Zurique",
+            restaurantName: language === "en" ? "Haus Hiltl · Zurich" : "Haus Hiltl · Zurique",
             restaurantId: "5",
             dishPhotos: [
               "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&h=120&fit=crop",
@@ -820,10 +833,10 @@ export default function HomePage() {
             {/* Cabeçalho da seção */}
             <div className="flex items-center justify-between px-5 mb-3">
               <div>
-                <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>Bem avaliados próximo de você</h2>
-                <p className="text-text-disabled text-[12px] mt-2">Avaliações de celíacos verificados</p>
+                <h2 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 18, color: "#1F3D34" }}>{t.home.topRated.title}</h2>
+                <p className="text-text-disabled text-[12px] mt-2">{t.home.topRated.subtitle}</p>
               </div>
-              <Link href="/comunidade" className="text-primary font-semibold text-[13px] shrink-0">Ver todos</Link>
+              <Link href="/comunidade" className="text-primary font-semibold text-[13px] shrink-0">{t.home.seeAll}</Link>
             </div>
 
             {/* Card único — slide */}
@@ -847,7 +860,7 @@ export default function HomePage() {
                   {review.verified && (
                     <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
                       <BadgeCheck size={14} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
-                      <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>Verificado</span>
+                      <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>{t.home.verified}</span>
                     </div>
                   )}
                 </div>
@@ -868,7 +881,7 @@ export default function HomePage() {
                 <div className="flex gap-2 mb-3">
                   {review.dishPhotos.map((photo, i) => (
                     <div key={i} className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
-                      <Image src={photo} alt="Prato avaliado" width={72} height={72} className="object-cover w-full h-full" unoptimized />
+                      <Image src={photo} alt={t.common.ratedDishPhoto} width={72} height={72} className="object-cover w-full h-full" unoptimized />
                     </div>
                   ))}
                 </div>
@@ -910,7 +923,7 @@ export default function HomePage() {
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
                     <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="#C6F59D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[12px] font-semibold" style={{ color: "#C6F59D" }}>Ver feedbacks</span>
+                  <span className="text-[12px] font-semibold" style={{ color: "#C6F59D" }}>{t.home.viewFeedbacks}</span>
                 </Link>
               </div>
             </div>
@@ -940,8 +953,8 @@ export default function HomePage() {
             {/* Header */}
             <div className="flex items-center justify-between mb-2 shrink-0">
               <div>
-                <h3 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 17, color: "#1F3D34" }}>Padrão de segurança</h3>
-                <p className="text-text-disabled text-[12px] mt-0.5">Filtra os restaurantes exibidos</p>
+                <h3 style={{ fontFamily: "var(--font-nunito), 'Nunito', sans-serif", fontWeight: 900, fontSize: 17, color: "#1F3D34" }}>{t.home.safetySheet.title}</h3>
+                <p className="text-text-disabled text-[12px] mt-0.5">{t.home.safetySheet.subtitle}</p>
               </div>
               <button
                 onClick={() => setShowSafetySheet(false)}
@@ -953,8 +966,9 @@ export default function HomePage() {
 
             {/* Options — scrollável */}
             <div className="overflow-y-auto mt-4 space-y-3" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 110px)" }}>
-              {SAFETY_OPTIONS.map(({ level, description }) => {
+              {SAFETY_OPTION_LEVELS.map((level) => {
                 const isSelected = safetyPreference === level;
+                const description = t.home.safetyOptionDescriptions[level];
                 return (
                   <button
                     key={level}

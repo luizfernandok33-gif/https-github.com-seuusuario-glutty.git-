@@ -2,19 +2,12 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Star, AlertTriangle, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw } from "lucide-react";
-import { mockRestaurants } from "@/lib/data";
-import { formatPrice } from "@/lib/utils";
+import { ArrowLeft, Heart, Star, ChefHat, Building2, ShieldCheck, MapPin, RefreshCw, Phone, Globe, Clock, Info, AlertTriangle } from "lucide-react";
+import { mockRestaurants, localizeRestaurant, RESTAURANT_LOGOS } from "@/lib/data";
 import Tag from "@/components/Tag";
 import SafetyBadge from "@/components/SafetyBadge";
-import { DishImagePlaceholder } from "@/components/DishPlaceholder";
 import { palette, getRestrictionColor, getIngredientColor } from "@/lib/tags";
-
-const contamRiskConfig = {
-  baixo:  { label: "Baixo",  color: "#2E7D32" },
-  medio:  { label: "Médio",  color: "#D97706" },
-  alto:   { label: "Alto",   color: "#C62828" },
-};
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export default function DishDetailPage({
   params,
@@ -22,67 +15,104 @@ export default function DishDetailPage({
   params: Promise<{ id: string; dishId: string }>;
 }) {
   const { id, dishId } = use(params);
-  const restaurant = mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0];
+  const { t, language } = useLanguage();
+  const restaurant = localizeRestaurant(mockRestaurants.find((r) => r.id === id) ?? mockRestaurants[0], language);
   const dish = restaurant.dishes.find((d) => d.id === dishId) ?? restaurant.dishes[0];
   const [isFav, setIsFav] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   if (!dish) {
     return (
       <div className="min-h-dvh bg-background flex items-center justify-center">
-        <p className="text-text-disabled">Prato não encontrado.</p>
+        <p className="text-text-disabled">{t.prato.notFound}</p>
       </div>
     );
   }
 
-  // Other dishes from same restaurant (excluding current)
-  const otherDishes = restaurant.dishes.filter((d) => d.id !== dish.id);
+  // Other dishes from same restaurant (excluding current, only with photo)
+  const otherDishes = restaurant.dishes.filter((d) => d.id !== dish.id && !!d.image);
 
   const hasAdaptations = dish.adaptations && dish.adaptations.length > 0;
   const safetyLevel = dish.safetyLevel ?? restaurant.safetyLevel;
-  const contamRisk = dish.crossContaminationRisk ?? "baixo";
 
   return (
-    <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 100px)" }}>
+    <div className="bg-background min-h-dvh">
 
-      {/* Hero */}
-      <div className="relative h-64">
-        {dish.image ? (
-          <Image src={dish.image} alt={dish.name} fill className="object-cover" unoptimized />
-        ) : (
-          <DishImagePlaceholder rounded={0} />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-
-        <div className="absolute left-5 right-5 flex items-center justify-between" style={{ top: "calc(env(safe-area-inset-top, 0px) + 28px)" }}>
-          <Link href={`/restaurante/${restaurant.id}`}
-            className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
-            <ArrowLeft size={18} className="text-text-primary" />
-          </Link>
+      {/* Header claro */}
+      <div
+        className="flex items-center justify-between gap-3 px-5"
+        style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 28px)", paddingBottom: 16, backgroundColor: "#FFFFFF" }}
+      >
+        <Link href={`/restaurante/${restaurant.id}`}
+          className="flex items-center gap-2.5 min-w-0 flex-1 active:opacity-70 transition-opacity">
+          <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#1F3D34" }}>
+            <ArrowLeft size={18} style={{ color: "#FFFFFF" }} />
+          </div>
+          <span className="text-primary font-bold text-sm truncate">{restaurant.name}</span>
+        </Link>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => navigator.share?.({ title: dish.name, url: window.location.href })}
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}>
+            <svg width={16} height={16} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#FFFFFF" d="M27.71,4.29a1,1,0,0,0-1.05-.23l-22,8a1,1,0,0,0,0,1.87l9.6,3.84,3.84,9.6A1,1,0,0,0,19,28h0a1,1,0,0,0,.92-.66l8-22A1,1,0,0,0,27.71,4.29ZM19,24.2l-2.79-7L21,12.41,19.59,11l-4.83,4.83L7.8,13,25.33,6.67Z"/>
+            </svg>
+          </button>
           <button onClick={() => setIsFav(!isFav)}
-            className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
-            <Heart size={18} fill={isFav ? "#FF8FA3" : "none"}
-              className={isFav ? "text-[#FF8FA3]" : "text-text-secondary"} />
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-transform"
+            style={{ backgroundColor: "#1F3D34" }}>
+            <Heart size={16} fill={isFav ? "#E53935" : "none"} style={{ color: isFav ? "#E53935" : "#FFFFFF" }} />
           </button>
         </div>
       </div>
 
-      <div className="px-5 py-5 space-y-6">
-
-        {/* Safety tag + name + description */}
-        <div>
-          <SafetyBadge level={safetyLevel} size="md" />
-          <h1 className="font-extrabold text-text-primary text-[22px] leading-tight mt-2 mb-2">{dish.name}</h1>
-          <p className="text-text-secondary text-sm leading-relaxed">{dish.description}</p>
+      {/* Hero */}
+      <div style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="relative h-64 overflow-hidden" style={{ backgroundColor: "#FFFFFF", borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
+          {dish.image && !imgError && (
+            <>
+              <Image
+                src={dish.image}
+                alt={dish.name}
+                fill
+                className="object-cover"
+                unoptimized
+                onError={() => setImgError(true)}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+            </>
+          )}
         </div>
+      </div>
 
-        {/* Price + rating */}
-        <div className="flex items-center justify-between">
-          <span className="text-3xl font-extrabold text-primary">{formatPrice(dish.price)}</span>
-          <div className="flex items-center gap-1.5 bg-surface rounded-full px-3 py-1.5 border border-border/50 shadow-sm">
-            <Star size={14} fill="#FFC24D" className="text-warning" />
-            <span className="font-bold text-text-primary text-sm">4.8</span>
-            <span className="text-text-disabled text-xs">(32)</span>
+      <div
+        className="bg-white px-5 pt-5 pb-5 space-y-6 relative z-10 -mt-8"
+        style={{ borderTopLeftRadius: 32, borderTopRightRadius: 32, boxShadow: "0 -4px 20px rgba(0,0,0,0.08)" }}
+      >
+
+        {/* Name + restaurant logo + safety tag + description */}
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Link href={`/restaurante/${restaurant.id}`}
+              className="w-8 h-8 rounded-lg overflow-hidden shrink-0 active:opacity-70 transition-opacity"
+              style={{ backgroundColor: "#1F3D34" }}>
+              {RESTAURANT_LOGOS[restaurant.name] ? (
+                <img src={RESTAURANT_LOGOS[restaurant.name]} alt={restaurant.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-xs font-black" style={{ color: "#C6F59D" }}>
+                    {restaurant.name.charAt(0)}
+                  </span>
+                </div>
+              )}
+            </Link>
+            <h1 className="font-extrabold text-text-primary text-[22px] leading-tight">{dish.name}</h1>
           </div>
+          <div className="mt-2">
+            <SafetyBadge level={safetyLevel} size="sm" />
+          </div>
+          <p className="text-text-secondary text-sm leading-relaxed mt-2">{dish.description}</p>
         </div>
 
         {/* Adaptation notice */}
@@ -91,9 +121,9 @@ export default function DishDetailPage({
             style={{ backgroundColor: "#FFF8F0", borderColor: "#FC6904" + "33" }}>
             <RefreshCw size={16} className="text-primary shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-primary text-sm">Adaptação aplicada</p>
+              <p className="font-bold text-primary text-sm">{t.prato.adaptationApplied}</p>
               <p className="text-text-secondary text-xs mt-0.5 leading-relaxed">
-                Este prato foi adaptado às suas restrições. Verifique os ingredientes substituídos abaixo.
+                {t.prato.adaptationDesc}
               </p>
             </div>
           </div>
@@ -101,96 +131,76 @@ export default function DishDetailPage({
 
         {/* Ingredients */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-          <h3 className="font-bold text-text-primary text-sm mb-3">Ingredientes</h3>
+          <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.ingredients}</h3>
 
-          {/* Legend */}
-          <div className="flex items-center gap-4 mb-3">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#2E7D32] shrink-0" />
-              <span className="text-[11px] text-text-secondary">Alinhado ao seu perfil de segurança</span>
-            </div>
-            {hasAdaptations && (
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#D97706] shrink-0" />
-                <span className="text-[11px] text-text-secondary">Substituído</span>
+          {dish.ingredients.length > 0 ? (
+            <>
+              {/* Legend */}
+              <div className="flex items-center gap-4 mb-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2E7D32] shrink-0" />
+                  <span className="text-[11px] text-text-secondary">{t.prato.legendSafe}</span>
+                </div>
+                {hasAdaptations && (
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#D97706] shrink-0" />
+                    <span className="text-[11px] text-text-secondary">{t.prato.legendSubstituted}</span>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Safe ingredients */}
-          <div className="flex flex-wrap gap-2">
-            {dish.ingredients.map((ing) => (
-              <Tag key={ing} label={ing} colorConfig={palette.verde} size="sm" />
-            ))}
-          </div>
+              {/* Safe ingredients */}
+              <div className="flex flex-wrap gap-2">
+                {dish.ingredients.map((ing) => (
+                  <Tag key={ing} label={ing} colorConfig={palette.verde} size="sm" />
+                ))}
+              </div>
 
-          {/* Adaptations: original (strikethrough) → replacement */}
-          {hasAdaptations && (
-            <div className="mt-3 space-y-2">
-              {dish.adaptations!.map((a) => (
-                <Tag
-                  key={a.original}
-                  label={a.original}
-                  colorConfig={getIngredientColor(a.original)}
-                  size="sm"
-                  strikethrough
-                  arrow={a.replacement}
-                />
-              ))}
+              {/* Adaptations: original (strikethrough) → replacement */}
+              {hasAdaptations && (
+                <div className="mt-3 space-y-2">
+                  {dish.adaptations!.map((a) => (
+                    <Tag
+                      key={a.original}
+                      label={a.original}
+                      colorConfig={getIngredientColor(a.original)}
+                      size="sm"
+                      strikethrough
+                      arrow={a.replacement}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="flex items-start gap-2.5 rounded-xl px-3 py-3" style={{ backgroundColor: "#FFF8F0" }}>
+              <AlertTriangle size={15} className="shrink-0 mt-0.5" style={{ color: "#D97706" }} />
+              <p className="text-text-secondary text-xs leading-relaxed">{t.prato.ingredientsUnavailable}</p>
             </div>
           )}
 
-          <div className="mt-3 flex items-start gap-2">
-            <AlertTriangle size={13} className="text-warning shrink-0 mt-0.5" />
-            <p className="text-text-disabled text-[11px] leading-relaxed">
-              Pode haver risco de contaminação cruzada. Confirme com o restaurante antes de consumir.
-            </p>
+          {/* Source disclaimer */}
+          <div className="flex items-start gap-2 mt-3 pt-3 border-t border-border/50">
+            <Info size={13} className="text-text-disabled shrink-0 mt-0.5" />
+            <p className="text-text-disabled text-[11px] leading-relaxed">{t.prato.ingredientsSourceNote}</p>
           </div>
         </div>
 
-        {/* Dish info */}
+        {/* Cross-contamination preparation practices */}
         <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-          <h3 className="font-bold text-text-primary text-sm mb-3">Informações do prato</h3>
-          <div className="space-y-2.5">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Building2 size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">Restaurante</span>
-              </div>
-              <span className="text-text-primary text-xs font-semibold">{restaurant.name}</span>
-            </div>
-            {restaurant.chef && (
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <ChefHat size={13} className="text-text-disabled shrink-0" />
-                  <span className="text-text-disabled text-xs">Chef</span>
-                </div>
-                <span className="text-text-primary text-xs font-semibold">{restaurant.chef}</span>
-              </div>
-            )}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">Nível de segurança</span>
-              </div>
-              <SafetyBadge level={safetyLevel} size="sm" />
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <AlertTriangle size={13} className="text-text-disabled shrink-0" />
-                <span className="text-text-disabled text-xs">Risco contaminação cruzada</span>
-              </div>
-              <span className="text-xs font-bold" style={{ color: contamRiskConfig[contamRisk].color }}>
-                {contamRiskConfig[contamRisk].label}
-              </span>
-            </div>
+          <div className="flex items-center gap-2 mb-2">
+            <ShieldCheck size={15} style={{ color: "#2E7D32" }} className="shrink-0" />
+            <h3 className="font-bold text-text-primary text-sm">{t.prato.crossContamPrepTitle}</h3>
           </div>
+          <p className="text-text-secondary text-xs leading-relaxed">
+            {dish.crossContaminationPrep ?? t.prato.crossContamPrepFallback}
+          </p>
         </div>
 
         {/* Restriction tags */}
         {dish.restrictions && dish.restrictions.length > 0 && (
           <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
-            <h3 className="font-bold text-text-primary text-sm mb-3">Restrições atendidas</h3>
+            <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.restrictionsMet}</h3>
             <div className="flex flex-wrap gap-2">
               {dish.restrictions.map((r) => (
                 <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="md" />
@@ -199,62 +209,111 @@ export default function DishDetailPage({
           </div>
         )}
 
-        {/* Other dishes you might like */}
+        {/* Dish info */}
+        <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
+          <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.dishInfo}</h3>
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Building2 size={13} className="text-text-disabled shrink-0" />
+                <span className="text-text-disabled text-xs">{t.prato.restaurantLabel}</span>
+              </div>
+              <span className="text-text-primary text-xs font-semibold">{restaurant.name}</span>
+            </div>
+            {restaurant.chef && (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <ChefHat size={13} className="text-text-disabled shrink-0" />
+                  <span className="text-text-disabled text-xs">{t.prato.chefLabel}</span>
+                </div>
+                <span className="text-text-primary text-xs font-semibold">{restaurant.chef}</span>
+              </div>
+            )}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={13} className="text-text-disabled shrink-0" />
+                <span className="text-text-disabled text-xs">{t.prato.safetyLevelLabel}</span>
+              </div>
+              <SafetyBadge level={safetyLevel} size="sm" />
+            </div>
+          </div>
+        </div>
+
+        {/* Other dishes you might like — carrossel horizontal */}
         {otherDishes.length > 0 && (
           <div>
-            <h3 className="font-extrabold text-text-primary text-[15px] mb-3">Outros pratos que você pode gostar</h3>
-            <div className="space-y-3">
+            <h3 className="font-extrabold text-text-primary text-[15px] mb-3">{t.prato.otherDishes}</h3>
+            <div className="flex gap-3 overflow-x-auto -mx-5 px-5 pb-1 scrollbar-none" style={{ scrollSnapType: "x mandatory" }}>
               {otherDishes.map((d) => (
                 <Link key={d.id} href={`/restaurante/${restaurant.id}/prato/${d.id}`}
-                  className="flex items-start gap-3 bg-surface rounded-2xl p-3 border border-border/50 shadow-sm active:scale-[0.98] transition-transform">
-                  <div className="relative w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0">
-                    {d.image ? (
-                      <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
-                    ) : (
-                      <DishImagePlaceholder rounded={12} />
-                    )}
+                  className="flex-none w-[170px] bg-surface rounded-2xl p-3 border border-border/50 shadow-sm active:scale-[0.98] transition-transform"
+                  style={{ scrollSnapAlign: "start" }}>
+                  <div className="relative w-full h-24 rounded-xl overflow-hidden mb-2">
+                    <Image src={d.image} alt={d.name} fill className="object-cover" unoptimized />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    {/* 1. Nome + rating */}
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <p className="font-extrabold text-text-primary text-sm leading-tight flex-1">{d.name}</p>
-                      <div className="flex items-center gap-0.5 shrink-0">
-                        <Star size={11} fill="#FFC24D" className="text-warning" />
-                        <span className="text-text-secondary text-xs font-bold">4.8</span>
-                      </div>
-                    </div>
-                    {/* 2. Distância + endereço */}
-                    <div className="flex items-center gap-1">
-                      <MapPin size={10} className="text-primary shrink-0" />
-                      <span className="text-primary text-[11px] font-bold">{restaurant.distance}</span>
-                      <span className="text-text-disabled text-[11px]">· {restaurant.address}</span>
-                    </div>
-                    {/* Divisor */}
-                    <div className="h-px bg-border/30 my-2" />
-                    {/* 3. Tags */}
-                    {d.restrictions && d.restrictions.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {d.restrictions.map((r) => (
-                          <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="sm" />
-                        ))}
-                      </div>
-                    )}
-                    {/* 4. Ação */}
-                    <div className="flex justify-end">
-                      <p className="text-primary text-xs font-bold">Ver prato →</p>
-                    </div>
+                  <p className="font-extrabold text-text-primary text-sm leading-tight line-clamp-2 mb-1">{d.name}</p>
+                  <div className="flex items-center gap-0.5 mb-2">
+                    <Star size={11} fill="#FFC24D" className="text-warning" />
+                    <span className="text-text-secondary text-xs font-bold">4.8</span>
                   </div>
+                  {d.restrictions && d.restrictions.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {d.restrictions.slice(0, 2).map((r) => (
+                        <Tag key={r} label={r} colorConfig={getRestrictionColor(r)} size="sm" />
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-primary text-xs font-bold">{t.prato.viewDish}</p>
                 </Link>
               ))}
             </div>
           </div>
         )}
 
+        {/* Restaurant contact */}
+        <div className="bg-surface rounded-2xl p-4 shadow-sm border border-border/50">
+          <h3 className="font-bold text-text-primary text-sm mb-3">{t.prato.contactTitle}</h3>
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 shrink-0">
+                <Phone size={13} className="text-text-disabled shrink-0" />
+                <span className="text-text-disabled text-xs">{t.prato.phoneLabel}</span>
+              </div>
+              <span className="text-text-primary text-xs font-semibold text-right">{restaurant.phone}</span>
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 shrink-0">
+                <MapPin size={13} className="text-text-disabled shrink-0" />
+                <span className="text-text-disabled text-xs">{t.prato.addressLabel}</span>
+              </div>
+              <span className="text-text-primary text-xs font-semibold text-right">{restaurant.address}</span>
+            </div>
+            {restaurant.website && (
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 shrink-0">
+                  <Globe size={13} className="text-text-disabled shrink-0" />
+                  <span className="text-text-disabled text-xs">{t.prato.websiteLabel}</span>
+                </div>
+                <span className="text-text-primary text-xs font-semibold text-right">{restaurant.website}</span>
+              </div>
+            )}
+            {restaurant.openingHours && (
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 shrink-0">
+                  <Clock size={13} className="text-text-disabled shrink-0" />
+                  <span className="text-text-disabled text-xs">{t.prato.hoursLabel}</span>
+                </div>
+                <span className="text-text-primary text-xs font-semibold text-right">{restaurant.openingHours}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* CTA */}
         <Link href={`/restaurante/${restaurant.id}`}
           className="flex items-center justify-center gap-2 w-full font-bold py-4 rounded-full text-base shadow-md active:scale-95 transition-transform"
           style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}>
-          Ver restaurante completo
+          {t.prato.viewRestaurant}
         </Link>
       </div>
     </div>

@@ -1,0 +1,43 @@
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Hero from "@/components/sections/Hero";
+import Statement from "@/components/sections/Statement";
+import PorQueParticipar from "@/components/sections/PorQueParticipar";
+import Numeros from "@/components/sections/Numeros";
+import NossosServicos from "@/components/sections/NossosServicos";
+import Certificacao from "@/components/sections/Certificacao";
+import FacaParte from "@/components/sections/FacaParte";
+import Depoimento from "@/components/sections/Depoimento";
+import Beneficios from "@/components/sections/Beneficios";
+import ComoFunciona from "@/components/sections/ComoFunciona";
+import Pacotes from "@/components/sections/Pacotes";
+import FAQ from "@/components/sections/FAQ";
+import CTAFinal from "@/components/sections/CTAFinal";
+
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <PorQueParticipar />
+        <Numeros />
+        <NossosServicos />
+        <Certificacao />
+        <FacaParte />
+        <Depoimento />
+        <Beneficios />
+        <ComoFunciona />
+        <Pacotes />
+        <FAQ />
+        <Statement
+          bgClassName="bg-(--color-primary)"
+          textClassName="text-(--color-cream)"
+          plusClassName="text-(--color-primary-tint)"
+        />
+        <CTAFinal />
+      </main>
+      <Footer />
+    </>
+  );
+}

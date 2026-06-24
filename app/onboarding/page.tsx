@@ -321,7 +321,7 @@ export default function OnboardingPage() {
                       paddingBottom: tagSizes.md.py,
                     }}
                   >
-                    {cfg.tag}
+                    {t.onboarding.allergenLabels[key] ?? cfg.tag}
                     <X size={11} strokeWidth={3} />
                   </button>
                 );
@@ -369,7 +369,7 @@ export default function OnboardingPage() {
                   paddingBottom: tagSizes.lg.py,
                 }}
               >
-                {cfg.tag}
+                {t.onboarding.allergenLabels[key] ?? cfg.tag}
               </button>
             );
           })}
@@ -482,7 +482,7 @@ export default function OnboardingPage() {
                     paddingBottom: tagSizes.md.py,
                   }}
                 >
-                  {item}
+                  {t.onboarding.problemSuggestions[item] ?? item}
                   <X size={11} strokeWidth={3} />
                 </button>
               ))}
@@ -511,7 +511,7 @@ export default function OnboardingPage() {
                   paddingBottom: tagSizes.lg.py,
                 }}
               >
-                {item}
+                {t.onboarding.problemSuggestions[item] ?? item}
               </button>
             );
           })}

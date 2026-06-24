@@ -6,6 +6,7 @@ import {
   MessageSquare, ExternalLink, Star,
 } from "lucide-react";
 import BackButton from "@/components/BackButton";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 /* ── Toggle component ── */
 function Toggle({ active, onToggle }: { active: boolean; onToggle: () => void }) {
@@ -36,8 +37,12 @@ function Toggle({ active, onToggle }: { active: boolean; onToggle: () => void })
   );
 }
 
+const LANG_CODE_TO_DISPLAY: Record<string, string> = { pt: "Português", en: "English" };
+const LANG_DISPLAY_TO_CODE: Record<string, string> = { "Português": "pt", "English": "en" };
+
 export default function ConfiguracoesPage() {
-  const [language,        setLanguage]        = useState("Português");
+  const { t, language: currentLang, setLanguage: setGlobalLanguage } = useLanguage();
+  const language = LANG_CODE_TO_DISPLAY[currentLang] ?? "Português";
   const [notifSafety,     setNotifSafety]     = useState(true);
   const [notifNew,        setNotifNew]        = useState(true);
   const [notifReviews,    setNotifReviews]    = useState(false);
@@ -61,8 +66,8 @@ export default function ConfiguracoesPage() {
         <div className="flex items-start gap-3">
           <BackButton />
           <div>
-            <h1 className="font-black text-primary text-base font-display leading-tight">Configurações</h1>
-            <p className="text-[12px] text-text-disabled mt-0.5">Personaliza o seu aplicativo</p>
+            <h1 className="font-black text-primary text-base font-display leading-tight">{t.configuracoes.title}</h1>
+            <p className="text-[12px] text-text-disabled mt-0.5">{t.configuracoes.subtitle}</p>
           </div>
         </div>
       </div>
@@ -70,15 +75,15 @@ export default function ConfiguracoesPage() {
       <div className="px-5 pt-4 space-y-4">
 
         {/* ── Idioma ── */}
-        <Section title="Idioma" icon={Globe} iconColor="#1565C0" iconBg="#E3F2FD">
+        <Section title={t.configuracoes.sections.language} icon={Globe} iconColor="#1565C0" iconBg="#E3F2FD">
           <div>
             <button
               onClick={() => setShowLangPicker(!showLangPicker)}
               className="w-full flex items-center justify-between py-3 active:scale-[0.98] transition-transform"
             >
-              <span className="text-text-primary text-[14px] font-semibold">Idioma do app</span>
+              <span className="text-text-primary text-[14px] font-semibold">{t.configuracoes.appLanguage}</span>
               <div className="flex items-center gap-1.5">
-                <span className="text-text-disabled text-[13px]">{language}</span>
+                <span className="text-text-disabled text-[13px]">{t.configuracoes.currentLanguageName}</span>
                 <ChevronRight
                   size={14}
                   className="text-text-disabled transition-transform"
@@ -92,7 +97,7 @@ export default function ConfiguracoesPage() {
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang}
-                    onClick={() => { setLanguage(lang); setShowLangPicker(false); }}
+                    onClick={() => { const code = LANG_DISPLAY_TO_CODE[lang]; if (code) setGlobalLanguage(code as "pt" | "en"); setShowLangPicker(false); }}
                     className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl active:bg-background transition-colors"
                   >
                     <span className="text-text-primary text-[13px] font-medium">{lang}</span>
@@ -107,83 +112,83 @@ export default function ConfiguracoesPage() {
         </Section>
 
         {/* ── Notificações ── */}
-        <Section title="Notificações" icon={Bell} iconColor="#FC6904" iconBg="#FFF0E6">
+        <Section title={t.configuracoes.sections.notifications} icon={Bell} iconColor="#FC6904" iconBg="#FFF0E6">
           <ToggleRow
-            label="Alertas de segurança"
-            description="Avisos sobre contaminação cruzada e atualizações de restaurantes"
+            label={t.configuracoes.notificationRows.safety.label}
+            description={t.configuracoes.notificationRows.safety.description}
             active={notifSafety}
             onToggle={() => setNotifSafety(!notifSafety)}
           />
           <div className="border-t border-border" />
           <ToggleRow
-            label="Novos restaurantes"
-            description="Quando um restaurante seguro é adicionado perto de você"
+            label={t.configuracoes.notificationRows.new.label}
+            description={t.configuracoes.notificationRows.new.description}
             active={notifNew}
             onToggle={() => setNotifNew(!notifNew)}
           />
           <div className="border-t border-border" />
           <ToggleRow
-            label="Respostas às avaliações"
-            description="Quando alguém responde ou curte sua avaliação"
+            label={t.configuracoes.notificationRows.reviews.label}
+            description={t.configuracoes.notificationRows.reviews.description}
             active={notifReviews}
             onToggle={() => setNotifReviews(!notifReviews)}
           />
           <div className="border-t border-border" />
           <ToggleRow
-            label="Novidades e promoções"
-            description="Dicas, novidades e conteúdos da comunidade Glútty"
+            label={t.configuracoes.notificationRows.promo.label}
+            description={t.configuracoes.notificationRows.promo.description}
             active={notifPromo}
             onToggle={() => setNotifPromo(!notifPromo)}
           />
         </Section>
 
         {/* ── Aparência ── */}
-        <Section title="Aparência" icon={Moon} iconColor="#6A1B9A" iconBg="#F3E5F5">
+        <Section title={t.configuracoes.sections.appearance} icon={Moon} iconColor="#6A1B9A" iconBg="#F3E5F5">
           <ToggleRow
-            label="Modo escuro"
-            description="Usar tema escuro no aplicativo"
+            label={t.configuracoes.appearanceRows.darkMode.label}
+            description={t.configuracoes.appearanceRows.darkMode.description}
             active={darkMode}
             onToggle={() => setDarkMode(!darkMode)}
           />
           <div className="border-t border-border" />
           <ToggleRow
-            label="Vibração"
-            description="Feedback tátil ao interagir com o app"
+            label={t.configuracoes.appearanceRows.vibration.label}
+            description={t.configuracoes.appearanceRows.vibration.description}
             active={vibration}
             onToggle={() => setVibration(!vibration)}
           />
         </Section>
 
         {/* ── Segurança ── */}
-        <Section title="Segurança e privacidade" icon={ShieldCheck} iconColor="#2E7D32" iconBg="#E8F5E9">
-          <LinkRow label="Padrão de segurança" detail="Muito seguro" />
+        <Section title={t.configuracoes.sections.security} icon={ShieldCheck} iconColor="#2E7D32" iconBg="#E8F5E9">
+          <LinkRow label={t.configuracoes.security.pattern} detail={t.configuracoes.security.patternValue} />
           <div className="border-t border-border" />
-          <LinkRow label="Dados e privacidade" />
+          <LinkRow label={t.configuracoes.security.dataPrivacy} />
           <div className="border-t border-border" />
-          <LinkRow label="Excluir conta" danger />
+          <LinkRow label={t.configuracoes.security.deleteAccount} danger />
         </Section>
 
         {/* ── Ajuda ── */}
-        <Section title="Ajuda e suporte" icon={HelpCircle} iconColor="#1565C0" iconBg="#E3F2FD">
-          <LinkRow label="Central de ajuda" external />
+        <Section title={t.configuracoes.sections.help} icon={HelpCircle} iconColor="#1565C0" iconBg="#E3F2FD">
+          <LinkRow label={t.configuracoes.help.helpCenter} external />
           <div className="border-t border-border" />
-          <LinkRow label="Fale conosco" external />
+          <LinkRow label={t.configuracoes.help.contactUs} external />
           <div className="border-t border-border" />
-          <LinkRow label="Reportar um problema" icon={MessageSquare} />
+          <LinkRow label={t.configuracoes.help.reportProblem} icon={MessageSquare} />
         </Section>
 
         {/* ── Sobre ── */}
-        <Section title="Sobre o Glútty" icon={Info} iconColor="#7C3AED" iconBg="#EDE9FE">
-          <LinkRow label="Versão do app" detail="1.0.0" />
+        <Section title={t.configuracoes.sections.about} icon={Info} iconColor="#7C3AED" iconBg="#EDE9FE">
+          <LinkRow label={t.configuracoes.about.version} detail="1.0.0" />
           <div className="border-t border-border" />
-          <LinkRow label="Termos de uso" external />
+          <LinkRow label={t.configuracoes.about.terms} external />
           <div className="border-t border-border" />
-          <LinkRow label="Política de privacidade" external />
+          <LinkRow label={t.configuracoes.about.privacyPolicy} external />
           <div className="border-t border-border" />
           <button
             className="w-full flex items-center justify-between py-3 active:scale-[0.98] transition-transform"
           >
-            <span className="text-text-primary text-[14px] font-semibold">Avaliar o Glútty</span>
+            <span className="text-text-primary text-[14px] font-semibold">{t.configuracoes.about.rateApp}</span>
             <div className="flex items-center gap-1">
               {[1,2,3,4,5].map((i) => (
                 <Star key={i} size={13} fill="#F59E0B" className="text-warning" />

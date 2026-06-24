@@ -4,8 +4,9 @@ import { Search, Star, MapPin, MessageCircle, ThumbsUp, Shield, ChevronRight, X,
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
-const reviews = [
+const reviewsBase = [
   {
     id: "1",
     author: "Ana Paula",
@@ -13,11 +14,9 @@ const reviews = [
     restaurantName: "Le Manjue Organique",
     restaurantId: "1",
     rating: 5,
-    comment: "Melhor restaurante para celíacos de SP! Me sinto completamente segura aqui. O atendimento é impecável e a comida é deliciosa.",
     date: "10/03/2024",
     likes: 24,
     verified: true,
-    tags: ["Sem contaminação", "Equipe bem informada", "Me senti seguro"],
     dishPhotos: [
       "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=120&h=120&fit=crop",
       "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=120&h=120&fit=crop",
@@ -28,13 +27,12 @@ const reviews = [
     author: "Carlos M.",
     photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
     restaurantName: "Hiltl · Zurique",
+    restaurantNameEn: "Hiltl · Zurich",
     restaurantId: "5",
     rating: 5,
-    comment: "Fui com minha filha celíaca e foi uma experiência incrível. Pela primeira vez ela pode comer de tudo no cardápio sem preocupação!",
     date: "08/03/2024",
     likes: 18,
     verified: true,
-    tags: ["Voltaria com certeza", "Cardápio claro", "Equipe bem informada"],
     dishPhotos: [
       "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&h=120&fit=crop",
       "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=120&h=120&fit=crop",
@@ -47,11 +45,9 @@ const reviews = [
     restaurantName: "Quinoa Restaurante",
     restaurantId: "3",
     rating: 5,
-    comment: "Ambiente lindo e comida deliciosa. Eles realmente entendem sobre celíaca! Voltarei com certeza.",
     date: "05/03/2024",
     likes: 31,
     verified: true,
-    tags: ["Ambiente limpo", "Me senti seguro", "Sem contaminação"],
     dishPhotos: [
       "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=120&h=120&fit=crop",
       "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&h=120&fit=crop",
@@ -64,11 +60,9 @@ const reviews = [
     restaurantName: "Empório Zitti",
     restaurantId: "4",
     rating: 4,
-    comment: "Boa experiência. O nhoque sem glúten é delicioso e o atendente foi atencioso ao explicar os processos.",
     date: "01/03/2024",
     likes: 9,
     verified: true,
-    tags: ["Cardápio claro", "Precisa melhorar"],
     dishPhotos: [
       "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=120&h=120&fit=crop",
     ],
@@ -77,6 +71,15 @@ const reviews = [
 
 export default function ComunidadePage() {
   const router = useRouter();
+  const { t, language } = useLanguage();
+  const reviews = reviewsBase.map(r => ({
+    ...r,
+    restaurantName: (language === "en" && "restaurantNameEn" in r && r.restaurantNameEn)
+      ? r.restaurantNameEn
+      : r.restaurantName,
+    comment: t.comunidade.reviews[r.id]?.comment ?? "",
+    tags: t.comunidade.reviews[r.id]?.tags ?? [],
+  }));
   const [searchValue,   setSearchValue]   = useState("");
   const [likedReviews,  setLikedReviews]  = useState<string[]>([]);
   const [lightbox,      setLightbox]      = useState<string | null>(null);
@@ -113,8 +116,8 @@ export default function ComunidadePage() {
             <ChevronRight size={18} className="rotate-180" style={{ color: "white" }} />
           </button>
           <div>
-            <h1 className="text-[22px] font-black text-primary font-display leading-tight">Comunidade</h1>
-            <p className="text-[12px] text-text-disabled mt-0.5">Experiências reais de celíacos</p>
+            <h1 className="text-[22px] font-black text-primary font-display leading-tight">{t.comunidade.title}</h1>
+            <p className="text-[12px] text-text-disabled mt-0.5">{t.comunidade.subtitle}</p>
           </div>
         </div>
 
@@ -127,7 +130,7 @@ export default function ComunidadePage() {
           <input
             value={searchValue}
             onChange={e => setSearchValue(e.target.value)}
-            placeholder="Buscar por restaurante ou usuário..."
+            placeholder={t.comunidade.searchPlaceholder}
             className="flex-1 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-medium"
           />
         </div>
@@ -135,9 +138,9 @@ export default function ComunidadePage() {
         {/* Stats */}
         <div className="flex gap-3 mb-4">
           {[
-            { value: "142", label: "Avaliações",   icon: Star,  color: "#7C3AED", bg: "#EDE9FE" },
-            { value: "38",  label: "Restaurantes", icon: Store, color: "#1F3D34", bg: "#C6F59D" },
-            { value: "521", label: "Celíacos",     icon: Users, color: "#0E7490", bg: "#CFFAFE" },
+            { value: "142", label: t.comunidade.stats.reviews,     icon: Star,  color: "#7C3AED", bg: "#EDE9FE" },
+            { value: "38",  label: t.comunidade.stats.restaurants, icon: Store, color: "#1F3D34", bg: "#C6F59D" },
+            { value: "521", label: t.comunidade.stats.celiacs,     icon: Users, color: "#0E7490", bg: "#CFFAFE" },
           ].map(stat => (
             <div key={stat.label} className="flex-1 rounded-2xl p-3 text-center" style={{ backgroundColor: stat.bg }}>
               <div
@@ -156,15 +159,15 @@ export default function ComunidadePage() {
         <div className="rounded-2xl px-4 py-3 flex items-center gap-3 mb-1" style={{ backgroundColor: "#1F3D34" }}>
           <BadgeCheck size={16} strokeWidth={2.2} style={{ color: "#C6F59D" }} className="shrink-0" />
           <div>
-            <p className="font-bold text-[12px]" style={{ color: "#C6F59D" }}>Avaliações verificadas</p>
+            <p className="font-bold text-[12px]" style={{ color: "#C6F59D" }}>{t.comunidade.verifiedBanner.title}</p>
             <p className="text-[11px]" style={{ color: "#C6F59D", opacity: 0.75 }}>
-              Feedbacks reais — o restaurante não pode alterar avaliações.
+              {t.comunidade.verifiedBanner.subtitle}
             </p>
           </div>
         </div>
 
         {/* Título da lista */}
-        <p className="font-extrabold text-text-primary text-[15px] mt-4">Avaliações recentes</p>
+        <p className="font-extrabold text-text-primary text-[15px] mt-4">{t.comunidade.recentReviews}</p>
       </div>
 
       {/* ── Reviews ── */}
@@ -196,7 +199,7 @@ export default function ComunidadePage() {
               {review.verified && (
                 <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: "#1F3D34" }}>
                   <BadgeCheck size={14} strokeWidth={2.2} style={{ color: "#C6F59D" }} />
-                  <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>Verificado</span>
+                  <span className="text-[11px] font-bold" style={{ color: "#C6F59D" }}>{t.home.verified}</span>
                 </div>
               )}
             </div>
@@ -222,7 +225,7 @@ export default function ComunidadePage() {
                   className="w-[72px] h-[72px] rounded-xl overflow-hidden shrink-0 active:scale-95 transition-transform"
                   style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
                 >
-                  <Image src={photo} alt="Prato avaliado" width={72} height={72} className="object-cover w-full h-full" unoptimized />
+                  <Image src={photo} alt={t.common.ratedDishPhoto} width={72} height={72} className="object-cover w-full h-full" unoptimized />
                 </button>
               ))}
             </div>
@@ -248,11 +251,11 @@ export default function ComunidadePage() {
                 style={{ color: likedReviews.includes(review.id) ? "#1F3D34" : "var(--color-text-disabled)" }}
               >
                 <ThumbsUp size={13} fill={likedReviews.includes(review.id) ? "currentColor" : "none"} />
-                {review.likes + (likedReviews.includes(review.id) ? 1 : 0)} útil
+                {review.likes + (likedReviews.includes(review.id) ? 1 : 0)} {t.comunidade.helpful}
               </button>
               <button className="flex items-center gap-1.5 text-[12px] font-semibold active:scale-90 transition-transform text-text-disabled">
                 <MessageCircle size={13} />
-                Comentar
+                {t.comunidade.comment}
               </button>
             </div>
           </div>
@@ -283,7 +286,7 @@ export default function ComunidadePage() {
           >
             <Image
               src={lightbox}
-              alt="Foto do prato"
+              alt={t.common.dishPhoto}
               fill
               className="object-cover"
               unoptimized

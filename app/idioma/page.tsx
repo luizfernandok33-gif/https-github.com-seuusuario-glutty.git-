@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import type { Language } from "@/lib/i18n/translations";
 
-const languages: { code: Language | "de"; name: string; region: string; flag: string; phrase: string }[] = [
+const languages: { code: Language; name: string; region: string; flag: string; phrase: string }[] = [
   {
     code: "pt",
     name: "Português",
@@ -33,12 +33,10 @@ const languages: { code: Language | "de"; name: string; region: string; flag: st
 export default function IdiomaPage() {
   const router = useRouter();
   const { language, setLanguage, t } = useLanguage();
-  const [selected, setSelected] = useState<string>(language);
+  const [selected, setSelected] = useState<Language>(language);
 
   const handleContinue = () => {
-    if (selected === "pt" || selected === "en") {
-      setLanguage(selected);
-    }
+    setLanguage(selected);
     router.replace("/welcome");
   };
 

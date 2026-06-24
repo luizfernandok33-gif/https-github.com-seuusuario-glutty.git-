@@ -1,4 +1,6 @@
+"use client";
 import { type SafetyLevel } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 function IconAdaptavel({ size }: { size: number }) {
   return (
@@ -43,58 +45,16 @@ function IconPerigo({ size }: { size: number }) {
 
 const config: Record<
   SafetyLevel,
-  { label: string; labelSm?: string; bg: string; text: string; Icon: React.ElementType }
+  { bg: string; text: string; Icon: React.ElementType }
 > = {
-  muito_seguro: {
-    label: "Muito seguro",
-    bg: "#1F5D3B",
-    text: "#C6F59D",
-    Icon: IconEscudo,
-  },
-  seguro: {
-    label: "Seguro",
-    bg: "#4CAF50",
-    text: "#FFFFFF",
-    Icon: IconCheck,
-  },
-  certificado: {
-    label: "Bem avaliado por celíacos",
-    labelSm: "Bem avaliado",
-    bg: "#3B82F6",
-    text: "#FFFFFF",
-    Icon: IconEstrela,
-  },
-  moderado: {
-    label: "Adaptável",
-    bg: "#F59E0B",
-    text: "#FFFFFF",
-    Icon: IconAdaptavel,
-  },
-  cuidado: {
-    label: "Cuidado",
-    bg: "#C0392B",
-    text: "#FFFFFF",
-    Icon: IconPerigo,
-  },
-  verificado: {
-    label: "Seguro",
-    bg: "#4CAF50",
-    text: "#FFFFFF",
-    Icon: IconCheck,
-  },
-  novo: {
-    label: "Bem avaliado por celíacos",
-    labelSm: "Bem avaliado",
-    bg: "#3B82F6",
-    text: "#FFFFFF",
-    Icon: IconEstrela,
-  },
-  recomendado: {
-    label: "Muito seguro",
-    bg: "#1F5D3B",
-    text: "#C6F59D",
-    Icon: IconEscudo,
-  },
+  muito_seguro: { bg: "#1F5D3B", text: "#C6F59D", Icon: IconEscudo },
+  seguro: { bg: "#4CAF50", text: "#FFFFFF", Icon: IconCheck },
+  certificado: { bg: "#3B82F6", text: "#FFFFFF", Icon: IconEstrela },
+  moderado: { bg: "#F59E0B", text: "#FFFFFF", Icon: IconAdaptavel },
+  cuidado: { bg: "#C0392B", text: "#FFFFFF", Icon: IconPerigo },
+  verificado: { bg: "#4CAF50", text: "#FFFFFF", Icon: IconCheck },
+  novo: { bg: "#3B82F6", text: "#FFFFFF", Icon: IconEstrela },
+  recomendado: { bg: "#1F5D3B", text: "#C6F59D", Icon: IconEscudo },
 };
 
 const sizes = {
@@ -109,7 +69,9 @@ interface SafetyBadgeProps {
 }
 
 export default function SafetyBadge({ level, size = "md" }: SafetyBadgeProps) {
-  const { label, labelSm, bg, text, Icon } = config[level];
+  const { t } = useLanguage();
+  const { bg, text, Icon } = config[level];
+  const { label, labelSm } = t.safetyBadge[level];
   const { px, py, gap, fontSize, iconSize } = sizes[size];
   const displayLabel = size === "sm" && labelSm ? labelSm : label;
 

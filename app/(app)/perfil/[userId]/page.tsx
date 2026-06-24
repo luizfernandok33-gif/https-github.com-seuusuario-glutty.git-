@@ -5,60 +5,73 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, MapPin, Star, Shield, MessageCircle, Calendar } from "lucide-react";
 import { getIngredientColor, palette } from "@/lib/tags";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 /* ─── Dados ─── */
-const USER = {
+const USER_BASE = {
   name: "Michelle Sagas",
   photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face",
-  location: "Zurique, Suíça",
   memberSince: "Jan 2023",
   reviewCount: 14,
-  bio: "Sou celíaca há 10 anos, moro em Zurique e evito lugares onde pode ocorrer contaminação cruzada.",
-  restrictions: [
-    { label: "Celíaca",     bg: "#E0F7FA", color: "#00838F" },
-    { label: "Sem Glúten",  bg: "#D4EDD4", color: "#1F3D34" },
-    { label: "Sem Lactose", bg: "#E3F2FD", color: "#1565C0" },
-    { label: "Sem Nozes",   bg: "#FDECEA", color: "#C0392B" },
-  ],
-  prohibited: ["Trigo", "Cevada", "Malte", "Leite", "Aveia", "Centeio"],
+  prohibitedKeys: ["trigo", "cevada", "malte", "leite", "aveia", "centeio"] as const,
 };
 
-const REVIEWS = [
+const RESTRICTION_STYLES = [
+  { key: "celiac",     bg: "#E0F7FA", color: "#00838F" },
+  { key: "glutenFree", bg: "#D4EDD4", color: "#1F3D34" },
+  { key: "lactoseFree",bg: "#E3F2FD", color: "#1565C0" },
+  { key: "nutFree",    bg: "#FDECEA", color: "#C0392B" },
+] as const;
+
+const REVIEWS_BASE = [
   {
     id: "r1", restaurantId: "1",
     name: "Le Manjue Organique",
     photo: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=80&h=80&fit=crop",
     rating: 5,
-    comment: "Melhor restaurante para celíacos de SP!",
-    tags: ["Sem contaminação", "Me senti seguro"],
   },
   {
     id: "r2", restaurantId: "3",
     name: "Quinoa Restaurante",
     photo: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop",
     rating: 5,
-    comment: "Ambiente lindo, eles entendem sobre celíaca!",
-    tags: ["Ambiente limpo", "Sem contaminação"],
   },
   {
     id: "r3", restaurantId: "5",
     name: "Hiltl · Zurique",
+    nameEn: "Hiltl · Zurich",
     photo: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&h=80&fit=crop",
     rating: 5,
-    comment: "Melhor vegetariano de Zurique, muito bem avaliado por celíacos.",
-    tags: ["Bem avaliado GF", "Voltaria com certeza"],
   },
-];
+] as const;
 
-const DISHES = [
-  { id: "d1", name: "Risoto de Cogumelos GF",   photo: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=100&h=100&fit=crop", restaurantId: "1" },
-  { id: "d2", name: "Bowl de Quinoa",            photo: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop", restaurantId: "3" },
-  { id: "d3", name: "Prato do dia vegetariano",  photo: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=100&h=100&fit=crop", restaurantId: "5" },
-  { id: "d4", name: "Nhoque sem glúten",         photo: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=100&h=100&fit=crop", restaurantId: "4" },
+const DISHES_BASE = [
+  { id: "d1", key: "d1" as const, photo: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=100&h=100&fit=crop", restaurantId: "1" },
+  { id: "d2", key: "d2" as const, photo: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop", restaurantId: "3" },
+  { id: "d3", key: "d3" as const, photo: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=100&h=100&fit=crop", restaurantId: "5" },
+  { id: "d4", key: "d4" as const, photo: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=100&h=100&fit=crop", restaurantId: "4" },
 ];
 
 export default function PublicProfilePage() {
   const router = useRouter();
+  const { t, language } = useLanguage();
+
+  const USER = {
+    ...USER_BASE,
+    location: t.perfil.location,
+    bio: t.perfilPublico.bio,
+    restrictions: RESTRICTION_STYLES.map(r => ({ ...r, label: t.perfilPublico.restrictions[r.key] })),
+    prohibited: USER_BASE.prohibitedKeys.map(key => ({ key, label: t.perfil.ingredients[key] })),
+  };
+
+  const REVIEWS = REVIEWS_BASE.map(r => ({
+    ...r,
+    name: (language === "en" && "nameEn" in r && r.nameEn) ? r.nameEn : r.name,
+    comment: t.perfilPublico.reviews[r.id].comment,
+    tags: t.perfilPublico.reviews[r.id].tags,
+  }));
+
+  const DISHES = DISHES_BASE.map(d => ({ ...d, name: t.perfilPublico.dishes[d.key] }));
 
   return (
     <div className="bg-background min-h-dvh" style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 100px)" }}>
@@ -76,8 +89,8 @@ export default function PublicProfilePage() {
             <ChevronRight size={18} className="text-text-secondary rotate-180" />
           </button>
           <div>
-            <h1 className="text-[17px] font-black text-text-primary leading-tight">Meu perfil público</h1>
-            <p className="text-[11px] text-text-disabled">Assim outros usuários te veem</p>
+            <h1 className="text-[17px] font-black text-text-primary leading-tight">{t.perfilPublico.title}</h1>
+            <p className="text-[11px] text-text-disabled">{t.perfilPublico.subtitle}</p>
           </div>
         </div>
       </div>
@@ -99,11 +112,11 @@ export default function PublicProfilePage() {
                 <div className="flex items-center gap-1">
                   <MessageCircle size={11} style={{ color: "#1F3D34" }} />
                   <span className="text-[12px] font-black" style={{ color: "#1F3D34" }}>{USER.reviewCount}</span>
-                  <span className="text-[10px] text-text-disabled">avaliações</span>
+                  <span className="text-[10px] text-text-disabled">{t.perfilPublico.reviewsCount}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Calendar size={11} style={{ color: "#1F3D34" }} />
-                  <span className="text-[10px] text-text-disabled">desde {USER.memberSince}</span>
+                  <span className="text-[10px] text-text-disabled">{t.perfilPublico.memberSince.replace("{date}", USER.memberSince)}</span>
                 </div>
               </div>
             </div>
@@ -128,26 +141,26 @@ export default function PublicProfilePage() {
             <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#C6F59D" }}>
               <Shield size={12} style={{ color: "#1F3D34" }} />
             </div>
-            <p className="text-[13px] font-extrabold text-text-primary">Perfil Alimentar</p>
+            <p className="text-[13px] font-extrabold text-text-primary">{t.perfil.foodProfile.title}</p>
           </div>
 
           {/* Restrições inline */}
           <div className="flex flex-wrap gap-1.5 mb-3">
             {USER.restrictions.map(r => (
-              <span key={r.label} className="text-[11px] font-semibold px-2.5 py-1 rounded-full" style={{ backgroundColor: r.bg, color: r.color }}>
+              <span key={r.key} className="text-[11px] font-semibold px-2.5 py-1 rounded-full" style={{ backgroundColor: r.bg, color: r.color }}>
                 {r.label}
               </span>
             ))}
           </div>
 
           {/* Não consome inline */}
-          <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide mb-1.5">Não consome</p>
+          <p className="text-[10px] font-bold text-text-disabled uppercase tracking-wide mb-1.5">{t.perfilPublico.doesNotEat}</p>
           <div className="flex flex-wrap gap-1.5">
             {USER.prohibited.map(ing => {
-              const col = getIngredientColor(ing);
+              const col = getIngredientColor(ing.key);
               return (
-                <span key={ing} className="text-[11px] font-semibold px-2.5 py-1 rounded-full line-through" style={{ backgroundColor: col.bg, color: col.color }}>
-                  {ing}
+                <span key={ing.key} className="text-[11px] font-semibold px-2.5 py-1 rounded-full line-through" style={{ backgroundColor: col.bg, color: col.color }}>
+                  {ing.label}
                 </span>
               );
             })}
@@ -160,8 +173,8 @@ export default function PublicProfilePage() {
           style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)", border: "1px solid var(--color-border)" }}
         >
           <p className="text-[13px] font-extrabold text-text-primary mb-3">
-            Pratos experimentados
-            <span className="ml-2 text-[11px] font-semibold text-text-disabled">{DISHES.length} pratos</span>
+            {t.perfilPublico.triedDishes.title}
+            <span className="ml-2 text-[11px] font-semibold text-text-disabled">{t.perfilPublico.triedDishes.count.replace("{count}", String(DISHES.length))}</span>
           </p>
           <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
             {DISHES.map(dish => (
@@ -183,8 +196,8 @@ export default function PublicProfilePage() {
           style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.06)", border: "1px solid var(--color-border)" }}
         >
           <p className="text-[13px] font-extrabold text-text-primary px-4 pt-4 pb-3">
-            Restaurantes avaliados
-            <span className="ml-2 text-[11px] font-semibold text-text-disabled">{REVIEWS.length} avaliações</span>
+            {t.perfilPublico.reviewedRestaurants.title}
+            <span className="ml-2 text-[11px] font-semibold text-text-disabled">{t.perfilPublico.reviewedRestaurants.count.replace("{count}", String(REVIEWS.length))}</span>
           </p>
 
           {REVIEWS.map((review, i) => (
@@ -226,7 +239,7 @@ export default function PublicProfilePage() {
 
         {/* Microcópia */}
         <p className="text-[10px] text-text-disabled text-center leading-relaxed pb-2">
-          Avaliações baseadas no perfil alimentar desta usuária. Sua experiência pode variar.
+          {t.perfilPublico.microcopy}
         </p>
 
       </div>

@@ -67,8 +67,8 @@ export default function SplashPage() {
         <Image
           src="/glútty novo.png"
           alt="Glútty"
-          width={180}
-          height={180}
+          width={240}
+          height={240}
           priority
           className="object-contain"
           unoptimized

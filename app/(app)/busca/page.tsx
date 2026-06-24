@@ -8,8 +8,10 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import SafetyBadge from "@/components/SafetyBadge";
-import { mockRestaurants, safetyLevelConfig } from "@/lib/data";
+import { mockRestaurants, localizeSafetyLevelConfig } from "@/lib/data";
 import type { Restaurant, SafetyLevel } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import type { Language } from "@/lib/i18n/translations";
 
 // ── Constantes ────────────────────────────────────────────────────────────────
 const RECENT_KEY  = "glutty_busca_locations";
@@ -60,12 +62,12 @@ const SvgChurrasco = () => (
 
 // ── Categorias ────────────────────────────────────────────────────────────────
 const FOOD_CATEGORIES = [
-  { id: "pizza",      label: "Pizza",      Icon: SvgPizza,      bg: "#E4EFC6", fg: "#2E4F2A" },
-  { id: "hamburguer", label: "Hambúrguer", Icon: SvgHamburguer, bg: "#FDEFCC", fg: "#6B5F2A" },
-  { id: "japonesa",   label: "Japonesa",   Icon: SvgJaponesa,   bg: "#DDEFE5", fg: "#1F4A44" },
-  { id: "mexicana",   label: "Mexicana",   Icon: SvgMexicana,   bg: "#F0E0F2", fg: "#5A4580" },
-  { id: "churrasco",  label: "Churrasco",  Icon: SvgChurrasco,  bg: "#D9E7F0", fg: "#1F4A60" },
-];
+  { id: "pizza",      Icon: SvgPizza,      bg: "#E4EFC6", fg: "#2E4F2A" },
+  { id: "hamburguer", Icon: SvgHamburguer, bg: "#FDEFCC", fg: "#6B5F2A" },
+  { id: "japonesa",   Icon: SvgJaponesa,   bg: "#DDEFE5", fg: "#1F4A44" },
+  { id: "mexicana",   Icon: SvgMexicana,   bg: "#F0E0F2", fg: "#5A4580" },
+  { id: "churrasco",  Icon: SvgChurrasco,  bg: "#D9E7F0", fg: "#1F4A60" },
+] as const;
 
 // ── Coordenadas dos restaurantes ──────────────────────────────────────────────
 const RESTAURANT_COORDS: Record<string, [number, number]> = {
@@ -105,19 +107,21 @@ const CITY_CENTERS: Record<string, { center: [number, number]; zoom: number }> =
 };
 
 // ── Lógica de região ──────────────────────────────────────────────────────────
-function getRegionInfo(city: string): { country: string; state: string } {
+function getRegionInfo(city: string, language: Language = "pt"): { country: string; state: string } {
   const c = (city ?? "").toLowerCase();
-  if (["zürich", "zurique", "zurich", "kemptthal"].includes(c)) return { country: "Suíça",  state: "Zürich" };
-  if (c === "joão pessoa")  return { country: "Brasil", state: "Paraíba" };
-  if (c === "porto alegre") return { country: "Brasil", state: "Rio Grande do Sul" };
-  return { country: "Brasil", state: "São Paulo" };
+  const countryBR = language === "en" ? "Brazil" : "Brasil";
+  const countryCH = language === "en" ? "Switzerland" : "Suíça";
+  if (["zürich", "zurique", "zurich", "kemptthal"].includes(c)) return { country: countryCH, state: "Zürich" };
+  if (c === "joão pessoa")  return { country: countryBR, state: "Paraíba" };
+  if (c === "porto alegre") return { country: countryBR, state: "Rio Grande do Sul" };
+  return { country: countryBR, state: "São Paulo" };
 }
 
-function matchesLocation(city: string, query: string): boolean {
+function matchesLocation(city: string, query: string, language: Language = "pt"): boolean {
   if (!query) return true;
   const q = query.toLowerCase().trim();
   const c = (city ?? "").toLowerCase();
-  const { country, state } = getRegionInfo(city);
+  const { country, state } = getRegionInfo(city, language);
   const stateAliases: Record<string, string> = {
     "sp": "São Paulo", "pb": "Paraíba", "rs": "Rio Grande do Sul",
   };
@@ -130,9 +134,9 @@ function matchesLocation(city: string, query: string): boolean {
   );
 }
 
-function proximityScore(city: string, refCity: string): number {
-  const r   = getRegionInfo(city);
-  const ref = getRegionInfo(refCity || DEFAULT_LOC);
+function proximityScore(city: string, refCity: string, language: Language = "pt"): number {
+  const r   = getRegionInfo(city, language);
+  const ref = getRegionInfo(refCity || DEFAULT_LOC, language);
   if ((city ?? "").toLowerCase() === (refCity ?? "").toLowerCase()) return 0;
   if (r.country === ref.country) return 1;
   return 2;
@@ -145,8 +149,8 @@ const LOCATION_SUGGESTIONS = [
   { label: "Porto Alegre",            type: "cidade"  as const, match: ["porto alegre", "rs"] },
   { label: "Zürich",                  type: "cidade"  as const, match: ["zürich", "zurich", "zurique", "zh"] },
   { label: "Kemptthal",               type: "cidade"  as const, match: ["kemptthal"] },
-  { label: "Brasil",                  type: "pais"    as const, match: ["brasil", "brazil", "br"] },
-  { label: "Suíça",                   type: "pais"    as const, match: ["suíça", "suica", "switzerland", "ch"] },
+  { label: "Brasil",  labelEn: "Brazil",      type: "pais"    as const, match: ["brasil", "brazil", "br"] },
+  { label: "Suíça",   labelEn: "Switzerland", type: "pais"    as const, match: ["suíça", "suica", "switzerland", "ch"] },
   { label: "SP — São Paulo",          type: "estado"  as const, match: ["sp — são paulo", "estado de são paulo"] },
   { label: "PB — Paraíba",            type: "estado"  as const, match: ["pb — paraíba", "paraíba", "paraiba"] },
   { label: "RS — Rio Grande do Sul",  type: "estado"  as const, match: ["rs — rio grande do sul", "rio grande do sul"] },
@@ -194,6 +198,7 @@ const PIN_COLORS: Record<string, string> = {
 function CarouselCard({ restaurant, isActive, onClick }: {
   restaurant: Restaurant; isActive: boolean; onClick: () => void;
 }) {
+  const { t } = useLanguage();
   return (
     <button
       onClick={onClick}
@@ -213,9 +218,13 @@ function CarouselCard({ restaurant, isActive, onClick }: {
           <div className="absolute top-2 left-2">
             <SafetyBadge level={restaurant.safetyLevel} size="sm" />
           </div>
-          {!restaurant.isOpen && (
+          {restaurant.permanentlyClosed ? (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-0.5 rounded-full">{t.common.permanentlyClosed}</span>
+            </div>
+          ) : !restaurant.isOpen && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-0.5 rounded-full">Fechado</span>
+              <span className="text-white text-[10px] font-bold bg-black/50 px-2.5 py-0.5 rounded-full">{t.common.closed}</span>
             </div>
           )}
         </div>
@@ -246,6 +255,8 @@ function CarouselCard({ restaurant, isActive, onClick }: {
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function BuscaPage() {
   const router = useRouter();
+  const { t, language } = useLanguage();
+  const localizedSafetyLevelConfig = localizeSafetyLevelConfig(language);
 
   // Bloqueia scroll do body enquanto a tela de busca está ativa
   useEffect(() => {
@@ -274,10 +285,10 @@ export default function BuscaPage() {
   useEffect(() => { setRecentLocations(loadRecent()); }, []);
 
   // ── Filtragem por localização ─────────────────────────────────────────────
-  const localRestaurants = mockRestaurants.filter(r => matchesLocation(r.city, locationFilter));
+  const localRestaurants = mockRestaurants.filter(r => matchesLocation(r.city, locationFilter, language));
   const nearbyRestaurants = mockRestaurants
-    .filter(r => !matchesLocation(r.city, locationFilter))
-    .sort((a, b) => proximityScore(a.city, locationFilter) - proximityScore(b.city, locationFilter));
+    .filter(r => !matchesLocation(r.city, locationFilter, language))
+    .sort((a, b) => proximityScore(a.city, locationFilter, language) - proximityScore(b.city, locationFilter, language));
   const hasLocalResults = localRestaurants.length > 0;
 
   const displayList = hasLocalResults ? localRestaurants : nearbyRestaurants;
@@ -354,7 +365,7 @@ export default function BuscaPage() {
       if (!coords) return;
 
       const color = PIN_COLORS[restaurant.safetyLevel] ?? "#1F3D34";
-      const isLocal = matchesLocation(restaurant.city, locationFilter);
+      const isLocal = matchesLocation(restaurant.city, locationFilter, language);
 
       const icon = L.divIcon({
         className: "",
@@ -457,8 +468,8 @@ export default function BuscaPage() {
             <ChevronRight size={18} className="rotate-180" style={{ color: "white" }} />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-[18px] font-black leading-tight" style={{ color: "#1F3D34" }}>Restaurantes</h1>
-            <p className="text-[11px]" style={{ color: "#6B8E6F" }}>Avaliados por celíacos</p>
+            <h1 className="text-[18px] font-black leading-tight" style={{ color: "#1F3D34" }}>{t.busca.title}</h1>
+            <p className="text-[11px]" style={{ color: "#6B8E6F" }}>{t.busca.subtitle}</p>
           </div>
           {/* Botão localização */}
           <button
@@ -489,7 +500,7 @@ export default function BuscaPage() {
                 if (e.key === "Enter" && searchInput.trim()) applyLocation(searchInput.trim());
                 if (e.key === "Escape") setShowDropdown(false);
               }}
-              placeholder="Cidade ou país…"
+              placeholder={t.busca.searchPlaceholder}
               className="flex-1 min-w-0 text-[14px] text-text-primary outline-none placeholder:text-text-disabled bg-transparent font-medium"
             />
             {searchInput && (
@@ -505,7 +516,7 @@ export default function BuscaPage() {
             >
               <Shield size={12} fill="#2E7D32" strokeWidth={2} style={{ color: "#2E7D32" }} />
               <span className="text-[11px] font-bold" style={{ color: "#2E7D32" }}>
-                {safetyLevelConfig[safetyPreference].label} ▾
+                {localizedSafetyLevelConfig[safetyPreference].label} ▾
               </span>
             </button>
           </div>
@@ -522,7 +533,7 @@ export default function BuscaPage() {
             >
               <div className="px-4 pt-3 pb-1.5">
                 <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#B0977E" }}>
-                  {!searchInput.trim() ? "Buscas recentes" : "Sugestões"}
+                  {!searchInput.trim() ? t.busca.recentSearches : t.busca.suggestions}
                 </span>
               </div>
               {searchInput.trim()
@@ -531,13 +542,15 @@ export default function BuscaPage() {
                       className="w-full text-left px-4 py-2.5 flex items-center gap-3 active:bg-[#F5EDE6] transition-colors"
                       style={{ borderTop: i > 0 ? "1px solid #F5EDE6" : "none" }}
                       onMouseDown={e => e.preventDefault()}
-                      onClick={() => applyLocation(s.label)}
+                      onClick={() => applyLocation(language === "en" && "labelEn" in s ? (s.labelEn ?? s.label) : s.label)}
                     >
                       <LocIcon type={s.type} />
                       <div className="flex-1 min-w-0">
-                        <span className="text-[13px] font-semibold text-text-primary block truncate">{s.label}</span>
+                        <span className="text-[13px] font-semibold text-text-primary block truncate">
+                          {language === "en" && "labelEn" in s ? s.labelEn : s.label}
+                        </span>
                         <span className="text-[10px] font-medium" style={{ color: "#B0977E" }}>
-                          {{ cidade: "Cidade", estado: "Estado", pais: "País" }[s.type]}
+                          {t.busca.locationTypes[s.type]}
                         </span>
                       </div>
                     </button>
@@ -569,7 +582,7 @@ export default function BuscaPage() {
                   onMouseDown={e => e.preventDefault()}
                   onClick={() => { setRecentLocations([]); localStorage.removeItem(RECENT_KEY); setShowDropdown(false); }}
                 >
-                  Limpar histórico
+                  {t.busca.clearHistory}
                 </button>
               )}
             </div>
@@ -589,7 +602,7 @@ export default function BuscaPage() {
                 }}
               >
                 <cat.Icon />
-                <span className="text-[12px] font-black whitespace-nowrap">{cat.label}</span>
+                <span className="text-[12px] font-black whitespace-nowrap">{t.busca.categories[cat.id as keyof typeof t.busca.categories]}</span>
               </button>
             );
           })}
@@ -660,8 +673,8 @@ export default function BuscaPage() {
           <div className="mx-4 mb-3 px-3.5 py-3 rounded-2xl flex items-center gap-2.5 shadow-md" style={{ backgroundColor: "#FFF3E0", border: "1px solid #FFD180" }}>
             <span className="text-[18px]">📍</span>
             <div className="flex-1 min-w-0">
-              <p className="text-[12px] font-bold truncate" style={{ color: "#E65100" }}>Nada encontrado em {locationFilter}</p>
-              <p className="text-[10px] mt-0.5" style={{ color: "#BF360C" }}>Mostrando os mais próximos dessa região</p>
+              <p className="text-[12px] font-bold truncate" style={{ color: "#E65100" }}>{t.busca.notFoundTitle.replace("{location}", locationFilter)}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: "#BF360C" }}>{t.busca.notFoundSubtitle}</p>
             </div>
           </div>
         )}
@@ -670,12 +683,14 @@ export default function BuscaPage() {
         <div className="flex items-center justify-between px-5 mb-2">
           <div className="bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
             <p className="text-[12px] font-extrabold text-text-primary">
-              {hasLocalResults ? `${localRestaurants.length} em ${locationFilter}` : `${nearbyRestaurants.length} mais próximos`}
+              {hasLocalResults
+                ? t.busca.countIn.replace("{count}", String(localRestaurants.length)).replace("{location}", locationFilter)
+                : t.busca.countNearby.replace("{count}", String(nearbyRestaurants.length))}
             </p>
           </div>
           {hasLocalResults && nearbyRestaurants.length > 0 && (
             <div className="bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
-              <span className="text-[11px] text-text-disabled font-medium">+{nearbyRestaurants.length} próximos</span>
+              <span className="text-[11px] text-text-disabled font-medium">{t.busca.moreNearby.replace("{count}", String(nearbyRestaurants.length))}</span>
             </div>
           )}
         </div>
@@ -699,7 +714,7 @@ export default function BuscaPage() {
             <>
               <div className="shrink-0 flex flex-col items-center justify-center gap-1 px-1" style={{ minWidth: 60 }}>
                 <div className="w-px flex-1 bg-border" />
-                <span className="text-[9px] font-bold text-text-disabled whitespace-nowrap text-center leading-tight" style={{ writingMode: "vertical-rl" }}>MAIS PRÓXIMOS</span>
+                <span className="text-[9px] font-bold text-text-disabled whitespace-nowrap text-center leading-tight" style={{ writingMode: "vertical-rl" }}>{t.busca.closestLabel}</span>
                 <div className="w-px flex-1 bg-border" />
               </div>
               {nearbyRestaurants.map(r => (

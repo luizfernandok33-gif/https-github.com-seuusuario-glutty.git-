@@ -3,75 +3,24 @@ import Link from "next/link";
 import { ShieldCheck, Store, Star, MessageCircle, Bell, Check, Trash2 } from "lucide-react";
 import BackButton from "@/components/BackButton";
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 type NotifType = "safety" | "restaurant" | "review" | "system";
 
 interface Notif {
   id: string;
   type: NotifType;
-  title: string;
-  body: string;
-  time: string;
   read: boolean;
 }
 
 const initialNotifs: Notif[] = [
-  {
-    id: "1",
-    type: "safety",
-    title: "Alerta de segurança",
-    body: "Cantina da Nona atualizou seu cardápio. Verifique as novas opções sem glúten.",
-    time: "Agora",
-    read: false,
-  },
-  {
-    id: "2",
-    type: "restaurant",
-    title: "Novo restaurante perto de você",
-    body: "Verde & Saudável foi adicionado na sua área. Cardápio 100% sem glúten.",
-    time: "15 min",
-    read: false,
-  },
-  {
-    id: "3",
-    type: "review",
-    title: "Sua avaliação foi útil!",
-    body: "12 celíacos marcaram sua avaliação do Sabor Brasil como útil.",
-    time: "1h",
-    read: false,
-  },
-  {
-    id: "4",
-    type: "safety",
-    title: "Aviso de contaminação cruzada",
-    body: "Um usuário relatou possível contaminação cruzada no Bistrô Gourmet. Tenha atenção.",
-    time: "3h",
-    read: true,
-  },
-  {
-    id: "5",
-    type: "restaurant",
-    title: "Restaurante favorito atualizado",
-    body: "Sabor Brasil adicionou 3 novos pratos sem glúten ao cardápio.",
-    time: "5h",
-    read: true,
-  },
-  {
-    id: "6",
-    type: "review",
-    title: "Alguém respondeu sua avaliação",
-    body: "O dono do Cantina da Nona respondeu à sua avaliação de 5 estrelas.",
-    time: "Ontem",
-    read: true,
-  },
-  {
-    id: "7",
-    type: "system",
-    title: "Boas-vindas ao Glútty!",
-    body: "Você está protegida. Explore restaurantes seguros perto de você.",
-    time: "2 dias",
-    read: true,
-  },
+  { id: "1", type: "safety",     read: false },
+  { id: "2", type: "restaurant", read: false },
+  { id: "3", type: "review",     read: false },
+  { id: "4", type: "safety",     read: true  },
+  { id: "5", type: "restaurant", read: true  },
+  { id: "6", type: "review",     read: true  },
+  { id: "7", type: "system",     read: true  },
 ];
 
 const typeConfig: Record<NotifType, { icon: React.ElementType; color: string; bg: string }> = {
@@ -82,6 +31,7 @@ const typeConfig: Record<NotifType, { icon: React.ElementType; color: string; bg
 };
 
 export default function NotificacoesPage() {
+  const { t } = useLanguage();
   const [notifs, setNotifs] = useState<Notif[]>(initialNotifs);
 
   const unreadCount = notifs.filter((n) => !n.read).length;
@@ -108,7 +58,7 @@ export default function NotificacoesPage() {
             <BackButton />
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-black text-primary text-base font-display leading-tight">Notificações</h1>
+                <h1 className="font-black text-primary text-base font-display leading-tight">{t.notificacoes.title}</h1>
                 {unreadCount > 0 && (
                   <span
                     className="text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full"
@@ -118,7 +68,7 @@ export default function NotificacoesPage() {
                   </span>
                 )}
               </div>
-              <p className="text-[12px] text-text-disabled mt-0.5">Fique por dentro das novidades</p>
+              <p className="text-[12px] text-text-disabled mt-0.5">{t.notificacoes.subtitle}</p>
             </div>
           </div>
           {unreadCount > 0 && (
@@ -127,7 +77,7 @@ export default function NotificacoesPage() {
               className="flex items-center gap-1.5 active:scale-95 transition-transform"
             >
               <Check size={13} className="text-primary" strokeWidth={2.5} />
-              <span className="text-primary font-bold text-xs">Marcar todas</span>
+              <span className="text-primary font-bold text-xs">{t.notificacoes.markAll}</span>
             </button>
           )}
         </div>
@@ -139,7 +89,7 @@ export default function NotificacoesPage() {
         {unread.length > 0 && (
           <div>
             <p className="text-[11px] font-extrabold text-text-disabled uppercase tracking-widest mb-3">
-              Novas
+              {t.notificacoes.newSection}
             </p>
             <div className="space-y-2">
               {unread.map((n) => (
@@ -153,7 +103,7 @@ export default function NotificacoesPage() {
         {read.length > 0 && (
           <div>
             <p className="text-[11px] font-extrabold text-text-disabled uppercase tracking-widest mb-3">
-              Anteriores
+              {t.notificacoes.previousSection}
             </p>
             <div className="space-y-2">
               {read.map((n) => (
@@ -169,9 +119,9 @@ export default function NotificacoesPage() {
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
               <Bell size={28} className="text-primary" />
             </div>
-            <p className="font-bold text-text-primary text-sm mb-1">Tudo em dia!</p>
+            <p className="font-bold text-text-primary text-sm mb-1">{t.notificacoes.emptyTitle}</p>
             <p className="text-text-disabled text-xs max-w-[220px]">
-              Você não tem nenhuma notificação no momento.
+              {t.notificacoes.emptySubtitle}
             </p>
           </div>
         )}
@@ -189,8 +139,10 @@ function NotifCard({
   onDismiss: (id: string) => void;
   onRead: (id: string) => void;
 }) {
+  const { t } = useLanguage();
   const cfg = typeConfig[notif.type];
   const Icon = cfg.icon;
+  const content = t.notificacoes.items[notif.id];
 
   return (
     <div
@@ -216,10 +168,10 @@ function NotifCard({
             className="font-bold text-text-primary text-[13px] leading-tight"
             style={{ opacity: notif.read ? 0.6 : 1 }}
           >
-            {notif.title}
+            {content?.title}
           </p>
           <div className="flex items-center gap-1.5 shrink-0">
-            <span className="text-text-disabled text-[10px] whitespace-nowrap">{notif.time}</span>
+            <span className="text-text-disabled text-[10px] whitespace-nowrap">{content?.time}</span>
             {!notif.read && (
               <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#FC6904" }} />
             )}
@@ -229,7 +181,7 @@ function NotifCard({
           className="text-text-secondary text-[11px] mt-1 leading-relaxed"
           style={{ opacity: notif.read ? 0.55 : 1 }}
         >
-          {notif.body}
+          {content?.body}
         </p>
       </div>
 

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { X, AlertTriangle, ShieldCheck, Zap, Layers } from "lucide-react";
 import { allergenConfig, tagSizes, palette } from "@/lib/tags";
 import BackButton from "@/components/BackButton";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 const ALLERGENS = [
   "lactose","frutose","caseina","oleaginosas",
@@ -17,37 +18,14 @@ const PROBLEM_SUGGESTIONS = [
 ];
 
 const SAFETY_LEVELS = [
-  {
-    id: "muito_seguro",
-    label: "Muito seguro",
-    description: "Menor risco possível de contaminação cruzada",
-    Icon: ShieldCheck,
-    color: "#2E7D32",
-    bg: "#E8F5E9",
-    border: "#2E7D32",
-  },
-  {
-    id: "seguro",
-    label: "Seguro",
-    description: "Inclui opções com boas práticas anti-contaminação",
-    Icon: Layers,
-    color: "#D97706",
-    bg: "#FFFBEB",
-    border: "#D97706",
-  },
-  {
-    id: "flexivel",
-    label: "Flexível",
-    description: "Mais opções disponíveis, com possíveis riscos",
-    Icon: Zap,
-    color: "#C0392B",
-    bg: "#FDECEA",
-    border: "#C0392B",
-  },
+  { id: "muito_seguro" as const, Icon: ShieldCheck, color: "#2E7D32", bg: "#E8F5E9", border: "#2E7D32" },
+  { id: "seguro"       as const, Icon: Layers,      color: "#D97706", bg: "#FFFBEB", border: "#D97706" },
+  { id: "flexivel"     as const, Icon: Zap,         color: "#C0392B", bg: "#FDECEA", border: "#C0392B" },
 ];
 
 export default function SegurancaPage() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   // Restrições alimentares (gluten é fixo)
   const [selected, setSelected]     = useState<string[]>([]);
@@ -101,10 +79,10 @@ export default function SegurancaPage() {
           <BackButton />
         </div>
         <h1 className="text-[24px] font-extrabold text-primary leading-tight font-display mb-2">
-          Padrão de segurança
+          {t.seguranca.title}
         </h1>
         <p className="text-text-secondary text-sm">
-          Defina o que deve ser evitado nas suas recomendações
+          {t.seguranca.subtitle}
         </p>
       </div>
 
@@ -113,7 +91,7 @@ export default function SegurancaPage() {
         {/* ── Seção 1: Base do app ── */}
         <section>
           <p className="text-[11px] font-extrabold text-text-disabled uppercase tracking-widest mb-3">
-            Base do app
+            {t.seguranca.baseSection.title}
           </p>
           <div className="bg-surface rounded-2xl px-4 py-4 border border-border/50">
             <div className="flex items-start gap-3">
@@ -134,11 +112,11 @@ export default function SegurancaPage() {
                       paddingBottom: tagSizes.md.py,
                     }}
                   >
-                    {allergenConfig.gluten.tag}
+                    {t.seguranca.allergenLabels.gluten}
                   </span>
                 </div>
                 <p className="text-text-disabled text-[12px] leading-relaxed">
-                  O Glútty sempre considera opções sem glúten
+                  {t.seguranca.baseSection.description}
                 </p>
               </div>
             </div>
@@ -148,7 +126,7 @@ export default function SegurancaPage() {
         {/* ── Seção 2: Restrições alimentares ── */}
         <section>
           <p className="text-[11px] font-extrabold text-text-disabled uppercase tracking-widest mb-3">
-            Suas restrições alimentares
+            {t.seguranca.restrictionsSection.title}
           </p>
 
           {/* Gluten warning */}
@@ -156,7 +134,7 @@ export default function SegurancaPage() {
             <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-3 py-2 mb-3">
               <AlertTriangle size={14} className="text-red-500 shrink-0" />
               <p className="text-red-600 text-xs font-semibold">
-                O Glútty é focado em pessoas com restrição ao glúten, por isso essa opção permanece ativa.
+                {t.seguranca.glutenWarning}
               </p>
             </div>
           )}
@@ -166,7 +144,6 @@ export default function SegurancaPage() {
             <>
               <div className="flex flex-wrap gap-2 mb-4">
                 {selected.map((key) => {
-                  const cfg = allergenConfig[key];
                   return (
                     <button
                       key={key}
@@ -181,7 +158,7 @@ export default function SegurancaPage() {
                         paddingBottom: tagSizes.md.py,
                       }}
                     >
-                      {cfg.tag}
+                      {t.seguranca.allergenLabels[key] ?? allergenConfig[key].tag}
                       <X size={11} strokeWidth={3} />
                     </button>
                   );
@@ -229,7 +206,7 @@ export default function SegurancaPage() {
                     paddingBottom: tagSizes.lg.py,
                   }}
                 >
-                  {cfg.tag}
+                  {t.seguranca.allergenLabels[key] ?? cfg.tag}
                 </button>
               );
             })}
@@ -250,7 +227,7 @@ export default function SegurancaPage() {
                 value={customInput}
                 onChange={(e) => setCustomInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addCustom()}
-                placeholder="+ Outra restrição"
+                placeholder={t.seguranca.customRestrictionPlaceholder}
                 className="bg-transparent outline-none text-primary font-semibold w-32 placeholder:text-primary/50"
                 style={{ fontSize: tagSizes.lg.fontSize }}
               />
@@ -264,10 +241,10 @@ export default function SegurancaPage() {
         {/* ── Seção 3: Ingredientes que você evita ── */}
         <section>
           <p className="text-[11px] font-extrabold text-text-disabled uppercase tracking-widest mb-1">
-            Ingredientes que você evita
+            {t.seguranca.avoidSection.title}
           </p>
           <p className="text-text-disabled text-[12px] mb-3">
-            Serão apenas sinalizados nos pratos — você decide.
+            {t.seguranca.avoidSection.subtitle}
           </p>
 
           {/* Tags selecionadas */}
@@ -288,7 +265,7 @@ export default function SegurancaPage() {
                       paddingBottom: tagSizes.md.py,
                     }}
                   >
-                    {item}
+                    {t.seguranca.problemSuggestions[item] ?? item}
                     <X size={11} strokeWidth={3} />
                   </button>
                 ))}
@@ -314,7 +291,7 @@ export default function SegurancaPage() {
                   paddingBottom: tagSizes.lg.py,
                 }}
               >
-                {item}
+                {t.seguranca.problemSuggestions[item] ?? item}
               </button>
             ))}
 
@@ -334,7 +311,7 @@ export default function SegurancaPage() {
                 value={problemInput}
                 onChange={(e) => setProblemInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addProblemCustom()}
-                placeholder="Outro ingrediente"
+                placeholder={t.seguranca.customIngredientPlaceholder}
                 className="bg-transparent outline-none font-semibold w-32 text-text-primary placeholder:text-text-disabled"
                 style={{ fontSize: tagSizes.lg.fontSize }}
               />
@@ -348,11 +325,12 @@ export default function SegurancaPage() {
         {/* ── Seção 4: Nível de segurança ── */}
         <section>
           <p className="text-[11px] font-extrabold text-text-disabled uppercase tracking-widest mb-3">
-            Nível de segurança
+            {t.seguranca.safetyLevelSection.title}
           </p>
           <div className="space-y-3">
-            {SAFETY_LEVELS.map(({ id, label, description, Icon, color, bg, border }) => {
+            {SAFETY_LEVELS.map(({ id, Icon, color, bg, border }) => {
               const isSelected = safetyLevel === id;
+              const { label, description } = t.seguranca.safetyLevels[id];
               return (
                 <button
                   key={id}
@@ -401,7 +379,7 @@ export default function SegurancaPage() {
           className="w-full font-bold py-4 rounded-full text-base active:scale-95 transition-transform shadow-md"
           style={{ backgroundColor: "#C6F59D", color: "#1F3D34" }}
         >
-          Salvar alterações
+          {t.seguranca.saveButton}
         </button>
       </div>
     </div>

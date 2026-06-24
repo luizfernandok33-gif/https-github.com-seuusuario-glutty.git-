@@ -79,7 +79,7 @@ export const selectedStyle = { color: "#FFFFFF", bg: "#FC6904" };
 
 // Maps restriction label strings → palette color (for restaurant "Restrições atendidas")
 const restrictionLabelMap: Record<string, TagColor> = {
-  "sem glúten":       palette.laranja,
+  "sem glúten":       palette.primaria,
   "sem lactose":      palette.azul,
   "sem nozes":        palette.vermelho,
   "sem ovo":          palette.amarelo,
