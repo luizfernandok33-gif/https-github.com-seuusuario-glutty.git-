@@ -417,6 +417,434 @@ export const restaurantTranslationsEn: Record<
   },
 };
 
+export const restaurantTranslationsDe: Record<
+  string,
+  {
+    city?: string;
+    cuisine?: string;
+    description?: string;
+    openingHours?: string;
+    features?: string[];
+    restrictions?: string[];
+    safetyProcedures?: string[];
+    dishes?: Record<
+      string,
+      {
+        name?: string;
+        description?: string;
+        ingredients?: string[];
+        adaptations?: DishAdaptation[];
+        restrictions?: string[];
+        crossContaminationPrep?: string;
+      }
+    >;
+    reviews?: Record<string, { tags?: string[]; comment?: string }>;
+  }
+> = {
+  // ── Le Manjue Organique ──────────────────────────────────────
+  "1": {
+    cuisine: "Bio / Glutenfrei",
+    openingHours: "Mo–Fr 12–15 Uhr · 19–22:30 Uhr · Sa 12–23 Uhr",
+    features: ["100% glutenfrei", "Bio-Zutaten", "ACELBRA-zertifiziert"],
+    restrictions: ["Glutenfrei", "Laktosefrei", "Vegan", "Vegetarisch"],
+    safetyProcedures: [
+      "Küche ausschließlich für glutenfreie Zubereitung (laut Restaurant)",
+      "Zertifizierte Bio-Zutaten",
+      "Personal in Zöliakie geschult",
+      "ACELBRA-zertifiziert seit 2015",
+    ],
+    description:
+      "Ein Pionier in São Paulo, Le Manjue ist 100% glutenfrei und bio. Die gesamte Küche wurde so gestaltet, dass sie nie mit Gluten in Kontakt kommt, und die Zutaten werden vom Hof bis zum Teller nachverfolgt.",
+    dishes: {
+      d1: {
+        name: "Risotto mit wilden Pilzen",
+        description: "Arborio-Reis mit einer Pilzmischung, Parmesan und schwarzem Trüffel",
+        ingredients: ["Arborio-Reis", "Steinpilze", "Shiitake", "Parmesan", "Schwarzer Trüffel", "Weißwein"],
+        crossContaminationPrep:
+          "Zubereitet in einer 100% glutenfreien Küche: Töpfe, Utensilien und Arbeitsflächen sind ausschließlich dafür bestimmt, ohne Kontakt zu Weizenmehl oder anderen glutenhaltigen Zutaten.",
+      },
+      d2: {
+        name: "Reis-Tagliatelle mit Pesto",
+        description: "Handgemachte Reisnudeln mit frischem Basilikum-Pesto und Pinienkernen",
+        ingredients: ["Reismehl", "Bio-Eier", "Basilikum", "Pinienkerne", "Olivenöl", "Parmesan"],
+        adaptations: [{ original: "Weizenmehl", replacement: "Vollkorn-Reismehl" }],
+        crossContaminationPrep:
+          "Die Reisnudeln werden mit eigenen Utensilien und auf einer separaten Arbeitsfläche zubereitet, getrennt von glutenhaltigen Zutaten. Das Personal wechselt bei jedem Zubereitungsschritt die Handschuhe.",
+      },
+    },
+    reviews: {
+      r1: {
+        tags: ["Keine Kontamination", "Kompetentes Personal", "Fühlte mich sicher"],
+        comment:
+          "Ich komme seit 4 Jahren hierher. Nie eine einzige Reaktion gehabt. Das Personal versteht Zöliakie wirklich — das ist keine reine Marketingaussage. Mein Lieblingsgericht: die Reis-Tagliatelle.",
+      },
+      r2: {
+        tags: ["Würde definitiv wiederkommen", "Klare Speisekarte"],
+        comment:
+          "Ich war hier mit meiner zöliakiebetroffenen Mutter zum Geburtstag. Es war so bewegend zu sehen, wie sie alles auf der Speisekarte ohne Sorge essen konnte!",
+      },
+    },
+  },
+
+  // ── Haus Hiltl ───────────────────────────────────────────────
+  "5": {
+    city: "Zürich",
+    cuisine: "Vegetarisch / International",
+    openingHours: "Mo–Mi 7–22 Uhr · Do–Fr 7–23 Uhr · Sa 8–23 Uhr · So 10–22 Uhr",
+    features: ["100% vegetarisches Buffet", "GF-Kennzeichnung bei jedem Gericht", "Schweizer GF-zertifiziert"],
+    restrictions: ["Glutenfrei", "Vegan", "Vegetarisch", "Laktosefrei", "Eifrei"],
+    safetyProcedures: [
+      "Alle GF-Gerichte sind klar gekennzeichnet",
+      "Personal in Lebensmittelallergien geschult",
+      "Zertifizierung der Schweizerischen Zöliakiegesellschaft",
+      "Buffet mit getrennten Tabletts nach Ernährungseinschränkung",
+    ],
+    description:
+      "1898 gegründet, ist Hiltl das älteste noch betriebene vegetarische Restaurant der Welt. Sein Buffet in Zürich bietet eine klare Allergenkennzeichnung und Dutzende zertifizierte glutenfreie Optionen.",
+    dishes: {
+      d7: {
+        name: "Rösti mit Raclette-Käse",
+        description: "Schweizer Kartoffelrösti mit geschmolzenem Raclette und eingelegter Gurke",
+        ingredients: ["Kartoffel", "Schweizer Raclette", "Geklärte Butter", "Eingelegte Gurke", "Karamellisierte Zwiebel"],
+        crossContaminationPrep:
+          "Auf einer eigenen Grillplatte zubereitet, die vor Gebrauch desinfiziert wird, mit separaten Utensilien für glutenfreie Gerichte und klarer Kennzeichnung am Buffet.",
+      },
+      d8: {
+        name: "Kichererbsen-Curry",
+        description: "Kichererbsen mit Kokosmilch, Gewürzen und Basmatireis",
+        ingredients: ["Kichererbsen", "Kokosmilch", "Tomate", "Spinat", "Kurkuma", "Kreuzkümmel", "Basmatireis"],
+        crossContaminationPrep:
+          "Zubereitet in einem für glutenfreie Gerichte reservierten Topf, mit Zutaten, die separat von glutenhaltigen Produkten abgewogen und gelagert werden.",
+      },
+      d11: {
+        name: "Hiltl Burger",
+        description:
+          "Veganer Pflanzen-Patty mit Babysalat, Tomate, roter Zwiebel, Burgersauce und würzigem Ketchup, serviert auf einem traditionellen Brioche-Brötchen. Schweizer-Käse-Option erhältlich.",
+        ingredients: ["Hiltl Pflanzen-Patty", "Brioche-Brötchen", "Babysalat", "Tomate", "Rote Zwiebel", "Burgersauce", "Würziges Ketchup"],
+        restrictions: ["Vegan", "Vegetarisch"],
+        crossContaminationPrep:
+          "Das traditionelle Brioche-Brötchen enthält Gluten. Das Restaurant kann auf Anfrage ein glutenfreies Brötchen anbieten, garantiert aber für dieses Gericht keine völlig kontaminationsfreie Küche.",
+      },
+    },
+    reviews: {
+      r6: {
+        tags: ["Keine Kontamination", "Kompetentes Personal", "Fühlte mich sicher"],
+        comment:
+          "Ich war während eines Austauschprogramms in Zürich dort. Hiltl ist großartig — jedes Buffet-Gericht hat eine Allergenkennzeichnung und das Personal spricht ganz natürlich über Zöliakie.",
+      },
+    },
+  },
+
+  // ── Tibits ───────────────────────────────────────────────────
+  "6": {
+    city: "Zürich",
+    cuisine: "Vegetarisch / Buffet",
+    openingHours: "Mo–Do 6:30–23 Uhr · Fr–Sa 6:30–0 Uhr · So 9–23 Uhr",
+    features: ["Buffet nach Gewicht", "GF-Kennzeichnung bei jedem Gericht", "Saisonale Zutaten"],
+    restrictions: ["Glutenfrei", "Vegan", "Vegetarisch"],
+    safetyProcedures: [
+      "Allergenkennzeichnung auf jedem Tablett",
+      "Personal in Ernährungseinschränkungen geschult",
+      "Bio-, saisonale Zutaten",
+    ],
+    description:
+      "Tibits ist eine Kette von Schweizer vegetarischen Buffets mit strenger Allergenkennzeichnung. Am Standort Seefeld am See sind glutenfreie Gerichte klar markiert.",
+    dishes: {
+      d9: {
+        name: "Puy-Linsen-Salat",
+        description: "Grüne Linsen mit Senfvinaigrette, Kräutern und knackigem Gemüse",
+        ingredients: ["Puy-Linsen", "Karotte", "Sellerie", "GF-Dijon-Senf", "Balsamico-Essig", "Petersilie"],
+        crossContaminationPrep:
+          "Wird an einer separaten Buffetstation zusammengestellt, mit eigenem Servierbesteck und gewechselten Handschuhen zwischen den Zubereitungen, um Kreuzkontakt zu vermeiden.",
+      },
+    },
+    reviews: {
+      r7: {
+        tags: ["Klare Speisekarte", "Fühlte mich sicher", "Würde definitiv wiederkommen"],
+        comment:
+          "Jedes Gericht hat eine Liste der Zutaten und Allergene. Ich war mit meiner zöliakiebetroffenen Frau dort und sie konnte völlig unbesorgt essen.",
+      },
+    },
+  },
+
+  // ── Marktküche ───────────────────────────────────────────────
+  "7": {
+    city: "Zürich",
+    cuisine: "Zeitgenössisch europäisch",
+    openingHours: "Mi–Fr 17:30–23:30 Uhr · Sa 12–15 Uhr · 17:30–23:30 Uhr",
+    features: ["Saisonale Speisekarte", "GF-Gerichte gekennzeichnet", "Lokale Produkte"],
+    restrictions: ["Glutenfrei", "Anpassbare Gerichte"],
+    safetyProcedures: [
+      "GF-Gerichte auf der Speisekarte gekennzeichnet",
+      "Küchenchef über Zöliakie informiert",
+      "Lokale Zutaten vom Wochenmarkt",
+    ],
+    description:
+      "Ein zeitgenössisches Restaurant im historischen Niederdorf, mit einer Speisekarte rund um den lokalen Wochenmarkt. Glutenfreie Gerichte sind gekennzeichnet und der Küchenchef passt Bestellungen mit Vorankündigung an.",
+    dishes: {
+      d10: {
+        name: "Cremige Polenta mit Pilzen",
+        description: "Cremige Schweizer Polenta mit einer Pilzmischung und frischen Kräutern",
+        ingredients: ["Feine Polenta", "Steinpilze", "Pfifferlinge", "Knoblauch", "Thymian", "Sbrinz-Käse"],
+        crossContaminationPrep:
+          "Zubereitet in einem für glutenfreie Gerichte reservierten Topf, wobei der Küchenchef vorab informiert wird, um den Einsatz separater Utensilien und Schneidebretter zu verstärken.",
+      },
+    },
+    reviews: {
+      r8: {
+        tags: ["Klare Speisekarte", "Einladende Atmosphäre"],
+        comment:
+          "Wirklich tolle Erfahrung. Ich erzählte dem Kellner von meiner Zöliakie und er holte den Küchenchef, um die Zutaten zu bestätigen. Die Polenta ist himmlisch.",
+      },
+    },
+  },
+
+  // ── Healthy Bites Atelier ────────────────────────────────────
+  "healthy-bites-atelier": {
+    cuisine: "Konditorei",
+    features: ["Glutenfrei", "Laktosefrei", "Zuckerfrei", "Fit"],
+    restrictions: ["Glutenfrei", "Laktosefrei", "Zuckerfrei"],
+    safetyProcedures: [
+      "Verwendet glutenfreie Zutaten bei bestimmten Produkten",
+      "Keine klare Bestätigung eines speziell für Zöliakie ausgelegten Betriebs",
+    ],
+    description: "Gesunde Konditorei mit glutenfreien, laktosefreien und zuckerfreien Köstlichkeiten.",
+    dishes: {
+      "hba-d1": { name: "Fit-Kakaokuchen mit Nüssen" },
+      "hba-d2": { name: "Brownie mit Haselnusssauce" },
+      "hba-d3": { name: "Fit-Banoffee" },
+      "hba-d4": { name: "Functional-Ostereier" },
+    },
+  },
+
+  // ── Grão Fino ────────────────────────────────────────────────
+  "grao-fino": {
+    cuisine: "Bäckerei / Café / Functional-Restaurant",
+    features: ["100% glutenfrei", "Laktosefrei", "Functional", "Brunch"],
+    restrictions: ["Glutenfrei", "Laktosefrei"],
+    safetyProcedures: [
+      "Produktion auf Ernährungseinschränkungen ausgerichtet",
+      "Starker Fokus auf alternative Zutaten und Zubereitungskontrolle",
+    ],
+    description: "Eine Functional-Bäckerei mit glutenfreier und laktosefreier Produktion, fokussiert auf gesunde Ernährung.",
+    dishes: {
+      "grao-fino-d1": { name: "Französisches Brot" },
+      "grao-fino-d2": { name: "Kürbisbrot" },
+      "grao-fino-d3": { name: "Glutenfreie Ciabatta" },
+      "grao-fino-d4": { name: "Low-Carb-Mandelbrot" },
+      "grao-fino-d5": { name: "Tapioka mit cremigem Hühnchen" },
+      "grao-fino-d6": { name: "Burger im glutenfreien Brötchen" },
+      "grao-fino-d7": { name: "Glutenfreie Waffel" },
+    },
+  },
+
+  // ── Pandan ───────────────────────────────────────────────────
+  pandan: {
+    cuisine: "Restaurant / Bäckerei / Konditorei",
+    features: ["100% glutenfrei", "Bäckerei", "Konditorei", "Comfort Food"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Fokus auf sicheres Essen für Zöliakiebetroffene",
+      "Konzept speziell für glutenfreie Gäste",
+    ],
+    description: "Ein Restaurant und Labor, das sich auf glutenfreie Küche spezialisiert hat, mit Fokus auf Sicherheit und Herzlichkeit.",
+    dishes: {
+      "pandan-d1": { name: "Hühnchen-Stroganoff mit Reis und Kartoffelstroh" },
+      "pandan-d2": { name: "Schinken-Käse-Rondelli" },
+      "pandan-d3": { name: "Hühnerschenkel mit Rosmarinsauce und Kürbiscreme" },
+      "pandan-d4": { name: "Glutenfreies französisches Brot" },
+      "pandan-d5": { name: "Glutenfreie Brioche" },
+      "pandan-d6": { name: "Beeren-Cheesecake" },
+    },
+  },
+
+  // ── Pizza For Fun ────────────────────────────────────────────
+  "pizza-for-fun": {
+    cuisine: "Pizzeria",
+    features: ["100% glutenfrei", "Keine Kreuzkontamination", "Eigene Küche"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Eigener Bereich, kein Gluten gelangt in die Räumlichkeiten",
+      "Ausdrückliche Kommunikation über die Abwesenheit von Kreuzkontamination",
+    ],
+    description: "Eine Pizzeria, die sich auf 100% glutenfreie Pizzen spezialisiert hat.",
+    dishes: {
+      "pff-d1": { name: "Margherita" },
+      "pff-d2": { name: "Caprese" },
+      "pff-d3": { name: "Tre Funghi" },
+      "pff-d4": { name: "Peperoni" },
+      "pff-d5": { name: "Bergamo" },
+      "pff-d6": { name: "Schokolade mit Banane" },
+    },
+  },
+
+  // ── Jampa Nutrileve ──────────────────────────────────────────
+  "jampa-nutrileve": {
+    cuisine: "Restaurant / Pizzeria",
+    features: ["100% glutenfrei", "Keine Kreuzkontamination", "Inklusiv"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Erklärt glutenfreien Betrieb ohne Kreuzkontamination",
+      "Fokus auf Ernährungsinklusion",
+    ],
+    description: "Ein glutenfreies Restaurant und Pizzeria mit einem leichten, inklusiven Konzept.",
+    dishes: {
+      "jnl-d1": { name: "Garnelen-Pizza" },
+      "jnl-d2": { name: "Große glutenfreie Pizzen" },
+      "jnl-d3": { name: "Mehlfreie Proteingerichte" },
+      "jnl-d4": { name: "Kombimenüs mit Getränk" },
+    },
+  },
+
+  // ── Lola Paleo ───────────────────────────────────────────────
+  "lola-paleo": {
+    cuisine: "Bäckerei / Konditorei / Functional-Café",
+    features: ["Glutenfrei", "Laktosefrei", "Zuckerfrei", "Paleo"],
+    restrictions: ["Glutenfrei", "Laktosefrei", "Zuckerfrei"],
+    safetyProcedures: [
+      "Gute Auswahl an glutenfreien Produkten",
+      "Keine klaren Belege für strenge Kreuzkontaminationskontrolle",
+    ],
+    description: "Eine Functional-Bäckerei und Konditorei mit glutenfreien, zuckerfreien und laktosefreien Produkten.",
+    dishes: {
+      "lp-d1": { name: "Mandelbrote" },
+      "lp-d2": { name: "Pistazienbrote" },
+      "lp-d3": { name: "Croissants" },
+      "lp-d4": { name: "Kuchen" },
+      "lp-d5": { name: "Low-Carb-Pizzen" },
+      "lp-d6": { name: "Tiefkühl-Fertiggerichte" },
+    },
+  },
+
+  // ── Juro de Dedinho ──────────────────────────────────────────
+  "juro-de-dedinho": {
+    city: "Porto Alegre / São Paulo",
+    cuisine: "Konditorei / Süßwaren",
+    features: ["100% glutenfrei", "Laktosefrei", "Zuckerfrei", "Vegane Option"],
+    restrictions: ["Glutenfrei", "Laktosefrei", "Zuckerfrei"],
+    safetyProcedures: [
+      "Glutenfreie Küche",
+      "Ausdrückliche Kommunikation der Sicherheit für Zöliakiebetroffene",
+    ],
+    description: "Eine inklusive Konditorei mit glutenfreien, laktosefreien und zuckerfreien Köstlichkeiten.",
+    dishes: {
+      "jdd-d1": { name: "Cookies-and-Cream-Trüffel" },
+      "jdd-d2": { name: "Beerenmix-Trüffel" },
+      "jdd-d3": { name: "Pistazien-Trüffel" },
+      "jdd-d4": { name: "Brownie" },
+      "jdd-d5": { name: "Alfajor" },
+      "jdd-d6": { name: "Süßigkeiten im Glas" },
+    },
+  },
+
+  // ── Libera ───────────────────────────────────────────────────
+  libera: {
+    city: "Zürich",
+    cuisine: "Café / Bistro",
+    features: ["100% glutenfrei", "Vegane Option", "Laktosefreie Option", "Brunch"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Konzept entwickelt für Menschen, die null Glutenkontamination benötigen",
+    ],
+    description: "Ein Café und Bistro in Zürich mit glutenfreier Speisekarte und Fokus auf Sicherheit.",
+    dishes: {
+      "lib-d1": { name: "Glutenfreie Croissants" },
+      "lib-d2": { name: "Nahrhafte Bowls" },
+      "lib-d3": { name: "Leichte Gerichte" },
+      "lib-d4": { name: "Vegetarische Optionen", restrictions: ["Glutenfrei", "Vegetarisch"] },
+      "lib-d5": { name: "Vegane Optionen", restrictions: ["Glutenfrei", "Vegan"] },
+    },
+  },
+
+  // ── Zufreeden ────────────────────────────────────────────────
+  zufreeden: {
+    city: "Zürich",
+    cuisine: "Café / Bäckerei / Konditorei",
+    features: ["100% glutenfrei", "Handwerksbäckerei", "Brunch", "Süßigkeiten"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Zutaten, Umgebung und Geräte für sichere Zöliakie-Zubereitung bestimmt",
+    ],
+    description: "Ein handwerkliches Café und Bäckerei mit einem 100% glutenfreien Betrieb.",
+    dishes: {
+      "zuf-d1": { name: "Buchweizenbrot" },
+      "zuf-d2": { name: "Brezeln" },
+      "zuf-d3": { name: "Sandwiches" },
+      "zuf-d4": { name: "Quiches" },
+      "zuf-d5": { name: "Brownies" },
+      "zuf-d6": { name: "Cheesecake" },
+      "zuf-d7": { name: "Bananenbrot" },
+    },
+  },
+
+  // ── À VIE Baked Goods ────────────────────────────────────────
+  "a-vie": {
+    city: "Zürich",
+    cuisine: "Konditorei / Bäckerei",
+    features: ["100% glutenfrei", "Konditorei", "Premium", "Süßigkeiten"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Unternehmen aus echter Erfahrung mit Zöliakie entstanden",
+      "Fokus auf Sicherheit und Raffinesse",
+    ],
+    description: "Eine handwerkliche Konditorei in Zürich mit glutenfreien Produkten, inspiriert von der französischen Patisserie.",
+    dishes: {
+      "avie-d1": { name: "Handwerkliche Brioches" },
+      "avie-d2": { name: "Französische Tartes" },
+      "avie-d3": { name: "Moderne Patisserie" },
+      "avie-d4": { name: "Raffinierte Süßigkeiten" },
+    },
+  },
+
+  // ── Jackie's ─────────────────────────────────────────────────
+  jackies: {
+    city: "Kemptthal",
+    cuisine: "Bäckerei / Konditorei",
+    features: ["100% glutenfrei", "Handwerksbäckerei", "Tiefkühlware", "Vegane Option"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Eigene Produktion mit hausgemachten Rezepten",
+      "Fokus auf sicheren Konsum zu Hause oder unterwegs",
+    ],
+    description: "Eine handwerkliche Bäckerei mit vollständig glutenfreier Produktion und Produkten für den Alltag.",
+    dishes: {
+      "jck-d1": { name: "Handwerkliche glutenfreie Brote" },
+      "jck-d2": { name: "Angepasste traditionelle Süßigkeiten" },
+      "jck-d3": { name: "Tiefkühlprodukte" },
+    },
+  },
+
+  // ── Granò ────────────────────────────────────────────────────
+  grano: {
+    city: "Zürich",
+    cuisine: "Italienisches Restaurant / Pizzeria",
+    features: ["100% glutenfrei", "Italienisch", "Pizza", "Laktosefreie Option"],
+    restrictions: ["Glutenfrei"],
+    safetyProcedures: [
+      "Eigene Küche und exklusiver Ofen",
+      "Betrieb ohne Risiko von Kreuzkontamination",
+    ],
+    description: "Ein italienisches Restaurant in Zürich mit einer 100% glutenfreien Küche.",
+    dishes: {
+      "grano-d1": { name: "Klassische italienische Pizzen" },
+      "grano-d2": { name: "Wöchentliche Spezialpizzen" },
+      "grano-d3": { name: "Italienische Desserts" },
+      "grano-d4": { name: "Glutenfreie Biere" },
+    },
+  },
+};
+
+export const safetyLevelLabelsDe: Record<string, { label: string; description: string }> = {
+  muito_seguro: { label: "Sehr sicher", description: "Küche ausschließlich für glutenfreie Zubereitung (laut Restaurant)" },
+  seguro: { label: "Sicherer", description: "Strenges Anti-Kontaminationsprotokoll" },
+  moderado: { label: "Vorsicht", description: "Glutenfreie Optionen verfügbar" },
+  cuidado: { label: "Vorsicht geboten", description: "Risiko von Kreuzkontamination" },
+  novo: { label: "Neu", description: "Kürzlich zur Community hinzugefügt" },
+  verificado: { label: "Geprüft", description: "Von der Community geprüft" },
+  certificado: { label: "Von Zöliakiebetroffenen sehr gut bewertet", description: "Von der Zöliakie-Community sehr gut bewertet" },
+  recomendado: { label: "Empfohlen", description: "Sehr empfohlen" },
+};
+
 export const safetyLevelLabelsEn: Record<string, { label: string; description: string }> = {
   muito_seguro: { label: "Very safe", description: "Kitchen dedicated to gluten-free preparation (per the restaurant)" },
   seguro: { label: "Safer", description: "Strict anti-contamination protocol" },

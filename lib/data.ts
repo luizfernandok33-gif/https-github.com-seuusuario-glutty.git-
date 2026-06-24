@@ -1,4 +1,9 @@
-import { restaurantTranslationsEn, safetyLevelLabelsEn } from "@/lib/i18n/dataTranslations";
+import {
+  restaurantTranslationsEn,
+  safetyLevelLabelsEn,
+  restaurantTranslationsDe,
+  safetyLevelLabelsDe,
+} from "@/lib/i18n/dataTranslations";
 import type { Language } from "@/lib/i18n/translations";
 
 export type SafetyLevel =
@@ -1724,9 +1729,20 @@ export const mockDishes = [
   },
 ];
 
+const restaurantTranslationsByLang: Partial<Record<Language, typeof restaurantTranslationsEn>> = {
+  en: restaurantTranslationsEn,
+  de: restaurantTranslationsDe,
+};
+
+const safetyLevelLabelsByLang: Partial<Record<Language, typeof safetyLevelLabelsEn>> = {
+  en: safetyLevelLabelsEn,
+  de: safetyLevelLabelsDe,
+};
+
 export function localizeDish(dish: Dish, restaurantId: string, lang: Language): Dish {
-  if (lang !== "en") return dish;
-  const tr = restaurantTranslationsEn[restaurantId]?.dishes?.[dish.id];
+  const restaurantTranslations = restaurantTranslationsByLang[lang];
+  if (!restaurantTranslations) return dish;
+  const tr = restaurantTranslations[restaurantId]?.dishes?.[dish.id];
   if (!tr) return dish;
   return {
     ...dish,
@@ -1740,8 +1756,9 @@ export function localizeDish(dish: Dish, restaurantId: string, lang: Language): 
 }
 
 export function localizeReview(review: Review, restaurantId: string, lang: Language): Review {
-  if (lang !== "en") return review;
-  const tr = restaurantTranslationsEn[restaurantId]?.reviews?.[review.id];
+  const restaurantTranslations = restaurantTranslationsByLang[lang];
+  if (!restaurantTranslations) return review;
+  const tr = restaurantTranslations[restaurantId]?.reviews?.[review.id];
   if (!tr) return review;
   return {
     ...review,
@@ -1751,8 +1768,9 @@ export function localizeReview(review: Review, restaurantId: string, lang: Langu
 }
 
 export function localizeRestaurant(restaurant: Restaurant, lang: Language): Restaurant {
-  if (lang !== "en") return restaurant;
-  const tr = restaurantTranslationsEn[restaurant.id];
+  const restaurantTranslations = restaurantTranslationsByLang[lang];
+  if (!restaurantTranslations) return restaurant;
+  const tr = restaurantTranslations[restaurant.id];
   return {
     ...restaurant,
     ...(tr?.city !== undefined && { city: tr.city }),
@@ -1770,11 +1788,12 @@ export function localizeRestaurant(restaurant: Restaurant, lang: Language): Rest
 export function localizeSafetyLevelConfig(
   lang: Language
 ): Record<SafetyLevel, { label: string; color: string; bg: string; description: string }> {
-  if (lang !== "en") return safetyLevelConfig;
+  const safetyLevelLabels = safetyLevelLabelsByLang[lang];
+  if (!safetyLevelLabels) return safetyLevelConfig;
   const result = {} as Record<SafetyLevel, { label: string; color: string; bg: string; description: string }>;
   (Object.keys(safetyLevelConfig) as SafetyLevel[]).forEach((key) => {
     const base = safetyLevelConfig[key];
-    const tr = safetyLevelLabelsEn[key];
+    const tr = safetyLevelLabels[key];
     result[key] = {
       ...base,
       ...(tr?.label !== undefined && { label: tr.label }),
