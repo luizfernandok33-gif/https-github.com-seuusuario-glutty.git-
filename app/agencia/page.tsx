@@ -389,6 +389,22 @@ export default function AgenciaPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050308]" />
       </div>
 
+      {/* Arte pós-hero — planeta roxo (estatísticas + sobre) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-[660px] h-[980px] sm:top-[800px] sm:h-[1100px]"
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage: "url(/planeta-roxo.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050308] via-transparent to-[#050308]" />
+      </div>
+
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-40 border-b border-white/5 bg-[#050308]/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
