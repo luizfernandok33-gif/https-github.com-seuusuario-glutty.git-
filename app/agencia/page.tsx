@@ -455,8 +455,14 @@ export default function AgenciaPage() {
           <Reveal>
           <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-sm">
             <div className="flex items-center gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-pink-400 text-[#050308]">
-                <User size={22} />
+              <span className="shrink-0 rounded-full bg-gradient-to-br from-violet-400 to-pink-400 p-[2px]">
+                <Image
+                  src="/foto-luiz.jpg"
+                  alt="Foto de Luiz"
+                  width={160}
+                  height={160}
+                  className="h-16 w-16 rounded-full object-cover sm:h-20 sm:w-20"
+                />
               </span>
               <div>
                 <h2 className="text-lg font-bold">Sobre mim</h2>
