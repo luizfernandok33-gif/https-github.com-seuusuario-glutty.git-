@@ -35,6 +35,7 @@ import {
   Send,
   ExternalLink,
   Clock,
+  ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -246,10 +247,9 @@ const STATS = [
   { value: "5", label: "anos em Zurique" },
 ];
 
-// Artes geradas no Higgsfield (Cinema Studio 2.5, 21:9).
-// Para produção definitiva, baixe os PNGs para /public e troque as URLs.
-const HERO_BG_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_123622_5a844b6d-867a-4b24-9194-b8ba1f2fe206.png";
+// Fundo do hero enviado pelo Luiz (otimizado em WebP, servido de /public).
+const HERO_BG_URL = "/hero-astronauta.webp";
+// Banner gerado no Higgsfield (Cinema Studio 2.5, 21:9).
 const UFO_BANNER_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_104726_e4e8c9dc-12f4-41e6-a3b5-63525a523f0f.png";
 
@@ -332,10 +332,17 @@ export default function AgenciaPage() {
           opacity: 1;
           transform: none;
         }
+        @keyframes scroll-dot {
+          0%   { top: 0; opacity: 1; }
+          75%  { top: calc(100% - 6px); opacity: 0.2; }
+          100% { top: calc(100% - 6px); opacity: 0; }
+        }
+        .scroll-dot { animation: scroll-dot 2.2s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) {
           .agencia-stars { animation: none !important; }
           html { scroll-behavior: auto; }
           .reveal { opacity: 1; transform: none; transition: none; }
+          .scroll-dot { animation: none; }
         }
       `}</style>
 
@@ -354,25 +361,23 @@ export default function AgenciaPage() {
         }}
       />
 
-      {/* Arte do hero — astronauta (Higgsfield) */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[640px] sm:h-[760px]">
+      {/* Arte do hero — astronauta */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[660px] sm:h-[800px]">
         <div
           className="h-full w-full"
           style={{
             backgroundImage: `url(${HERO_BG_URL})`,
             backgroundSize: "cover",
-            backgroundPosition: "center right",
+            backgroundPosition: "center top",
           }}
         />
-        {/* Texto à esquerda: escurece a esquerda e funde a base com o fundo */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050308] via-[#050308]/55 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050308]" />
       </div>
 
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-40 border-b border-white/5 bg-[#050308]/70 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-          <a href="#topo" aria-label="Luiz — Digital Marketing">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+          <a href="#topo" aria-label="Luiz — Digital Marketing" className="shrink-0">
             <Image
               src="/logo-luiz.png"
               alt=""
@@ -382,57 +387,46 @@ export default function AgenciaPage() {
               className="h-7 w-auto sm:h-8"
             />
           </a>
-          <div className="flex items-center gap-4 overflow-x-auto text-[11px] font-bold uppercase tracking-wider">
-            {NAV_LINKS.map(({ href, label }) => (
-              <a
-                key={href}
-                href={href}
-                className={
-                  href === "#contato"
-                    ? "shrink-0 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 px-3.5 py-1.5"
-                    : "hidden shrink-0 text-white/55 transition-colors hover:text-white sm:block"
-                }
-              >
+          <div className="hidden items-center gap-8 text-[11px] font-bold uppercase tracking-[0.25em] text-white/70 sm:flex lg:gap-12">
+            {NAV_LINKS.filter(({ href }) => href !== "#contato").map(({ href, label }) => (
+              <a key={href} href={href} className="transition-colors hover:text-white">
                 {label}
               </a>
             ))}
           </div>
+          <a
+            href="#contato"
+            className="flex shrink-0 items-center gap-3 border border-white/40 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.25em] transition-colors hover:bg-white hover:text-[#050308] sm:px-6"
+          >
+            Contato
+            <ArrowUpRight size={14} />
+          </a>
         </div>
       </nav>
 
       <div id="topo" className="relative z-10 mx-auto max-w-5xl px-6 py-10 sm:py-14">
         {/* ── Hero ── */}
-        <header className="flex min-h-[520px] max-w-xl flex-col items-start justify-center text-left sm:min-h-[600px]">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-violet-300">
-            <Sparkles size={12} />
-            Marketing digital para brasileiros em Zurique
-          </span>
-          <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold leading-tight">
-            Transformo ideias em{" "}
-            <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-              experiências digitais
-            </span>
+        <header className="flex min-h-[560px] flex-col justify-end pb-10 sm:min-h-[680px] sm:pb-14">
+          <h1 className="sr-only">
+            Luiz — Digital Marketing. Transformo ideias em experiências digitais.
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-white/60">
-            Sou Luiz — publicitário, UX/UI e Product Designer. Desenvolvo marcas,
-            campanhas, sites e produtos digitais combinando pesquisa, estratégia,
-            design e tecnologia. Deixe seu contato que eu te chamo com uma
-            proposta sob medida.
-          </p>
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a
-              href="#contato"
-              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-pink-500 px-6 py-3.5 text-sm font-bold transition-transform active:scale-95"
-            >
-              Iniciar um projeto
-              <ArrowRight size={16} />
-            </a>
-            <a
-              href="#projeto"
-              className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-bold text-white/80 transition-colors hover:border-violet-400/40"
-            >
-              Ver projeto em destaque
-            </a>
+          <div className="ml-auto w-full max-w-[300px] sm:max-w-xs">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-violet-300">
+              Marketing digital para brasileiros em Zurique
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-white/75">
+              Sou Luiz — publicitário, UX/UI e Product Designer. Desenvolvo
+              marcas, campanhas, sites e produtos digitais combinando
+              estratégia, design e tecnologia.
+            </p>
+            <div className="mt-10 flex flex-col items-start gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">
+                Scroll
+              </span>
+              <span className="relative block h-10 w-px bg-white/20">
+                <span className="scroll-dot absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white/80" />
+              </span>
+            </div>
           </div>
         </header>
 
