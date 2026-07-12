@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { LogoLockup } from "./Logo";
 import {
@@ -188,6 +188,64 @@ function formatPhone(raw: string, iso: string) {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+function Reveal({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={`reveal ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+function SectionHeading({ index, title }: { index: string; title: string }) {
+  return (
+    <div className="mb-8 flex items-end gap-4">
+      <div>
+        <p className="text-[11px] font-bold tracking-[0.3em] text-white/30">{index}</p>
+        <h2 className="mt-1 text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
+          {title}
+        </h2>
+      </div>
+      <span className="mb-2 h-px flex-1 bg-white/10" />
+    </div>
+  );
+}
+
+const NAV_LINKS = [
+  { href: "#sobre", label: "Sobre" },
+  { href: "#servicos", label: "Serviços" },
+  { href: "#processo", label: "Processo" },
+  { href: "#projeto", label: "Projeto" },
+  { href: "#contato", label: "Contato" },
+];
+
+const STATS = [
+  { value: "9+", label: "anos criando para marcas" },
+  { value: "3", label: "países de experiência" },
+  { value: "5", label: "anos em Zurique" },
+];
+
 // Artes geradas no Higgsfield (Cinema Studio 2.5, 21:9).
 // Para produção definitiva, baixe os PNGs para /public e troque as URLs.
 const HERO_BG_URL =
@@ -265,9 +323,19 @@ export default function AgenciaPage() {
           to   { background-position: -540px 180px, 440px -260px, -280px -520px; }
         }
         html { scroll-behavior: smooth; }
+        .reveal {
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.is-visible {
+          opacity: 1;
+          transform: none;
+        }
         @media (prefers-reduced-motion: reduce) {
           .agencia-stars { animation: none !important; }
           html { scroll-behavior: auto; }
+          .reveal { opacity: 1; transform: none; transition: none; }
         }
       `}</style>
 
@@ -299,14 +367,40 @@ export default function AgenciaPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#050308]/45 via-[#050308]/35 to-[#050308]" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-10 sm:py-16">
-        {/* ── Brand ── */}
-        <div className="flex justify-center">
-          <LogoLockup />
+      {/* ── Nav ── */}
+      <nav className="sticky top-0 z-40 border-b border-white/5 bg-[#050308]/70 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
+          <a href="#topo" aria-label="Luiz — Digital Marketing">
+            <Image
+              src="/logo-luiz.png"
+              alt=""
+              width={799}
+              height={250}
+              priority
+              className="h-7 w-auto sm:h-8"
+            />
+          </a>
+          <div className="flex items-center gap-4 overflow-x-auto text-[11px] font-bold uppercase tracking-wider">
+            {NAV_LINKS.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                className={
+                  href === "#contato"
+                    ? "shrink-0 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 px-3.5 py-1.5"
+                    : "hidden shrink-0 text-white/55 transition-colors hover:text-white sm:block"
+                }
+              >
+                {label}
+              </a>
+            ))}
+          </div>
         </div>
+      </nav>
 
+      <div id="topo" className="relative z-10 mx-auto max-w-5xl px-6 py-10 sm:py-14">
         {/* ── Hero ── */}
-        <header className="mt-12 text-center max-w-2xl mx-auto">
+        <header className="mt-10 text-center max-w-2xl mx-auto sm:mt-16">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-violet-300">
             <Sparkles size={12} />
             Marketing digital para brasileiros em Zurique
@@ -340,8 +434,23 @@ export default function AgenciaPage() {
           </div>
         </header>
 
+        {/* ── Stats ── */}
+        <Reveal>
+          <section className="mx-auto mt-20 grid max-w-3xl grid-cols-3 gap-4 text-center">
+            {STATS.map(({ value, label }) => (
+              <div key={label}>
+                <p className="text-4xl font-light tabular-nums sm:text-6xl">{value}</p>
+                <p className="mx-auto mt-2 max-w-[140px] text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </section>
+        </Reveal>
+
         {/* ── About ── */}
-        <section className="mt-16 max-w-2xl mx-auto">
+        <section id="sobre" className="mt-20 max-w-2xl mx-auto scroll-mt-20">
+          <Reveal>
           <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-sm">
             <div className="flex items-center gap-4">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-pink-400 text-[#050308]">
@@ -405,14 +514,14 @@ export default function AgenciaPage() {
               ))}
             </div>
           </div>
+          </Reveal>
         </section>
 
         {/* ── Services ── */}
-        <section className="mt-16">
-          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-white/40">
-            O que fazemos
-          </h2>
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <section id="servicos" className="mt-20 scroll-mt-20">
+          <Reveal>
+          <SectionHeading index="01" title="O que eu faço" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {SERVICES.map(({ icon: Icon, label }) => (
               <div
                 key={label}
@@ -423,14 +532,14 @@ export default function AgenciaPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* ── Processo ── */}
-        <section className="mt-16">
-          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-white/40">
-            Como eu trabalho
-          </h2>
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <section id="processo" className="mt-20 scroll-mt-20">
+          <Reveal>
+          <SectionHeading index="02" title="Como eu trabalho" />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {PROCESS_STEPS.map(({ icon: Icon, title, detail }, i) => (
               <div
                 key={title}
@@ -449,14 +558,14 @@ export default function AgenciaPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* ── Projeto em destaque ── */}
-        <section id="projeto" className="mt-16 scroll-mt-8">
-          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-white/40">
-            Projeto em destaque
-          </h2>
-          <div className="mt-6 flex flex-col items-center gap-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm sm:flex-row sm:p-8">
+        <section id="projeto" className="mt-20 scroll-mt-20">
+          <Reveal>
+          <SectionHeading index="03" title="Projeto em destaque" />
+          <div className="flex flex-col items-center gap-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm sm:flex-row sm:p-8">
             <Image
               src="/case-glutty.png"
               alt="Mascote do app Glútty"
@@ -485,10 +594,12 @@ export default function AgenciaPage() {
               </Link>
             </div>
           </div>
+          </Reveal>
         </section>
 
         {/* ── Banner UFO (Higgsfield) ── */}
         <section className="mt-16" aria-hidden>
+          <Reveal>
           <div
             className="flex min-h-[220px] items-end overflow-hidden rounded-3xl border border-white/10 sm:min-h-[300px]"
             style={{
@@ -506,10 +617,12 @@ export default function AgenciaPage() {
               </p>
             </div>
           </div>
+          </Reveal>
         </section>
 
         {/* ── Lead form ── */}
-        <section id="contato" className="mt-20 max-w-lg mx-auto">
+        <section id="contato" className="mt-20 max-w-lg mx-auto scroll-mt-20">
+          <Reveal>
           <div className="rounded-3xl border border-white/10 bg-white/[0.05] p-6 sm:p-8 backdrop-blur-sm shadow-[0_0_60px_-15px_rgba(168,85,247,0.35)]">
             {status === "success" ? (
               <div className="text-center py-8">
@@ -675,6 +788,7 @@ export default function AgenciaPage() {
               </form>
             )}
           </div>
+          </Reveal>
         </section>
 
         {/* ── Footer ── */}
