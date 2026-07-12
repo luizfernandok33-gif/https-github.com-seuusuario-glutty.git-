@@ -249,9 +249,6 @@ const STATS = [
 
 // Fundo do hero enviado pelo Luiz (otimizado em WebP, servido de /public).
 const HERO_BG_URL = "/hero-astronauta.webp";
-// Banner gerado no Higgsfield (Cinema Studio 2.5, 21:9).
-const UFO_BANNER_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_104726_e4e8c9dc-12f4-41e6-a3b5-63525a523f0f.png";
 
 export default function AgenciaPage() {
   const [name, setName] = useState("");
@@ -625,29 +622,6 @@ export default function AgenciaPage() {
                 Ver o projeto ao vivo
                 <ExternalLink size={14} />
               </Link>
-            </div>
-          </div>
-          </Reveal>
-        </section>
-
-        {/* ── Banner UFO (Higgsfield) ── */}
-        <section className="mt-16" aria-hidden>
-          <Reveal>
-          <div
-            className="flex min-h-[220px] items-end overflow-hidden rounded-3xl border border-white/10 sm:min-h-[300px]"
-            style={{
-              backgroundImage: `url(${UFO_BANNER_URL})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="w-full bg-gradient-to-t from-[#050308]/85 to-transparent p-6 sm:p-8">
-              <p className="font-pixel text-sm uppercase leading-relaxed sm:text-base">
-                Ideias de outro mundo{" "}
-                <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-                  para o seu negócio
-                </span>
-              </p>
             </div>
           </div>
           </Reveal>
