@@ -224,7 +224,7 @@ function SectionHeading({ index, title }: { index: string; title: string }) {
     <div className="mb-8 flex items-end gap-4">
       <div>
         <p className="text-[11px] font-bold tracking-[0.3em] text-white/30">{index}</p>
-        <h2 className="mt-1 text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
+        <h2 className="font-pixel mt-2 text-base uppercase sm:text-xl">
           {title}
         </h2>
       </div>
@@ -306,7 +306,7 @@ export default function AgenciaPage() {
 
   return (
     <div
-      className="fixed inset-0 overflow-y-auto text-white"
+      className="agencia-root fixed inset-0 overflow-y-auto text-white"
       style={{
         backgroundColor: "#050308",
         backgroundImage: [
@@ -318,6 +318,21 @@ export default function AgenciaPage() {
       }}
     >
       <style>{`
+        /* Tipografia da agência: Inter no corpo, Press Start 2P nos títulos.
+           Sobrescreve o Nunito global (que usa !important em botões/links). */
+        .agencia-root {
+          font-family: var(--font-inter), system-ui, sans-serif;
+          font-weight: 400;
+        }
+        .agencia-root :is(button, button *, a, a *) {
+          font-family: var(--font-inter), system-ui, sans-serif !important;
+          font-weight: 700 !important;
+        }
+        .agencia-root :is(.font-pixel, .font-pixel *) {
+          font-family: var(--font-press-start), monospace !important;
+          font-weight: 400 !important;
+          line-height: 1.4;
+        }
         @keyframes agencia-drift {
           from { background-position: 0 0, 0 0, 0 0; }
           to   { background-position: -540px 180px, 440px -260px, -280px -520px; }
@@ -459,7 +474,7 @@ export default function AgenciaPage() {
                 />
               </span>
               <div>
-                <h2 className="text-lg font-bold">Sobre mim</h2>
+                <h2 className="font-pixel text-sm sm:text-base">Sobre mim</h2>
                 <p className="flex items-center gap-1.5 text-xs text-white/50">
                   <MapPin size={12} />
                   Morando em Zurique, na Suíça, há 5 anos
@@ -576,7 +591,7 @@ export default function AgenciaPage() {
               className="h-32 w-32 shrink-0 object-contain sm:h-40 sm:w-40"
             />
             <div className="text-center sm:text-left">
-              <p className="text-xl font-extrabold">Glútty</p>
+              <p className="font-pixel text-base sm:text-lg">Glútty</p>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
                 Product Design de ponta a ponta
               </p>
@@ -611,7 +626,7 @@ export default function AgenciaPage() {
             }}
           >
             <div className="w-full bg-gradient-to-t from-[#050308]/85 to-transparent p-6 sm:p-8">
-              <p className="text-lg font-extrabold sm:text-xl">
+              <p className="font-pixel text-sm uppercase leading-relaxed sm:text-base">
                 Ideias de outro mundo{" "}
                 <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
                   para o seu negócio
@@ -631,7 +646,7 @@ export default function AgenciaPage() {
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400/15">
                   <Check size={26} className="text-emerald-400" />
                 </div>
-                <h3 className="text-xl font-bold">Recebemos seu contato!</h3>
+                <h3 className="font-pixel text-sm sm:text-base">Recebemos seu contato!</h3>
                 <p className="mt-2 text-sm text-white/60">
                   Vou entrar em contato em breve para falar sobre o seu
                   projeto.
@@ -640,7 +655,7 @@ export default function AgenciaPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-bold">Peça sua proposta</h3>
+                  <h3 className="font-pixel text-sm sm:text-base">Peça sua proposta</h3>
                   <p className="mt-1 text-sm text-white/60">
                     Preenchimento rápido, sem compromisso.
                   </p>

@@ -1,4 +1,16 @@
 import type { Metadata } from "next";
+import { Inter, Press_Start_2P } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-inter",
+});
+
+const pressStart = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-press-start",
+});
 
 const description =
   "Marketing digital para brasileiros empreendedores em Zurique: identidade visual, campanhas, social media, Google Ads, sites, apps e UX/Product Design. Deixe seu contato e receba uma proposta.";
@@ -16,5 +28,5 @@ export const metadata: Metadata = {
 };
 
 export default function AgenciaLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <div className={`${inter.variable} ${pressStart.variable}`}>{children}</div>;
 }
