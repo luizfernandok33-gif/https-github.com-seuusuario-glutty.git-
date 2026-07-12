@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { LogoLockup, LogoMark } from "./Logo";
+import { LogoLockup } from "./Logo";
 import {
   PenTool,
   Megaphone,
@@ -232,7 +232,9 @@ export default function AgenciaPage() {
         <section className="mt-16 max-w-2xl mx-auto">
           <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-sm">
             <div className="flex items-center gap-4">
-              <LogoMark className="h-12 w-12" />
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-pink-400 text-[#050308]">
+                <User size={22} />
+              </span>
               <div>
                 <h2 className="text-lg font-bold">Sobre mim</h2>
                 <p className="flex items-center gap-1.5 text-xs text-white/50">
@@ -466,8 +468,8 @@ export default function AgenciaPage() {
 
         {/* ── Footer ── */}
         <footer className="mt-16 text-center text-[11px] text-white/30">
-          © {new Date().getFullYear()} Luíz Agência de Marketing Digital. Todos
-          os direitos reservados.
+          © {new Date().getFullYear()} Luiz Digital Marketing. Todos os
+          direitos reservados.
         </footer>
       </div>
     </div>
