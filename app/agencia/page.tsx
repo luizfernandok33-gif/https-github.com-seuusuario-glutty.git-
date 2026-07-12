@@ -71,6 +71,13 @@ function formatPhone(raw: string) {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+// Artes geradas no Higgsfield (Cinema Studio 2.5, 21:9).
+// Para produção definitiva, baixe os PNGs para /public e troque as URLs.
+const HERO_BG_URL =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_104626_4c6d1e62-5a6a-4add-86d1-9636b650f6e9.png";
+const UFO_BANNER_URL =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_104726_e4e8c9dc-12f4-41e6-a3b5-63525a523f0f.png";
+
 export default function AgenciaPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -120,14 +127,46 @@ export default function AgenciaPage() {
           "radial-gradient(ellipse 900px 600px at 15% -10%, rgba(168,85,247,0.35), transparent 60%)",
           "radial-gradient(ellipse 800px 600px at 110% 15%, rgba(236,72,153,0.28), transparent 60%)",
           "radial-gradient(ellipse 700px 500px at 50% 100%, rgba(99,102,241,0.22), transparent 60%)",
-          "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9) 0, rgba(255,255,255,0.9) 1px, transparent 1px)",
-          "radial-gradient(circle at 70% 60%, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.7) 1px, transparent 1px)",
-          "radial-gradient(circle at 45% 80%, rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 1px, transparent 1px)",
         ].join(", "),
-        backgroundSize: "100% 100%, 100% 100%, 100% 100%, 180px 180px, 220px 220px, 260px 260px",
+        backgroundSize: "100% 100%, 100% 100%, 100% 100%",
       }}
     >
-      <div className="mx-auto max-w-5xl px-6 py-10 sm:py-16">
+      <style>{`
+        @keyframes agencia-drift {
+          from { background-position: 0 0, 0 0, 0 0; }
+          to   { background-position: -540px 180px, 440px -260px, -280px -520px; }
+        }
+      `}</style>
+
+      {/* Campo de estrelas animado */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0"
+        style={{
+          backgroundImage: [
+            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9) 0, rgba(255,255,255,0.9) 1px, transparent 1px)",
+            "radial-gradient(circle at 70% 60%, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.7) 1px, transparent 1px)",
+            "radial-gradient(circle at 45% 80%, rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "180px 180px, 220px 220px, 260px 260px",
+          animation: "agencia-drift 240s linear infinite alternate",
+        }}
+      />
+
+      {/* Arte do hero — astronauta (Higgsfield) */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[560px] sm:h-[680px]">
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage: `url(${HERO_BG_URL})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050308]/45 via-[#050308]/35 to-[#050308]" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-10 sm:py-16">
         {/* ── Brand ── */}
         <div className="flex justify-center">
           <LogoLockup />
@@ -137,7 +176,7 @@ export default function AgenciaPage() {
         <header className="mt-12 text-center max-w-2xl mx-auto">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-violet-300">
             <Sparkles size={12} />
-            Agência de marketing digital
+            Marketing digital para brasileiros em Zurique
           </span>
           <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold leading-tight">
             Sua marca em todo lugar que{" "}
@@ -156,7 +195,7 @@ export default function AgenciaPage() {
         <section className="mt-16 max-w-2xl mx-auto">
           <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-sm">
             <div className="flex items-center gap-4">
-              <LogoMark className="h-14 w-14 text-2xl" />
+              <LogoMark className="h-12 w-12" />
               <div>
                 <h2 className="text-lg font-bold">Sobre mim</h2>
                 <p className="flex items-center gap-1.5 text-xs text-white/50">
@@ -223,6 +262,27 @@ export default function AgenciaPage() {
                 <span className="text-sm font-medium text-white/85">{label}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── Banner UFO (Higgsfield) ── */}
+        <section className="mt-16" aria-hidden>
+          <div
+            className="flex min-h-[220px] items-end overflow-hidden rounded-3xl border border-white/10 sm:min-h-[300px]"
+            style={{
+              backgroundImage: `url(${UFO_BANNER_URL})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="w-full bg-gradient-to-t from-[#050308]/85 to-transparent p-6 sm:p-8">
+              <p className="text-lg font-extrabold sm:text-xl">
+                Ideias de outro mundo{" "}
+                <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
+                  para o seu negócio
+                </span>
+              </p>
+            </div>
           </div>
         </section>
 
