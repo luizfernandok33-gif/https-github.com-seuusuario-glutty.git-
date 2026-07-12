@@ -9,7 +9,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Payload inválido." }, { status: 400 });
   }
 
-  const { name, email, phone, services, website } = body as Record<string, unknown>;
+  const { name, company, email, phone, message, services, website } =
+    body as Record<string, unknown>;
 
   // Honeypot: bots preenchem campos ocultos como "website".
   if (typeof website === "string" && website.length > 0) {
@@ -29,8 +30,10 @@ export async function POST(request: NextRequest) {
 
   console.log("[lead]", {
     name: typeof name === "string" ? name : "",
+    company: typeof company === "string" ? company : "",
     email,
     phone: typeof phone === "string" ? phone.trim() : "",
+    message: typeof message === "string" ? message.slice(0, 2000) : "",
     services: Array.isArray(services) ? services : [],
     at: new Date().toISOString(),
   });

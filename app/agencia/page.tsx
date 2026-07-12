@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { LogoLockup } from "./Logo";
 import {
   PenTool,
@@ -25,7 +26,48 @@ import {
   Landmark,
   Briefcase,
   MapPin,
+  Building2,
+  MessageSquare,
+  Compass,
+  Lightbulb,
+  Palette,
+  ClipboardCheck,
+  Send,
+  ExternalLink,
+  Clock,
 } from "lucide-react";
+import Link from "next/link";
+
+type SocialIconProps = { size?: number; className?: string };
+
+function LinkedinIcon({ size = 15, className }: SocialIconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ size = 15, className }: SocialIconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function GithubIcon({ size = 15, className }: SocialIconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
 
 const EXPERIENCE = [
   {
@@ -43,10 +85,20 @@ const EXPERIENCE = [
     title: "Direção de arte de social media",
     detail: "Agência Cobra Criada · 2021–2022",
   },
+  {
+    icon: Globe,
+    title: "Design gráfico institucional",
+    detail: "ARCTEL-CPLP, Lisboa · 2020",
+  },
+  {
+    icon: GraduationCap,
+    title: "UX, UI e Product Design",
+    detail: "UX Unicorn Program · 2023, com formação em IA em andamento",
+  },
 ];
 
 const SERVICES = [
-  { icon: PenTool, label: "Criação de logo" },
+  { icon: PenTool, label: "Identidade visual & logo" },
   { icon: Megaphone, label: "Campanhas publicitárias" },
   { icon: Share2, label: "Social media" },
   { icon: FileText, label: "Criação de conteúdo" },
@@ -57,6 +109,41 @@ const SERVICES = [
   { icon: Smartphone, label: "Criação de aplicativos" },
   { icon: Globe, label: "Criação de sites" },
   { icon: LayoutTemplate, label: "Landing pages" },
+  { icon: Palette, label: "UX/UI & Product Design" },
+  { icon: Sparkles, label: "IA aplicada a produtos digitais" },
+];
+
+const PROCESS_STEPS = [
+  {
+    icon: Compass,
+    title: "Descoberta",
+    detail: "Entendo seu negócio, seu público e o que você quer alcançar.",
+  },
+  {
+    icon: Search,
+    title: "Pesquisa",
+    detail: "Analiso mercado, concorrência e comportamento do seu cliente.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Estratégia",
+    detail: "Defino o caminho: canais, mensagem e prioridades.",
+  },
+  {
+    icon: Palette,
+    title: "Design",
+    detail: "Crio as peças, campanhas ou produto com identidade própria.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Validação",
+    detail: "Testo com pessoas reais e ajusto antes de lançar.",
+  },
+  {
+    icon: Send,
+    title: "Entrega",
+    detail: "Lanço, acompanho os resultados e otimizo com você.",
+  },
 ];
 
 const COUNTRIES = [
@@ -110,8 +197,10 @@ const UFO_BANNER_URL =
 
 export default function AgenciaPage() {
   const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
   const [country, setCountry] = useState("CH");
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [status, setStatus] = useState<Status>("idle");
@@ -135,8 +224,10 @@ export default function AgenciaPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
+          company,
           email,
           phone: `${dial} ${phone}`,
+          message,
           services: selectedServices,
         }),
       });
@@ -173,12 +264,17 @@ export default function AgenciaPage() {
           from { background-position: 0 0, 0 0, 0 0; }
           to   { background-position: -540px 180px, 440px -260px, -280px -520px; }
         }
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+          .agencia-stars { animation: none !important; }
+          html { scroll-behavior: auto; }
+        }
       `}</style>
 
       {/* Campo de estrelas animado */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0"
+        className="agencia-stars pointer-events-none fixed inset-0"
         style={{
           backgroundImage: [
             "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9) 0, rgba(255,255,255,0.9) 1px, transparent 1px)",
@@ -216,16 +312,32 @@ export default function AgenciaPage() {
             Marketing digital para brasileiros em Zurique
           </span>
           <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold leading-tight">
-            Sua marca em todo lugar que{" "}
+            Transformo ideias em{" "}
             <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-              importa
+              experiências digitais
             </span>
           </h1>
           <p className="mt-5 text-base sm:text-lg text-white/60">
-            Logo, campanhas, conteúdo, tráfego pago e presença digital completa —
-            tudo em um só lugar. Deixe seu contato que eu te chamo com uma
+            Sou Luiz — publicitário, UX/UI e Product Designer. Desenvolvo marcas,
+            campanhas, sites e produtos digitais combinando pesquisa, estratégia,
+            design e tecnologia. Deixe seu contato que eu te chamo com uma
             proposta sob medida.
           </p>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="#contato"
+              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-pink-500 px-6 py-3.5 text-sm font-bold transition-transform active:scale-95"
+            >
+              Iniciar um projeto
+              <ArrowRight size={16} />
+            </a>
+            <a
+              href="#projeto"
+              className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-bold text-white/80 transition-colors hover:border-violet-400/40"
+            >
+              Ver projeto em destaque
+            </a>
+          </div>
         </header>
 
         {/* ── About ── */}
@@ -252,20 +364,29 @@ export default function AgenciaPage() {
               direção de arte das peças de social media do órgão atendido.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-white/70">
-              Há 5 anos moro em Zurique, e nesse tempo venho me capacitando
-              para atuar com o público brasileiro que vive por aqui e tem seu
-              próprio negócio. Meu objetivo é ajudar esses empreendedores a
-              estarem mais presentes no marketing digital e transformar
-              seguidores em clientes.
+              Também trabalhei em Lisboa com design institucional e, já na
+              Suíça, me especializei em UX/UI e Product Design — incluindo IA
+              aplicada a produtos digitais. Há 5 anos moro em Zurique, me
+              capacitando para atuar com o público brasileiro que vive por aqui
+              e tem seu próprio negócio. Meu objetivo é ajudar esses
+              empreendedores a estarem mais presentes no marketing digital e
+              transformar seguidores em clientes.
             </p>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {["Português — nativo", "Espanhol — B2", "Alemão — B1"].map((lang) => (
+              {[
+                "🇧🇷 Brasil",
+                "🇵🇹 Portugal",
+                "🇨🇭 Suíça",
+                "Português — nativo",
+                "Espanhol — B2",
+                "Alemão — B1",
+              ].map((chip) => (
                 <span
-                  key={lang}
+                  key={chip}
                   className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/60"
                 >
-                  {lang}
+                  {chip}
                 </span>
               ))}
             </div>
@@ -301,6 +422,68 @@ export default function AgenciaPage() {
                 <span className="text-sm font-medium text-white/85">{label}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── Processo ── */}
+        <section className="mt-16">
+          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-white/40">
+            Como eu trabalho
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {PROCESS_STEPS.map(({ icon: Icon, title, detail }, i) => (
+              <div
+                key={title}
+                className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-violet-400/15">
+                    <Icon size={16} className="text-violet-300" />
+                  </span>
+                  <p className="text-sm font-bold">
+                    <span className="mr-1.5 text-white/35">{i + 1}.</span>
+                    {title}
+                  </p>
+                </div>
+                <p className="mt-3 text-xs leading-relaxed text-white/55">{detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Projeto em destaque ── */}
+        <section id="projeto" className="mt-16 scroll-mt-8">
+          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-white/40">
+            Projeto em destaque
+          </h2>
+          <div className="mt-6 flex flex-col items-center gap-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm sm:flex-row sm:p-8">
+            <Image
+              src="/case-glutty.png"
+              alt="Mascote do app Glútty"
+              width={160}
+              height={160}
+              className="h-32 w-32 shrink-0 object-contain sm:h-40 sm:w-40"
+            />
+            <div className="text-center sm:text-left">
+              <p className="text-xl font-extrabold">Glútty</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
+                Product Design de ponta a ponta
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-white/70">
+                App que ajuda pessoas celíacas a encontrar e avaliar restaurantes
+                sem glúten com confiança, transparência e validação da
+                comunidade. Conduzi tudo: pesquisa com 86 participantes,
+                entrevistas, arquitetura de informação, design system, protótipo
+                e lançamento.
+              </p>
+              <Link
+                href="/"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-violet-300 transition-colors hover:text-violet-200"
+              >
+                Ver o projeto ao vivo
+                <ExternalLink size={14} />
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -359,6 +542,20 @@ export default function AgenciaPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Seu nome"
+                    className="w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm outline-none placeholder:text-white/35 focus:border-violet-400 transition-colors"
+                  />
+                </div>
+
+                <div className="relative">
+                  <Building2
+                    size={16}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
+                  />
+                  <input
+                    type="text"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    placeholder="Sua empresa (opcional)"
                     className="w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm outline-none placeholder:text-white/35 focus:border-violet-400 transition-colors"
                   />
                 </div>
@@ -435,6 +632,20 @@ export default function AgenciaPage() {
                   </div>
                 </div>
 
+                <div className="relative">
+                  <MessageSquare
+                    size={16}
+                    className="absolute left-4 top-4 text-white/40"
+                  />
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Conte um pouco do seu projeto (opcional)"
+                    rows={3}
+                    className="w-full resize-none rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm outline-none placeholder:text-white/35 focus:border-violet-400 transition-colors"
+                  />
+                </div>
+
                 {status === "error" && (
                   <p className="text-sm text-red-400">{errorMsg}</p>
                 )}
@@ -467,9 +678,45 @@ export default function AgenciaPage() {
         </section>
 
         {/* ── Footer ── */}
-        <footer className="mt-16 text-center text-[11px] text-white/30">
-          © {new Date().getFullYear()} Luiz Digital Marketing. Todos os
-          direitos reservados.
+        <footer className="mt-16 border-t border-white/10 pt-10">
+          <div className="flex flex-col items-center gap-6 text-center">
+            <LogoLockup className="h-12 sm:h-14" />
+
+            <div className="flex flex-col items-center gap-1.5 text-xs text-white/50">
+              <p className="flex items-center gap-1.5">
+                <MapPin size={12} />
+                Zurique, Suíça
+              </p>
+              <p className="flex items-center gap-1.5">
+                <Clock size={12} />
+                Seg–Qui 10h–21h · Sex e Sáb 10h–18h · Dom 10h–20h (horário
+                suíço)
+              </p>
+            </div>
+
+            {/* Perfis sociais — atualizar os links quando definidos */}
+            <div className="flex items-center gap-3">
+              {[
+                { icon: LinkedinIcon, label: "LinkedIn" },
+                { icon: InstagramIcon, label: "Instagram" },
+                { icon: GithubIcon, label: "GitHub" },
+              ].map(({ icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-colors hover:border-violet-400/40 hover:text-white"
+                >
+                  <Icon size={15} />
+                </a>
+              ))}
+            </div>
+
+            <p className="pb-2 text-[11px] text-white/30">
+              © {new Date().getFullYear()} Luiz Digital Marketing. Todos os
+              direitos reservados.
+            </p>
+          </div>
         </footer>
       </div>
     </div>
