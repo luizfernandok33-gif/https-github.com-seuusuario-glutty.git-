@@ -1,37 +1,25 @@
-"use client";
-
-import { useId } from "react";
-
-function PlusGlyph({ className }: { className?: string }) {
-  const gradId = useId();
+export function LogoMark({ className = "h-11 w-11" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 100 100" className={className} aria-hidden>
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="100" y2="100">
-          <stop offset="0" stopColor="#a78bfa" />
-          <stop offset="1" stopColor="#f472b6" />
-        </linearGradient>
-      </defs>
-      <rect x="38" y="4" width="24" height="92" rx="12" fill={`url(#${gradId})`} />
-      <rect x="4" y="38" width="92" height="24" rx="12" fill={`url(#${gradId})`} />
-    </svg>
+    <span
+      className={`flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-400 to-pink-400 font-black text-[#050308] ${className}`}
+    >
+      L
+    </span>
   );
 }
 
 export function LogoLockup({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex flex-col items-center ${className}`}>
-      <div className="flex items-center gap-1.5 -skew-x-6 sm:gap-2">
-        <span className="text-5xl font-black tracking-tight sm:text-6xl">SO</span>
-        <PlusGlyph className="h-9 w-9 sm:h-11 sm:w-11" />
-        <span className="text-5xl font-black tracking-tight sm:text-6xl">MA</span>
+    <div className={`flex items-center gap-3 ${className}`}>
+      <LogoMark className="h-12 w-12 text-2xl sm:h-14 sm:w-14 sm:text-3xl" />
+      <div className="text-left">
+        <span className="block -skew-x-6 text-3xl font-black tracking-tight sm:text-4xl">
+          Luíz
+        </span>
+        <span className="block bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-[11px] font-bold uppercase tracking-[0.25em] text-transparent sm:text-xs">
+          Agência de Marketing Digital
+        </span>
       </div>
-      <span className="-mt-1.5 -skew-x-6 bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl">
-        CRIATIVA
-      </span>
-      <span className="mt-2.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45">
-        Publicidade e Marketing
-      </span>
     </div>
   );
 }

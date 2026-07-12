@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { LogoLockup } from "./Logo";
+import { LogoLockup, LogoMark } from "./Logo";
 import {
   PenTool,
   Megaphone,
@@ -21,7 +21,29 @@ import {
   Loader2,
   ArrowRight,
   Sparkles,
+  GraduationCap,
+  Landmark,
+  Briefcase,
+  MapPin,
 } from "lucide-react";
+
+const EXPERIENCE = [
+  {
+    icon: GraduationCap,
+    title: "Comunicação Social — Publicidade e Propaganda",
+    detail: "Centro Universitário IESB, Brasília · 2019",
+  },
+  {
+    icon: Landmark,
+    title: "Estágio em direção de arte",
+    detail: "Interlegis — Senado Federal · 2017–2018",
+  },
+  {
+    icon: Briefcase,
+    title: "Direção de arte de social media",
+    detail: "Agência Cobra Criada · 2021–2022",
+  },
+];
 
 const SERVICES = [
   { icon: PenTool, label: "Criação de logo" },
@@ -125,10 +147,66 @@ export default function AgenciaPage() {
           </h1>
           <p className="mt-5 text-base sm:text-lg text-white/60">
             Logo, campanhas, conteúdo, tráfego pago e presença digital completa —
-            tudo em um só lugar. Deixe seu contato e nossa equipe te chama com uma
+            tudo em um só lugar. Deixe seu contato que eu te chamo com uma
             proposta sob medida.
           </p>
         </header>
+
+        {/* ── About ── */}
+        <section className="mt-16 max-w-2xl mx-auto">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-sm">
+            <div className="flex items-center gap-4">
+              <LogoMark className="h-14 w-14 text-2xl" />
+              <div>
+                <h2 className="text-lg font-bold">Sobre mim</h2>
+                <p className="flex items-center gap-1.5 text-xs text-white/50">
+                  <MapPin size={12} />
+                  Morando em Zurique, na Suíça, há 5 anos
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-5 text-sm leading-relaxed text-white/70">
+              Sou publicitário, formado em Comunicação Social — Publicidade e
+              Propaganda pelo Centro Universitário IESB, em Brasília. Comecei
+              como estagiário de direção de arte no Senado Federal e, depois,
+              passei pela agência Cobra Criada, onde fui responsável pela
+              direção de arte das peças de social media do órgão atendido.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              Há 5 anos moro em Zurique, e nesse tempo venho me capacitando
+              para atuar com o público brasileiro que vive por aqui e tem seu
+              próprio negócio. Meu objetivo é ajudar esses empreendedores a
+              estarem mais presentes no marketing digital e transformar
+              seguidores em clientes.
+            </p>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Português — nativo", "Espanhol — B2", "Alemão — B1"].map((lang) => (
+                <span
+                  key={lang}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/60"
+                >
+                  {lang}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-6 space-y-3 border-t border-white/10 pt-5">
+              {EXPERIENCE.map(({ icon: Icon, title, detail }) => (
+                <div key={title} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-400/15">
+                    <Icon size={15} className="text-violet-300" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white/90">{title}</p>
+                    <p className="text-xs text-white/50">{detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ── Services ── */}
         <section className="mt-16">
@@ -158,7 +236,7 @@ export default function AgenciaPage() {
                 </div>
                 <h3 className="text-xl font-bold">Recebemos seu contato!</h3>
                 <p className="mt-2 text-sm text-white/60">
-                  Nossa equipe vai te chamar em breve para falar sobre o seu
+                  Vou entrar em contato em breve para falar sobre o seu
                   projeto.
                 </p>
               </div>
@@ -274,7 +352,8 @@ export default function AgenciaPage() {
 
         {/* ── Footer ── */}
         <footer className="mt-16 text-center text-[11px] text-white/30">
-          © {new Date().getFullYear()} Soma Criativa. Todos os direitos reservados.
+          © {new Date().getFullYear()} Luíz Agência de Marketing Digital. Todos
+          os direitos reservados.
         </footer>
       </div>
     </div>
