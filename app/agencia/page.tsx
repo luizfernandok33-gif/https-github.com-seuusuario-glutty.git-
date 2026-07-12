@@ -249,7 +249,7 @@ const STATS = [
 // Artes geradas no Higgsfield (Cinema Studio 2.5, 21:9).
 // Para produção definitiva, baixe os PNGs para /public e troque as URLs.
 const HERO_BG_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_104626_4c6d1e62-5a6a-4add-86d1-9636b650f6e9.png";
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_123622_5a844b6d-867a-4b24-9194-b8ba1f2fe206.png";
 const UFO_BANNER_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_3F8mywUHWPcC5g8h8XCNYqmVDVb/hf_20260712_104726_e4e8c9dc-12f4-41e6-a3b5-63525a523f0f.png";
 
@@ -361,7 +361,7 @@ export default function AgenciaPage() {
           style={{
             backgroundImage: `url(${HERO_BG_URL})`,
             backgroundSize: "cover",
-            backgroundPosition: "center right",
+            backgroundPosition: "center",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#050308]/45 via-[#050308]/35 to-[#050308]" />
