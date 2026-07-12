@@ -59,14 +59,44 @@ const SERVICES = [
   { icon: LayoutTemplate, label: "Landing pages" },
 ];
 
-function formatPhone(raw: string) {
-  const digits = raw.replace(/\D/g, "").slice(0, 11);
-  if (digits.length <= 2) return digits;
-  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-  if (digits.length <= 10) {
-    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+const COUNTRIES = [
+  { iso: "CH", dial: "+41", flag: "🇨🇭", name: "Suíça" },
+  { iso: "BR", dial: "+55", flag: "🇧🇷", name: "Brasil" },
+  { iso: "DE", dial: "+49", flag: "🇩🇪", name: "Alemanha" },
+  { iso: "AT", dial: "+43", flag: "🇦🇹", name: "Áustria" },
+  { iso: "LI", dial: "+423", flag: "🇱🇮", name: "Liechtenstein" },
+  { iso: "FR", dial: "+33", flag: "🇫🇷", name: "França" },
+  { iso: "IT", dial: "+39", flag: "🇮🇹", name: "Itália" },
+  { iso: "PT", dial: "+351", flag: "🇵🇹", name: "Portugal" },
+  { iso: "ES", dial: "+34", flag: "🇪🇸", name: "Espanha" },
+  { iso: "GB", dial: "+44", flag: "🇬🇧", name: "Reino Unido" },
+  { iso: "US", dial: "+1", flag: "🇺🇸", name: "Estados Unidos" },
+];
+
+const PHONE_PLACEHOLDERS: Record<string, string> = {
+  CH: "79 123 45 67",
+  BR: "(11) 91234-5678",
+};
+
+function formatPhone(raw: string, iso: string) {
+  if (iso === "BR") {
+    const digits = raw.replace(/\D/g, "").slice(0, 11);
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) {
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    }
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
   }
-  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  if (iso === "CH") {
+    // Padrão suíço: 79 123 45 67
+    const digits = raw.replace(/\D/g, "").slice(0, 9);
+    return [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5, 7), digits.slice(7, 9)]
+      .filter(Boolean)
+      .join(" ");
+  }
+  const digits = raw.replace(/\D/g, "").slice(0, 12);
+  return digits.replace(/(\d{3})(?=\d)/g, "$1 ").trim();
 }
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -82,6 +112,7 @@ export default function AgenciaPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("CH");
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -98,10 +129,16 @@ export default function AgenciaPage() {
     setErrorMsg("");
 
     try {
+      const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? "+41";
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, services: selectedServices }),
+        body: JSON.stringify({
+          name,
+          email,
+          phone: `${dial} ${phone}`,
+          services: selectedServices,
+        }),
       });
       const data = await res.json();
 
@@ -339,19 +376,36 @@ export default function AgenciaPage() {
                   />
                 </div>
 
-                <div className="relative">
-                  <Phone
-                    size={16}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
-                  />
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(e) => setPhone(formatPhone(e.target.value))}
-                    placeholder="(11) 91234-5678"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm outline-none placeholder:text-white/35 focus:border-violet-400 transition-colors"
-                  />
+                <div className="flex gap-2">
+                  <select
+                    value={country}
+                    onChange={(e) => {
+                      setCountry(e.target.value);
+                      setPhone(formatPhone(phone, e.target.value));
+                    }}
+                    aria-label="Código do país"
+                    className="shrink-0 rounded-xl border border-white/10 bg-white/5 px-3 py-3.5 text-sm outline-none transition-colors focus:border-violet-400 [&>option]:bg-[#0B0B12] [&>option]:text-white"
+                  >
+                    {COUNTRIES.map(({ iso, dial, flag }) => (
+                      <option key={iso} value={iso}>
+                        {flag} {dial}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="relative flex-1">
+                    <Phone
+                      size={16}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
+                    />
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(formatPhone(e.target.value, country))}
+                      placeholder={PHONE_PLACEHOLDERS[country] ?? "123 456 789"}
+                      className="w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm outline-none placeholder:text-white/35 focus:border-violet-400 transition-colors"
+                    />
+                  </div>
                 </div>
 
                 <div>

@@ -20,15 +20,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "E-mail inválido." }, { status: 400 });
   }
 
+  // Recebe o número com o código do país (ex: "+41 79 123 45 67").
+  // Faixa E.164: código + assinante, entre 8 e 16 dígitos no total.
   const phoneDigits = typeof phone === "string" ? phone.replace(/\D/g, "") : "";
-  if (phoneDigits.length < 10) {
+  if (phoneDigits.length < 8 || phoneDigits.length > 16) {
     return NextResponse.json({ error: "Telefone inválido." }, { status: 400 });
   }
 
   console.log("[lead]", {
     name: typeof name === "string" ? name : "",
     email,
-    phone: phoneDigits,
+    phone: typeof phone === "string" ? phone.trim() : "",
     services: Array.isArray(services) ? services : [],
     at: new Date().toISOString(),
   });
