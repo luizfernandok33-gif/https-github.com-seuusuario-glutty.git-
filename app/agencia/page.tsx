@@ -355,16 +355,18 @@ export default function AgenciaPage() {
       />
 
       {/* Arte do hero — astronauta (Higgsfield) */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[560px] sm:h-[680px]">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[640px] sm:h-[760px]">
         <div
           className="h-full w-full"
           style={{
             backgroundImage: `url(${HERO_BG_URL})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center right",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050308]/45 via-[#050308]/35 to-[#050308]" />
+        {/* Texto à esquerda: escurece a esquerda e funde a base com o fundo */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050308] via-[#050308]/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050308]" />
       </div>
 
       {/* ── Nav ── */}
@@ -400,7 +402,7 @@ export default function AgenciaPage() {
 
       <div id="topo" className="relative z-10 mx-auto max-w-5xl px-6 py-10 sm:py-14">
         {/* ── Hero ── */}
-        <header className="mt-10 text-center max-w-2xl mx-auto sm:mt-16">
+        <header className="flex min-h-[520px] max-w-xl flex-col items-start justify-center text-left sm:min-h-[600px]">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-violet-300">
             <Sparkles size={12} />
             Marketing digital para brasileiros em Zurique
@@ -417,7 +419,7 @@ export default function AgenciaPage() {
             design e tecnologia. Deixe seu contato que eu te chamo com uma
             proposta sob medida.
           </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <a
               href="#contato"
               className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-pink-500 px-6 py-3.5 text-sm font-bold transition-transform active:scale-95"
