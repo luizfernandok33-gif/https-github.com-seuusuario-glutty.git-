@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { LogoLockup } from "./Logo";
 import {
   PenTool,
   Megaphone,
@@ -105,16 +106,13 @@ export default function AgenciaPage() {
       }}
     >
       <div className="mx-auto max-w-5xl px-6 py-10 sm:py-16">
-        {/* ── Brand bar ── */}
-        <div className="flex items-center justify-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-pink-400 text-sm font-black text-[#050308]">
-            +
-          </span>
-          <span className="text-lg font-extrabold tracking-tight">Somar Criativa</span>
+        {/* ── Brand ── */}
+        <div className="flex justify-center">
+          <LogoLockup />
         </div>
 
         {/* ── Hero ── */}
-        <header className="mt-10 text-center max-w-2xl mx-auto">
+        <header className="mt-12 text-center max-w-2xl mx-auto">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-violet-300">
             <Sparkles size={12} />
             Agência de marketing digital
@@ -276,7 +274,7 @@ export default function AgenciaPage() {
 
         {/* ── Footer ── */}
         <footer className="mt-16 text-center text-[11px] text-white/30">
-          © {new Date().getFullYear()} Somar Criativa. Todos os direitos reservados.
+          © {new Date().getFullYear()} Soma Criativa. Todos os direitos reservados.
         </footer>
       </div>
     </div>
