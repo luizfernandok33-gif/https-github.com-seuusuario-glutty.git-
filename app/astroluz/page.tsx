@@ -53,7 +53,7 @@ export default function AstroluzPage() {
       <div className="hero-media">
         <img
           src="/astroluz/hero.jpg"
-          alt="Retrato estilizado de Luiz, fundador da Astroluz, em estética futurista de astronauta"
+          alt="Astronauta observando um planeta do alto de um asteroide, em um cenário estelar"
         />
         <div className="hero-stat-cards">
           <div className="stat-card">

@@ -87,17 +87,17 @@
 
 /* HERO — imagem full-bleed, legenda sobreposta embaixo */
 .astroluz-page .hero-media{position:relative; width:100%; height:min(86vh, 760px); min-height:460px; overflow:hidden; background:linear-gradient(160deg, var(--fundo-2), var(--fundo));}
-.astroluz-page .hero-media img{width:100%; height:100%; object-fit:cover; object-position:30% 30%; display:block;}
+.astroluz-page .hero-media img{width:100%; height:100%; object-fit:cover; object-position:72% 42%; display:block;}
 .astroluz-page .hero-media::after{
   content:''; position:absolute; inset:0;
   background:
     linear-gradient(0deg, var(--fundo) 0%, rgba(10,6,18,0.15) 45%, transparent 70%),
-    linear-gradient(100deg, rgba(10,6,18,0.5) 0%, transparent 40%);
+    linear-gradient(to left, rgba(10,6,18,0.5) 0%, transparent 40%);
 }
 .astroluz-page .hero-caption{
   position:absolute; left:0; right:0; bottom:0; z-index:2;
   padding:0 40px 56px; max-width:var(--max-w); margin:0 auto;
-  display:flex; justify-content:flex-end;
+  display:flex; justify-content:flex-start;
 }
 .astroluz-page .hero-caption-inner{max-width:420px; text-align:left;}
 .astroluz-page .hero-eyebrow{
@@ -111,7 +111,7 @@
 
 /* cards de estatística flutuando sobre o hero */
 .astroluz-page .hero-stat-cards{
-  position:absolute; left:40px; bottom:56px; z-index:3;
+  position:absolute; right:40px; bottom:56px; z-index:3;
   display:flex; gap:14px; flex-wrap:wrap;
 }
 .astroluz-page .stat-card{
