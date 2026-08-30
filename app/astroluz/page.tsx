@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Archivo, Archivo_Black } from "next/font/google";
+import { Montserrat, Poiret_One } from "next/font/google";
 import SiteHeader from "./SiteHeader";
 import "./astroluz.css";
 
-const archivo = Archivo({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-archivo",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
 });
 
-const archivoBlack = Archivo_Black({
+const poiretOne = Poiret_One({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-archivo-black",
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -45,7 +45,7 @@ function FloatIcon({
 
 export default function AstroluzPage() {
   return (
-    <div className={`astroluz-page ${archivo.variable} ${archivoBlack.variable}`}>
+    <div className={`astroluz-page ${montserrat.variable} ${poiretOne.variable}`}>
       <div className="stars" aria-hidden="true" />
 
       <SiteHeader />
@@ -55,36 +55,24 @@ export default function AstroluzPage() {
           src="/astroluz/hero.jpg"
           alt="Astronauta observando um planeta do alto de um asteroide, em um cenário estelar"
         />
-        <div className="hero-stat-cards">
-          <div className="stat-card">
-            <div className="num">3</div>
-            <div className="lbl">
-              Países de
-              <br />
-              experiência
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="num">5</div>
-            <div className="lbl">
-              Anos em
-              <br />
-              Zurique
-            </div>
-          </div>
-        </div>
-        <div className="hero-caption">
-          <div className="hero-caption-inner">
-            <div className="hero-eyebrow">
-              Você não veio pra Suíça pra
-              <br />
-              depender só do boca a boca.
-            </div>
-            <p>
-              Sou Luiz — publicitário, UX/UI e Product Designer à frente da Astroluz. Desenvolvo marcas,
-              campanhas, sites e produtos digitais combinando estratégia, design e tecnologia.
+        <div className="hero-content">
+          <div className="hero-content-inner">
+            <h1 className="hero-title">
+              Não é ficção científica.
+              <br />É estratégia, design
+              <br />e marketing.
+            </h1>
+            <p className="hero-support">
+              A gente conhece o universo digital para você não precisar decifrá-lo.
             </p>
-            <div className="scroll-tag">SCROLL</div>
+            <div className="hero-ctas">
+              <a href="#contato" className="btn-primary">
+                Começar um projeto
+              </a>
+              <a href="#sobre" className="hero-link">
+                Conhecer a Astroluz →
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -345,7 +333,7 @@ export default function AstroluzPage() {
 
       <section id="processo">
         <div className="wrap" style={{ position: "relative" }}>
-          <FloatIcon className="cyan delay1" style={{ top: "-10px", right: "2%", width: "30px", height: "30px" }}>
+          <FloatIcon className="azul delay1" style={{ top: "-10px", right: "2%", width: "30px", height: "30px" }}>
             <svg
               viewBox="0 0 24 24"
               fill="none"
