@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Archivo_Black, Orbitron } from "next/font/google";
+import { Archivo, Archivo_Black } from "next/font/google";
 import SiteHeader from "./SiteHeader";
 import "./astroluz.css";
 
@@ -13,12 +13,6 @@ const archivoBlack = Archivo_Black({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-archivo-black",
-});
-
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  weight: "700",
-  variable: "--font-orbitron",
 });
 
 export const metadata: Metadata = {
@@ -51,7 +45,7 @@ function FloatIcon({
 
 export default function AstroluzPage() {
   return (
-    <div className={`astroluz-page ${archivo.variable} ${archivoBlack.variable} ${orbitron.variable}`}>
+    <div className={`astroluz-page ${archivo.variable} ${archivoBlack.variable}`}>
       <div className="stars" aria-hidden="true" />
 
       <SiteHeader />

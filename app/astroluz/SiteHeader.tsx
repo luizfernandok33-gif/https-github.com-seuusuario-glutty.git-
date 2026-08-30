@@ -20,7 +20,8 @@ export default function SiteHeader() {
     <header>
       <nav>
         <a href="#" className="logo" aria-label="Astroluz — página inicial">
-          <span className="logo-text">Astroluz</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/astroluz/logo.png" alt="Astroluz — Agência de Marketing" />
         </a>
         <button
           className="burger"
