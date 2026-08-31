@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Poiret_One } from "next/font/google";
 import SiteHeader from "./SiteHeader";
+import { ConstellationIcon, MoonIcon, SparkleClusterIcon, StarburstIcon } from "./MysticIcons";
 import "./astroluz.css";
 
 const montserrat = Montserrat({
@@ -154,7 +155,10 @@ export default function AstroluzPage() {
       </section>
 
       <section id="servicos">
-        <div className="wrap">
+        <div className="wrap" style={{ position: "relative" }}>
+          <FloatIcon style={{ top: "-24px", left: "3%", width: "36px", height: "30px" }}>
+            <SparkleClusterIcon />
+          </FloatIcon>
           <div className="section-tag">Serviços</div>
           <h2 className="section-title">Presença digital, sem complicação.</h2>
           <div className="plans">
@@ -333,21 +337,8 @@ export default function AstroluzPage() {
 
       <section id="processo">
         <div className="wrap" style={{ position: "relative" }}>
-          <FloatIcon className="azul delay1" style={{ top: "-10px", right: "2%", width: "30px", height: "30px" }}>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              width="30"
-              height="30"
-            >
-              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-              <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-            </svg>
+          <FloatIcon style={{ top: "-10px", right: "4%", width: "34px", height: "34px" }}>
+            <StarburstIcon />
           </FloatIcon>
           <div className="section-tag">Processo</div>
           <h2 className="section-title">Como a gente trabalha, do briefing à entrega.</h2>
@@ -470,20 +461,8 @@ export default function AstroluzPage() {
 
       <section id="depoimentos">
         <div className="wrap" style={{ position: "relative" }}>
-          <FloatIcon className="delay2" style={{ top: "4px", right: "4%", width: "32px", height: "32px" }}>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              width="32"
-              height="32"
-            >
-              <rect x="4" y="4" width="16" height="16" rx="2" />
-              <rect x="9" y="9" width="6" height="6" />
-              <path d="M15 2v2M9 2v2M15 20v2M9 20v2M20 15h2M20 9h2M2 15h2M2 9h2" />
-            </svg>
+          <FloatIcon className="delay2" style={{ top: "4px", right: "4%", width: "30px", height: "30px" }}>
+            <MoonIcon />
           </FloatIcon>
           <div className="section-tag">Depoimentos &amp; Clientes</div>
           <h2 className="section-title">Ainda escrevendo essa parte da história.</h2>
@@ -507,6 +486,9 @@ export default function AstroluzPage() {
 
       <section id="sobre">
         <div className="cosmic-glow" aria-hidden="true" />
+        <FloatIcon style={{ top: "18px", right: "6%", width: "52px", height: "32px" }}>
+          <ConstellationIcon />
+        </FloatIcon>
         <div className="wrap">
           <div className="bio-card">
             <div className="bio-head">

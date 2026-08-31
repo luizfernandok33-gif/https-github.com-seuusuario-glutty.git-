@@ -71,7 +71,7 @@
     radial-gradient(1.5px 1.5px at 85% 70%, rgba(243,240,235,0.3), transparent),
     radial-gradient(1px 1px at 10% 80%, rgba(243,240,235,0.4), transparent),
     radial-gradient(1.5px 1.5px at 55% 45%, rgba(243,240,235,0.3), transparent);
-  opacity:0.7;
+  opacity:0.55;
 }
 
 .astroluz-page header{position:relative; z-index:20; background:var(--fundo); border-bottom:1px solid rgba(222,182,146,0.18);}
@@ -385,9 +385,10 @@
 }
 .astroluz-page .float-icon svg{
   stroke:var(--dourado);
+  color:var(--dourado);
   filter:drop-shadow(0 0 8px rgba(222,182,146,0.3));
 }
-.astroluz-page .float-icon.azul svg{stroke:var(--azul-espaco); filter:drop-shadow(0 0 8px rgba(100,162,228,0.3));}
+.astroluz-page .float-icon.azul svg{stroke:var(--azul-espaco); color:var(--azul-espaco); filter:drop-shadow(0 0 8px rgba(100,162,228,0.3));}
 .astroluz-page .float-icon.delay1{animation-delay:-2.5s;}
 .astroluz-page .float-icon.delay2{animation-delay:-5s;}
 @keyframes astroluzFloatY{
