@@ -59,13 +59,8 @@ export default function AstroluzPage() {
         <div className="hero-content">
           <div className="hero-content-inner">
             <h1 className="hero-title">
-              Não é ficção científica.
-              <br />É estratégia, design
-              <br />e marketing.
-            </h1>
-            <p className="hero-support">
               A gente conhece o universo digital para você não precisar decifrá-lo.
-            </p>
+            </h1>
             <div className="hero-ctas">
               <a href="#contato" className="btn-primary">
                 Começar um projeto
