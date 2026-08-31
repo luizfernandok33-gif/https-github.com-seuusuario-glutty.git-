@@ -59,7 +59,8 @@ export default function AstroluzPage() {
         <div className="hero-content">
           <div className="hero-content-inner">
             <h1 className="hero-title">
-              A gente conhece o universo digital para você não precisar decifrá-lo.
+              a gente conhece o <span className="hero-title-accent">universo digital</span> para você
+              não precisar decifrá-lo.
             </h1>
             <div className="hero-ctas">
               <a href="#contato" className="btn-primary">
