@@ -126,6 +126,15 @@
   text-transform:uppercase;
   letter-spacing:0.06em;
 }
+.astroluz-page .hero-content-inner .hero-logo{
+  display:block;
+  height:clamp(56px, 8vw, 96px) !important;
+  width:auto !important;
+  max-width:none;
+  object-fit:contain;
+  object-position:left center;
+  margin-top:10px;
+}
 .astroluz-page .hero-ctas{display:flex; align-items:center; gap:30px; flex-wrap:wrap; margin-top:38px;}
 .astroluz-page .hero-link{
   font-family: var(--font-body), sans-serif !important;

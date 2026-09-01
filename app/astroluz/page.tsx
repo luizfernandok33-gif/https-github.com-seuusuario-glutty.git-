@@ -59,9 +59,10 @@ export default function AstroluzPage() {
         <div className="hero-content">
           <div className="hero-content-inner">
             <h1 className="hero-title">
-              a gente conhece o <span className="hero-title-accent">universo digital</span> para você
-              não precisar decifrá-lo.
+              o <span className="hero-title-accent">universo digital</span>, sem complicações.
             </h1>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/astroluz/logo.png" alt="Astroluz" className="hero-logo" />
             <div className="hero-ctas">
               <a href="#contato" className="btn-primary">
                 Começar um projeto
