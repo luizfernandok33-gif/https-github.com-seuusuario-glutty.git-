@@ -58,7 +58,11 @@ export default function AstroluzPage() {
         />
         <div className="hero-content">
           <div className="hero-content-inner">
-            <h1 className="hero-title">o universo digital, sem complicações.</h1>
+            <h1 className="hero-title">
+              o universo digital,
+              <br />
+              <span className="hero-title-white">sem complicações.</span>
+            </h1>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/astroluz/logo.png" alt="Astroluz" className="hero-logo" />
             <div className="hero-ctas">

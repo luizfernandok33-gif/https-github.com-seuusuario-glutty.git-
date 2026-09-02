@@ -121,6 +121,9 @@
   text-transform:none;
   color:var(--azul-espaco);
 }
+.astroluz-page .hero-title .hero-title-white{
+  color:var(--texto);
+}
 .astroluz-page .hero-content-inner .hero-logo{
   display:block;
   height:clamp(56px, 8vw, 96px) !important;
