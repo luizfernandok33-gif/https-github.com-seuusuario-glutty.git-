@@ -119,12 +119,7 @@
   line-height:1.2;
   letter-spacing:0.01em;
   text-transform:none;
-  color:var(--texto);
-}
-.astroluz-page .hero-title .hero-title-accent{
-  color:var(--dourado);
-  text-transform:uppercase;
-  letter-spacing:0.06em;
+  color:var(--azul-espaco);
 }
 .astroluz-page .hero-content-inner .hero-logo{
   display:block;
