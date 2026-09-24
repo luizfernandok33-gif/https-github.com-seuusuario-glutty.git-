@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Fraunces } from "next/font/google";
+import { Source_Serif_4 } from "next/font/google";
 import "./portfolio.css";
 
-const fraunces = Fraunces({
+// Corpo do texto em serifada, como na leitura do Medium.
+const serif = Source_Serif_4({
   subsets: ["latin"],
   style: ["normal", "italic"],
-  axes: ["opsz", "SOFT"],
-  variable: "--font-fraunces",
+  axes: ["opsz"],
+  variable: "--font-md-serif",
 });
 
 export const metadata: Metadata = {
-  title: "Glútty — Estudo de caso UX/UI",
+  title: "Glútty: mais segurança e confiança para pessoas celíacas ao comer fora",
   description:
-    "Da pesquisa com 86 pessoas celíacas ao protótipo navegável: como o Glútty ajuda a comer fora com segurança.",
+    "Estudo de caso UX/UI do Glútty, da pesquisa com 86 pessoas celíacas ao protótipo navegável, por Luiz Fernando Mendes.",
 };
 
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
-  return <div className={`${fraunces.variable} pf-root`}>{children}</div>;
+  return <div className={`${serif.variable} md-root`}>{children}</div>;
 }
