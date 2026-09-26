@@ -18,73 +18,114 @@ import {
 
 const STORAGE_KEY = "glutty:portfolio-lang";
 
-/* ───────────── Texto com **negrito**, *itálico* e [links](url ou link:chave) ───────────── */
+/* ───────────── Texto: HTML mínimo (<strong>, <em>, <br>, <a href>) vindo do Medium ───────────── */
 
-function rich(text: string, c: Content): ReactNode {
-  const out: ReactNode[] = [];
-  const re = /\*\*([^*]+)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)]+)\)/g;
+const ENTITIES: Record<string, string> = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'" };
+const decode = (s: string) => s.replace(/&(amp|lt|gt|quot|#39);/g, (m) => ENTITIES[m] ?? m);
+
+type Node = string | { tag: "strong" | "em" | "a"; href?: string; children: Node[] } | { tag: "br" };
+
+function parseInline(html: string): Node[] {
+  const root: Node[] = [];
+  const stack: { tag: string; href?: string; children: Node[] }[] = [];
+  const push = (n: Node) => (stack.length ? stack[stack.length - 1].children : root).push(n);
+  const re = /<(\/?)(strong|em|a|br)(?:\s+href="([^"]*)")?\s*\/?>/g;
   let last = 0;
   let m: RegExpExecArray | null;
-  let k = 0;
-  while ((m = re.exec(text))) {
-    if (m.index > last) out.push(text.slice(last, m.index));
-    if (m[1] !== undefined) out.push(<strong key={k++}>{m[1]}</strong>);
-    else if (m[2] !== undefined) out.push(<em key={k++}>{m[2]}</em>);
+  while ((m = re.exec(html))) {
+    if (m.index > last) push(decode(html.slice(last, m.index)));
+    const [, closing, tag, href] = m;
+    if (tag === "br") push({ tag: "br" });
+    else if (!closing) stack.push({ tag, href, children: [] });
     else {
-      const target = m[4];
-      const href = target.startsWith("link:") ? LINKS[target.slice(5)] ?? "" : target;
-      out.push(
-        href ? (
-          <a key={k++} href={href} target="_blank" rel="noopener noreferrer">
-            {m[3]}
-          </a>
-        ) : (
-          // Link externo ainda sem URL: fica marcado para preencher em content.ts
-          <span key={k++} className="md-link-pending" title={c.ui.linkPending}>
-            {m[3]}
-          </span>
-        ),
-      );
+      const node = stack.pop();
+      if (node) push(node as Node);
     }
     last = re.lastIndex;
   }
-  if (last < text.length) out.push(text.slice(last));
-  return out;
+  if (last < html.length) push(decode(html.slice(last)));
+  while (stack.length) push(stack.pop() as Node);
+  return root;
 }
 
-function BlockView({ b, c }: { b: Block; c: Content }) {
+function renderNodes(nodes: Node[], c: Content, key = "n"): ReactNode[] {
+  return nodes.map((n, i) => {
+    const k = `${key}-${i}`;
+    if (typeof n === "string") return <Fragment key={k}>{n}</Fragment>;
+    if (n.tag === "br") return <br key={k} />;
+    const kids = renderNodes(n.children, c, k);
+    if (n.tag === "strong") return <strong key={k}>{kids}</strong>;
+    if (n.tag === "em") return <em key={k}>{kids}</em>;
+    const target = n.href ?? "";
+    const href = target.startsWith("link:") ? LINKS[target.slice(5)] ?? "" : target;
+    return href ? (
+      <a key={k} href={href} target="_blank" rel="noopener noreferrer">
+        {kids}
+      </a>
+    ) : (
+      // Link ainda sem URL: preencher em LINKS (content.ts)
+      <span key={k} className="md-link-pending" title={c.ui.linkPending}>
+        {kids}
+      </span>
+    );
+  });
+}
+
+const rich = (html: string, c: Content) => renderNodes(parseInline(html), c);
+
+// Embed do Figma, como o Medium mostra (proporção 800 × 450).
+const figmaEmbed = (url: string) => `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+
+function BlockView({ b, c, index }: { b: Block; c: Content; index: number }) {
   switch (b.t) {
     case "p":
       return <p>{rich(b.text, c)}</p>;
     case "h2":
-      return <h2 id={b.id}>{b.text}</h2>;
+      return <h2>{rich(b.text, c)}</h2>;
     case "h3":
-      return <h3>{b.text}</h3>;
+      return <h3>{rich(b.text, c)}</h3>;
+    case "quote":
+      return <blockquote>{rich(b.text, c)}</blockquote>;
     case "ul":
       return (
         <ul>
-          {b.items.map((i) => (
-            <li key={i}>{rich(i, c)}</li>
+          {b.items.map((it, i) => (
+            <li key={i}>{rich(it, c)}</li>
           ))}
         </ul>
       );
-    case "quote":
-      return <blockquote>{rich(b.text, c)}</blockquote>;
+    case "ol":
+      return (
+        <ol>
+          {b.items.map((it, i) => (
+            <li key={i}>{rich(it, c)}</li>
+          ))}
+        </ol>
+      );
     case "sep":
       return <hr className="md-sep" />;
     case "image":
       return (
-        <figure className={`md-figure ${b.wide ? "md-wide" : ""}`}>
-          <Image className="md-img" src={b.src} alt={b.alt} width={b.width} height={b.height} unoptimized />
+        <figure className="md-figure">
+          <Image
+            className="md-img"
+            src={b.src}
+            alt={b.alt}
+            width={b.width}
+            height={b.height}
+            sizes="(max-width: 728px) 100vw, 680px"
+            preload={index === 0}
+          />
           {b.caption && <figcaption>{rich(b.caption, c)}</figcaption>}
         </figure>
       );
-    case "todo":
+    case "embed":
       return (
-        <div className="md-todo" role="note">
-          <b>{c.ui.todoLabel}</b>
-          <p>{b.text}</p>
-        </div>
+        <figure className="md-figure">
+          <div className="md-embed">
+            <iframe src={figmaEmbed(b.url)} title={c.ui.embedTitle(b.title)} loading="lazy" allowFullScreen />
+          </div>
+        </figure>
       );
   }
 }
@@ -230,7 +271,7 @@ export default function Article() {
           <div className="md-body">
             {c.blocks.map((b, i) => (
               <Fragment key={i}>
-                <BlockView b={b} c={c} />
+                <BlockView b={b} c={c} index={i} />
               </Fragment>
             ))}
           </div>

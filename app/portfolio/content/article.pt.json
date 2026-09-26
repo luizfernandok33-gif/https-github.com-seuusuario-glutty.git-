@@ -1,0 +1,1008 @@
+[
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-01.png",
+  "width": 1536,
+  "height": 1024,
+  "alt": "Glútty: Mais segurança e confiança para pessoas celíacas ao comer fora"
+ },
+ {
+  "t": "h2",
+  "text": "Introdução"
+ },
+ {
+  "t": "p",
+  "text": "A doença celíaca é uma condição autoimune desencadeada pela ingestão de glúten — proteína presente no trigo, cevada, centeio e derivados — que pode causar inflamações no intestino delgado e comprometer a absorção de nutrientes essenciais pelo organismo. <a href=\"link:mayoClinic\">Mayo Clinic — Celiac Disease Overview</a>"
+ },
+ {
+  "t": "p",
+  "text": "Estudos internacionais apontam que a doença celíaca afeta aproximadamente 1% da população mundial, com crescimento contínuo nos diagnósticos nas últimas décadas. Revisões sistemáticas indicam que a prevalência da doença aumentou significativamente nos últimos anos, tanto em países europeus quanto em outras regiões do mundo. <a href=\"link:celiacFoundation\">Celiac Disease Foundation — Global Prevalence Study</a>"
+ },
+ {
+  "t": "p",
+  "text": "No Brasil, embora ainda existam limitações relacionadas ao diagnóstico e subnotificação dos casos, estudos apontam prevalências semelhantes às observadas em populações europeias, evidenciando que a doença celíaca também representa um desafio relevante no contexto alimentar brasileiro. <a href=\"link:pubmedBrasil\">PubMed Central — Celiac Disease in Brazilian Patients</a>"
+ },
+ {
+  "t": "p",
+  "text": "Apesar do crescimento da conscientização sobre alimentação sem glúten, ainda existem lacunas importantes relacionadas à experiência de pessoas celíacas ao se alimentar fora de casa."
+ },
+ {
+  "t": "p",
+  "text": "Questões relacionadas à confiança nas informações disponíveis, risco de contaminação cruzada e dificuldade em validar a segurança dos estabelecimentos começaram a aparecer de forma recorrente durante as etapas iniciais da investigação."
+ },
+ {
+  "t": "p",
+  "text": "Esse contexto levantou uma questão central para o desenvolvimento do projeto:"
+ },
+ {
+  "t": "quote",
+  "text": "<em>Como experiências digitais poderiam apoiar pessoas celíacas durante a tomada de decisão alimentar fora de casa?</em>"
+ },
+ {
+  "t": "h2",
+  "text": "Definição do problema"
+ },
+ {
+  "t": "h2",
+  "text": "Contexto"
+ },
+ {
+  "t": "p",
+  "text": "Pessoas celíacas convivem diariamente com a necessidade de evitar qualquer contato com glúten para não sofrer impactos significativos na saúde. No contexto da alimentação fora de casa, essa necessidade transforma uma atividade cotidiana em um processo frequentemente marcado por insegurança, medo de contaminação cruzada e dificuldade em confiar nas informações disponíveis."
+ },
+ {
+  "t": "h2",
+  "text": "Isso causa problemas para:"
+ },
+ {
+  "t": "p",
+  "text": "Homens e mulheres que seguem uma dieta sem glúten e precisam tomar decisões alimentares constantemente sem possuir informações claras, padronizadas ou confiáveis sobre a segurança dos estabelecimentos."
+ },
+ {
+  "t": "h2",
+  "text": "Isso é importante porque:"
+ },
+ {
+  "t": "p",
+  "text": "A dificuldade em encontrar locais considerados realmente seguros impacta diretamente a autonomia, a vida social e a qualidade de vida dessas pessoas."
+ },
+ {
+  "t": "p",
+  "text": "Além da limitação alimentar, existe também um esforço contínuo para validar informações, reduzir riscos e evitar experiências negativas relacionadas à contaminação cruzada."
+ },
+ {
+  "t": "h2",
+  "text": "Por quê?"
+ },
+ {
+  "t": "p",
+  "text": "Atualmente, muitas pessoas celíacas ainda enfrentam dificuldades para identificar estabelecimentos confiáveis, compreender os processos de preparo dos alimentos e avaliar o nível de segurança oferecido pelos restaurantes."
+ },
+ {
+  "t": "p",
+  "text": "A ausência de informações padronizadas e de mecanismos de validação comunitária aumenta a insegurança durante toda a tomada de decisão alimentar."
+ },
+ {
+  "t": "quote",
+  "text": "<em>Mais do que encontrar restaurantes com opções sem glúten, pessoas celíacas frequentemente precisam interpretar sinais de confiança, reduzir incertezas e validar informações antes mesmo de realizar uma refeição.</em>"
+ },
+ {
+  "t": "quote",
+  "text": "<em>A partir dessa necessidade, iniciou-se uma etapa estratégica voltada à análise do mercado, identificação de oportunidades e estruturação inicial da solução digital.</em>"
+ },
+ {
+  "t": "h2",
+  "text": "UX Strategy"
+ },
+ {
+  "t": "h2",
+  "text": "Direcionamento estratégico inicial"
+ },
+ {
+  "t": "p",
+  "text": "Com uma compreensão mais clara do problema e do contexto enfrentado por pessoas celíacas durante a alimentação fora de casa, a próxima etapa do projeto buscou entender como o mercado atualmente responde a essas necessidades e quais oportunidades existiam para construir uma experiência mais segura, transparente e confiável."
+ },
+ {
+  "t": "p",
+  "text": "Mais do que analisar funcionalidades isoladas, esta fase teve como objetivo compreender como fatores relacionados à confiança, clareza das informações e tomada de decisão influenciavam a experiência de pessoas celíacas ao buscar restaurantes e produtos sem glúten."
+ },
+ {
+  "t": "p",
+  "text": "Para apoiar essa análise estratégica, foram utilizadas diferentes técnicas e frameworks de UX Strategy, incluindo a definição de metas através da metodologia SMART, benchmarking de soluções digitais, benchmarking de estabelecimentos com oferta sem glúten, Value Proposition Canvas, Business Model Canvas e o framework AARRR para estruturar hipóteses iniciais de aquisição, retenção e crescimento da plataforma."
+ },
+ {
+  "t": "p",
+  "text": "Durante os estudos, ficou evidente que o problema não estava apenas na ausência de opções sem glúten, mas principalmente na dificuldade de validar informações, compreender os processos de preparo e confiar na segurança dos estabelecimentos."
+ },
+ {
+  "t": "p",
+  "text": "Com base nos aprendizados obtidos durante essa etapa estratégica, surgiu a necessidade de transformar os principais direcionamentos do projeto em objetivos mais claros e estruturados."
+ },
+ {
+  "t": "p",
+  "text": "Para isso, foi utilizada a metodologia SMART, permitindo definir metas específicas, mensuráveis, alcançáveis, relevantes e temporais para orientar as primeiras etapas de desenvolvimento e validação da solução."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/deck/M2QgwKh19lZGqnh6XJJlU6/SMART?embed_origin=cdn.embedly.com&kind=deck&node-id=2001-162",
+  "title": "SMART"
+ },
+ {
+  "t": "h2",
+  "text": "Ponto de partida"
+ },
+ {
+  "t": "p",
+  "text": "Para iniciar o direcionamento estratégico do projeto, foi realizado um benchmarking competitivo com o objetivo de compreender como diferentes soluções digitais e estabelecimentos especializados lidavam com segurança alimentar, confiança e comunicação sobre restrições alimentares."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/deck/dQ7ZE9vunzXLiyp0OHK9Lj/1.-Benchmarking-de-Solu%C3%A7%C3%B5es%C2%A0Digitais?embed_origin=cdn.embedly.com&kind=deck&node-id=1-1140",
+  "title": "1. Benchmarking de Soluções Digitais"
+ },
+ {
+  "t": "p",
+  "text": "Foram analisados aplicativos como Find Me Gluten Free, HappyCow e FoodisGood, além de restaurantes, cafeterias e supermercados com oferta sem glúten na Suíça."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/deck/oTv1xJN57BIDpfiGvlx2ZX/2.-Benchmarking-de-Estabelecimentos-com-Oferta-Sem%C2%A0Gl%C3%BAten?embed_origin=cdn.embedly.com&kind=deck&node-id=2003-380",
+  "title": "2. Benchmarking de Estabelecimentos com Oferta Sem Glúten"
+ },
+ {
+  "t": "p",
+  "text": "O estudo revelou que muitas soluções já ofereciam recursos importantes, como avaliações colaborativas, filtros alimentares e informações sobre ingredientes, mas ainda apresentavam limitações na clareza da comunicação e na construção de confiança para pessoas celíacas."
+ },
+ {
+  "t": "p",
+  "text": "Os principais aprendizados mostraram que transparência, avaliações da comunidade, clareza sobre contaminação cruzada e personalização da experiência eram fatores essenciais para reduzir insegurança e apoiar decisões alimentares mais seguras."
+ },
+ {
+  "t": "h2",
+  "text": "Value Proposition Canvas"
+ },
+ {
+  "t": "p",
+  "text": "Com base nos padrões identificados durante as análises, foi estruturada a proposta de valor inicial do Glútty."
+ },
+ {
+  "t": "p",
+  "text": "O objetivo dessa etapa foi compreender com mais profundidade:"
+ },
+ {
+  "t": "quote",
+  "text": "<em>As dores; necessidades; expectativas; e ganhos desejados por pessoas com restrições alimentares.</em>"
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/board/bpnKywxx2cM89SiRnYxPpr/Value-Proposition-Canvas?node-id=0-1&p=f&t=QMO4yBpzVOf54D3r-0",
+  "title": "Value Proposition Canvas"
+ },
+ {
+  "t": "p",
+  "text": "Durante a etapa estratégica, os estudos ajudaram a ampliar a compreensão sobre os desafios enfrentados por pessoas celíacas durante a alimentação fora de casa. Mais do que encontrar opções sem glúten, começaram a surgir questões relacionadas à transparência das informações, dificuldade em validar ingredientes, insegurança sobre os processos de preparo e receio constante de contaminação cruzada."
+ },
+ {
+  "t": "p",
+  "text": "As análises também evidenciaram impactos que ultrapassavam a dimensão funcional da alimentação, incluindo sensação de limitação social, dificuldade em manter uma rotina alimentar equilibrada e esforço contínuo para encontrar estabelecimentos considerados realmente confiáveis."
+ },
+ {
+  "t": "p",
+  "text": "Além da necessidade de segurança alimentar, começaram a aparecer oportunidades relacionadas à praticidade e autonomia durante a tomada de decisão. Recursos como filtros personalizados, avaliações da comunidade, informações detalhadas sobre ingredientes e recomendações baseadas em hábitos alimentares surgiram como possíveis caminhos para tornar a experiência mais clara e previsível para os usuários."
+ },
+ {
+  "t": "p",
+  "text": "Outro aprendizado importante desta etapa foi compreender o valor da troca de experiências entre pessoas celíacas. A possibilidade de acessar relatos, avaliações e informações compartilhadas por outros usuários apareceu como um fator relevante para aumentar a percepção de confiança durante a escolha de restaurantes e produtos sem glúten."
+ },
+ {
+  "t": "h2",
+  "text": "Business Model Canvas"
+ },
+ {
+  "t": "p",
+  "text": "Durante a etapa estratégica, o Business Model Canvas ajudou a estruturar não apenas possíveis modelos de funcionamento da solução, mas também compreender quais elementos seriam necessários para sustentar uma experiência mais confiável, acessível e relevante para pessoas com restrições alimentares."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/board/b9DZ5ZWp3J5sjJuF0ffXEa/Business-Model-Canvas?node-id=0-1&t=g4WbbIn8TnwrxAqz-0",
+  "title": "Business Model Canvas"
+ },
+ {
+  "t": "p",
+  "text": "Durante a etapa estratégica, o Business Model Canvas ajudou a estruturar não apenas possíveis modelos de funcionamento da solução, mas também compreender quais elementos seriam necessários para sustentar uma experiência mais confiável, acessível e relevante para pessoas com restrições alimentares."
+ },
+ {
+  "t": "p",
+  "text": "As análises mostraram que a proposta de valor do Glútty não estaria limitada apenas à descoberta de restaurantes sem glúten, mas também à criação de uma experiência mais personalizada, prática e segura durante toda a jornada alimentar. Elementos como recomendações contextualizadas, transparência sobre ingredientes e processos de preparo, avaliações da comunidade e suporte à tomada de decisão começaram a surgir como partes importantes da experiência."
+ },
+ {
+  "t": "p",
+  "text": "O canvas também ajudou a identificar diferentes perfis de usuários com necessidades distintas, incluindo pessoas recém-diagnosticadas, usuários com intolerância severa, pais de crianças celíacas e consumidores com múltiplas restrições alimentares. Essa segmentação reforçou a necessidade de construir uma experiência flexível e adaptável a diferentes contextos de uso."
+ },
+ {
+  "t": "p",
+  "text": "Outro aprendizado importante desta etapa foi compreender o papel da comunidade, do acolhimento e da personalização como fatores relevantes para o relacionamento com os usuários. Recursos relacionados à troca de experiências, avaliações compartilhadas, programas de fidelização e recomendações personalizadas apareceram como possíveis caminhos para fortalecer engajamento e recorrência dentro da plataforma."
+ },
+ {
+  "t": "p",
+  "text": "Além da experiência do usuário, o Business Model Canvas também contribuiu para visualizar possíveis parcerias estratégicas envolvendo restaurantes, profissionais da saúde, influenciadores digitais, comunidades celíacas e plataformas de entrega, ampliando a visão do ecossistema necessário para sustentar o crescimento da solução ao longo do tempo."
+ },
+ {
+  "t": "h2",
+  "text": "Estratégia de crescimento — AARRR"
+ },
+ {
+  "t": "p",
+  "text": "Durante a etapa estratégica, o framework AARRR ajudou a estruturar possíveis caminhos relacionados à aquisição, ativação, retenção, recomendação e monetização da solução, ampliando a visão sobre como a experiência poderia evoluir além do uso inicial da plataforma."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/slides/e3uuHw29ThkHyMuQXdDryQ/AARRR?node-id=2001-162&t=I4uG0N0XHqRmDND7-0",
+  "title": "AARRR"
+ },
+ {
+  "t": "p",
+  "text": "As análises mostraram que estratégias de crescimento relacionadas ao Glútty estariam fortemente conectadas à construção de confiança e à presença da comunidade durante toda a jornada do usuário. Parcerias com restaurantes especializados, conteúdo educativo sobre alimentação segura e participação em comunidades digitais surgiram como possíveis formas de aquisição alinhadas ao contexto do público celíaco."
+ },
+ {
+  "t": "p",
+  "text": "Na etapa de ativação, começaram a aparecer oportunidades relacionadas à redução da insegurança durante o primeiro contato com a plataforma. Elementos como onboarding acolhedor, filtros intuitivos, marcações visuais de segurança alimentar e destaque para avaliações da comunidade surgiram como recursos importantes para apoiar os usuários durante as primeiras interações com o produto."
+ },
+ {
+  "t": "p",
+  "text": "Os estudos também evidenciaram possibilidades relacionadas à retenção e engajamento contínuo, incluindo recomendações personalizadas, alertas sobre novos restaurantes seguros, conteúdos relevantes e mecanismos de gamificação voltados à participação da comunidade."
+ },
+ {
+  "t": "p",
+  "text": "Além disso, o framework ajudou a explorar formas de recomendação orgânica e crescimento baseado em experiências compartilhadas entre usuários, através de sistemas de indicação, compartilhamento de avaliações e destaque para histórias reais dentro da plataforma e nas redes sociais."
+ },
+ {
+  "t": "p",
+  "text": "Outro aprendizado importante desta etapa foi compreender que possíveis estratégias de monetização precisariam manter alinhamento com a proposta de valor da solução, priorizando experiências úteis e relevantes para os usuários, como funcionalidades premium, parcerias com estabelecimentos e conteúdos relacionados ao universo da alimentação sem glúten."
+ },
+ {
+  "t": "p",
+  "text": "A etapa de UX Strategy foi fundamental para transformar percepções iniciais em direcionamentos mais concretos para o produto."
+ },
+ {
+  "t": "p",
+  "text": "Os estudos mostraram que pessoas celíacas não procuram apenas restaurantes sem glúten, mas experiências que transmitam clareza, previsibilidade e confiança durante a tomada de decisão alimentar."
+ },
+ {
+  "t": "p",
+  "text": "A partir desses aprendizados, o Glútty começou a ser estruturado como uma solução focada não apenas em descoberta de locais, mas também em transparência alimentar, personalização da experiência e construção de segurança coletiva através da comunidade."
+ },
+ {
+  "t": "h2",
+  "text": "Matriz CSD"
+ },
+ {
+  "t": "p",
+  "text": "Durante a etapa estratégica, a matriz CSD (Certezas, Suposições e Dúvidas) foi utilizada para organizar percepções iniciais, hipóteses de comportamento e questões que ainda precisariam ser validadas ao longo do projeto."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/slides/EPwWmr4gaZFhBLIloaqAWJ/Matriz-CSD?node-id=6003-32&t=EEFI4Q6WTLDzpiT2-0",
+  "title": "Matriz CSD"
+ },
+ {
+  "t": "p",
+  "text": "A construção da matriz ajudou a consolidar alguns padrões já identificados durante as análises iniciais, principalmente relacionados à dificuldade de encontrar estabelecimentos confiáveis, insegurança causada pela contaminação cruzada e necessidade de acesso a informações mais claras sobre ingredientes, preparo e segurança alimentar."
+ },
+ {
+  "t": "p",
+  "text": "As discussões também reforçaram o papel da comunidade na tomada de decisão alimentar. A troca de experiências entre pessoas celíacas apareceu como uma das principais fontes de confiança durante a escolha de restaurantes e produtos sem glúten, evidenciando o valor das avaliações compartilhadas dentro da experiência proposta pela plataforma."
+ },
+ {
+  "t": "p",
+  "text": "Além das certezas já identificadas, a matriz também permitiu estruturar hipóteses relacionadas ao comportamento dos usuários, incluindo a possibilidade de que informações detalhadas sobre preparo e riscos de contaminação cruzada aumentassem a percepção de segurança durante o uso da plataforma. Também surgiram suposições relacionadas ao impacto da confiança percebida nas avaliações da comunidade durante a escolha de onde comer."
+ },
+ {
+  "t": "p",
+  "text": "Outro ponto importante desta etapa foi a identificação de dúvidas que ainda precisariam ser investigadas nas próximas fases do projeto, incluindo quais informações seriam realmente essenciais para apoiar a tomada de decisão dos usuários, até que ponto avaliações comunitárias seriam suficientes para gerar confiança e como apresentar conteúdos complexos de forma clara e objetiva dentro da interface."
+ },
+ {
+  "t": "h2",
+  "text": "Conclusão"
+ },
+ {
+  "t": "p",
+  "text": "Ao final desta etapa, os direcionamentos estratégicos ajudaram a construir uma compreensão mais ampla sobre os desafios enfrentados por pessoas celíacas durante a alimentação fora de casa, revelando que o problema não estava relacionado apenas à disponibilidade de opções sem glúten, mas também à dificuldade em confiar nas informações disponíveis, compreender os processos de preparo e reduzir inseguranças durante a tomada de decisão alimentar."
+ },
+ {
+  "t": "p",
+  "text": "As análises realizadas ao longo desta fase também evidenciaram fatores relacionados à autonomia, praticidade, acolhimento, socialização e personalização da experiência, mostrando como diferentes aspectos emocionais, informacionais e comportamentais influenciavam a relação dos usuários com a alimentação fora de casa."
+ },
+ {
+  "t": "p",
+  "text": "Além de identificar oportunidades relacionadas à transparência das informações, participação da comunidade e construção de confiança, esta etapa também ajudou a levantar hipóteses importantes que ainda precisariam ser aprofundadas nas próximas fases do projeto."
+ },
+ {
+  "t": "p",
+  "text": "Questões relacionadas à percepção de segurança, impacto das avaliações compartilhadas, critérios utilizados pelos usuários para validar estabelecimentos, necessidades informacionais durante a escolha alimentar e diferentes comportamentos diante do risco de contaminação cruzada começaram a surgir como temas relevantes para investigação."
+ },
+ {
+  "t": "p",
+  "text": "Esses aprendizados serviram como base para direcionar as próximas etapas do projeto, incluindo UX Research, definição do MVP, arquitetura da informação e desenvolvimento dos primeiros fluxos da experiência."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoUxStrategy\">UX Strategy: Direcionamento estratégico inicial para conectar celíacos a restaurantes seguros</a>"
+ },
+ {
+  "t": "h2",
+  "text": "UX Research - Investigando medo, confiança e comportamento alimentar."
+ },
+ {
+  "t": "p",
+  "text": "Após a etapa de UX Strategy, estruturei uma pesquisa em abordagem mista para compreender como medo, confiança e validação influenciam a tomada de decisão de pessoas celíacas ao comer fora. A investigação combinou survey quantitativo com 86 respostas válidas e 7 entrevistas qualitativas semiestruturadas, permitindo cruzar padrões de comportamento com motivações, emoções e contextos de uso."
+ },
+ {
+  "t": "p",
+  "text": "Na etapa quantitativa, surgiram sinais consistentes de insegurança alimentar e busca por validação: 88% disseram recorrer a indicações de outros celíacos ao procurar restaurantes considerados seguros; 66% apontaram a contaminação cruzada como principal preocupação; 93% já se sentiram desconfortáveis ou constrangidos ao explicar sua restrição alimentar em restaurantes; e 58% disseram confiar em poucos restaurantes que afirmam ter opções sem glúten."
+ },
+ {
+  "t": "p",
+  "text": "A etapa qualitativa aprofundou esses padrões e mostrou que comer fora deixou de ser uma decisão espontânea: passou a exigir planejamento, verificação constante e estratégias de adaptação. Ao cruzar os achados quantitativos e qualitativos, ficou claro que alimentação segura não depende apenas da existência de opções sem glúten, mas da construção de confiança ao longo de toda a jornada. Esses aprendizados orientaram decisões relacionadas à arquitetura da informação, validação comunitária, personalização da experiência e comunicação do Glútty."
+ },
+ {
+  "t": "h2",
+  "text": "Pesquisa quantitativa"
+ },
+ {
+  "t": "p",
+  "text": "O questionário foi estruturado para investigar:<strong> frequência de refeições fora de casa; percepção de risco; critérios de confiança; experiências negativas; impacto emocional; hábitos de validação.</strong>"
+ },
+ {
+  "t": "p",
+  "text": "Ao todo, <strong>86 pessoas</strong> responderam à pesquisa."
+ },
+ {
+  "t": "quote",
+  "text": "<em>Os dados revelaram padrões recorrentes relacionados à confiança, insegurança e tomada de decisão:</em>"
+ },
+ {
+  "t": "ul",
+  "items": [
+   "<strong>88% disseram recorrer a indicações de outros celíacos ao procurar restaurantes considerados seguros</strong>;"
+  ]
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-02.png",
+  "width": 1600,
+  "height": 840,
+  "alt": ""
+ },
+ {
+  "t": "ul",
+  "items": [
+   "<strong>66% citaram </strong>contaminação cruzada como principal preocupação;"
+  ]
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-03.png",
+  "width": 1600,
+  "height": 881,
+  "alt": ""
+ },
+ {
+  "t": "ul",
+  "items": [
+   "<strong>93% dos participantes</strong> relataram já ter se sentido desconfortáveis ou constrangidos ao explicar sua restrição alimentar em restaurantes, seja frequentemente ou ocasionalmente."
+  ]
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-04.png",
+  "width": 1536,
+  "height": 1024,
+  "alt": ""
+ },
+ {
+  "t": "ul",
+  "items": [
+   "<strong>58% disseram confiar em poucos restaurantes que afirmam ter opções sem glúten</strong>."
+  ]
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-05.png",
+  "width": 1536,
+  "height": 1024,
+  "alt": ""
+ },
+ {
+  "t": "p",
+  "text": "Esses números mostraram que os desafios relacionados à alimentação sem glúten ultrapassavam questões puramente alimentares, envolvendo também impactos emocionais, sociais e comportamentais."
+ },
+ {
+  "t": "h2",
+  "text": "Pesquisa qualitativa"
+ },
+ {
+  "t": "p",
+  "text": "As entrevistas mostraram que comer fora exige planejamento constante, pesquisa antecipada e estratégias de adaptação. Muitos participantes relataram evitar restaurantes desconhecidos, repetir locais já testados ou levar a própria comida para reduzir riscos e inseguranças."
+ },
+ {
+  "t": "p",
+  "text": "Os relatos também evidenciaram impacto direto na autonomia, na rotina e na vida social, além de medo recorrente de passar mal e influência de experiências anteriores de contaminação sobre a percepção de segurança."
+ },
+ {
+  "t": "quote",
+  "text": "<strong>Mesmo em locais considerados seguros, muitos participantes ainda demonstravam medo e vigilância durante a refeição.</strong>"
+ },
+ {
+  "t": "p",
+  "text": "<strong>Esse achado reforçou um ponto central da pesquisa</strong>:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong>A jornada emocional não termina quando o prato chega à mesa.</strong>"
+ },
+ {
+  "t": "p",
+  "text": "Além da insegurança emocional, os relatos também evidenciaram um esforço cognitivo constante durante a tomada de decisão alimentar."
+ },
+ {
+  "t": "p",
+  "text": "Os participantes descreviam a necessidade contínua de: <strong>validar informações; pesquisar recomendações; interpretar sinais de segurança; analisar ingredientes; e monitorar possíveis riscos de contaminação cruzada.</strong>"
+ },
+ {
+  "t": "p",
+  "text": "Esses comportamentos evidenciaram que a tomada de decisão alimentar envolve múltiplas etapas de validação, comparação e redução de risco antes mesmo da refeição acontecer."
+ },
+ {
+  "t": "p",
+  "text": "Os aprendizados obtidos durante a pesquisa passaram a orientar diretamente decisões relacionadas à arquitetura da informação, critérios de personalização, avaliações da comunidade e formas de apresentação das informações dentro da experiência do produto.<br>Esses aprendizados ajudaram a transformar percepções abstratas em direcionamentos concretos para o produto, influenciando decisões relacionadas à arquitetura da informação, mecanismos de validação comunitária, personalização da experiência e estratégias de comunicação voltadas à construção de confiança."
+ },
+ {
+  "t": "p",
+  "text": "Esta seção apresenta apenas uma síntese dos principais aprendizados. O processo completo de pesquisa, entrevistas, análises e artefatos pode ser acessado no case detalhado de UX Research."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoUxResearch\">UX Research — Processo de pesquisa com usuários na Prática</a>"
+ },
+ {
+  "t": "h2",
+  "text": "Personas e Jornada do Usuário - Transformando comportamentos em oportunidades de design"
+ },
+ {
+  "t": "h2",
+  "text": "Personas"
+ },
+ {
+  "t": "p",
+  "text": "A partir dos padrões identificados durante as entrevistas, foram construídas personas comportamentais para representar diferentes perfis, necessidades e estratégias adotadas por pessoas celíacas ao se alimentar fora de casa."
+ },
+ {
+  "t": "p",
+  "text": "Mais do que perfis demográficos, as personas sintetizam comportamentos, inseguranças, motivações e processos de decisão observados ao longo da pesquisa."
+ },
+ {
+  "t": "p",
+  "text": "Esses perfis ajudaram a transformar os achados da pesquisa em direcionamentos concretos de produto, mantendo o foco em dores e contextos reais vivenciados pelos participantes."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-06.png",
+  "width": 1299,
+  "height": 732,
+  "alt": ""
+ },
+ {
+  "t": "p",
+  "text": "Michelle representa usuários que convivem diariamente com a necessidade de equilibrar rotina, vida social e segurança alimentar."
+ },
+ {
+  "t": "p",
+  "text": "Seu comportamento evidenciou a importância de funcionalidades voltadas para:<strong> validação comunitária; transparência nas informações; redução de incertezas; e apoio à tomada de decisão durante a escolha de restaurantes.</strong>"
+ },
+ {
+  "t": "h2",
+  "text": "Mapa da jornada do usuário"
+ },
+ {
+  "t": "p",
+  "text": "A partir das personas e dos padrões identificados durante a pesquisa, foi desenvolvido um mapa da jornada do usuário para compreender como pessoas celíacas vivenciam o processo de decidir onde comer fora de casa."
+ },
+ {
+  "t": "p",
+  "text": "A análise revelou que essa decisão envolve múltiplas etapas de validação, comparação e busca por segurança, indo muito além de simplesmente escolher um restaurante."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-07.png",
+  "width": 1600,
+  "height": 794,
+  "alt": ""
+ },
+ {
+  "t": "p",
+  "text": "Ao longo da jornada, foram identificados momentos recorrentes de: ansiedade; insegurança; vigilância constante; e esforço cognitivo elevado."
+ },
+ {
+  "t": "p",
+  "text": "As maiores tensões apareciam principalmente durante: a validação das informações; a interação com o restaurante; e o momento de consumo da refeição."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-08.png",
+  "width": 1566,
+  "height": 199,
+  "alt": ""
+ },
+ {
+  "t": "p",
+  "text": "O mapeamento evidenciou que alimentação segura não depende apenas da existência de opções sem glúten, mas também da sensação de confiança construída ao longo de toda a experiência."
+ },
+ {
+  "t": "p",
+  "text": "Esses aprendizados ajudaram a orientar decisões de design focadas em reduzir incertezas, aumentar a transparência e apoiar emocionalmente o usuário durante toda a jornada alimentar."
+ },
+ {
+  "t": "p",
+  "text": "Esta seção apresenta uma síntese das principais personas e aprendizados da jornada do usuário. A análise completa pode ser acessada no case detalhado de Personas e Jornada do Usuário."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoJornada\">Análise da jornada e tomada de decisão do usuário celíaco ao comer fora</a>"
+ },
+ {
+  "t": "h2",
+  "text": "Arquitetura da solução"
+ },
+ {
+  "t": "h2",
+  "text": "Como a experiência foi estruturada para apoiar decisões alimentares mais seguras"
+ },
+ {
+  "t": "p",
+  "text": "A arquitetura da solução foi construída a partir dos padrões comportamentais e emocionais identificados durante a pesquisa com usuários."
+ },
+ {
+  "t": "p",
+  "text": "Mais do que organizar funcionalidades ou estruturar telas, o objetivo era criar uma experiência capaz de apoiar o usuário continuamente antes, durante e após a refeição."
+ },
+ {
+  "t": "p",
+  "text": "A pesquisa revelou que a decisão de comer fora envolve insegurança, validação constante, esforço cognitivo e necessidade contínua de confirmação."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-09.png",
+  "width": 1497,
+  "height": 575,
+  "alt": "",
+  "caption": "Resposta retirada da entrevista com usuários."
+ },
+ {
+  "t": "p",
+  "text": "Por isso, a arquitetura do produto foi pensada para transformar múltiplos momentos de ansiedade em uma experiência mais previsível, contextualizada e confiável."
+ },
+ {
+  "t": "p",
+  "text": "A arquitetura foi pensada para reduzir fricções emocionais e diminuir o esforço necessário para tomar decisões alimentares mais seguras."
+ },
+ {
+  "t": "h2",
+  "text": "Como a jornada do usuário influenciou a estrutura da experiência"
+ },
+ {
+  "t": "p",
+  "text": "Ao analisar os comportamentos dos participantes, ficou evidente que a experiência alimentar não acontecia de forma isolada."
+ },
+ {
+  "t": "p",
+  "text": "O usuário passava constantemente por ciclos de: pesquisa;comparação;validação;decisão;consumo;e reavaliação da experiência."
+ },
+ {
+  "t": "p",
+  "text": "Por esse motivo, a arquitetura foi estruturada como um fluxo contínuo de apoio à decisão, conectando cada etapa da jornada em vez de tratar funcionalidades como tarefas separadas."
+ },
+ {
+  "t": "p",
+  "text": "Cada jornada representa um momento emocional e comportamental diferente da experiência alimentar, exigindo necessidades específicas de apoio, validação e segurança."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-10.png",
+  "width": 1327,
+  "height": 425,
+  "alt": "",
+  "caption": "Caso necessário <a href=\"link:figmaJornada1\">acesse aqui</a> o link da jornada em alta qualidade"
+ },
+ {
+  "t": "h2",
+  "text": "Como os fluxos foram organizados ao longo da jornada"
+ },
+ {
+  "t": "p",
+  "text": "As jornadas foram organizadas para acompanhar comportamentos reais observados durante a pesquisa."
+ },
+ {
+  "t": "p",
+  "text": "Cada etapa foi desenhada para responder necessidades específicas identificadas ao longo da experiência do usuário:"
+ },
+ {
+  "t": "p",
+  "text": "onboarding e personalização para reduzir esforço futuro;<br>busca e avaliação para aumentar confiança;<br>preparação antes da saída para diminuir ansiedade;<br>consumo da refeição para reforçar sensação de segurança;<br>e pós-experiência para fortalecer o compartilhamento e a validação comunitária."
+ },
+ {
+  "t": "h2",
+  "text": "A Home como ponto central da experiência"
+ },
+ {
+  "t": "p",
+  "text": "Outro direcionamento importante foi transformar a Home no principal hub da experiência."
+ },
+ {
+  "t": "p",
+  "text": "Ao invés de fragmentar funcionalidades em múltiplos caminhos complexos, a navegação foi estruturada para centralizar descoberta, avaliação, decisão e compartilhamento em um fluxo previsível e contínuo."
+ },
+ {
+  "t": "p",
+  "text": "Essa decisão ajudou a reduzir sobrecarga cognitiva e facilitou o acesso rápido às informações mais importantes durante a tomada de decisão alimentar."
+ },
+ {
+  "t": "p",
+  "text": "A estrutura da solução foi organizada para conectar descoberta, validação, decisão e compartilhamento em um único fluxo de experiência."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-11.png",
+  "width": 1600,
+  "height": 1152,
+  "alt": "",
+  "caption": "Caso necessário <a href=\"link:figmaJornada2\">acesse aqui</a> o link da jornada em alta qualidade"
+ },
+ {
+  "t": "h2",
+  "text": "O papel da comunidade na construção de confiança"
+ },
+ {
+  "t": "p",
+  "text": "Um dos princípios centrais da arquitetura foi transformar a comunidade em parte ativa da experiência."
+ },
+ {
+  "t": "p",
+  "text": "As avaliações e relatos compartilhados pelos usuários alimentam continuamente o sistema, fortalecendo a confiança coletiva e ajudando outras pessoas durante futuras decisões alimentares."
+ },
+ {
+  "t": "p",
+  "text": "Esse ciclo transforma experiências individuais em inteligência compartilhada, permitindo que a plataforma evolua continuamente a partir das contribuições da própria comunidade."
+ },
+ {
+  "t": "h2",
+  "text": "Como os insights da pesquisa influenciaram a arquitetura"
+ },
+ {
+  "t": "p",
+  "text": "Diversas decisões arquiteturais surgiram diretamente dos comportamentos identificados durante a pesquisa."
+ },
+ {
+  "t": "p",
+  "text": "A necessidade constante de validação levou à criação de avaliações detalhadas e níveis de segurança percebida."
+ },
+ {
+  "t": "p",
+  "text": "O esforço cognitivo envolvido na busca por informação motivou a centralização de dados sobre preparo, ingredientes e contaminação cruzada."
+ },
+ {
+  "t": "p",
+  "text": "Já o receio de repetir explicações constantemente influenciou a criação de um perfil gastronômico personalizável, permitindo adaptar a experiência de acordo com as restrições e preferências do usuário."
+ },
+ {
+  "t": "h2",
+  "text": "Conclusão"
+ },
+ {
+  "t": "p",
+  "text": "A arquitetura da solução deixou de focar apenas na busca por restaurantes sem glúten e passou a estruturar toda a experiência de decisão alimentar de forma integrada."
+ },
+ {
+  "t": "p",
+  "text": "Cada fluxo foi pensado para reduzir inseguranças, apoiar emocionalmente o usuário e transformar confiança em parte central da experiência."
+ },
+ {
+  "t": "p",
+  "text": "Mais do que conectar funcionalidades, a arquitetura passou a estruturar relações de confiança ao longo de toda a experiência do usuário."
+ },
+ {
+  "t": "p",
+  "text": "Esta seção apresenta uma síntese dos principais direcionamentos arquiteturais do produto. O processo completo de definição dos fluxos, organização da experiência e decisões estruturais pode ser acessado no case detalhado de Arquitetura da Solução."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoArquitetura\">Arquitetura da solução: conectando jornadas em um fluxo contínuo</a>"
+ },
+ {
+  "t": "h2",
+  "text": "Definição do MVP e priorização de funcionalidades"
+ },
+ {
+  "t": "p",
+  "text": "Após a etapa de UX Research, ficou claro que o principal desafio do Glútty não era apenas ajudar pessoas celíacas a encontrar restaurantes sem glúten, mas apoiar uma jornada de decisão marcada por insegurança, validação constante e medo de contaminação cruzada."
+ },
+ {
+  "t": "p",
+  "text": "A pesquisa mostrou que, antes de escolher onde comer, os usuários precisam verificar informações, comparar opções, interpretar sinais de segurança e confiar em experiências compartilhadas por outras pessoas com restrições semelhantes. Por isso, a definição do MVP partiu de uma pergunta central:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>Quais funcionalidades são realmente essenciais para reduzir insegurança e apoiar decisões alimentares mais seguras desde a primeira versão do produto?</em></strong>"
+ },
+ {
+  "t": "p",
+  "text": "Para responder a essa pergunta, as funcionalidades levantadas durante as etapas anteriores foram organizadas e avaliadas a partir de dois critérios principais: impacto para o usuário e esforço de implementação."
+ },
+ {
+  "t": "p",
+  "text": "Essa priorização ajudou a evitar que o produto inicial se tornasse amplo demais, complexo demais ou desconectado das dores mais urgentes identificadas na pesquisa."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/board/3tjcofJFmrpxdu4cE8mlIE/Matriz-impacto-x-esfor%C3%A7o?node-id=0-1&t=oMAmXkD2lWQ64YfE-1",
+  "title": "Matriz impacto x esforço"
+ },
+ {
+  "t": "p",
+  "text": "A matriz de impacto e esforço permitiu diferenciar funcionalidades essenciais para o MVP de recursos que poderiam ser desenvolvidos em fases posteriores. O foco inicial foi priorizar soluções capazes de gerar valor imediato com menor complexidade, especialmente aquelas relacionadas à personalização, busca, filtros, validação de informações e avaliações da comunidade."
+ },
+ {
+  "t": "p",
+  "text": "A partir dessa análise, o MVP foi estruturado em torno de um fluxo mínimo de apoio à decisão alimentar:"
+ },
+ {
+  "t": "p",
+  "text": "<strong>Personalizar → Descobrir → Validar → Reutilizar</strong>"
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-12.png",
+  "width": 1600,
+  "height": 461,
+  "alt": ""
+ },
+ {
+  "t": "p",
+  "text": "Essa organização ajudou a traduzir funcionalidades isoladas em uma jornada contínua. O usuário começa personalizando sua experiência, encontra opções compatíveis com suas restrições, valida informações importantes antes da decisão e reutiliza experiências consideradas seguras em futuras ocasiões."
+ },
+ {
+  "t": "p",
+  "text": "Na prática, esse fluxo foi detalhado em etapas mais específicas:"
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-13.png",
+  "width": 1600,
+  "height": 385,
+  "alt": ""
+ },
+ {
+  "t": "p",
+  "text": "O escopo inicial do MVP passou a incluir: onboarding com padrão de segurança, busca por localidade, filtros por restrições, recomendações por perfil e validação comunitária, detalhe do restaurante e dos pratos, informações sobre ingredientes, riscos e nível de segurança, feedback estruturado com tags, além de favoritos, histórico e notificações."
+ },
+ {
+  "t": "p",
+  "text": "Essas funcionalidades foram priorizadas porque respondem diretamente aos principais aprendizados da pesquisa: reduzir o esforço de busca, tornar informações críticas mais visíveis, apoiar a validação de segurança e transformar experiências da comunidade em sinais úteis para outros usuários."
+ },
+ {
+  "t": "p",
+  "text": "Ao mesmo tempo, algumas funcionalidades foram deixadas para fases futuras, como recursos sociais mais avançados, gamificação, sistema de recompensas, reservas, delivery e mecanismos mais complexos de verificação. Essas ideias continuam relevantes, mas exigem maior esforço técnico, operacional ou validação adicional antes de serem incorporadas ao produto."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/board/bKmGHCCdZ3YDpqLAy5Z54f/Product-Roadmap%E2%80%8A-%E2%80%8AVis%C3%A3o%C2%A0p%C3%B3s-MVP?node-id=0-1&t=cfOSGh1Obv2S4bXM-1",
+  "title": "Product Roadmap Visão pós MVP"
+ },
+ {
+  "t": "p",
+  "text": "O roadmap ajudou a organizar essa evolução de forma mais estratégica, separando o que deveria ser validado primeiro no MVP daquilo que poderia ampliar o valor da solução em fases posteriores."
+ },
+ {
+  "t": "p",
+  "text": "Essa decisão reforçou um princípio importante do projeto: antes de expandir o Glútty para uma plataforma mais completa, era necessário validar o núcleo da experiência — ajudar pessoas celíacas a encontrar, avaliar e escolher lugares com mais clareza, confiança e previsibilidade."
+ },
+ {
+  "t": "p",
+  "text": "Dessa forma, a definição do MVP não foi tratada como uma lista de funcionalidades, mas como uma decisão estratégica de produto. O objetivo foi construir uma primeira versão enxuta, coerente com os dados da pesquisa e capaz de testar a proposta central do Glútty: apoiar decisões alimentares mais seguras através de personalização, transparência e validação comunitária."
+ },
+ {
+  "t": "p",
+  "text": "Esta seção apresenta uma síntese dos principais aprendizados relacionados à definição do MVP e priorização de funcionalidades. O processo completo, incluindo matriz de impacto e esforço, análise de funcionalidades e roadmap de evolução, pode ser acessado no case detalhado de MVP e priorização."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoMvp\">Definição do MVP e priorização de funcionalidades</a>"
+ },
+ {
+  "t": "h2",
+  "text": "Exploração inicial — rabiscos e wireframes de baixa fidelidade"
+ },
+ {
+  "t": "p",
+  "text": "Com os principais fluxos da solução já definidos durante as etapas anteriores, a próxima fase do projeto buscou transformar os direcionamentos estratégicos e os insights da pesquisa em estruturas iniciais de interface."
+ },
+ {
+  "t": "p",
+  "text": "Mais do que explorar estética visual, o objetivo dessa etapa foi organizar fluxos, hierarquias e relações entre funcionalidades, permitindo visualizar como a experiência do usuário poderia funcionar de forma contínua ao longo da jornada alimentar."
+ },
+ {
+  "t": "p",
+  "text": "Os wireframes de baixa fidelidade ajudaram a explorar possibilidades de navegação, distribuição de informações, priorização de conteúdo e primeiros comportamentos da interface antes do início do refinamento visual."
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-14.jpg",
+  "width": 640,
+  "height": 456,
+  "alt": ""
+ },
+ {
+  "t": "image",
+  "src": "/portfolio/medium/img-15.jpg",
+  "width": 640,
+  "height": 438,
+  "alt": ""
+ },
+ {
+  "t": "h2",
+  "text": "PRIMEIRAS EXPLORAÇÕES"
+ },
+ {
+  "t": "p",
+  "text": "As primeiras explorações foram feitas inicialmente em papel através de rabiscos rápidos, permitindo testar ideias de forma mais livre e iterativa antes da construção digital dos fluxos."
+ },
+ {
+  "t": "p",
+  "text": "Essa abordagem ajudou a acelerar decisões relacionadas à arquitetura da informação, posicionamento de funcionalidades e continuidade entre diferentes etapas da experiência."
+ },
+ {
+  "t": "p",
+  "text": "Durante esse processo, surgiram explorações relacionadas a:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>onboarding e personalização; busca por restaurantes; filtros alimentares; visualização de pratos; mecanismos de validação; avaliações estruturadas; favoritos; e perfil alimentar.</em></strong>"
+ },
+ {
+  "t": "p",
+  "text": "Mais do que definir telas isoladas, essa etapa ajudou a compreender como diferentes funcionalidades poderiam se conectar dentro de uma jornada mais contínua e previsível para o usuário."
+ },
+ {
+  "t": "embed",
+  "url": "https://www.figma.com/design/WjlOFGQkPhBgxEg74XboFx/Gluten?node-id=228-2&t=ZR296TPmR0GfcnVr-1",
+  "title": "Gluten"
+ },
+ {
+  "t": "h2",
+  "text": "CONSTRUÇÃO DOS FLUXOS"
+ },
+ {
+  "t": "p",
+  "text": "Os wireframes também ajudaram a validar como informações críticas relacionadas à segurança alimentar seriam distribuídas ao longo da experiência."
+ },
+ {
+  "t": "p",
+  "text": "Durante as explorações, ficou evidente que informações relacionadas a ingredientes, riscos, avaliações da comunidade e critérios de segurança precisavam aparecer de forma progressiva e contextualizada — evitando sobrecarga cognitiva durante a navegação."
+ },
+ {
+  "t": "p",
+  "text": "Essa etapa foi importante para estruturar:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>hierarquias informacionais; pontos de decisão; continuidade entre telas; padrões de navegação; e mecanismos de personalização da experiência.</em></strong>"
+ },
+ {
+  "t": "h2",
+  "text": "APRENDIZADOS DA ETAPA"
+ },
+ {
+  "t": "p",
+  "text": "Os wireframes de baixa fidelidade ajudaram a transformar funcionalidades abstratas em fluxos mais tangíveis, permitindo identificar oportunidades de melhoria antes do refinamento visual da interface."
+ },
+ {
+  "t": "p",
+  "text": "A etapa também reforçou a importância de:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>reduzir esforço cognitivo; tornar informações críticas mais acessíveis; apoiar decisões alimentares progressivamente; e construir uma experiência mais previsível para usuários que convivem com insegurança alimentar constante.</em></strong>"
+ },
+ {
+  "t": "h2",
+  "text": "CONCLUSÃO"
+ },
+ {
+  "t": "p",
+  "text": "Essa fase serviu como ponte entre estratégia e interface, permitindo estruturar os primeiros comportamentos da experiência antes do desenvolvimento visual em alta fidelidade."
+ },
+ {
+  "t": "p",
+  "text": "Os aprendizados obtidos durante as explorações iniciais ajudaram a direcionar as próximas etapas do projeto, incluindo refinamento dos fluxos, testes de usabilidade e construção da interface visual do Glútty."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoExploracao\">Exploração inicial — Rabiscos e wireframes de baixa fidelidade</a>"
+ },
+ {
+  "t": "h2",
+  "text": "UX Writing — comunicação como apoio à decisão"
+ },
+ {
+  "t": "p",
+  "text": "Com os principais fluxos da experiência já estruturados durante as etapas anteriores, a próxima fase do projeto buscou explorar como a comunicação da interface poderia reduzir inseguranças e apoiar decisões alimentares de forma mais clara, humana e previsível."
+ },
+ {
+  "t": "p",
+  "text": "No contexto da alimentação sem glúten, as pesquisas mostraram que o problema não estava apenas na ausência de informações, mas também na dificuldade em confiar nelas. Muitas pessoas relataram ansiedade ao interpretar cardápios, insegurança sobre riscos de contaminação cruzada e receio de tomar decisões erradas durante a alimentação fora de casa."
+ },
+ {
+  "t": "p",
+  "text": "A partir desses aprendizados, o UX Writing passou a ser tratado não apenas como elemento textual da interface, mas como parte da própria experiência de segurança alimentar dentro do produto."
+ },
+ {
+  "t": "p",
+  "text": "Em vez de utilizar mensagens excessivamente técnicas ou alarmistas, a comunicação do Glútty buscou apoiar o usuário durante a tomada de decisão através de:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>linguagem mais acolhedora e objetiva; explicações progressivas; redução de ambiguidades; contextualização de riscos; e reforço de transparência ao longo da navegação.</em></strong>"
+ },
+ {
+  "t": "p",
+  "text": "Durante essa etapa, ficou evidente que algumas decisões de escrita possuíam impacto direto na percepção de confiança da experiência. Pequenas mudanças de tom, clareza e hierarquia informacional alteravam significativamente a forma como os usuários interpretavam segurança, adaptação e confiabilidade dos restaurantes."
+ },
+ {
+  "t": "p",
+  "text": "A escrita também foi utilizada para reduzir carga cognitiva em momentos críticos da jornada, especialmente durante:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>onboarding e definição do perfil alimentar; interpretação de ingredientes e restrições; leitura de avaliações da comunidade; compreensão de níveis de segurança; e visualização de possíveis riscos alimentares.</em></strong>"
+ },
+ {
+  "t": "p",
+  "text": "<strong>Inserir aqui imagens com exemplos de UX Writing aplicados na interface.</strong>"
+ },
+ {
+  "t": "p",
+  "text": "Outro ponto importante identificado durante essa etapa foi a necessidade de evitar promessas absolutas de segurança. Como o contexto alimentar envolve riscos reais de saúde, a comunicação da plataforma passou a priorizar transparência e apoio à decisão, em vez de transmitir falsas garantias."
+ },
+ {
+  "t": "p",
+  "text": "Esse direcionamento influenciou diretamente elementos como:"
+ },
+ {
+  "t": "quote",
+  "text": "<strong><em>labels de segurança; mensagens de adaptação alimentar; feedbacks da comunidade; microcopys de onboarding; estados vazios; notificações; e mensagens relacionadas à personalização da experiência.</em></strong>"
+ },
+ {
+  "t": "p",
+  "text": "A escrita também ajudou a reforçar aspectos emocionais da experiência, buscando tornar a interface mais acolhedora para usuários que frequentemente convivem com medo, limitação social e desgaste emocional relacionados à alimentação fora de casa."
+ },
+ {
+  "t": "p",
+  "text": "<strong>Inserir aqui comparações de microcopy, labels ou exemplos de evolução textual da interface.</strong>"
+ },
+ {
+  "t": "p",
+  "text": "Mais do que orientar ações dentro do aplicativo, o UX Writing passou a funcionar como mecanismo de construção de confiança ao longo da jornada."
+ },
+ {
+  "t": "p",
+  "text": "Essa etapa ajudou a consolidar uma das principais direções do projeto: no Glútty, comunicar também significa cuidar, reduzir inseguranças e apoiar decisões alimentares mais conscientes."
+ },
+ {
+  "t": "p",
+  "text": "Esta seção apresenta apenas uma síntese dos principais aprendizados relacionados ao UX Writing do projeto. O processo completo, incluindo explorações textuais, decisões de linguagem e exemplos aplicados na interface, pode ser acessado no case detalhado de UX Writing."
+ },
+ {
+  "t": "p",
+  "text": "<a href=\"link:artigoUxWriting\">UX Writing: comunicação como apoio à decisão</a>"
+ }
+]

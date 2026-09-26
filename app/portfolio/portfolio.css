@@ -26,8 +26,6 @@ body:has(.md-root) {
   --md-line: #f2f2f2;
   --md-green: #1f3d34;
   --md-accent: #c24f00;
-  --md-note-bg: #fbf8ec;
-  --md-note-line: #d9cfa6;
   --md-author-bg: #f9f9f9;
   --md-serif: var(--font-md-serif), "Source Serif 4", Georgia, Cambria, "Times New Roman", serif;
   --md-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -257,23 +255,15 @@ body:has(.md-root) {
   cursor: help;
 }
 
-/* Bloco de exemplo: conteúdo do Medium que ainda falta importar */
-.md-todo {
-  margin: 38px 0 0;
-  padding: 18px 20px 20px;
-  border: 1.5px dashed var(--md-note-line);
-  border-radius: 6px;
-  background: var(--md-note-bg);
+/* Embeds do Figma, como no Medium (800 × 450) */
+.md-embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--md-line);
+  border-radius: 2px;
+  overflow: hidden;
 }
-.md-todo b {
-  display: block;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--md-accent);
-  margin-bottom: 6px;
-}
-.md-todo p { margin: 0; font-size: 15px; line-height: 22px; color: var(--md-ink-2); }
+.md-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---------- Rodapé ---------- */
 .md-actions {
@@ -303,8 +293,6 @@ body:has(.md-root) {
     --md-ink-2: #a8a8a8;
     --md-line: #262626;
     --md-accent: #ff9a4d;
-    --md-note-bg: #1c1b16;
-    --md-note-line: #5c5436;
     --md-author-bg: #181818;
   }
   .md-btn-green { background: #c6f59d; color: #13271f; }
